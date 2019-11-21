@@ -133,8 +133,8 @@
 							<div class="user-box">
 								<div class="avatar-lg"><img src="{{ asset('assets') }}/img/profile.jpg" alt="image profile" class="avatar-img rounded"></div>
 								<div class="u-text">
-									<h4> Welcome Mr. {{ Auth::user()->name }}</h4>
-									<p class="text-muted">{{ Auth::user()->email }}</p><a href="profile.html" class="btn btn-xs btn-secondary btn-sm">View Profile</a>
+									<h4> Welcome Mr. </h4>
+									<p class="text-muted"></p><a href="profile.html" class="btn btn-xs btn-secondary btn-sm">View Profile</a>
 								</div>
 							</div>
 						</li>

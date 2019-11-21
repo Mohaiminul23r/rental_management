@@ -9,8 +9,8 @@
 				<div class="info">
 					<a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
 						<span>
-							{{ Auth::user()->name }}
-							<span class="user-level">{{ Auth::user()->email }}</span>
+							
+							<span class="user-level"></span>
 							<span class="caret"></span>
 						</span>
 					</a>
@@ -33,7 +33,7 @@
 			</div>
 			<ul class="nav nav-primary">
 				<li class="nav-item active">
-					<a data-toggle="collapse" href="#dashboard" class="collapsed" aria-expanded="false">
+					<a data-toggle="collapse" href="{{url('/home')}}" class="collapsed" aria-expanded="false">
 						<i class="fas fa-home"></i>
 						<p>Dashboard</p>
 					</a>
@@ -47,8 +47,8 @@
 					<div class="collapse" id="base">
 						<ul class="nav nav-collapse">
 							<li>
-								<a href="components/avatars.html">
-									<span class="sub-item">House</span>
+								<a href="{{url('/countries')}}">
+									<span class="sub-item">Country</span>
 								</a>
 							</li>
 							<li>
@@ -111,7 +111,7 @@
 						<ul class="nav nav-collapse">
 							<li>
 								<a href="tables/tables.html">
-									<span class="sub-item">Collection Report</span>
+									<span class="sub-item">Rent Collection Report</span>
 								</a>
 							</li>
 						</ul>

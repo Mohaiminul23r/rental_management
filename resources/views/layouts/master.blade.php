@@ -37,7 +37,17 @@
 	<div class="main-panel">
 		<div class="content">
 			<div class="page-inner">
+				<div class="page-header">
 				<h4 class="page-title">@yield('pagetitle')</h4>
+				<ul class="breadcrumbs">
+					<li class="nav-home">
+						<a href="{{url('/home')}}">
+							<i class="flaticon-home"></i>
+						</a>
+					</li>
+					@yield('breadcrumbs')
+				</ul>
+			    </div>
 				@yield('body')
 		 	</div>
 		</div>
@@ -165,5 +175,6 @@
 		fillColor: 'rgba(255, 165, 52, .14)'
 	});
 </script>
+@yield('javascript')
 </body>
 </html>
