@@ -48,12 +48,17 @@
 						<ul class="nav nav-collapse">
 							<li>
 								<a href="components/avatars.html">
-									<span class="sub-item">Avatars</span>
+									<span class="sub-item">House</span>
 								</a>
 							</li>
 							<li>
 								<a href="components/buttons.html">
-									<span class="sub-item">Buttons</span>
+									<span class="sub-item">Billings</span>
+								</a>
+							</li>
+							<li>
+								<a href="components/buttons.html">
+									<span class="sub-item">Renter</span>
 								</a>
 							</li>
 						</ul>
@@ -62,14 +67,14 @@
 				<li class="nav-item">
 					<a data-toggle="collapse" href="#sidebarLayouts">
 						<i class="fas fa-th-list"></i>
-						<p>Sidebar Layouts</p>
+						<p>Renter or Client</p>
 						<span class="caret"></span>
 					</a>
 					<div class="collapse" id="sidebarLayouts">
 						<ul class="nav nav-collapse">
 							<li>
 								<a href="sidebar-style-1.html">
-									<span class="sub-item">Sidebar Style 1</span>
+									<span class="sub-item">Add Clients</span>
 								</a>
 							</li>
 							<li>
@@ -83,14 +88,14 @@
 				<li class="nav-item">
 					<a data-toggle="collapse" href="#forms">
 						<i class="fas fa-pen-square"></i>
-						<p>Forms</p>
+						<p>Generate Invoice</p>
 						<span class="caret"></span>
 					</a>
 					<div class="collapse" id="forms">
 						<ul class="nav nav-collapse">
 							<li>
 								<a href="forms/forms.html">
-									<span class="sub-item">Basic Form</span>
+									<span class="sub-item">Create Invoice</span>
 								</a>
 							</li>
 						</ul>
@@ -99,35 +104,14 @@
 				<li class="nav-item">
 					<a data-toggle="collapse" href="#tables">
 						<i class="fas fa-table"></i>
-						<p>Tables</p>
+						<p>Reports</p>
 						<span class="caret"></span>
 					</a>
 					<div class="collapse" id="tables">
 						<ul class="nav nav-collapse">
 							<li>
 								<a href="tables/tables.html">
-									<span class="sub-item">Basic Table</span>
-								</a>
-							</li>
-							<li>
-								<a href="tables/datatables.html">
-									<span class="sub-item">Datatables</span>
-								</a>
-							</li>
-						</ul>
-					</div>
-				</li>
-				<li class="nav-item">
-					<a data-toggle="collapse" href="#maps">
-						<i class="fas fa-map-marker-alt"></i>
-						<p>Maps</p>
-						<span class="caret"></span>
-					</a>
-					<div class="collapse" id="maps">
-						<ul class="nav nav-collapse">
-							<li>
-								<a href="maps/jqvmap.html">
-									<span class="sub-item">JQVMap</span>
+									<span class="sub-item">Collection Report</span>
 								</a>
 							</li>
 						</ul>
