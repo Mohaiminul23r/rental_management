@@ -36,9 +36,10 @@
 	<!-- Body -->
 	<div class="main-panel">
 		<div class="content">
-			<div class="panel-header bg-primary-gradient">
-			@yield('body')
-		    </div>
+			<div class="page-inner">
+				<h4 class="page-title">@yield('pagetitle')</h4>
+				@yield('body')
+		 	</div>
 		</div>
 		@include('layouts.inc.footer')
 	</div>
