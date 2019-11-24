@@ -15,6 +15,13 @@ class CreateInvoicesTable extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('invoice_no');
+            $table->unsignedBigInteger('bill_calculation_id')->nullable();  
+            $table->unsignedBigInteger('collection_id')->nullable(); 
+            $table->decimal('paid_amount', 8, 2)->nullable();
+            $table->decimal('due_amount', 8, 2)->nullable();
+            $table->foreign('bill_calculation_id')->references('id')->on('bill_calculations');
+            $table->foreign('collection_id')->references('id')->on('collections');
             $table->timestamps();
         });
     }

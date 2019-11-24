@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBillTypesTable extends Migration
+class CreateHousesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,13 @@ class CreateBillTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('bill_types', function (Blueprint $table) {
+        Schema::create('houses', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name', 100);
+            $table->string('house_name', 100);
+            $table->tinyInteger('house_number');
+            $table->unsignedBigInteger('address_id')->nullable();
             $table->unsignedTinyInteger('status')->default('1');
+            $table->foreign('address_id')->references('id')->on('addresses');
             $table->timestamps();
         });
     }
@@ -28,6 +31,6 @@ class CreateBillTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bill_types');
+        Schema::dropIfExists('houses');
     }
 }
