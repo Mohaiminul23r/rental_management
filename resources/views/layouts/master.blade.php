@@ -17,10 +17,22 @@
 		});
 	</script>
 	<!-- CSS Files -->
+    
 	<link rel="stylesheet" href="{{ asset('assets') }}/css/bootstrap.min.css">
 	<link rel="stylesheet" href="{{ asset('assets') }}/css/atlantis.min.css">
 	<!-- CSS Just for demo purpose, don't include it in your project -->
-{{-- 	<link rel="stylesheet" href="/css/demo.css"> --}}
+	{{-- 	<link rel="stylesheet" href="/css/demo.css"> --}}
+	<script type="text/javascript">
+		var utlt =[];
+        utlt["siteUrl"] = function(url){
+            url = typeof url == "undefined" ? "" : url;
+            return "<?php echo url('/'); ?>/"+url;
+        }
+
+        utlt["cLog"] = function(url){
+            console.log(url);
+        }
+	</script>
 </head>
 <body>
 <div class="wrapper">
@@ -61,7 +73,7 @@
 <script src="{{ asset('assets') }}/js/core/bootstrap.min.js"></script>
 <!-- jQuery UI -->
 <script src="{{ asset('assets') }}/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
-<script src="{{ asset('assets') }}/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+{{-- <script src="{{ asset('assets') }}/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
 <!-- jQuery Scrollbar -->
 <script src="{{ asset('assets') }}/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
 <!-- Chart JS -->
@@ -80,7 +92,9 @@
 <!-- Sweet Alert -->
 <script src="{{ asset('assets') }}/js/plugin/sweetalert/sweetalert.min.js"></script>
 <!-- Atlantis JS -->
-<script src="{{ asset('assets') }}/js/atlantis.min.js"></script>
+<script src="{{ asset('assets') }}/js/atlantis.min.js"></script> --}}
+<script type="text/javascript" src="{{ asset('assets') }}/dataTables/datatables.min.js"></script>
+ <link rel="stylesheet" type="text/css" href="{{ asset('assets') }}/dataTables/datatables.min.css"/>
 <script>
 	Circles.create({
 		id:'circles-1',

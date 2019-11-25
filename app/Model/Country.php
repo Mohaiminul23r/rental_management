@@ -9,6 +9,6 @@ class Country extends Model
     protected $fillable = ['name'];
 
     public function cities(){
-    	return $this->hasMany('App\Model\Country');
+    	return $this->hasMany('App\Model\City');
     }
 }

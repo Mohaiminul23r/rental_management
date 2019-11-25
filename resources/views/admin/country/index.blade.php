@@ -30,7 +30,7 @@
 	</div>
 	<div class="card-body">
 		<!-- Modal -->
-		<div class="modal fade" id="addRowModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal fade" id="addCountryModal" tabindex="-1" role="dialog" aria-hidden="true">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header no-bd">
@@ -62,53 +62,67 @@
 			</div>
 		</div>
 		<div class="table-responsive">
-			<table id="add-row" class="display table table-striped table-hover" >
-				<thead>
-					<tr>
-						<th>SL</th>
-						<th>Country Name</th>
-						<th style="width: 10%">Action</th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php $i=1; ?>
-					@foreach($countries as $country)
-					<tr>
-						<td>{{ $i++ }}</td>
-						<td>{{ $country->name }}</td>
-						<td>
-							<div class="form-button-action">
-								<button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
-									<i class="fa fa-edit"></i>
-								</button>
-								<button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove">
-									<i class="fa fa-times"></i>
-								</button>
-							</div>
-						</td>
-					</tr>
-					@endforeach
-				</tbody>
+			<table id="countryDataTable" class="display table table-striped table-hover">
 			</table>
 		</div>
 	</div>
 </div>
 </div>
 </div>
-@endsection
+<script type="text/javascript">
+	 /*Start data table*/
+window.addEventListener("load",function(){
+ $('#countryDataTable').DataTable({
+		dom : '<"row"<"col-md-3"B><"col-md-3"l><"col-md-6"f>>rtip',
+		initComplete : function(){
 
-@section('javascript')
-<script>
-$(document).ready(function() {
-	// Add Row
-	$('#add-row').DataTable({
-		"pageLength": 5,
+		},
+		lengthMenu : [[5,10,-1], [5,10,'All']],
+		buttons : [
+		{
+			text : 'Add+',
+			attr : {
+				'id' : "addModal",
+				'class' : "btn btn-info btn-sm",
+				'data-toggle' : "modal",
+				'data-target' : "#addCountryModal"
+			}
+		}
+		],
+		columns : [
+		{
+			'title' : '#SL',
+			'name' : 'SL',
+			'data' : 'id',
+			'width' : '40px',
+			'render' : function(data, type, row, ind){
+				var pageInfo = countryDataTable.page.info();
+				return (ind.row + 1) + pageInfo.start;
+			}
+		},
+		{
+			'title' : 'Name',
+			'name' : 'name',
+			'data' : 'name'
+		},
+		{
+			'title' : 'OPT',
+			'name' : 'opt',
+			'data' : 'id',
+			'width' : '135px',
+			'render' : function(data, type, row, ind){
+				return '<span class="edit-modal btn btn-sm btn-primary" data-id = '+data+'>Edit</span> <span class="delete-modal btn btn-sm btn-danger" data-id = '+data+'>Delete</span>';
+			}
+		}
+		],
+		serverSide : true,
+		processing : true,
+		ajax: {
+			url: utlt.siteUrl()+'country/get-data-json',
+			dataSrc: 'data'
+		},
 	});
-	var action = '<td> <div class="form-button-action"> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task"> <i class="fa fa-edit"></i> </button> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove"> <i class="fa fa-times"></i> </button> </div> </td>';
-
-	$('#addRowButton').click(function() {
-		$('#addRowModal').modal('hide');
-	});
-});
+ });
+	/*End data table*/
 </script>
 @endsection

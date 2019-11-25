@@ -47,7 +47,7 @@
 					<div class="collapse" id="base">
 						<ul class="nav nav-collapse">
 							<li>
-								<a href="{{url('/countries')}}">
+								<a href="{{url('/api/countries')}}">
 									<span class="sub-item">Country</span>
 								</a>
 							</li>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Model\Country;
 use Illuminate\Http\Request;
 
 class CountryController extends Controller
@@ -14,7 +15,9 @@ class CountryController extends Controller
      */
     public function index()
     {
-        //
+        $countries = Country::all();
+       // dd($countries);
+        return view('admin.country.index', ['countries' => $countries]);
     }
 
     /**
@@ -35,7 +38,14 @@ class CountryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+            $request->validate([
+            'name' => 'required',
+        ]);
+         
+        $country_name = $request->all();
+        Country::create($country_name);
+        return redirect()->route(
+            'countries.index')->with('success', 'Country name inserted successfully');
     }
 
     /**
@@ -81,5 +91,44 @@ class CountryController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getDataForDataTable(){
+        $country = new Country;
+        $limit = 20;
+        $offset = 0;
+        $search = [];
+        $where = [];
+        $with = [];
+        $join = [];
+
+        if($request->input('length')){
+            $limit = $request->input('length');
+        }
+
+        if($request->input('start')){
+            $offset = $request->input('start');
+        }
+
+        if($request->input('search') && $request->input('search')['value'] != ""){
+
+            $search['countries.name'] = $request->input('search')['value'];
+        }
+
+        if($request->input('where')){
+            $where = $request->input('where');
+        }
+
+
+        $with = [
+
+            ]; 
+
+
+        $join = [ 
+            /* "table name",  "table2 name. id" , "unique column name by as"   */
+        ];  
+
+       return $country->GetDataForDataTable($limit, $offset, $search, $where, $with, $join);
     }
 }
