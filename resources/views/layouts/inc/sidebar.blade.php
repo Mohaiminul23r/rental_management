@@ -47,18 +47,28 @@
 					<div class="collapse" id="base">
 						<ul class="nav nav-collapse">
 							<li>
-								<a href="{{url('/api/countries')}}">
+								<a href="{{url('/countries')}}">
 									<span class="sub-item">Country</span>
 								</a>
 							</li>
 							<li>
-								<a href="components/buttons.html">
-									<span class="sub-item">Billings</span>
+								<a href="{{url('/cities')}}">
+									<span class="sub-item">City</span>
 								</a>
 							</li>
 							<li>
-								<a href="components/buttons.html">
-									<span class="sub-item">Renter</span>
+								<a href="{{url('/thanas')}}">
+									<span class="sub-item">Thana</span>
+								</a>
+							</li>
+							<li>
+								<a href="{{url('/bill_types')}}">
+									<span class="sub-item">Bill Type</span>
+								</a>
+							</li>
+							<li>
+								<a href="{{url('/renter_types')}}">
+									<span class="sub-item">Renter Type</span>
 								</a>
 							</li>
 						</ul>

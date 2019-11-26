@@ -18,6 +18,10 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', 'API\HomeController@index')->name('home');
+
+    Route::get('countries', function(){
+        return view('admin.country.index');
+    });
 });
 
 //resource routes

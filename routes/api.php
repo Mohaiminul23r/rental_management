@@ -16,6 +16,8 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
 	 return $request->user();
 });
-	Route::post('login', 'API\ApiAuthController@login');
-	Route::resource('countries', 'API\CountryController');
-	Route::get('/country/get-data-json',"API\CountryController@getDataForDataTable")->name('countryJson');
+
+Route::post('login', 'API\ApiAuthController@login');
+Route::group(['middleware' => 'auth'], function () {
+});
+Route::resource('countries', 'API\CountryController');

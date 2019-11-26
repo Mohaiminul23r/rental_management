@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Model\Country;
 use Illuminate\Http\Request;
+use App\Http\Requests\CountryRequest;
 
 class CountryController extends Controller
 {
@@ -13,11 +14,33 @@ class CountryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $countries = Country::all();
-       // dd($countries);
-        return view('admin.country.index', ['countries' => $countries]);
+        $country = new Country;
+
+        $limit = 20;
+        $offset = 0;
+        $search = [];
+        $where = [];
+
+        if($request->input('length')){
+            $limit = $request->input('length');
+        }
+
+        if($request->input('start')){
+            $offset = $request->input('start');
+        }
+
+        if($request->input('search') && $request->input('search')['value'] != ""){
+
+            $search['countries.name'] = $request->input('search')['value'];
+        }
+
+        if($request->input('where')){
+            $where = $request->input('where');
+        }
+
+       return $country->getDataForDataTable($limit, $offset, $search, $where);
     }
 
     /**
@@ -25,6 +48,7 @@ class CountryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function create()
     {
         //
@@ -36,16 +60,11 @@ class CountryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CountryRequest $request)
     {
-            $request->validate([
-            'name' => 'required',
-        ]);
-         
-        $country_name = $request->all();
-        Country::create($country_name);
-        return redirect()->route(
-            'countries.index')->with('success', 'Country name inserted successfully');
+        Country::create($request->all());
+        return "Country added successfully.";
+        
     }
 
     /**
@@ -67,7 +86,7 @@ class CountryController extends Controller
      */
     public function edit($id)
     {
-        //
+         return Country::findOrFail($id);
     }
 
     /**
@@ -77,9 +96,13 @@ class CountryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CountryRequest $request, $id)
     {
-        //
+
+        $country = Country::findOrFail($id);
+        $country->name = ucwords($request->name);
+        $country->update();
+        return "Updated successfully.";
     }
 
     /**
@@ -90,45 +113,8 @@ class CountryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $country = Country::whereId($id)->delete();
+        return "Updated Deleted.";
     }
 
-    public function getDataForDataTable(){
-        $country = new Country;
-        $limit = 20;
-        $offset = 0;
-        $search = [];
-        $where = [];
-        $with = [];
-        $join = [];
-
-        if($request->input('length')){
-            $limit = $request->input('length');
-        }
-
-        if($request->input('start')){
-            $offset = $request->input('start');
-        }
-
-        if($request->input('search') && $request->input('search')['value'] != ""){
-
-            $search['countries.name'] = $request->input('search')['value'];
-        }
-
-        if($request->input('where')){
-            $where = $request->input('where');
-        }
-
-
-        $with = [
-
-            ]; 
-
-
-        $join = [ 
-            /* "table name",  "table2 name. id" , "unique column name by as"   */
-        ];  
-
-       return $country->GetDataForDataTable($limit, $offset, $search, $where, $with, $join);
-    }
 }
