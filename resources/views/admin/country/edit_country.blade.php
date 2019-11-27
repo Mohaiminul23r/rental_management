@@ -23,7 +23,7 @@
 			</div>
 		</div>
 		<div class="modal-footer no-bd">
-			<button type="submit" id="editBtn" class="btn btn-primary">Edit</button>
+			<button type="button" id="editBtn" class="btn btn-primary">Edit</button>
 			<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 		</div>
 		</form>

@@ -40,7 +40,7 @@
 				</li>
 				<li class="nav-item">
 					<a data-toggle="collapse" href="#base">
-						<i class="fas fa-layer-group"></i>
+						<i class="fas fa-cogs"></i>
 						<p>General Settings</p>
 						<span class="caret"></span>
 					</a>
@@ -62,12 +62,12 @@
 								</a>
 							</li>
 							<li>
-								<a href="{{url('/bill_types')}}">
+								<a href="{{url('/billtypes')}}">
 									<span class="sub-item">Bill Type</span>
 								</a>
 							</li>
 							<li>
-								<a href="{{url('/renter_types')}}">
+								<a href="{{url('/rentertypes')}}">
 									<span class="sub-item">Renter Type</span>
 								</a>
 							</li>
@@ -76,7 +76,7 @@
 				</li>
 				<li class="nav-item">
 					<a data-toggle="collapse" href="#sidebarLayouts">
-						<i class="fas fa-th-list"></i>
+						<i class="fas fa-users"></i>
 						<p>Renter or Client</p>
 						<span class="caret"></span>
 					</a>
@@ -97,7 +97,7 @@
 				</li>
 				<li class="nav-item">
 					<a data-toggle="collapse" href="#forms">
-						<i class="fas fa-pen-square"></i>
+						<i class="fas fa-file-invoice"></i>
 						<p>Generate Invoice</p>
 						<span class="caret"></span>
 					</a>
@@ -113,7 +113,7 @@
 				</li>
 				<li class="nav-item">
 					<a data-toggle="collapse" href="#tables">
-						<i class="fas fa-table"></i>
+						<i class="fas fa-file-pdf"></i>
 						<p>Reports</p>
 						<span class="caret"></span>
 					</a>

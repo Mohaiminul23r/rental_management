@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class BillType extends Model
 {
+   use CommonTrait;
    protected $fillable = [
    		'name',
    		'status',

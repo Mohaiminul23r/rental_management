@@ -21,3 +21,6 @@ Route::post('login', 'API\ApiAuthController@login');
 Route::group(['middleware' => 'auth'], function () {
 });
 Route::resource('countries', 'API\CountryController');
+Route::resource('cities', 'API\CityController');
+Route::resource('billtypes', 'API\BillTypeController');
+Route::resource('rentertypes', 'API\RenterTypeController');

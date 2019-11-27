@@ -4,6 +4,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<title>Rental Management System</title>
 	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 	
 	<!-- Fonts and icons -->
 	<script src="{{ asset('assets') }}/js/plugin/webfont/webfont.min.js"></script>
@@ -17,13 +18,17 @@
 		});
 	</script>
 	<!-- CSS Files -->
-    
+
 	<link rel="stylesheet" href="{{ asset('assets') }}/css/bootstrap.min.css">
 	<link rel="stylesheet" href="{{ asset('assets') }}/css/atlantis.min.css">
-	<link href="{{ asset('css/custom_css.css') }}" rel="stylesheet">
+	<link rel="stylesheet" href="{{ asset('css/custom_css.css') }}">
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<!-- CSS Just for demo purpose, don't include it in your project -->
 	{{-- 	<link rel="stylesheet" href="/css/demo.css"> --}}
 	<script type="text/javascript">
+
+	/****************necessary utility*****************/
+	/***************************************************/
 		var utlt =[];
         utlt["siteUrl"] = function(url){
             url = typeof url == "undefined" ? "" : url;

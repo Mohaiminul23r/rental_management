@@ -22,6 +22,21 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('countries', function(){
         return view('admin.country.index');
     });
-});
 
+     Route::get('cities', function(){
+        return view('admin.city.index');
+    });
+
+    Route::get('thanas', function(){
+    	return view('admin.thana.index');
+    });
+
+    Route::get('billtypes', function(){
+    	return view('admin.billtype.index');
+    });
+
+     Route::get('rentertypes', function(){
+    	return view('admin.rentertype.index');
+    });
+});
 //resource routes

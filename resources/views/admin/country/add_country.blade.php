@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal fade" id="addCountryModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-hidden="true">
 <div class="modal-dialog" role="document">
 	<div class="modal-content">
 		<div class="modal-header no-bd">
@@ -12,19 +12,20 @@
 			</button>
 		</div>
 		<div class="modal-body">
-		<form id="addForm">
+		<form id="addForm" class="form-horizontal" role="form">
 			@csrf
 			<div class="row">
 				<div class="col-sm-12">
 					<div class="form-group">
 						<label for="name">Country Name</label>
-						<input type="name" name="name" class="form-control" id="email2" placeholder="Enter Country Name">
+						<input type="name" name="name" class="form-control" id="name" placeholder="Enter Country Name">
+						<span class="help-block"></span>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="modal-footer no-bd">
-			<button type="submit" id="addRowButton" class="btn btn-primary">Add</button>
+			<button type="button" id="addBtn" class="btn btn-primary">Add</button>
 			<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 		</div>
 		</form>

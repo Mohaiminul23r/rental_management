@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class City extends Model
 {
+    use CommonTrait;
     protected $fillable = [
     	'country_id',
     	'name',

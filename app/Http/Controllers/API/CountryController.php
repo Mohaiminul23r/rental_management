@@ -86,7 +86,7 @@ class CountryController extends Controller
      */
     public function edit($id)
     {
-         return Country::findOrFail($id);
+        // return Country::findOrFail($id);
     }
 
     /**
@@ -115,6 +115,10 @@ class CountryController extends Controller
     {
         $country = Country::whereId($id)->delete();
         return "Updated Deleted.";
+    }
+
+    public function GetAll(){
+        return Country::orderBy('name')->get(); 
     }
 
 }
