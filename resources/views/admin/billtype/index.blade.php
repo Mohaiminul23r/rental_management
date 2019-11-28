@@ -20,7 +20,7 @@
 			<h4 class="card-title">Bill Type List</h4>
 		</div>
 	</div>
-	@include('admin.billtype.add_billtype')
+	@include('admin.billtype.add')
 	<div class="card-body">
 		<div class="table-responsive">
 			<table id="billtypeDataTable" class="display table table-striped table-hover">

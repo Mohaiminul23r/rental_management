@@ -3,5 +3,5 @@
 	Dashboard
 @endsection
 @section('body')
-	@include('admin.dashboard')
+	@include('admin.dashboard.index')
 @endsection

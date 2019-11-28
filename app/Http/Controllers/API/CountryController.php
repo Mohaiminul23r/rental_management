@@ -86,7 +86,7 @@ class CountryController extends Controller
      */
     public function edit($id)
     {
-        // return Country::findOrFail($id);
+        return Country::findOrFail($id);
     }
 
     /**

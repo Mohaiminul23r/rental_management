@@ -20,8 +20,10 @@
 		</div>
 	</div>
 	<div class="card-body">
-		@include('admin.country.add_country')
-		@include('admin.country.edit_country')
+		{{-- start modals --}}
+		@include('admin.country.add')
+		@include('admin.country.edit')
+		{{-- end modals --}}
 		<div class="table-responsive">
 			<table id="countryDataTable" class="display table table-striped table-hover">
 			</table>
@@ -31,6 +33,7 @@
 </div>
 </div>
 <script type="text/javascript">
+
 // datatable starts
 var countryDataTable = null;
 window.addEventListener("load",function(){
@@ -39,6 +42,12 @@ window.addEventListener("load",function(){
         document.getElementById("addForm").reset();
         $('#addForm .has-error').removeClass('has-error');
         $('#addForm').find('.help-block').empty();
+    });
+
+     $("#modalEdit").on("hidden.bs.modal", function() {
+        document.getElementById("edit_form").reset();
+        $('#modalEdit .has-error').removeClass('has-error');
+        $('#modalEdit').find('.help-block').empty();
     });
 
     /****************************************/
@@ -109,6 +118,39 @@ window.addEventListener("load",function(){
             });
         }
         /*end Edit method*/
+
+
+        /*********************************/
+        /*common method for get all value*/
+        /*********************************/
+        utlt["GetAll"] =  function(url, htmlId, name, check = 0){
+            var htmlData = '';
+            if(!check)
+                htmlData = '<option value="" disabled selected> Select '+name+' </option>';
+            else
+                htmlData = '<option value="" disabled> Select '+name+' </option>';
+
+            $.ajax({
+                url : utlt.siteUrl(url)
+
+            }).done(function(resData){
+                $.each(resData,function(ind, val){
+
+                    if(check == val.id){
+                        htmlData +=  '<option value = "'+val.id+'" selected >'+val.name+'</option>';
+                    }
+                    else{
+                        htmlData +=  '<option value = "'+val.id+'">'+val.name+'</option>';
+                    }
+                });
+                $(htmlId).html(htmlData);
+
+            }).fail(function(failData){
+                utlt.cLog(arguments);
+            });
+        }
+        /*End getAll elements method*/
+
 
 var countryDataTable = $('#countryDataTable').DataTable({
 

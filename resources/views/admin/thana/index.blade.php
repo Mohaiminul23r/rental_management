@@ -20,6 +20,7 @@
 			<h4 class="card-title">Thana List</h4>
 		</div>
 	</div>
+	@include('admin.thana.add')
 	<div class="card-body">
 		<div class="table-responsive">
 			<table id="cityDataTable" class="display table table-striped table-hover">

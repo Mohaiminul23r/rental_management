@@ -20,7 +20,7 @@
 			<h4 class="card-title">City List</h4>
 		</div>
 	</div>
-	@include('admin.city.add_city')
+	@include('admin.city.add')
 	<div class="card-body">
 		<div class="table-responsive">
 			<table id="cityDataTable" class="display table table-striped table-hover">

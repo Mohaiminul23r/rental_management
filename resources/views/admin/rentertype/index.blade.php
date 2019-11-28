@@ -2,6 +2,7 @@
 @section('pagetitle')
 	Renter Type
 @endsection
+
 @section('breadcrumbs')
 	<li class="separator">
 		<i class="flaticon-right-arrow"></i>
@@ -19,8 +20,9 @@
 		<div class="d-flex align-items-center">
 			<h4 class="card-title">Renter Type List</h4>
 		</div>
-	</div>
-	@include('admin.rentertype.add_rentertype')
+	{{-- start of modals --}}
+	@include('admin.rentertype.add')
+	{{-- end of modals --}}
 	<div class="card-body">
 		<div class="table-responsive">
 			<table id="rentertypeDatatable" class="display table table-striped table-hover">
