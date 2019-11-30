@@ -33,8 +33,14 @@
 </div>
 </div>
 <script type="text/javascript">
-
 window.addEventListener("load", function(){
+	
+	$('#addBtn').on('click', function(){
+		$.ajax({
+			url: utlt.siteUrl
+		})
+	});
+
 	var rentertypeDatatable = $('#rentertypeDatatable').DataTable({
 
 		dom : '<"row"<"col-md-3"B><"col-md-3"l><"col-md-6"f>>rtip',
