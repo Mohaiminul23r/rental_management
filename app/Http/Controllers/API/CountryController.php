@@ -63,8 +63,7 @@ class CountryController extends Controller
     public function store(CountryRequest $request)
     {
         Country::create($request->all());
-        return "Country added successfully.";
-        
+        return "Country added successfully.";   
     }
 
     /**

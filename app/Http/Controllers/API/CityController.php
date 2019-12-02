@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\City;
+use App\Model\Country;
+use App\Http\Requests\CityRequest;
 
 class CityController extends Controller
 {
@@ -20,6 +22,8 @@ class CityController extends Controller
         $offset = 0;
         $search = [];
         $where = [];
+        $with = [];
+        $join = [];
 
         if($request->input('length')){
             $limit = $request->input('length');
@@ -31,6 +35,7 @@ class CityController extends Controller
 
         if($request->input('search') && $request->input('search')['value'] != ""){
 
+            $search['cities.name'] = $request->input('search')['value'];
             $search['countries.name'] = $request->input('search')['value'];
         }
 
@@ -38,9 +43,19 @@ class CityController extends Controller
             $where = $request->input('where');
         }
 
-       return $city->getDataForDataTable($limit, $offset, $search, $where);
+        $with = [
+
+            ]; 
+
+        $join = [ 
+            /* "table name",  "table2 name. id" , "unique column name by as"   */
+            ['countries', 'cities.country_id', 'countries.name as countryName']
+        ];  
+
+       return $city->GetDataForDataTable($limit, $offset, $search, $where, $with, $join);
     }
 
+    
     /**
      * Show the form for creating a new resource.
      *
@@ -57,9 +72,12 @@ class CityController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CityRequest $request)
     {
-        //
+        $city = new City;
+        $city->country_id = $request->country_id;
+        $city->name = ucwords($request->name);
+        $city->save();
     }
 
     /**
@@ -70,7 +88,7 @@ class CityController extends Controller
      */
     public function show($id)
     {
-        //
+        return City::with('country')->where('id', $id)->get();
     }
 
     /**
@@ -91,9 +109,12 @@ class CityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CityRequest $request, $id)
     {
-        //
+        $city = City::findOrFail($id);
+        // $city -> update($request->all());
+        $city->name = ucwords($request->name);
+        $city->update();
     }
 
     /**
@@ -104,6 +125,12 @@ class CityController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $city = City::whereId($id)->delete();
+        return "Deleted Successfully";
+    }
+
+    public function GetAllByCountry($id){
+
+        return City::orderBy('name')->where('country_id',$id)->get(); 
     }
 }

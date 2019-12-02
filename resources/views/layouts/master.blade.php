@@ -38,6 +38,34 @@
         utlt["cLog"] = function(url){
             console.log(url);
         }
+
+
+         utlt["GetAll"] =  function(url, htmlId, name, check = 0){
+            var htmlData = '';
+            if(!check)
+                htmlData = '<option value="" disabled selected> Select '+name+' </option>';
+            else
+                htmlData = '<option value="" disabled> Select '+name+' </option>';
+
+            $.ajax({
+                url : utlt.siteUrl(url)
+
+            }).done(function(resData){
+                $.each(resData,function(ind, val){
+
+                    if(check == val.id){
+                        htmlData +=  '<option value = "'+val.id+'" selected >'+val.name+'</option>';
+                    }
+                    else{
+                        htmlData +=  '<option value = "'+val.id+'">'+val.name+'</option>';
+                    }
+                });
+                $(htmlId).html(htmlData);
+
+            }).fail(function(failData){
+                utlt.cLog(arguments);
+            });
+        }
 	</script>
 </head>
 <body>

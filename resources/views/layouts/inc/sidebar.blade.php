@@ -83,13 +83,8 @@
 					<div class="collapse" id="sidebarLayouts">
 						<ul class="nav nav-collapse">
 							<li>
-								<a href="sidebar-style-1.html">
-									<span class="sub-item">Add Clients</span>
-								</a>
-							</li>
-							<li>
-								<a href="overlay-sidebar.html">
-									<span class="sub-item">Overlay Sidebar</span>
+								<a href="{{url('/renters')}}">
+									<span class="sub-item">Renters</span>
 								</a>
 							</li>
 						</ul>

@@ -40,16 +40,17 @@ var countryDataTable = null;
 window.addEventListener("load",function(){
 
     $.fn.dataTable.ext.errMode = 'none';
+
 	$("#modalAdd").on("hidden.bs.modal", function() {
         document.getElementById("addForm").reset();
         $('#addForm .has-error').removeClass('has-error');
         $('#addForm').find('.help-block').empty();
     });
 
-     $("#modalEdit").on("hidden.bs.modal", function() {
+     $("#editCountryModal").on("hidden.bs.modal", function() {
         document.getElementById("edit_form").reset();
-        $('#modalEdit .has-error').removeClass('has-error');
-        $('#modalEdit').find('.help-block').empty();
+        $('#editCountryModal .has-error').removeClass('has-error');
+        $('#editCountryModal').find('.help-block').empty();
     });
 
     $("#modalDelete").on("hidden.bs.modal", function() {
@@ -58,30 +59,27 @@ window.addEventListener("load",function(){
         $('#delete_form').find('.help-block').empty();
     });
 
-    /****************************************/
-    /*common add method for insert form data*/
-    /****************************************/
-    utlt['Add'] = function(url, dataTable){
+    //add country modal
+    $('#addBtn').click(function(){
+        utlt.Add('api/countries', '#countryDataTable');
+    });
 
+    utlt['Add'] = function(url, dataTable){
     	$('#addForm .has-error').removeClass('has-error');
         $('#addForm').find('.help-block').empty();
         $.ajax({
             url : utlt.siteUrl(url),
             type : "POST",
             data : $('#addForm').serialize()
-
         }).done(function(resData){
             $(dataTable).DataTable().ajax.reload();
             $('#modalAdd').modal('hide');
         }).fail(function(failData){
-
             $.each(failData.responseJSON.errors, function(inputName, errors){
                   $.each(failData.responseJSON.errors, function(inputName, errors){
-
                     $("#addForm [name="+inputName+"]").parent().removeClass('has-error').addClass('has-error');
                     if(typeof errors == "object"){
                         $("#addForm [name="+inputName+"]").parent().find('.help-block').empty();
-
                         $.each(errors, function(indE, valE){
                             $("#addForm [name="+inputName+"]").parent().find('.help-block').append(valE+"<br>");
                         });
@@ -91,25 +89,16 @@ window.addEventListener("load",function(){
                     }
                 });
             });
-
         });
     }
-    /*end add method*/
+    //end of add modal
 
-	 /*start ajax for insert*/
-    $('#addBtn').click(function(){
-        utlt.Add('api/countries', '#countryDataTable');
-    });
-     /*End Ajax for insert*/
-
-       /*start ajax for Update*/
+    //edit country
     $('#editBtn').click(function(){
         var id = $("#id").val();
         utlt.Edit('api/countries', id, '#countryDataTable');
     });
-    /*-----------End ajax for Update------------*/
 
-   /*Start Ajax for Edit*/
     $(document).on('click', '.edit-modal', function() {
      var id = $(this).data('id');
         $.ajax({
@@ -118,91 +107,51 @@ window.addEventListener("load",function(){
         }).done(function(resData){
               $('#id').val(resData.id);
               $('#name').val(resData.name);
-
         }).fail(function(failData){
             utlt.cLog(arguments);
         });
         $("#editCountryModal").modal();
     });
-    /*-----------End ajax for Edit------------*/
 
-        /****************************************/
-        /***common  method for Edit form data****/
-        /****************************************/
-        utlt['Edit'] = function(url, id, dataTable){
-            $('#edit_form .has-error').removeClass('has-error');
-            $('#edit_form').find('.help-block').empty();
-            $.ajax({
-                url : utlt.siteUrl(url+'/'+id),
-                type : "PUT",
-                data : $('#edit_form').serialize()
-            }).done(function(resData){
-                $(dataTable).DataTable().ajax.reload();
-                $('#editCountryModal').modal('hide');
-            }).fail(function(failData){
-                $.each(failData.responseJSON.errors, function(inputName, errors){
-                    $("#edit_form [name="+inputName+"]").parent().removeClass('has-error').addClass('has-error');
-                    if(typeof errors == "object"){
-                        $("#edit_form [name="+inputName+"]").parent().find('.help-block').empty();
-                        $.each(errors, function(indE, valE){
-                            $("#edit_form [name="+inputName+"]").parent().find('.help-block').append(valE+"<br>");
-                        });
-                    }
-                    else{
-                        $("#edit_form [name="+inputName+"]").parent().find('.help-block').html(valE);
-                    }
-                });
+    utlt['Edit'] = function(url, id, dataTable){
+        $('#edit_form .has-error').removeClass('has-error');
+        $('#edit_form').find('.help-block').empty();
+        $(this).removeData('modal');
+        $.ajax({
+            url : utlt.siteUrl(url+'/'+id),
+            type : "PUT",
+            data : $('#edit_form').serialize()
+        }).done(function(resData){
+            $(dataTable).DataTable().ajax.reload();
+            $('#editCountryModal').modal('hide');
+        }).fail(function(failData){
+            $.each(failData.responseJSON.errors, function(inputName, errors){
+                $("#edit_form [name="+inputName+"]").parent().removeClass('has-error').addClass('has-error');
+                if(typeof errors == "object"){
+                    $("#edit_form [name="+inputName+"]").parent().find('.help-block').empty();
+                    $.each(errors, function(indE, valE){
+                        $("#edit_form [name="+inputName+"]").parent().find('.help-block').append(valE+"<br>");
+                    });
+                }
+                else{
+                    $("#edit_form [name="+inputName+"]").parent().find('.help-block').html(valE);
+                }
             });
-        }
-        /*end Edit method*/
+        });
+    }
+    /*end Edit method*/
 
-        /*********************************/
-        /*common method for get all value*/
-        /*********************************/
-        utlt["GetAll"] =  function(url, htmlId, name, check = 0){
-            var htmlData = '';
-            if(!check)
-                htmlData = '<option value="" disabled selected> Select '+name+' </option>';
-            else
-                htmlData = '<option value="" disabled> Select '+name+' </option>';
-            $.ajax({
-                url : utlt.siteUrl(url)
-
-            }).done(function(resData){
-                $.each(resData,function(ind, val){
-
-                    if(check == val.id){
-                        htmlData +=  '<option value = "'+val.id+'" selected >'+val.name+'</option>';
-                    }
-                    else{
-                        htmlData +=  '<option value = "'+val.id+'">'+val.name+'</option>';
-                    }
-                });
-                $(htmlId).html(htmlData);
-
-            }).fail(function(failData){
-                utlt.cLog(arguments);
-            });
-        }
-        /*End getAll elements method*/
-
-   /*Start jquery for Delete modal*/
+   // Start jquery for Delete 
     $(document).on('click', '.delete-modal', function() {
         $('#id').val($(this).data('id'));
         $("#modalDelete").modal();
     });
-    /*End jquery for delete modal*/
 
-        /*-----------start ajax for Delete---------*/
     $('#deleteBtn').click(function(){
         var id = $("#id").val();
         utlt.Delete('api/countries', id, '#countryDataTable');
     });
-    /*-----------End ajax for Delete------------*/
 
-    /************************************************/
-    /***common  method for Delete a specefic data****/
-    /************************************************/
     utlt['Delete'] = function(url, id, dataTable){
         $('#edit_form .has-error').removeClass('has-error');
         $('#edit_form').find('.help-block').empty();
@@ -217,7 +166,9 @@ window.addEventListener("load",function(){
             utlt.cLog(arguments);
         });
     }
-    /*end Delete method*/
+    //end of delete
+
+//datatable value
 var countryDataTable = $('#countryDataTable').DataTable({
 
 		dom : '<"row"<"col-md-3"B><"col-md-3"l><"col-md-6"f>>rtip',

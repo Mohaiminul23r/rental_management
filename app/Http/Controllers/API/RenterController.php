@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Model\Renter;
 
 class RenterController extends Controller
 {
@@ -14,7 +15,42 @@ class RenterController extends Controller
      */
     public function index()
     {
-        //
+        $renter = new Renter;
+        $limit = 20;
+        $offset = 0;
+        $search = [];
+        $where = [];
+        $with = [];
+        $join = [];
+
+        if($request->input('length')){
+            $limit = $request->input('length');
+        }
+
+        if($request->input('start')){
+            $offset = $request->input('start');
+        }
+
+        if($request->input('search') && $request->input('search')['value'] != ""){
+
+            // $search['cities.name'] = $request->input('search')['value'];
+            // $search['countries.name'] = $request->input('search')['value'];
+        }
+
+        if($request->input('where')){
+            $where = $request->input('where');
+        }
+
+        $with = [
+
+            ]; 
+
+        $join = [ 
+            /* "table name",  "table2 name. id" , "unique column name by as"   */
+            // ['countries', 'cities.country_id', 'countries.name as countryName']
+        ];  
+       return $renter->GetDataForDataTable($limit, $offset, $search, $where, $with, $join);
+        
     }
 
     /**

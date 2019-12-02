@@ -15,12 +15,4 @@ class City extends Model
     public function country(){
     	return $this->belongsTo('App\Model\Country');
     }
-
-    public function address(){
-    	return $this->hasMany('App\Model\Address');
-    }
-
-    public function thana(){
-        return $this->hasMany('App\Model\Thana');
-    }
 }

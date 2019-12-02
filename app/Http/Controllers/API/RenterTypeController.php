@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\RenterType;
+use App\Http\Requests\RenterTypeRequest;
 
 class RenterTypeController extends Controller
 {
@@ -32,7 +33,7 @@ class RenterTypeController extends Controller
 
         if($request->input('search') && $request->input('search')['value'] != ""){
 
-            $search['countries.name'] = $request->input('search')['value'];
+            $search['renter_types.name'] = $request->input('search')['value'];
         }
 
         if($request->input('where')){
@@ -58,9 +59,10 @@ class RenterTypeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RenterTypeRequest $request)
     {
-        //
+        RenterType::create($request->all());
+        return "Renter type added successfully";
     }
 
     /**
@@ -92,7 +94,7 @@ class RenterTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(RenterTypeRequest $request, $id)
     {
         //
     }
@@ -105,6 +107,7 @@ class RenterTypeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        RenterType::whereId($id)->delete();
+        return "Successfully Deleted";
     }
 }

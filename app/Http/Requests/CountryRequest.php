@@ -24,7 +24,15 @@ class CountryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required'
+            'name' => 'required | unique:countries'
+        ];
+    }
+
+    public function messages(){
+
+         return [
+            'name.required' => 'Country name is required',
+            'name.unique' => 'This country is already exist',
         ];
     }
 }
