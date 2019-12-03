@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\Renter;
+use App\Model\Address;
+use App\Http\Requests\RenterRequest;
 
 class RenterController extends Controller
 {
@@ -13,7 +15,7 @@ class RenterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $renter = new Renter;
         $limit = 20;
@@ -33,8 +35,8 @@ class RenterController extends Controller
 
         if($request->input('search') && $request->input('search')['value'] != ""){
 
-            // $search['cities.name'] = $request->input('search')['value'];
-            // $search['countries.name'] = $request->input('search')['value'];
+             $search['renters.first_name'] = $request->input('search')['value'];
+             $search['renters.last_name'] = $request->input('search')['value'];
         }
 
         if($request->input('where')){
@@ -47,7 +49,11 @@ class RenterController extends Controller
 
         $join = [ 
             /* "table name",  "table2 name. id" , "unique column name by as"   */
-            // ['countries', 'cities.country_id', 'countries.name as countryName']
+            ['renter_types', 'renters.renter_type_id', 'renter_types.name as renterTypeName,  renters.status as status'],
+            ['addresses', 'renters.address_id','addresses.postal_code as postCode, addresses.address_line1 as address_line1'],
+            ['thanas', 'addresses.thana_id','thanas.name as thanaName'],
+            ['cities', 'addresses.city_id','cities.name as cityName'],
+            ['countries', 'addresses.country_id','countries.name as countryName'],
         ];  
        return $renter->GetDataForDataTable($limit, $offset, $search, $where, $with, $join);
         
@@ -69,9 +75,11 @@ class RenterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RenterRequest $request)
     {
-        //
+        //dd($request->all());
+        $renter = new Renter();
+        dd($renter);
     }
 
     /**
@@ -116,6 +124,7 @@ class RenterController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $renter = Renter::findOrFail($id);
+        $renter->delete();
     }
 }

@@ -22,6 +22,7 @@
 	<link rel="stylesheet" href="{{ asset('assets') }}/css/bootstrap.min.css">
 	<link rel="stylesheet" href="{{ asset('assets') }}/css/atlantis.min.css">
 	<link rel="stylesheet" href="{{ asset('css/custom_css.css') }}">
+	<link rel="stylesheet" href="{{ asset('assets/toaster/build/toastr.css') }}">
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<!-- CSS Just for demo purpose, don't include it in your project -->
 	{{-- 	<link rel="stylesheet" href="/css/demo.css"> --}}
@@ -103,6 +104,7 @@
 </div>
 <!--   Core JS Files   -->
 <script src="{{ asset('assets') }}/js/core/jquery.3.2.1.min.js"></script>
+<script src="{{ asset('assets/toaster/toastr.js') }}"></script>
 <script src="{{ asset('assets') }}/js/core/popper.min.js"></script>
 <script src="{{ asset('assets') }}/js/core/bootstrap.min.js"></script>
 <!-- jQuery UI -->
