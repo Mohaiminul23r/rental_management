@@ -26,4 +26,5 @@ Route::get('/city/{id}/get-by-country',"API\CityController@GetAllByCountry");
 Route::resource('cities', 'API\CityController');
 Route::resource('billtypes', 'API\BillTypeController');
 Route::resource('rentertypes', 'API\RenterTypeController');
+Route::get('get-rentertype', 'API\RenterTypeController@getAll');
 Route::resource('renters', 'API\RenterController');

@@ -35,19 +35,59 @@
 </div>
 <script type="text/javascript">
 var renterDataTable = null;
+var renterType = <?php echo json_encode($renterType)?>;
+var city = <?php echo json_encode($city)?>;
+var thana = <?php echo json_encode($thana)?>;
+var country = <?php echo json_encode($country)?>;
+
 window.addEventListener("load", function(){
+	//removing form data
+	$('#addRentalModal').on('hidden.bs.modal', function(){
+	    $(this).find('form').trigger('reset');
+	    // $('#renter_add_form .has-error').removeClass('has-error');
+     //    $('#renter_add_form').find('.help-block').empty();
+	});
 
 	//adding renter details
 	$('#renterAddBtn').click(function(){
-		axios.post('api/renters',$('#renter_add_form').serialize()).then(function(resData){
+		var renterForm = document.getElementById('renter_add_form');
+	    var formData = new FormData(renterForm);
+   	    formData.append('photo', document.getElementById('photo').files[0]);
+   	    formData.append('nid_photo', document.getElementById('nid_photo').files[0]);
+		axios.post('api/renters', formData).then(function(resData){
 			$('#renterDataTable').DataTable().ajax.reload();
 			$('#addRentalModal').modal('hide');
-		}).catch(function(resData){
+			toastr.success('Renter Added Successfully');
+		}).catch(function(failData){
 			utlt.cLog(arguments);
 			alert("Something wrong");
 		});
 	});
 	//end of adding renter details
+
+	//getting renter type details
+	$(document).on('click', '#addBtn', function(){
+		html_city = '<option value="" disabled selected>Select City</option>';
+		html_thana = '<option value="" disabled selected>Select Thana</option>';
+		html_country     = '<option value="" disabled selected>Select Country</option>';
+		html_renter_type = '<option value="" disabled selected>Select Renter Type</option>';
+		$.each(renterType, function(ind,val){
+			html_renter_type += '<option value="'+val.id+'">'+val.name+'</option>';
+		});
+		$.each(country, function(ind,val){
+			html_country += '<option value="'+val.id+'">'+val.name+'</option>';
+		});
+		$.each(thana, function(ind,val){
+			html_thana += '<option value="'+val.id+'">'+val.name+'</option>';
+		});
+		$.each(city, function(ind,val){
+			html_city += '<option value="'+val.id+'">'+val.name+'</option>';
+		});
+		$('#renter_type_name').html(html_renter_type);
+		$('#country_name').html(html_country);
+		$('#thana_name').html(html_thana);
+		$('#city_name').html(html_city);
+	});
 
 	//delete renter details
 	$(document).on('click', '.delete-modal', function(){
@@ -60,7 +100,7 @@ window.addEventListener("load", function(){
 			}).then(function(resData){
 				$('#renterDataTable').DataTable().ajax.reload();
 				$('#modalDelete').modal('hide');
-				toastr.success('Success', 'Successfully Deleted', {
+				toastr.success('Successfully Deleted', {
 					tatToDismiss: true,
 					toastClass: 'toast',
 					showMethod: 'fadeIn',
@@ -86,7 +126,7 @@ window.addEventListener("load", function(){
 	{
 		text : 'Add New Renter',
 		attr : {
-			'id' : "addRentalModal",
+			'id' : "addBtn",
 			'class' : "btn btn-info btn-sm",
 			'data-toggle' : "modal",
 			'data-target' : "#addRentalModal"
@@ -158,7 +198,7 @@ window.addEventListener("load", function(){
 	{
 		'title' : 'NID Photo',
 		'name' : 'nid_photo',
-		'data' : 'nid_photo'
+		'data' : 'nidPhoto'
 	},
 	{
 		'title' : 'Renter Photo',

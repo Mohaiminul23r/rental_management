@@ -39,8 +39,6 @@ Route::group(['middleware' => 'auth'], function () {
     	return view('admin.rentertype.index');
     });
 
-     Route::get('renters', function(){
-        return view('renter.index');
-     });
+     Route::get('renters', "CommonController@renterIndex");
 });
 //resource routes

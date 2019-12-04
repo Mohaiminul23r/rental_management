@@ -110,4 +110,8 @@ class RenterTypeController extends Controller
         RenterType::whereId($id)->delete();
         return "Successfully Deleted";
     }
+
+    public function getAll(){
+        return RenterType::orderBy('name')->get();
+    }
 }

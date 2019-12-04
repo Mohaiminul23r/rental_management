@@ -13,7 +13,7 @@
 		</div>
 		<div class="modal-body">
 		<p id="addUrl" hidden>Renters</p>
-		<form id="renter_add_form" class="form-horizontal" role="form">
+		<form id="renter_add_form" class="form-horizontal" role="form" enctype="multipart/form-data">
 			<div class="row">
 				<div class="col-md-4">
 					<div class="form-group">
@@ -107,8 +107,7 @@
 				<div class="col-md-4">
 					<div class="form-group">
 						<label for="rentertype">Renter Type</label>
-						<select class="form-control form-control" id="renter_type">
-							<option>1</option>
+						<select class="form-control form-control" id="renter_type_name" name="renter_type_id">
 						</select>
 						<span class="help-block"></span>
 					</div>	
@@ -125,7 +124,8 @@
 				<div class="col-md-4">
 					<div class="form-group">
 						<label for="name">Thana</label>
-						<input type="name" name="name" class="form-control" id="name" placeholder="Enter Thana">
+						<select class="form-control form-control" id="thana_name" name="name">
+						</select>
 						<span class="help-block"></span>
 					</div>	
 				</div>
@@ -141,19 +141,16 @@
 				<div class="col-md-4">
 					<div class="form-group">
 						<label for="name">City</label>
-						<input type="name" name="name" class="form-control" id="name" placeholder="Enter City">
-					{{-- 	<select class="form-control form-control" id="city">
-							<option>1</option>
-						</select> --}}
+						<select class="form-control form-control" id="city_name" name="name">
+						</select>
 						<span class="help-block"></span>
 					</div>	
 				</div>
 				<div class="col-md-4">
 					<div class="form-group">
 						<label for="name">Country</label>
-						<input type="name" name="name" class="form-control" id="name" placeholder="Enter Country">
-						{{-- <select class="form-control form-control" id="country">
-							<option>1</option> --}}
+						<select class="form-control form-control" id="country_name" name="name">
+							</select>
 						<span class="help-block"></span>
 					</div>	
 				</div>
@@ -161,9 +158,9 @@
 				<div class="form-group">
 					<label for="status">Active Status</label>
 					<select class="form-control form-control" id="status" name="status">
-						<option>Select</option>
-						<option>Active</option>
-						<option>Inactive</option>
+						<option value="" disabled selected>Select</option>
+						<option value="1">Active</option>
+						<option value="2">Inactive</option>
 						<span class="help-block"></span>
 					</select>
 				</div>
