@@ -124,7 +124,7 @@
 				<div class="col-md-4">
 					<div class="form-group">
 						<label for="name">Thana</label>
-						<select class="form-control form-control" id="thana_name" name="name">
+						<select class="form-control form-control" id="thana_name" name="thana_id">
 						</select>
 						<span class="help-block"></span>
 					</div>	
@@ -141,7 +141,7 @@
 				<div class="col-md-4">
 					<div class="form-group">
 						<label for="name">City</label>
-						<select class="form-control form-control" id="city_name" name="name">
+						<select class="form-control form-control" id="city_name" name="city_id">
 						</select>
 						<span class="help-block"></span>
 					</div>	
@@ -149,7 +149,7 @@
 				<div class="col-md-4">
 					<div class="form-group">
 						<label for="name">Country</label>
-						<select class="form-control form-control" id="country_name" name="name">
+						<select class="form-control form-control" id="country_name" name="country_id">
 							</select>
 						<span class="help-block"></span>
 					</div>	

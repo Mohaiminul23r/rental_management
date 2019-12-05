@@ -59,8 +59,21 @@ window.addEventListener("load", function(){
 			$('#addRentalModal').modal('hide');
 			toastr.success('Renter Added Successfully');
 		}).catch(function(failData){
-			utlt.cLog(arguments);
-			alert("Something wrong");
+			//utlt.cLog(arguments);
+			  $.each(failData.response.data.errors, function(inputName, errors){
+                    $("#renter_add_form [name="+inputName+"]").parent().removeClass('has-error').addClass('has-error');
+                    if(typeof errors == "object"){
+                        $("#renter_add_form [name="+inputName+"]").parent().find('.help-block').empty();
+
+                        $.each(errors, function(indE, valE){
+                            $("#renter_add_form [name="+inputName+"]").parent().find('.help-block').append(valE+"<br>");
+                        });
+                    }
+                    else{
+                        $("#renter_add_form [name="+inputName+"]").parent().find('.help-block').html(valE);
+                    }
+                });
+			//alert("Something wrong");
 		});
 	});
 	//end of adding renter details
@@ -100,7 +113,7 @@ window.addEventListener("load", function(){
 			}).then(function(resData){
 				$('#renterDataTable').DataTable().ajax.reload();
 				$('#modalDelete').modal('hide');
-				toastr.success('Successfully Deleted', {
+				toastr.success('Renter Deleted Successfully.', {
 					tatToDismiss: true,
 					toastClass: 'toast',
 					showMethod: 'fadeIn',

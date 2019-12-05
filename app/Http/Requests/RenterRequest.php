@@ -24,14 +24,24 @@ class RenterRequest extends FormRequest
    public function rules()
     {
         return [
-           
+            'first_name'      => 'required',    
+            'last_name'       => 'required',    
+            'father_name'     => 'required',    
+            'mother_name'     => 'required',    
+            'phone'           => 'required',    
+            'mobile'          => 'required',    
+            'gender'          => 'required',    
+            'date_of_birth'   => 'required',    
+            'renter_type_id'  => 'required',    
+            'status'          => 'required'   
         ];
     }
 
     public function messages(){
 
          return [
-
+            'first_name.required' => 'First name is required',
+            'last_name.required' => 'Last name is required',
         ];
     }
 }

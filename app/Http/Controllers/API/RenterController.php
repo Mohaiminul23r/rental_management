@@ -82,59 +82,49 @@ class RenterController extends Controller
      */
     public function store(RenterRequest $request)
     {
-    // dd($request->all());
+       //dd($request->all());
         $renter = new Renter();
         $first_name     = $request->input('first_name');
         $last_name      = $request->input('last_name');
         $father_name    = $request->input('father_name');
         $mother_name    = $request->input('mother_name');
-    //     // $address_id     = $request->input('address_id');
+        $phone          = $request->input('phone');
+        $mobile         = $request->input('mobile');
+        $gender         = $request->input('gender');
+        $nid_no         = $request->input('nid_no');
         $date_of_birth  = $request->input('date_of_birth');
+        $renter_type_id = $request->input('renter_type_id');
+        $status         = $request->input('status');
         $photo          = $request->file('photo');
         $nid_photo      = $request->file('nid_photo');
         $imgPath              = 'public/images/';
         $uniqueName_photo     = $photo->getClientOriginalName();
         $uniqueName_nid_photo = $nid_photo->getClientOriginalName();
-
+        $renter_photo_path    = $imgPath.$uniqueName_photo;
+        $nid_photo_path       = $imgPath.$uniqueName_nid_photo;
         $photo->move($imgPath, $uniqueName_photo);
         $nid_photo->move($imgPath, $uniqueName_nid_photo);
-        $renter_photo_path = $imgPath.$uniqueName_photo;
-        $nid_photo_path = $imgPath.$uniqueName_nid_photo;
-        $phone          = $request->input('phone');
-        $mobile         = $request->input('mobile');
-        $nid_no         = $request->input('nid_no');
-        $renter_type_id = $request->input('renter_type_id');
-        $status         = $request->input('status');
-
-    //     // $city      = new City();
-    //     // $city->name = $request->input('city_id');
-    //     // $city->save();
-
-    //     // $thana     = new Thana();
-    //     // $city->name = $request->input('thana_id');
-    //     // $thana->save();
-
-    //     // $country   = new Country();
-    //     // $country->name = $request->input('country_id');
-    //     // $country->save();
 
         $address   = new Address();
         $address->address_line1 = $request->input('address_line1');
-    //     // $address->postal_code = $request->input('postal_code');
-    //     // $address->city_id = $city->id;
-    //     // $address->thana_id = $thana->id;
-    //     // $address->country_id = $country->id;
+        $address->postal_code = $request->input('postal_code');
+        $address->city_id = $request->input('city_id');
+        $address->thana_id = $request->input('thana_id');
+        $address->country_id = $request->input('country_id');
         $address->save();
+
         $renter_information = [
             'first_name'      => $first_name,
             'last_name'       => $last_name,
             'father_name'     => $father_name,
             'mother_name'     => $mother_name,
+            'address_id'      => $address->id,
             'date_of_birth'   => $date_of_birth,
             'photo'           => $renter_photo_path,
             'nid_photo'       => $nid_photo_path,
             'phone'           => $phone,
             'mobile'          => $mobile,
+            'gender'          => $gender,
             'nid_no'          => $nid_no,
             'renter_type_id'  => $renter_type_id,
             'status'          => $status
@@ -182,7 +172,7 @@ class RenterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(RenterRequest $request, $id)
     {
         $renter = Renter::findOrFail($id);
         $renter->delete();
