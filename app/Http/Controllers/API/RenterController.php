@@ -172,7 +172,7 @@ class RenterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(RenterRequest $request, $id)
+    public function destroy($id)
     {
         $renter = Renter::findOrFail($id);
         $renter->delete();

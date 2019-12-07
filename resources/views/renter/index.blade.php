@@ -67,13 +67,13 @@ window.addEventListener("load", function(){
 
                         $.each(errors, function(indE, valE){
                             $("#renter_add_form [name="+inputName+"]").parent().find('.help-block').append(valE+"<br>");
+                             $('.help-block').css("color", "red");
                         });
                     }
                     else{
                         $("#renter_add_form [name="+inputName+"]").parent().find('.help-block').html(valE);
                     }
                 });
-			//alert("Something wrong");
 		});
 	});
 	//end of adding renter details
@@ -114,10 +114,8 @@ window.addEventListener("load", function(){
 				$('#renterDataTable').DataTable().ajax.reload();
 				$('#modalDelete').modal('hide');
 				toastr.success('Renter Deleted Successfully.', {
-					tatToDismiss: true,
-					toastClass: 'toast',
-					showMethod: 'fadeIn',
-					showDuration: 300
+					showDuration: 300,
+					positionClass: 'toast-bottom-right'
 				});	
 			}).catch(function(failData){
 				utlt.cLog(arguments);
@@ -126,6 +124,7 @@ window.addEventListener("load", function(){
 	});
 	//end of delete renter details
 
+	
 
 	//start of data table
 	var renterDataTable = $('#renterDataTable').DataTable({

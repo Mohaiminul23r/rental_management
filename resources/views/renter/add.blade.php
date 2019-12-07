@@ -62,7 +62,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-4">
-					<div class="form-check">
+					<div class="form-group">
 						<label>Gender</label><br/>
 						<label class="form-radio-label">
 							<input class="form-radio-input" type="radio" name="gender" value="Male"  checked="">
@@ -86,13 +86,14 @@
 					<div class="form-group">
 						<label for="image">NID Photo</label>
 						<input type="file" class="form-control-file" id="nid_photo" name="nid_photo">
+						<span class="help-block"></span>
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-4">
 					<div class="form-group">
-						<label for="photo">Renter Photo</label>
+						<label for="photo" id="label">Renter Photo</label>
 						<input type="file" class="form-control-file" id="photo" name="photo">
 						<span class="help-block"></span>
 					</div>
@@ -161,8 +162,8 @@
 						<option value="" disabled selected>Select</option>
 						<option value="1">Active</option>
 						<option value="2">Inactive</option>
-						<span class="help-block"></span>
 					</select>
+						<span class="help-block"></span>
 				</div>
 			</div>
 			</div>

@@ -31,8 +31,16 @@ class RenterRequest extends FormRequest
             'phone'           => 'required',    
             'mobile'          => 'required',    
             'gender'          => 'required',    
+            'nid_no'          => 'required',    
+            'nid_photo'       => 'required',    
+            'photo'           => 'required',    
             'date_of_birth'   => 'required',    
             'renter_type_id'  => 'required',    
+            'address_line1'   => 'required',    
+            'thana_id'        => 'required',    
+            'postal_code'     => 'required',    
+            'city_id'         => 'required',    
+            'country_id'      => 'required',    
             'status'          => 'required'   
         ];
     }

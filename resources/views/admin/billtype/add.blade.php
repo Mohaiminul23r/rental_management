@@ -12,7 +12,7 @@
 			</button>
 		</div>
 		<div class="modal-body">
-		<form id="addForm" class="form-horizontal" role="form">
+		<form id="add_billtype_form" class="form-horizontal" role="form">
 			@csrf
 			<div class="row">
 				<div class="col-sm-12">

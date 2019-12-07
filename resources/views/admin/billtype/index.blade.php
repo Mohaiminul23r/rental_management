@@ -31,10 +31,21 @@
 </div>
 </div>
 <script type="text/javascript">
-
 window.addEventListener("load", function(){
-	var billtypeDatatable = $('#billtypeDataTable').DataTable({
 
+	$(document).on('click', '#addBtn', function(){
+		var billtypeForm = document.getElementById('add_billtype_form');
+		var formData = new FormData(billtypeForm);
+		axios
+		.then(function(resData){
+			alert("Ok");
+			$('#billtypeDataTable').DataTable().ajax.reload();
+		}).catch(function(failData){
+			alert("something wrong");
+		});
+	});
+
+	var billtypeDatatable = $('#billtypeDataTable').DataTable({
 		dom : '<"row"<"col-md-3"B><"col-md-3"l><"col-md-6"f>>rtip',
 		initComplete : function(){
 

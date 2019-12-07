@@ -17,7 +17,7 @@
 				<div class="col-sm-12">
 					<div class="form-group">
 						<label for="name">Country Name</label>
-						<input type="hidden" class="form-control" id="id" name="id">
+						<input type="hidden" class="form-control" name="id"  id="id">
 						<input type="name" name="name" class="form-control" id="name">
 						<span class="help-block"></span>
 					</div>

@@ -105,6 +105,7 @@ window.addEventListener("load",function(){
             url : utlt.siteUrl('api/countries/'+id+'/edit'),
             type : "GET"
         }).done(function(resData){
+            console.log(resData);
               $('#id').val(resData.id);
               $('#name').val(resData.name);
         }).fail(function(failData){
@@ -124,6 +125,7 @@ window.addEventListener("load",function(){
         }).done(function(resData){
             $(dataTable).DataTable().ajax.reload();
             $('#editCountryModal').modal('hide');
+            toastr.success('Edited Successfully.'); 
         }).fail(function(failData){
             $.each(failData.responseJSON.errors, function(inputName, errors){
                 $("#edit_form [name="+inputName+"]").parent().removeClass('has-error').addClass('has-error');
