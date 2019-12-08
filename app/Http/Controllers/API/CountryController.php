@@ -95,13 +95,10 @@ class CountryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CountryRequest $request, $id)
+    public function update(CountryRequest $request, Country $country)
     {
-
-        $country = Country::findOrFail($id);
         $country->name = ucwords($request->name);
         $country->update();
-        return "Updated successfully.";
     }
 
     /**

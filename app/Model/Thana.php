@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Thana extends Model
 {
+    use CommonTrait;
     protected $fillable = [
   		'city_id',
   		'name',

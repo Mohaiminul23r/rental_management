@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Model\Thana;
 use Illuminate\Http\Request;
 
 class ThanaController extends Controller
@@ -12,9 +13,33 @@ class ThanaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $thana = new Thana;
+
+        $limit = 20;
+        $offset = 0;
+        $search = [];
+        $where = [];
+
+        if($request->input('length')){
+            $limit = $request->input('length');
+        }
+
+        if($request->input('start')){
+            $offset = $request->input('start');
+        }
+
+        if($request->input('search') && $request->input('search')['value'] != ""){
+
+            $search['countries.name'] = $request->input('search')['value'];
+        }
+
+        if($request->input('where')){
+            $where = $request->input('where');
+        }
+
+       return $thana->getDataForDataTable($limit, $offset, $search, $where);
     }
 
     /**

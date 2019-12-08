@@ -28,3 +28,4 @@ Route::resource('billtypes', 'API\BillTypeController');
 Route::resource('rentertypes', 'API\RenterTypeController');
 Route::get('get-rentertype', 'API\RenterTypeController@getAll');
 Route::resource('renters', 'API\RenterController');
+Route::resource('thanas', 'API\ThanaController');
