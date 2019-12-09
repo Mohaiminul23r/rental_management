@@ -40,5 +40,7 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
      Route::get('renters', "CommonController@renterIndex");
+
+     Route::get('thanas', "CommonController@thanaIndex");
 });
 //resource routes

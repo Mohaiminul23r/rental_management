@@ -21,6 +21,8 @@
 		</div>
 	</div>
 	@include('admin.billtype.add')
+	@include('admin.billtype.edit')
+	@include('admin.billtype.delete')
 	<div class="card-body">
 		<div class="table-responsive">
 			<table id="billtypeDataTable" class="display table table-striped table-hover">
@@ -33,18 +35,106 @@
 <script type="text/javascript">
 window.addEventListener("load", function(){
 
-	$(document).on('click', '#addBtn', function(){
-		var billtypeForm = document.getElementById('add_billtype_form');
-		var formData = new FormData(billtypeForm);
-		axios
-		.then(function(resData){
-			alert("Ok");
-			$('#billtypeDataTable').DataTable().ajax.reload();
-		}).catch(function(failData){
-			alert("something wrong");
-		});
-	});
+	    $.fn.dataTable.ext.errMode = 'none';
 
+	$("#addBilltypeModal").on("hidden.bs.modal", function() {
+        document.getElementById("add_billtype_form").reset();
+        $('#add_billtype_form .has-error').removeClass('has-error');
+        $('#add_billtype_form').find('.help-block').empty();
+    });
+
+     $("#editBillTypeModal").on("hidden.bs.modal", function() {
+        document.getElementById("edit_billtype_form").reset();
+        $('#editBillTypeModal .has-error').removeClass('has-error');
+        $('#editBillTypeModal').find('.help-block').empty();
+    });
+
+    $("#modalDelete").on("hidden.bs.modal", function() {
+        document.getElementById("delete_form").reset();
+        $('#delete_form .has-error').removeClass('has-error');
+        $('#delete_form').find('.help-block').empty();
+    });
+
+    $('#addBtn').click(function(){
+    	$('#add_billtype_form .has-error').removeClass('has-error');
+        $('#add_billtype_form').find('.help-block').empty();
+        axios.post('api/billtypes',$('#add_billtype_form').serialize())
+        .then(function(response){
+            $('#billtypeDataTable').DataTable().ajax.reload();
+            $('#addBilltypeModal').modal('hide');
+            toastr.success('Bill type added successfully.');
+        }).catch(function(failData){
+            $.each(failData.response.data.errors, function(inputName, errors){
+                  $.each(failData.response.data.errors, function(inputName, errors){
+                    $("#add_billtype_form [name="+inputName+"]").parent().removeClass('has-error').addClass('has-error');
+                    if(typeof errors == "object"){
+                        $("#add_billtype_form [name="+inputName+"]").parent().find('.help-block').empty();
+                        $.each(errors, function(indE, valE){
+                            $("#add_billtype_form [name="+inputName+"]").parent().find('.help-block').append(valE+"<br>");
+                        });
+                    }else{
+                        $("#add_billtype_form [name="+inputName+"]").parent().find('.help-block').html(valE);
+                    }
+                });
+            });
+        });
+    });
+    //end of add modal
+
+    //edit country
+    $(document).on('click', '.edit-modal', function() {
+         var id = $(this).data('id');
+        $("#editBillTypeModal").modal();
+        axios.get('api/billtypes/'+id+'/edit').then(function(response){
+            $('#id').val(response.data.id);
+            $('#billtype_name').val(response.data.name);
+        }).catch(function(failData){
+            alert("Can not edit bill type.");
+        });
+
+        $('#editBtn').click(function(){
+           // var id = $('#id').val();
+            axios.put('api/billtypes/'+id, $('#edit_billtype_form').serialize())
+            .then(function(response){
+                $('#billtypeDataTable').DataTable().ajax.reload();
+                $('#editBillTypeModal').modal('hide');
+                toastr.success('Edited Successfully.'); 
+            }).catch(function(failData){
+                 $.each(failData.response.data.errors, function(inputName, errors){
+                $("#edit_billtype_form [name="+inputName+"]").parent().removeClass('has-error').addClass('has-error');
+                if(typeof errors == "object"){
+                    $("#edit_billtype_form [name="+inputName+"]").parent().find('.help-block').empty();
+                    $.each(errors, function(indE, valE){
+                        $("#edit_billtype_form [name="+inputName+"]").parent().find('.help-block').append(valE+"<br>");
+                    });
+                }else{
+                    $("#edit_billtype_form [name="+inputName+"]").parent().find('.help-block').html(valE);
+                }
+            });
+           });
+        }); 
+    });
+        /*end Edit method*/
+
+  //delete country 
+    $(document).on('click', '.delete-modal', function() {
+        $('#id').val($(this).data('id'));
+        $("#modalDelete").modal();
+    });
+
+    $('#deleteBtn').click(function(){
+        var id = $("#id").val();
+        axios.delete('api/billtypes/'+id, $('#delete_form').serialize()).then(function(response){
+            $('#billtypeDataTable').DataTable().ajax.reload();
+            $('#modalDelete').modal('hide');
+            toastr.warning('Successfully Deleted.');
+        }).catch(function(failData){
+            alert("Can not delete bill type.");
+        });
+    });  
+    //end of delete
+
+    //start datatable
 	var billtypeDatatable = $('#billtypeDataTable').DataTable({
 		dom : '<"row"<"col-md-3"B><"col-md-3"l><"col-md-6"f>>rtip',
 		initComplete : function(){

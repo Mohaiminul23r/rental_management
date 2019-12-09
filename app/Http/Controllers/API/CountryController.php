@@ -109,12 +109,11 @@ class CountryController extends Controller
      */
     public function destroy($id)
     {
-        $country = Country::whereId($id)->delete();
-        return "Deleted Successfully.";
+        $country = Country::findOrFail($id);
+        $country->delete();
     }
 
     public function GetAll(){
         return Country::orderBy('name')->get(); 
     }
-
 }

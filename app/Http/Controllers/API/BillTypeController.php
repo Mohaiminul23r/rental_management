@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\BillType;
+use App\Http\Requests\BillTypeRequest;
 
 class BillTypeController extends Controller
 {
@@ -32,7 +33,7 @@ class BillTypeController extends Controller
 
         if($request->input('search') && $request->input('search')['value'] != ""){
 
-            $search['countries.name'] = $request->input('search')['value'];
+            $search['bill_types.name'] = $request->input('search')['value'];
         }
 
         if($request->input('where')){
@@ -58,9 +59,13 @@ class BillTypeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BillTypeRequest $request)
     {
-        //
+        $billtype = new BillType();
+        $billtype->name = ucwords($request->input('name'));
+        $billtype->save();
+        //BillType::create($request->all());
+        return "Bill type added successfully.";   
     }
 
     /**
@@ -82,7 +87,7 @@ class BillTypeController extends Controller
      */
     public function edit($id)
     {
-        //
+        return BillType::findOrFail($id);
     }
 
     /**
@@ -92,9 +97,10 @@ class BillTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(BillTypeRequest $request, BillType $billtype)
     {
-        //
+        $billtype->name = ucwords($request->name);
+        $billtype->update();
     }
 
     /**
@@ -105,6 +111,7 @@ class BillTypeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $billtype = BillType::findOrFail($id);
+        $billtype->delete();
     }
 }

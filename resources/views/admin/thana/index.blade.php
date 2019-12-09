@@ -20,6 +20,8 @@
 		</div>
 	</div>
 	@include('admin.thana.add')
+	@include('admin.thana.edit')
+	@include('admin.thana.delete')
 	<div class="card-body">
 		<div class="table-responsive">
 			<table id="thanaDataTable" class="display table table-striped table-hover">
@@ -30,12 +32,110 @@
 </div>
 </div>
 <script type="text/javascript">
-window.addEventListener("load",function(){
 
-$(document).on('click', '#addThanaModal', function(){
+var city = <?php echo json_encode($city)?>;
+
+
+window.addEventListener("load",function(){
 	
-});
-	//datatable value
+	//adding thana
+	$(document).on('click', '#addBtn', function(){
+		document.getElementById("addThanaForm").reset();
+		$('#addThanaForm .has-error').removeClass('has-error');
+      	$('#addThanaForm').find('.help-block').empty();
+		html_city = '<option value="" disabled selected>Select City</option>';
+		$.each(city, function(ind, val){
+			html_city += '<option value="'+val.id+'">'+val.name+'</option>';
+		});
+		$('#city_name').html(html_city);	
+	});
+
+	$('#addThanaBtn').click(function(){	
+		axios.post('api/thanas', $('#addThanaForm').serialize()).then(function(response){
+			$('#thanaDataTable').DataTable().ajax.reload();
+	        $('#addThanaModal').modal('hide');
+	        toastr.success('Thana added successfully.');
+		}).catch(function(failData){
+			 $.each(failData.response.data.errors, function(inputName, errors){
+                  $.each(failData.response.data.errors, function(inputName, errors){
+                    $("#addThanaForm [name="+inputName+"]").parent().removeClass('has-error').addClass('has-error');
+                    if(typeof errors == "object"){
+                        $("#addThanaForm [name="+inputName+"]").parent().find('.help-block').empty();
+                        $.each(errors, function(indE, valE){
+                            $("#addThanaForm [name="+inputName+"]").parent().find('.help-block').append(valE+"<br>");
+                            $('.help-block').css("color", "red");
+                        });
+                    }else{
+                        $("#addThanaForm [name="+inputName+"]").parent().find('.help-block').html(valE);
+                    }
+                });
+            });
+		});
+	});
+	//end of adding thana
+
+	//edit thana details
+	$(document).on('click', '.edit-modal', function(){
+		var id = $(this).data('id');
+		$("#editThanaModal").modal();
+		html_city = '<option value="" disabled selected>Select City</option>';
+		$.each(city, function(ind, val){
+			if(val.id){
+				html_city += '<option value="'+val.id+'" selected>'+val.name+'</option>';
+			}else{
+				html_city += '<option value="'+val.id+'">'+val.name+'</option>';
+			}
+		});
+		$('#add_city_name').html(html_city);	
+		 axios.get('api/thanas/'+id+'/edit').then(function(response){
+            $('#add_thana_name').val(response.data.name);
+        }).catch(function(failData){
+            alert("Something wrong..");
+        });
+
+         $('#editThanaBtn').click(function(){
+         	$('#edit_thana_form .has-error').removeClass('has-error');
+      		$('#edit_thana_form').find('.help-block').empty();
+            axios.put('api/thanas/'+id, $('#edit_thana_form').serialize())
+            .then(function(response){
+                $('#thanaDataTable').DataTable().ajax.reload();
+                $('#editThanaModal').modal('hide');
+                toastr.success('Edited Successfully.'); 
+            }).catch(function(failData){
+                 $.each(failData.response.data.errors, function(inputName, errors){
+                $("#edit_thana_form [name="+inputName+"]").parent().removeClass('has-error').addClass('has-error');
+                if(typeof errors == "object"){
+                    $("#edit_thana_form [name="+inputName+"]").parent().find('.help-block').empty();
+                    $.each(errors, function(indE, valE){
+                        $("#edit_thana_form [name="+inputName+"]").parent().find('.help-block').append(valE+"<br>");
+                    });
+                }else{
+                    $("#edit_thana_form [name="+inputName+"]").parent().find('.help-block').html(valE);
+                }
+            });
+           });
+        }); 
+	});
+	//end of editing thana details
+
+	//start of deleteing thana
+	  $(document).on('click', '.delete-modal', function() {
+        $('#id').val($(this).data('id'));
+        $("#modalDelete").modal();
+    });
+
+	 $('#deleteBtn').click(function(){
+        var id = $("#id").val();
+        axios.delete('api/thanas/'+id, $('#delete_form').serialize()).then(function(response){
+            $('#thanaDataTable').DataTable().ajax.reload();
+            $('#modalDelete').modal('hide');
+            toastr.warning('Successfully Deleted.');
+        }).catch(function(failData){
+            alert("Can not delete thana.");
+        });
+  	 });  
+
+//saarting datatable 
 var thanaDataTable = $('#thanaDataTable').DataTable({
 
 		dom : '<"row"<"col-md-3"B><"col-md-3"l><"col-md-6"f>>rtip',
@@ -47,7 +147,7 @@ var thanaDataTable = $('#thanaDataTable').DataTable({
 		{
 			text : 'Add+',
 			attr : {
-				'id' : "addThanaModal",
+				'id' : "addBtn",
 				'class' : "btn btn-info btn-sm",
 				'data-toggle' : "modal",
 				'data-target' : "#addThanaModal"
@@ -69,7 +169,7 @@ var thanaDataTable = $('#thanaDataTable').DataTable({
 		{
 			'title' : 'City',
 			'name' : 'name',
-			'data' : 'name'
+			'data' : 'cityName'
 		},
 		{
 			'title' : 'Thana',

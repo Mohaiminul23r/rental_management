@@ -96,7 +96,7 @@ window.addEventListener("load",function(){
         });
 
         $('#editBtn').click(function(){
-            var id = $('#id').val();
+           // var id = $('#id').val();
             axios.put('api/countries/'+id, $('#edit_form').serialize())
             .then(function(response){
                 $('#countryDataTable').DataTable().ajax.reload();

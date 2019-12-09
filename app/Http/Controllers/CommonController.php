@@ -17,4 +17,9 @@ class CommonController extends Controller
         $country = Country::orderBy('name')->get();
         return view('renter.index',['renterType' => $renterType, 'city' => $city, 'thana' => $thana, 'country' => $country]);
     }
+
+    public function thanaIndex(){
+    	$city = City::orderBy('name')->get();
+    	return view('admin.thana.index', ['city' => $city]);
+    }
 }
