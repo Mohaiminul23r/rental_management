@@ -30,7 +30,7 @@ class RenterRequest extends FormRequest
             'mother_name'     => 'required',    
             'phone'           => 'required',    
             'mobile'          => 'required',    
-            'gender'          => 'required',    
+            // 'gender'          => 'required',    
             'nid_no'          => 'required',    
             'nid_photo'       => 'required',    
             'photo'           => 'required',    

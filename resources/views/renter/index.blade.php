@@ -44,8 +44,8 @@ window.addEventListener("load", function(){
 	//removing form data
 	$('#addRentalModal').on('hidden.bs.modal', function(){
 	    $(this).find('form').trigger('reset');
-	    // $('#renter_add_form .has-error').removeClass('has-error');
-     //    $('#renter_add_form').find('.help-block').empty();
+	    $('#renter_add_form .has-error').removeClass('has-error');
+        $('#renter_add_form').find('.help-block').empty();
 	});
 
 	//adding renter details
@@ -102,6 +102,28 @@ window.addEventListener("load", function(){
 		$('#city_name').html(html_city);
 	});
 
+	//edit renter details
+	$(document).on('click', '.edit-modal', function(){
+		var id = $(this).data('id');
+		$('#editRentalModal').modal();
+		axios.get('api/renters/'+id+'/edit').then(function(response){
+			console.log(response);
+			$('#add_first_name').val(response.data.first_name);
+			$('#add_last_name').val(response.data.last_name);
+			$('#add_father_name').val(response.data.father_name);
+			$('#add_mother_name').val(response.data.mother_name);
+			$('#add_phone').val(response.data.phone);
+			$('#add_mobile').val(response.data.mobile);
+			$('#add_nid_no').val(response.data.nid_no);
+			$('#add_nid_photo').val(response.data.nid_photo);
+			$('#add_photo').val(response.data.photo);
+			$('#add_date_of_birth').val(response.data.date_of_birth);
+			$('#add_address_line1').val(response.data.address.address_line1);
+			$('#add_postal_code').val(response.data.address.postal_code);
+		}).catch(function(failData){
+
+		});
+	});
 	//delete renter details
 	$(document).on('click', '.delete-modal', function(){
 		$('#id').val($(this).data('id'));
@@ -210,12 +232,19 @@ window.addEventListener("load", function(){
 	{
 		'title' : 'NID Photo',
 		'name' : 'nid_photo',
-		'data' : 'nidPhoto'
+		'data' : 'nidPhoto',
+		'render': function (data, type, row, ind) {
+            return '<img height="50" width="45" src="'+data+'" alt="something">';
+        }
 	},
 	{
 		'title' : 'Renter Photo',
 		'name' : 'photo',
-		'data' : 'photo'
+		'data' : 'photo',
+		'width': '30px',
+        'render': function (data, type, row, ind) {
+            return '<img height="50" width="45" src="'+data+'" alt="something">';
+        }
 	},
 	{
 		'title' : 'Date of Birth',
@@ -255,7 +284,10 @@ window.addEventListener("load", function(){
 	{
 		'title' : 'Active Status',
 		'name' : 'status',
-		'data' : 'status'
+		'data' : 'status',
+		// 'render': function (data, type, row, ind) {
+  //           return (data) ? 'Active' : '<span class="text-danger">Inactive</span>';
+  //       }
 	}
 	],
 	serverSide : true,

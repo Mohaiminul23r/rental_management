@@ -24,7 +24,7 @@ class RenterTypeRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required | unique:rentertypes'
+            'name' => 'required | unique:renter_types'
         ];
     }
 

@@ -1,9 +1,8 @@
 <!-- Logo Header -->
 <div class="logo-header" data-background-color="blue">
-	{{-- <a href="index.html" class="logo">
-		<img src="/img/logo.svg" alt="navbar brand" class="navbar-brand">
-	</a> --}}
-	<h1 class="logo" class="navbar-brand" style="padding-top: 9px; text-align:center; color: white; margin: auto;">RMS</h1>
+	<a href="index.html" class="logo">
+		<img style="height: 55px; width: 65px; margin-left: 0px;" src="{{asset('images/New-GRASP-Logo.png')}}" alt="GRASP" class="navbar-brand">
+	</a>
 	<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon">
 			<i class="icon-menu"></i>

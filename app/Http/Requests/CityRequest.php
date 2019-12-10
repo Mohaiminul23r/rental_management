@@ -13,7 +13,7 @@ class CityRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,15 +24,17 @@ class CityRequest extends FormRequest
      public function rules()
     {
         return [
-            'name' => 'required | unique:countries'
+            'country_id' => 'required',
+            'name'       => 'required | unique:cities'
         ];
     }
 
     public function messages(){
 
          return [
-            'name.required' => 'City name is required',
-            'name.unique' => 'This city is already exist',
+            'country_id.required' => 'Select country name',
+            'name.required'       => 'City name is required',
+            'name.unique'         => 'This city is already exist',
         ];
     }
 }

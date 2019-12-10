@@ -23,10 +23,6 @@ Route::group(['middleware' => 'auth'], function () {
         return view('admin.country.index');
     });
 
-     Route::get('cities', function(){
-        return view('admin.city.index');
-    });
-
     Route::get('thanas', function(){
     	return view('admin.thana.index');
     });
@@ -42,5 +38,7 @@ Route::group(['middleware' => 'auth'], function () {
      Route::get('renters', "CommonController@renterIndex");
 
      Route::get('thanas', "CommonController@thanaIndex");
+
+     Route::get('cities', "CommonController@cityIndex");
 });
 //resource routes

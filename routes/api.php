@@ -21,11 +21,8 @@ Route::post('login', 'API\ApiAuthController@login');
 Route::group(['middleware' => 'auth'], function () {
 });
 Route::resource('countries', 'API\CountryController');
-Route::get('country/get-country', 'API\CountryController@GetAll');
-Route::get('/city/{id}/get-by-country',"API\CityController@GetAllByCountry");
 Route::resource('cities', 'API\CityController');
 Route::resource('billtypes', 'API\BillTypeController');
 Route::resource('rentertypes', 'API\RenterTypeController');
-Route::get('get-rentertype', 'API\RenterTypeController@getAll');
 Route::resource('renters', 'API\RenterController');
 Route::resource('thanas', 'API\ThanaController');

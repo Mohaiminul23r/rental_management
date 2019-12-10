@@ -90,7 +90,7 @@ class RenterController extends Controller
         $mother_name    = $request->input('mother_name');
         $phone          = $request->input('phone');
         $mobile         = $request->input('mobile');
-        $gender         = $request->input('gender');
+        $gender_name    = $request->input('gender');
         $nid_no         = $request->input('nid_no');
         $date_of_birth  = $request->input('date_of_birth');
         $renter_type_id = $request->input('renter_type_id');
@@ -124,8 +124,8 @@ class RenterController extends Controller
             'nid_photo'       => $nid_photo_path,
             'phone'           => $phone,
             'mobile'          => $mobile,
-            'gender'          => $gender,
             'nid_no'          => $nid_no,
+            'gender'          => $gender_name,
             'renter_type_id'  => $renter_type_id,
             'status'          => $status
         ];
@@ -151,7 +151,7 @@ class RenterController extends Controller
      */
     public function edit($id)
     {
-        //
+        return Renter::with('address')->find($id);
     }
 
     /**
@@ -172,8 +172,9 @@ class RenterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(RenterRequest $request, $id)
     {
+        //dd($request->all());
         $renter = Renter::findOrFail($id);
         $renter->delete();
     }

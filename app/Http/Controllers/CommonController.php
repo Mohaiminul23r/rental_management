@@ -22,4 +22,9 @@ class CommonController extends Controller
     	$city = City::orderBy('name')->get();
     	return view('admin.thana.index', ['city' => $city]);
     }
+
+    public function cityIndex(){
+        $country = Country::orderBy('name')->get();
+        return view('admin.city.index', ['country' => $country]);
+    }
 }

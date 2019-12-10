@@ -61,8 +61,10 @@ class RenterTypeController extends Controller
      */
     public function store(RenterTypeRequest $request)
     {
-        RenterType::create($request->all());
-        return "Renter type added successfully";
+        $rentertype = new RenterType();
+        $rentertype->name = ucwords($request->input('name'));
+        $rentertype->save();
+        return "Renter type added successfully.";   
     }
 
     /**
@@ -84,7 +86,7 @@ class RenterTypeController extends Controller
      */
     public function edit($id)
     {
-        //
+        return RenterType::findOrFail($id);
     }
 
     /**
@@ -94,9 +96,10 @@ class RenterTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(RenterTypeRequest $request, $id)
+    public function update(RenterTypeRequest $request, RenterType $rentertype)
     {
-        //
+        $rentertype->name = ucwords($request->name);
+        $rentertype->update();
     }
 
     /**

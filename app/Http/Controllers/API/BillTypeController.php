@@ -64,7 +64,6 @@ class BillTypeController extends Controller
         $billtype = new BillType();
         $billtype->name = ucwords($request->input('name'));
         $billtype->save();
-        //BillType::create($request->all());
         return "Bill type added successfully.";   
     }
 

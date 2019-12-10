@@ -75,8 +75,8 @@ class CityController extends Controller
     public function store(CityRequest $request)
     {
         $city = new City;
-        $city->country_id = $request->country_id;
-        $city->name = ucwords($request->name);
+        $city->country_id = $request->input('country_id');
+        $city->name = ucwords($request->input('name'));
         $city->save();
     }
 
@@ -99,7 +99,7 @@ class CityController extends Controller
      */
     public function edit($id)
     {
-        //
+        return City::findOrFail($id);
     }
 
     /**
@@ -109,10 +109,9 @@ class CityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CityRequest $request, $id)
+    public function update(CityRequest $request, City $city)
     {
-        $city = City::findOrFail($id);
-        // $city -> update($request->all());
+        $city->country_id = $request->country_id;
         $city->name = ucwords($request->name);
         $city->update();
     }

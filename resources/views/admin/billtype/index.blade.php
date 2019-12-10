@@ -35,7 +35,7 @@
 <script type="text/javascript">
 window.addEventListener("load", function(){
 
-	    $.fn.dataTable.ext.errMode = 'none';
+	$.fn.dataTable.ext.errMode = 'none';
 
 	$("#addBilltypeModal").on("hidden.bs.modal", function() {
         document.getElementById("add_billtype_form").reset();
@@ -81,7 +81,7 @@ window.addEventListener("load", function(){
     });
     //end of add modal
 
-    //edit country
+    //edit bill type
     $(document).on('click', '.edit-modal', function() {
          var id = $(this).data('id');
         $("#editBillTypeModal").modal();
@@ -93,7 +93,6 @@ window.addEventListener("load", function(){
         });
 
         $('#editBtn').click(function(){
-           // var id = $('#id').val();
             axios.put('api/billtypes/'+id, $('#edit_billtype_form').serialize())
             .then(function(response){
                 $('#billtypeDataTable').DataTable().ajax.reload();
@@ -114,9 +113,9 @@ window.addEventListener("load", function(){
            });
         }); 
     });
-        /*end Edit method*/
+    /*end Edit method*/
 
-  //delete country 
+  //delete bill type 
     $(document).on('click', '.delete-modal', function() {
         $('#id').val($(this).data('id'));
         $("#modalDelete").modal();
@@ -132,7 +131,7 @@ window.addEventListener("load", function(){
             alert("Can not delete bill type.");
         });
     });  
-    //end of delete
+    //end of delete bill type
 
     //start datatable
 	var billtypeDatatable = $('#billtypeDataTable').DataTable({

@@ -12,7 +12,6 @@
 			</button>
 		</div>
 		<div class="modal-body">
-		<p id="addUrl" hidden>Renters</p>
 		<form id="renter_add_form" class="form-horizontal" role="form" enctype="multipart/form-data">
 			<div class="row">
 				<div class="col-md-4">
@@ -65,7 +64,7 @@
 					<div class="form-group">
 						<label>Gender</label><br/>
 						<label class="form-radio-label">
-							<input class="form-radio-input" type="radio" name="gender" value="Male"  checked="">
+							<input class="form-radio-input" type="radio" name="gender" value="Male">
 							<span class="form-radio-sign">Male</span>
 						</label>
 						<label class="form-radio-label ml-3">

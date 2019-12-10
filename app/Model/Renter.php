@@ -24,7 +24,11 @@ class Renter extends Model
     	'status'
     ];
 
-   public function rentertype(){
-   	return $this->hasMany('App\Model\RenterType');
+public function rentertype(){
+   	return $this->belongsTo('App\Model\RenterType');
+   }
+
+public function address(){
+    return $this->belongsTo('App\Model\Address');
    }
 }

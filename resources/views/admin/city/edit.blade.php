@@ -12,9 +12,7 @@
 			</button>
 		</div>
 		<div class="modal-body">
-			<p id="editUrl" hidden>Cities</p>
-			<form id="editCityForm" class="form-horizontal" role="form">
-				<input type="hidden" class="form-control" id="id" name="id">
+			<form id="edit_city_form" class="form-horizontal" role="form">
 				<div class="row">
 					<div class="col-sm-12">
 						<div class="form-group">
@@ -22,16 +20,18 @@
 						<select class="form-control"  name = "country_id" id = "country_name">
 
 						</select>
+						<span class="help-block"></span>
 						</div>
 						<div class="form-group">
 							<label for="name">City Name</label>
-							<input type="name" name="name" class="form-control" id="name" placeholder="Enter City Name">
+							<input type="name" name="name" class="form-control" id="city_name" placeholder="Enter City Name">
+							<span class="help-block"></span>
 						</div>
 					</div>
 				</div>
 			</div>
 		<div class="modal-footer no-bd">
-			<button type="submit" id="editCityBtn" class="btn btn-primary">Edit</button>
+			<button type="button" id="editCityBtn" class="btn btn-primary">Edit</button>
 			<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 		</div>
 		</form>

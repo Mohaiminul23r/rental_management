@@ -79,21 +79,21 @@ window.addEventListener("load",function(){
 		var id = $(this).data('id');
 		$("#editThanaModal").modal();
 		html_city = '<option value="" disabled selected>Select City</option>';
-		$.each(city, function(ind, val){
-			if(val.id){
-				html_city += '<option value="'+val.id+'" selected>'+val.name+'</option>';
-			}else{
-				html_city += '<option value="'+val.id+'">'+val.name+'</option>';
-			}
-		});
-		$('#add_city_name').html(html_city);	
 		 axios.get('api/thanas/'+id+'/edit').then(function(response){
+			$.each(city, function(ind, val){
+				if((val.id) == (response.data.city_id)){
+					html_city += '<option value="'+val.id+'" selected>'+val.name+'</option>';
+				}else{
+					html_city += '<option value="'+val.id+'">'+val.name+'</option>';
+				}
+			});
+			$('#add_city_name').html(html_city);	
             $('#add_thana_name').val(response.data.name);
         }).catch(function(failData){
             alert("Something wrong..");
         });
 
-         $('#editThanaBtn').click(function(){
+        $('#editThanaBtn').click(function(){
          	$('#edit_thana_form .has-error').removeClass('has-error');
       		$('#edit_thana_form').find('.help-block').empty();
             axios.put('api/thanas/'+id, $('#edit_thana_form').serialize())
@@ -119,11 +119,10 @@ window.addEventListener("load",function(){
 	//end of editing thana details
 
 	//start of deleteing thana
-	  $(document).on('click', '.delete-modal', function() {
+	$(document).on('click', '.delete-modal', function() {
         $('#id').val($(this).data('id'));
         $("#modalDelete").modal();
     });
-
 	 $('#deleteBtn').click(function(){
         var id = $("#id").val();
         axios.delete('api/thanas/'+id, $('#delete_form').serialize()).then(function(response){
@@ -134,8 +133,9 @@ window.addEventListener("load",function(){
             alert("Can not delete thana.");
         });
   	 });  
+  	 //end of deleting thana
 
-//saarting datatable 
+//starting datatable 
 var thanaDataTable = $('#thanaDataTable').DataTable({
 
 		dom : '<"row"<"col-md-3"B><"col-md-3"l><"col-md-6"f>>rtip',

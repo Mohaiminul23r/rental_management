@@ -22,6 +22,7 @@
 		</div>
 	{{-- start of modals --}}
 	@include('admin.rentertype.add')
+	@include('admin.rentertype.edit')
 	@include('admin.rentertype.delete')
 	{{-- end of modals --}}
 	<div class="card-body">
@@ -42,63 +43,83 @@ window.addEventListener("load", function(){
         $('#addRenterTypeForm').find('.help-block').empty();
 	});
 
-  //add country modal
-    $('#addRenterTypeBtn').click(function(){
-        utlt.Add('api/rentertypes', '#rentertypeDatatable');
-    });
-
-    utlt['Add'] = function(url, dataTable){
-    	$('#addRenterTypeForm .has-error').removeClass('has-error');
-        $('#addRenterTypeForm').find('.help-block').empty();
-        $.ajax({
-            url : utlt.siteUrl(url),
-            type : "POST",
-            data : $('#addRenterTypeForm').serialize()
-        }).done(function(resData){
-            $(dataTable).DataTable().ajax.reload();
+  //start of adding renter type
+     $('#addRenterTypeBtn').click(function(){
+        axios.post('api/rentertypes',$('#addRenterTypeForm').serialize())
+        .then(function(response){
+            $('#rentertypeDatatable').DataTable().ajax.reload();
             $('#addRenterTypeModal').modal('hide');
-        }).fail(function(failData){
-            $.each(failData.responseJSON.errors, function(inputName, errors){
-                  $.each(failData.responseJSON.errors, function(inputName, errors){
+            toastr.success('Renter type added successfully.');
+        }).catch(function(failData){
+            $.each(failData.response.data.errors, function(inputName, errors){
+                  $.each(failData.response.data.errors, function(inputName, errors){
                     $("#addRenterTypeForm [name="+inputName+"]").parent().removeClass('has-error').addClass('has-error');
                     if(typeof errors == "object"){
                         $("#addRenterTypeForm [name="+inputName+"]").parent().find('.help-block').empty();
                         $.each(errors, function(indE, valE){
                             $("#addRenterTypeForm [name="+inputName+"]").parent().find('.help-block').append(valE+"<br>");
+                            $('.help-block').css("color", "red");
                         });
-                    }
-                    else{
+                    }else{
                         $("#addRenterTypeForm [name="+inputName+"]").parent().find('.help-block').html(valE);
                     }
                 });
             });
         });
-    }
-
-    //delete renter type
-    $(document).on('click', '.delete-modal', function(){
-    	$('#id').val($(this).data('id'));
-    	$('#deleteRenterTypeModal').modal();
     });
+    //end of add modal
 
-    $('#deleteBtn').click(function(){
-    	var id = $("#id").val();
-    	utlt.Delete('api/rentertypes', id, '#rentertypeDatatable');
-    });
-
-    utlt['Delete'] = function(url, id, dataTable){
-        $.ajax({
-            url : utlt.siteUrl(url+'/'+id),
-            type : "DELETE",
-            data : $('#delete_form').serialize()
-        }).done(function(resData){
-            $(dataTable).DataTable().ajax.reload();
-            $('#deleteRenterTypeModal').modal('hide');
-        }).fail(function(failData){
-            utlt.cLog(arguments);
+    //edit bill type
+    $(document).on('click', '.edit-modal', function() {
+         var id = $(this).data('id');
+        $("#editRenterTypeModal").modal();
+        axios.get('api/rentertypes/'+id+'/edit').then(function(response){
+            $('#id').val(response.data.id);
+            $('#rentertype_name').val(response.data.name);
+        }).catch(function(failData){
+            alert("Can not edit renter type.");
         });
-    }
-    //end of delete
+
+        $('#editBtn').click(function(){
+            axios.put('api/rentertypes/'+id, $('#edit_rentertype_form').serialize())
+            .then(function(response){
+                $('#rentertypeDatatable').DataTable().ajax.reload();
+                $('#editRenterTypeModal').modal('hide');
+                toastr.success('Edited Successfully.'); 
+            }).catch(function(failData){
+                 $.each(failData.response.data.errors, function(inputName, errors){
+                $("#edit_rentertype_form [name="+inputName+"]").parent().removeClass('has-error').addClass('has-error');
+                if(typeof errors == "object"){
+                    $("#edit_rentertype_form [name="+inputName+"]").parent().find('.help-block').empty();
+                    $.each(errors, function(indE, valE){
+                        $("#edit_rentertype_form [name="+inputName+"]").parent().find('.help-block').append(valE+"<br>");
+                        $('.help-block').css("color", "red");
+                    });
+                }else{
+                    $("#edit_rentertype_form [name="+inputName+"]").parent().find('.help-block').html(valE);
+                }
+            });
+           });
+        }); 
+    });
+    //end of editing renter type
+
+    //delete renter type 
+    $(document).on('click', '.delete-modal', function() {
+        $('#id').val($(this).data('id'));
+        $("#deleteRenterTypeModal").modal();
+    });
+    $('#deleteBtn').click(function(){
+        var id = $("#id").val();
+        axios.delete('api/rentertypes/'+id, $('#delete_form').serialize()).then(function(response){
+            $('#rentertypeDatatable').DataTable().ajax.reload();
+            $('#deleteRenterTypeModal').modal('hide');
+            toastr.warning('Successfully Deleted.');
+        }).catch(function(failData){
+            alert("Can not delete renter type.");
+        });
+    });  
+    //end of delete renter type
 
 	var rentertypeDatatable = $('#rentertypeDatatable').DataTable({
 		dom : '<"row"<"col-md-3"B><"col-md-3"l><"col-md-6"f>>rtip',
@@ -110,7 +131,7 @@ window.addEventListener("load", function(){
 		{
 			text : 'Add+',
 			attr : {
-				'id' : "addRenterTypeModal",
+				'id' : "addButton",
 				'class' : "btn btn-info btn-sm",
 				'data-toggle' : "modal",
 				'data-target' : "#addRenterTypeModal"
