@@ -64,7 +64,7 @@
 					<div class="form-group">
 						<label>Gender</label><br/>
 						<label class="form-radio-label">
-							<input class="form-radio-input" type="radio" name="gender" value="Male">
+							<input class="form-radio-input" type="radio" name="gender" value="Male" checked>
 							<span class="form-radio-sign">Male</span>
 						</label>
 						<label class="form-radio-label ml-3">
@@ -100,7 +100,7 @@
 				<div class="col-md-4">
 					<div class="form-group">
 						<label for="date">Date of Birth</label>
-						<input type="date" class="form-control-file" id="date_of_birth" name="date_of_birth">
+						<input type="date" class="form-control-file" name="date_of_birth">
 						<span class="help-block"></span>
 					</div>	
 				</div>
@@ -117,7 +117,7 @@
 				<div class="col-md-4">
 					<div class="form-group">
 						<label for="name">Address Line 1</label>
-						<input type="name" name="address_line1" class="form-control" id="address_line1" placeholder="Enter Area">
+						<input type="name" name="address_line1" class="form-control" placeholder="Enter Area">
 						<span class="help-block"></span>
 					</div>	
 				</div>
@@ -132,7 +132,7 @@
 				<div class="col-md-4">
 					<div class="form-group">
 						<label for="name">Post Code</label>
-						<input type="name" name="postal_code" class="form-control" id="postal_code" placeholder="Enter Post Code">
+						<input type="name" name="postal_code" class="form-control" placeholder="Enter Post Code">
 						<span class="help-block"></span>
 					</div>	
 				</div>

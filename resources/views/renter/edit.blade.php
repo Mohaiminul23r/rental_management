@@ -64,11 +64,11 @@
 					<div class="form-group">
 						<label>Gender</label><br/>
 						<label class="form-radio-label">
-							<input class="form-radio-input" type="radio" name="gender" value="Male">
+							<input class="form-radio-input" id="gender_male" type="radio" name="gender" value="Male">
 							<span class="form-radio-sign">Male</span>
 						</label>
 						<label class="form-radio-label ml-3">
-							<input class="form-radio-input" type="radio" name="gender" value="Female">
+							<input class="form-radio-input" id="gender_female" type="radio" name="gender" value="Female">
 							<span class="form-radio-sign">Female</span>
 						</label>
 						<span class="help-block"></span>
@@ -83,7 +83,7 @@
 				</div>
 				<div class="col-md-4">
 					<div class="form-group">
-						<label for="image">NID Photo</label>
+						<label for="image">NID Photo<img class="img-fluid" style="width:50px;" alt="NID Photo" id="edit_nid_photo"></label>
 						<input type="file" class="form-control-file" id="add_nid_photo" name="nid_photo">
 						<span class="help-block"></span>
 					</div>
@@ -92,7 +92,7 @@
 			<div class="row">
 				<div class="col-md-4">
 					<div class="form-group">
-						<label for="photo" id="label">Renter Photo</label>
+						<label for="photo" id="label">Renter Photo<img class="img-fluid" style="width:50px;" alt="Renter Photo" id="edit_renter_photo"></label>
 						<input type="file" class="form-control-file" id="add_photo" name="photo">
 						<span class="help-block"></span>
 					</div>
@@ -107,7 +107,7 @@
 				<div class="col-md-4">
 					<div class="form-group">
 						<label for="rentertype">Renter Type</label>
-						<select class="form-control form-control" id="add_renter_type_name" name="renter_type_id">
+						<select class="form-control form-control" id="type_name" name="renter_type_id">
 						</select>
 						<span class="help-block"></span>
 					</div>	
@@ -117,7 +117,7 @@
 				<div class="col-md-4">
 					<div class="form-group">
 						<label for="name">Address Line 1</label>
-						<input type="name" name="address_line1" class="form-control" id="add_address_line1" placeholder="Enter Area">
+						<input type="name" name="address_line1" class="form-control" id="address_line" placeholder="Enter Area">
 						<span class="help-block"></span>
 					</div>	
 				</div>
@@ -132,7 +132,7 @@
 				<div class="col-md-4">
 					<div class="form-group">
 						<label for="name">Post Code</label>
-						<input type="name" name="postal_code" class="form-control" id="add_postal_code" placeholder="Enter Post Code">
+						<input type="name" name="postal_code" class="form-control" id="post_code" placeholder="Enter Post Code">
 						<span class="help-block"></span>
 					</div>	
 				</div>
@@ -159,8 +159,8 @@
 					<label for="status">Active Status</label>
 					<select class="form-control form-control" id="add_status" name="status">
 						<option value="" disabled selected>Select</option>
-						<option value="1">Active</option>
-						<option value="2">Inactive</option>
+						<option value="1" id="active">Active</option>
+						<option value="2" id="inactive">Inactive</option>
 					</select>
 						<span class="help-block"></span>
 				</div>

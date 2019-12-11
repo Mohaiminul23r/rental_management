@@ -60,20 +60,20 @@ window.addEventListener("load", function(){
 			toastr.success('Renter Added Successfully');
 		}).catch(function(failData){
 			//utlt.cLog(arguments);
-			  $.each(failData.response.data.errors, function(inputName, errors){
-                    $("#renter_add_form [name="+inputName+"]").parent().removeClass('has-error').addClass('has-error');
-                    if(typeof errors == "object"){
-                        $("#renter_add_form [name="+inputName+"]").parent().find('.help-block').empty();
+		  $.each(failData.response.data.errors, function(inputName, errors){
+                $("#renter_add_form [name="+inputName+"]").parent().removeClass('has-error').addClass('has-error');
+                if(typeof errors == "object"){
+                    $("#renter_add_form [name="+inputName+"]").parent().find('.help-block').empty();
 
-                        $.each(errors, function(indE, valE){
-                            $("#renter_add_form [name="+inputName+"]").parent().find('.help-block').append(valE+"<br>");
-                             $('.help-block').css("color", "red");
-                        });
-                    }
-                    else{
-                        $("#renter_add_form [name="+inputName+"]").parent().find('.help-block').html(valE);
-                    }
-                });
+                    $.each(errors, function(indE, valE){
+                        $("#renter_add_form [name="+inputName+"]").parent().find('.help-block').append(valE+"<br>");
+                         $('.help-block').css("color", "red");
+                    });
+                }
+                else{
+                    $("#renter_add_form [name="+inputName+"]").parent().find('.help-block').html(valE);
+                }
+            });
 		});
 	});
 	//end of adding renter details
@@ -106,8 +106,45 @@ window.addEventListener("load", function(){
 	$(document).on('click', '.edit-modal', function(){
 		var id = $(this).data('id');
 		$('#editRentalModal').modal();
+		html_countries       = '<option value="" disabled selected>Select Country</option>';
+		html_thanas          = '<option value="" disabled selected>Select Thana</option>';
+		html_cities          = '<option value="" disabled selected>Select City</option>';
+		html_renter_types    = '<option value="" disabled selected>Select Renter Type</option>';
+
 		axios.get('api/renters/'+id+'/edit').then(function(response){
 			console.log(response);
+			$.each(country, function(ind,val){
+				if(val.id == response.data.address.country_id){
+					html_countries += '<option value="'+val.id+'" selected>'+val.name+'</option>';
+				}else{
+					html_countries += '<option value="'+val.id+'">'+val.name+'</option>';
+				}	
+			});
+			$.each(thana, function(ind,val){
+				if(val.id == response.data.address.thana_id){
+					html_thanas += '<option value="'+val.id+'" selected>'+val.name+'</option>';
+				}else{
+					html_thanas += '<option value="'+val.id+'">'+val.name+'</option>';
+				}
+			});
+			$.each(city, function(ind,val){
+				if(val.id == response.data.address.city_id){
+					html_cities += '<option value="'+val.id+'" selected>'+val.name+'</option>';
+				}else{
+					html_cities += '<option value="'+val.id+'">'+val.name+'</option>';
+				}
+			});
+			$.each(renterType, function(ind,val){
+				if(val.id == response.data.renter_type_id){
+					html_renter_types += '<option value="'+val.id+'" selected>'+val.name+'</option>';
+				}else{
+					html_renter_types += '<option value="'+val.id+'">'+val.name+'</option>';
+				}
+			});
+			$('#add_country_name').html(html_countries);
+			$('#add_thana_name').html(html_thanas);
+			$('#add_city_name').html(html_cities);
+			$('#type_name').html(html_renter_types);
 			$('#add_first_name').val(response.data.first_name);
 			$('#add_last_name').val(response.data.last_name);
 			$('#add_father_name').val(response.data.father_name);
@@ -115,13 +152,46 @@ window.addEventListener("load", function(){
 			$('#add_phone').val(response.data.phone);
 			$('#add_mobile').val(response.data.mobile);
 			$('#add_nid_no').val(response.data.nid_no);
-			$('#add_nid_photo').val(response.data.nid_photo);
-			$('#add_photo').val(response.data.photo);
-			$('#add_date_of_birth').val(response.data.date_of_birth);
-			$('#add_address_line1').val(response.data.address.address_line1);
-			$('#add_postal_code').val(response.data.address.postal_code);
+			$('#address_line').val(response.data.address.address_line1);
+			$('#post_code').val(response.data.address.postal_code);
+			// $('#add_photo').val(response.data.photo);
+			 $('#add_date_of_birth').val(response.data.date_of_birth);
+			 if(response.data.status == 1){
+			 	$('#active').attr("selected","selected");
+			 }
+			 if(response.data.status == 2){
+			 	$('#inactive').attr("selected","selected");
+			 }
+			 if(response.data.gender == "Female"){
+			 	$('#gender_female').attr("checked","checked");
+			 }
+			 if(response.data.gender == "Male"){
+			 	$('#gender_male').attr("checked","checked");
+			 }
 		}).catch(function(failData){
+			alert("Something wrong.");
+		});
 
+		$('#renterEditBtn').click(function(){
+			axios.put('api/renters/'+id, $('#renter_edit_form').serialize())
+			.then(function(response){
+				$('#renterDataTable').DataTable().ajax.reload();
+                $('#editRentalModal').modal('hide');
+                toastr.success('Edited Successfully.'); 
+			}).catch(function(failData){
+				$.each(failData.response.data.errors, function(inputName, errors){
+                $("#renter_edit_form [name="+inputName+"]").parent().removeClass('has-error').addClass('has-error');
+                if(typeof errors == "object"){
+                    $("#renter_edit_form [name="+inputName+"]").parent().find('.help-block').empty();
+                    $.each(errors, function(indE, valE){
+                        $("#renter_edit_form [name="+inputName+"]").parent().find('.help-block').append(valE+"<br>");
+                        $('.help-block').css("color", "red");
+                    });
+                }else{
+                    $("#renter_edit_form [name="+inputName+"]").parent().find('.help-block').html(valE);
+                }
+            });
+			});
 		});
 	});
 	//delete renter details
@@ -135,19 +205,14 @@ window.addEventListener("load", function(){
 			}).then(function(resData){
 				$('#renterDataTable').DataTable().ajax.reload();
 				$('#modalDelete').modal('hide');
-				toastr.success('Renter Deleted Successfully.', {
-					showDuration: 300,
-					positionClass: 'toast-bottom-right'
-				});	
+				toastr.warning('Renter Deleted Successfully.');	
 			}).catch(function(failData){
 				utlt.cLog(arguments);
 			});
 		});
 	});
 	//end of delete renter details
-
 	
-
 	//start of data table
 	var renterDataTable = $('#renterDataTable').DataTable({
 

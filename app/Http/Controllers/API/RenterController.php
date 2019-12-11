@@ -82,7 +82,7 @@ class RenterController extends Controller
      */
     public function store(RenterRequest $request)
     {
-       //dd($request->all());
+      // dd($request->all());
         $renter = new Renter();
         $first_name     = $request->input('first_name');
         $last_name      = $request->input('last_name');
@@ -161,9 +161,63 @@ class RenterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(RenterRequest $request, Renter $renter)
     {
-        //
+       // dd($request->all());
+        $first_name     = $request->input('first_name');
+        $last_name      = $request->input('last_name');
+        $father_name    = $request->input('father_name');
+        $mother_name    = $request->input('mother_name');
+        $phone          = $request->input('phone');
+        $mobile         = $request->input('mobile');
+        $nid_no         = $request->input('nid_no');
+        $gender         = $request->input('gender');
+        $date_of_birth  = $request->input('date_of_birth');
+        $renter_type_id = $request->input('renter_type_id');
+        $status         = $request->input('status');
+        $photo          = $request->file('photo');
+        $nid_photo      = $request->file('nid_photo');
+
+        //updating address
+        $address = Address::findOrFail($renter->address_id);
+        $address->address_line1  = $request->input('address_line1');
+        $address->thana_id       = $request->input('thana_id');
+        $address->postal_code    = $request->input('postal_code');
+        $address->city_id        = $request->input('city_id');
+        $address->country_id     = $request->input('country_id');
+        $address->update();
+
+        if(!is_null($photo)){
+            unlink($renter->photo);
+            $imgPath              = 'public/images/';
+            $uniqueName_photo     = $photo->getClientOriginalName();
+            $renter_photo_path    = $imgPath.$uniqueName_photo;
+            $photo->move($imgPath, $uniqueName_photo);
+            $renter->photo = $renter_photo_path;
+
+        }
+
+        if(!is_null($nid_photo)){
+           unlink($renter->nid_photo);
+           $imgPath              = 'public/images/';
+           $uniqueName_nid_photo = $nid_photo->getClientOriginalName(); 
+           $nid_photo_path       = $imgPath.$uniqueName_nid_photo;
+          $nid_photo->move($imgPath, $uniqueName_nid_photo);
+          $renter->nid_photo = $nid_photo_path;
+        }
+        $renter->first_name      = $first_name;
+        $renter->last_name       = $last_name;
+        $renter->father_name     = $father_name;
+        $renter->mother_name     = $mother_name;
+        $renter->address_id      = $address->id;
+        $renter->date_of_birth   = $date_of_birth;
+        $renter->phone           = $phone;
+        $renter->mobile          = $mobile;
+        $renter->nid_no          = $nid_no;
+        $renter->gender          = $gender;
+        $renter->renter_type_id  = $renter_type_id;
+        $renter->status          = $status;
+        $renter->update();
     }
 
     /**
@@ -172,10 +226,12 @@ class RenterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(RenterRequest $request, $id)
+    public function destroy($id)
     {
         //dd($request->all());
         $renter = Renter::findOrFail($id);
         $renter->delete();
+        $address = Address::findOrFail($renter->address_id);
+        $address->delete();
     }
 }

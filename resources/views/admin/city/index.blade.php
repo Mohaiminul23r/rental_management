@@ -99,7 +99,7 @@ window.addEventListener("load", function(){
                 $('#editCityModal').modal('hide');
                 toastr.success('Edited Successfully.'); 
             }).catch(function(failData){
-                 $.each(failData.response.data.errors, function(inputName, errors){
+                $.each(failData.response.data.errors, function(inputName, errors){
                 $("#edit_city_form [name="+inputName+"]").parent().removeClass('has-error').addClass('has-error');
                 if(typeof errors == "object"){
                     $("#edit_city_form [name="+inputName+"]").parent().find('.help-block').empty();

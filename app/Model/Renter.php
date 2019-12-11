@@ -20,6 +20,7 @@ class Renter extends Model
     	'phone',
     	'mobile',
     	'nid_no',
+        'gender',
     	'renter_type_id',
     	'status'
     ];
