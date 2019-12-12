@@ -228,8 +228,15 @@ class RenterController extends Controller
      */
     public function destroy($id)
     {
-        //dd($request->all());
         $renter = Renter::findOrFail($id);
+        $renter_photo_path = app_path("public/{$renter->photo}");
+        $nid_photo_path = app_path("public/{$renter->nid_photo}");
+        if(File::exists($renter_photo_path)){
+            File::delete($renter_photo_path);
+        }
+        if(File::exists($nid_photo_path)){
+            File::delete($nid_photo_path);
+        }
         $renter->delete();
         $address = Address::findOrFail($renter->address_id);
         $address->delete();

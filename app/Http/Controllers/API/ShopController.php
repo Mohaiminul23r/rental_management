@@ -4,6 +4,8 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Model\Shop;
+use App\Http\Requests\ShopRequest;
 
 class ShopController extends Controller
 {
@@ -12,9 +14,44 @@ class ShopController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $shop = new Shop();
+        $limit = 20;
+        $offset = 0;
+        $search = [];
+        $where = [];
+        $with = [];
+        $join = [];
+
+        if($request->input('length')){
+            $limit = $request->input('length');
+        }
+
+        if($request->input('start')){
+            $offset = $request->input('start');
+        }
+
+        if($request->input('search') && $request->input('search')['value'] != ""){
+
+            // $search['cities.name'] = $request->input('search')['value'];
+            // $search['countries.name'] = $request->input('search')['value'];
+        }
+
+        if($request->input('where')){
+            $where = $request->input('where');
+        }
+
+        $with = [
+
+            ]; 
+
+        $join = [ 
+            /* "table name",  "table2 name. id" , "unique column name by as"   */
+            // ['countries', 'cities.country_id', 'countries.name as countryName']
+        ];  
+
+       return $shop->GetDataForDataTable($limit, $offset, $search, $where, $with, $join);
     }
 
     /**

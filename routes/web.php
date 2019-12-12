@@ -35,6 +35,18 @@ Route::group(['middleware' => 'auth'], function () {
     	return view('admin.rentertype.index');
     });
 
+    Route::get('houses', function(){
+        return view('settings.house.index');
+    });
+
+    Route::get('apartments', function(){
+        return view('settings.apartment.index');
+    });
+
+    Route::get('shops', function(){
+        return view('settings.shop.index');
+    });
+
      Route::get('renters', "CommonController@renterIndex");
 
      Route::get('thanas', "CommonController@thanaIndex");

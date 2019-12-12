@@ -26,3 +26,6 @@ Route::resource('billtypes', 'API\BillTypeController');
 Route::resource('rentertypes', 'API\RenterTypeController');
 Route::resource('renters', 'API\RenterController');
 Route::resource('thanas', 'API\ThanaController');
+Route::resource('houses', 'API\HouseController');
+Route::resource('apartments', 'API\ApartmentController');
+Route::resource('shops', 'API\ShopController');

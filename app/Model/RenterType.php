@@ -10,8 +10,6 @@ class RenterType extends Model
     protected $fillable = [
     	'name',
     ];
-    protected $table = 'renter_types';
-
     public function renter(){
    		return $this->belongsTo('App\Model\Renter');
    }
