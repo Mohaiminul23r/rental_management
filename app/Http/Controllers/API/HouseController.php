@@ -99,7 +99,7 @@ class HouseController extends Controller
      */
     public function edit($id)
     {
-        //
+        return House::findOrFail($id);
     }
 
     /**
@@ -109,9 +109,12 @@ class HouseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(HouseRequest $request, House $house)
     {
-        //
+       // dd($house);
+        $house->house_name   = ucwords($request->house_name);
+        $house->house_number = ucwords($request->house_no);
+        $house->update();
     }
 
     /**
@@ -122,6 +125,7 @@ class HouseController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $house = House::findOrFail($id);
+        $house->delete();
     }
 }
