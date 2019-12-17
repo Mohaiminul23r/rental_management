@@ -1,47 +1,64 @@
-@extends('layouts.master')
+@extends('layouts.master2')
 @section('pagetitle')
-	House
+	House Information
 @endsection
-@section('breadcrumbs')
-	<li class="separator">
-		<i class="flaticon-right-arrow"></i>
-	</li>
-	<li class="nav-item">
-		<a href="#">House</a>
-	</li>
+
+@section('button')
+<a class="btn btn-info btn-round" id="addBtn" data-toggle="modal" data-target="#houseAddModal">Add+</a>
+@endsection
+@section('card-title')
+<b>House List</b>
 @endsection
 @section('body')
-<div class="row">
-<div class="col-md-12">
-<div class="card">
-	<div class="card-header">
-		<div class="d-flex align-items-center">
-			<h4 class="card-title">House List</h4>
-		</div>
+	{{-- start modals --}}
+	@include('settings.house.add')
+	@include('settings.house.edit')
+    @include('settings.house.delete')
+	{{-- end modals --}}
+	<div class="table-responsive">
+		<table id="houseDataTable" class="display table table-striped table-hover">
+		</table>
 	</div>
-	<div class="card-body">
-		{{-- start modals --}}
-	{{-- 	@include('admin.country.add')
-		@include('admin.country.edit')
-        @include('admin.country.delete') --}}
-		{{-- end modals --}}
-		<div class="table-responsive">
-			<table id="houseDataTable" class="display table table-striped table-hover">
-			</table>
-		</div>
-	</div>
-</div>
-</div>
-</div>
 <script type="text/javascript">
 // datatable starts
 var houseDataTable = null;
 window.addEventListener("load",function(){
 
+	//adding house
+	$(document).on('click', '#addBtn', function(){
+		document.getElementById("add_house_form").reset();
+		$('#add_house_form .has-error').removeClass('has-error');
+      	$('#add_house_form').find('.help-block').empty();	
+	});
+
+	$('#addHouseBtn').click(function(){	
+		axios.post('api/houses', $('#add_house_form').serialize()).then(function(response){
+			$('#houseDataTable').DataTable().ajax.reload();
+	        $('#houseAddModal').modal('hide');
+	        toastr.success('House added successfully.');
+		}).catch(function(failData){
+			 $.each(failData.response.data.errors, function(inputName, errors){
+                  $.each(failData.response.data.errors, function(inputName, errors){
+                    $("#add_house_form [name="+inputName+"]").parent().removeClass('has-error').addClass('has-error');
+                    if(typeof errors == "object"){
+                        $("#add_house_form [name="+inputName+"]").parent().find('.help-block').empty();
+                        $.each(errors, function(indE, valE){
+                            $("#add_house_form [name="+inputName+"]").parent().find('.help-block').append(valE+"<br>");
+                            $('.help-block').css("color", "red");
+                        });
+                    }else{
+                        $("#add_house_form [name="+inputName+"]").parent().find('.help-block').html(valE);
+                    }
+                });
+            });
+		});
+	});
+	//end of adding thana
+
 //datatable value
 var houseDataTable = $('#houseDataTable').DataTable({
 
-		dom : '<"row"<"col-md-3"B><"col-md-3"l><"col-md-6"f>>rtip',
+		dom : '<"row"<"col-md-6"l><"col-md-6"f>>rtip',
 		initComplete : function(){
 
 		},
@@ -70,14 +87,14 @@ var houseDataTable = $('#houseDataTable').DataTable({
 			}
 		},
 		{
-			'title' : 'Name',
-			'name' : 'name',
-			'data' : 'name'
+			'title' : 'House No.',
+			'name' : 'house_number',
+			'data' : 'house_number'
 		},
 		{
-			'title' : 'House No.',
-			'name' : 'name',
-			'data' : 'name'
+			'title' : 'House Name',
+			'name' : 'house_name',
+			'data' : 'house_name'
 		},
 		{
 			'title' : 'OPT',

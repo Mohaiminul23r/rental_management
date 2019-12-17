@@ -34,7 +34,8 @@ class HouseController extends Controller
 
         if($request->input('search') && $request->input('search')['value'] != ""){
 
-            // $search['cities.name'] = $request->input('search')['value'];
+            $search['houses.house_name'] = $request->input('search')['value'];
+            $search['houses.house_number'] = $request->input('search')['value'];
             // $search['countries.name'] = $request->input('search')['value'];
         }
 
@@ -70,9 +71,13 @@ class HouseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(HouseRequest $request)
     {
-        //
+        $house = new House();
+        $house->house_name     = $request->house_name;
+        $house->house_number   = $request->house_no;
+        $house->save();
+
     }
 
     /**

@@ -14,7 +14,7 @@
 <a class="btn btn-info btn-round" id="addBtn" data-toggle="modal" data-target="#apartmentAddModal">Add+</a>
 @endsection
 @section('card-title')
-Apartment List
+<b>Apartment List</b>
 @endsection
 @section('body')
 	{{-- start modals --}}
@@ -31,6 +31,10 @@ Apartment List
 var apartmentDataTable = null;
 window.addEventListener("load",function(){
 
+//add apartment
+
+
+
 //datatable value
 var apartmentDataTable = $('#apartmentDataTable').DataTable({
 
@@ -39,17 +43,7 @@ var apartmentDataTable = $('#apartmentDataTable').DataTable({
 
 		},
 		lengthMenu : [[5, 10, 20, -1], [5, 10, 20, 'All']],
-		buttons : [
-		// {
-		// 	text : 'Add+',
-		// 	attr : {
-		// 		'id' : "modalAdd",
-		// 		'class' : "btn btn-info btn-sm",
-		// 		'data-toggle' : "modal",
-		// 		'data-target' : "#modalAdd"
-		// 	}
-		// }
-		],
+	
 		columns : [
 		{
 			'title' : '#SL',
@@ -63,18 +57,13 @@ var apartmentDataTable = $('#apartmentDataTable').DataTable({
 			}
 		},
 		{
-			'title' : 'House No.',
-			'name' : 'name',
-			'data' : 'name'
-		},
-		{
 			'title' : 'Apartment Name',
-			'name' : 'name',
+			'name' : 'apartment_name',
 			'data' : 'name'
 		},
 		{
 			'title' : 'Apartment No.',
-			'name' : 'name',
+			'name' : 'apartment_no',
 			'data' : 'name'
 		},
 		{

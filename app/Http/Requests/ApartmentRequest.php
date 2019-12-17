@@ -13,7 +13,7 @@ class ApartmentRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,10 +21,17 @@ class ApartmentRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+     public function rules()
     {
         return [
-            //
+            'apartment_name' => 'required | unique:name'
+        ];
+    }
+
+    public function messages(){
+
+         return [
+           // 'name.required' => 'Country name is required',   
         ];
     }
 }

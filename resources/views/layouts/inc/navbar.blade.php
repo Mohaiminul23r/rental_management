@@ -123,14 +123,14 @@
 			<li class="nav-item dropdown hidden-caret">
 				<a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
 					<div class="avatar-sm">
-						<img src="{{ asset('assets') }}/img/profile.jpg" alt="..." class="avatar-img rounded-circle">
+						<img src="/img/profile.jpg" alt="..." class="avatar-img rounded-circle">
 					</div>
 				</a>
 				<ul class="dropdown-menu dropdown-user animated fadeIn">
 					<div class="dropdown-user-scroll scrollbar-outer">
 						<li>
 							<div class="user-box">
-								<div class="avatar-lg"><img src="{{ asset('assets') }}/img/profile.jpg" alt="image profile" class="avatar-img rounded"></div>
+								<div class="avatar-lg"><img src="/img/profile.jpg" alt="image profile" class="avatar-img rounded"></div>
 								<div class="u-text">
 									<h4> Welcome Mr. </h4>
 									<p class="text-muted"></p><a href="profile.html" class="btn btn-xs btn-secondary btn-sm">View Profile</a>

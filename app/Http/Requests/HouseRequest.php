@@ -13,7 +13,7 @@ class HouseRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,10 +21,18 @@ class HouseRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+   public function rules()
     {
         return [
-            //
+            'house_name' => 'required | unique:houses'
+        ];
+    }
+
+    public function messages(){
+
+         return [
+            'house_name.required' => 'House name is required',
+            'house_name.unique'   => 'This house is already exist',
         ];
     }
 }

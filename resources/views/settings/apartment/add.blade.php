@@ -5,19 +5,24 @@
 		<div class="modal-header no-bd">
 			<h5 class="modal-title">
 				<span class="fw-mediumbold">
-				<b>Add New Bill Type</b></span> 
+				<b>Add New Apartment</b></span> 
 			</h5>
 			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 				<span aria-hidden="true">&times;</span>
 			</button>
 		</div>
 		<div class="modal-body">
-		<form id="add_billtype_form" class="form-horizontal" role="form">
+		<form id="add_apartment_form" class="form-horizontal" role="form">
 			<div class="row">
 				<div class="col-sm-12">
 					<div class="form-group">
-						<label for="name">Bill Type Name</label>
-						<input type="name" name="name" class="form-control" id="name" placeholder="Enter Bill Type Name">
+						<label for="name">Apartment Name</label>
+						<input type="name" name="apartment_name" class="form-control" id="apartment_no" placeholder="Enter Apartment Name">
+						<span class="help-block"></span>
+					</div>
+					<div class="form-group">
+						<label for="name">Apartment No.</label>
+						<input type="name" name="apartment_no" class="form-control" id="apartment_no" placeholder="Enter Apartment No.">
 						<span class="help-block"></span>
 					</div>
 				</div>
