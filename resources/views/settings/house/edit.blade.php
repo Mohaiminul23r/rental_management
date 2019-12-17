@@ -15,6 +15,7 @@
 		<form id="edit_house_form" class="form-horizontal" role="form">
 			<div class="row">
 				<div class="col-sm-12">
+					<input type="hidden" name="id" id="id">
 					<div class="form-group">
 						<label for="name">House Name</label>
 						<input type="name" name="house_name" class="form-control" id="add_house_name">

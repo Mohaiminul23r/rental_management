@@ -2,7 +2,6 @@
 @section('pagetitle')
 	House Information
 @endsection
-
 @section('button')
 <a class="btn btn-info btn-round" id="addBtn" data-toggle="modal" data-target="#houseAddModal">Add+</a>
 @endsection
@@ -22,7 +21,6 @@
 <script type="text/javascript">
 var houseDataTable = null;
 window.addEventListener("load",function(){
-
 	//adding house
 	$(document).on('click', '#addBtn', function(){
 		document.getElementById("add_house_form").reset();
@@ -57,38 +55,39 @@ window.addEventListener("load",function(){
 	//edit house details
 	$(document).on('click', '.edit-modal', function(){
 		var id = $(this).data('id');
+		$('#id').val(id);
 		$("#houseEditModal").modal();
 		 axios.get('api/houses/'+id+'/edit').then(function(response){
-			console.log(response);
           	$('#add_house_name').val(response.data.house_name);
           	$('#add_house_no').val(response.data.house_number);
         }).catch(function(failData){
             alert("Something wrong..");
         });
-
-        $('#editHouseBtn').click(function(){
-         	$('#edit_house_form .has-error').removeClass('has-error');
-      		$('#edit_house_form').find('.help-block').empty();
-            axios.put('api/houses/'+id, $('#edit_house_form').serialize())
-            .then(function(response){
-                $('#houseDataTable').DataTable().ajax.reload();
-                $('#houseEditModal').modal('hide');
-                toastr.success('Edited Successfully.'); 
-            }).catch(function(failData){
-                 $.each(failData.response.data.errors, function(inputName, errors){
-                $("#edit_house_form [name="+inputName+"]").parent().removeClass('has-error').addClass('has-error');
-                if(typeof errors == "object"){
-                    $("#edit_house_form [name="+inputName+"]").parent().find('.help-block').empty();
-                    $.each(errors, function(indE, valE){
-                        $("#edit_house_form [name="+inputName+"]").parent().find('.help-block').append(valE+"<br>");
-                    });
-                }else{
-                    $("#edit_house_form [name="+inputName+"]").parent().find('.help-block').html(valE);
-                }
-            });
-           });
-        }); 
 	});
+
+    $('#editHouseBtn').click(function(){
+    	var id = $(document).find('#edit_house_form input[name="id"]').val();
+     	$('#edit_house_form .has-error').removeClass('has-error');
+  		$('#edit_house_form').find('.help-block').empty();
+        axios.put('api/houses/'+id, $('#edit_house_form').serialize())
+        .then(function(response){
+            $('#houseDataTable').DataTable().ajax.reload();
+            $('#houseEditModal').modal('hide');
+            toastr.success('Edited Successfully.'); 
+        }).catch(function(failData){
+             $.each(failData.response.data.errors, function(inputName, errors){
+            $("#edit_house_form [name="+inputName+"]").parent().removeClass('has-error').addClass('has-error');
+            if(typeof errors == "object"){
+                $("#edit_house_form [name="+inputName+"]").parent().find('.help-block').empty();
+                $.each(errors, function(indE, valE){
+                    $("#edit_house_form [name="+inputName+"]").parent().find('.help-block').append(valE+"<br>");
+                });
+            }else{
+                $("#edit_house_form [name="+inputName+"]").parent().find('.help-block').html(valE);
+            }
+        });
+       });
+    }); 
 	//end of editing house details
 
 	//start of deleteing house
@@ -107,8 +106,6 @@ window.addEventListener("load",function(){
         });
   	 });  
   	 //end of deleting house
-
-
 // datatable starts
 var houseDataTable = $('#houseDataTable').DataTable({
 

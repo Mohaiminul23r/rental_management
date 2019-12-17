@@ -6,9 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Apartment extends Model
 {
-    use CommonTrait;
+   use CommonTrait;
+
     protected $fillable = [
-   		'name',
-   		'status',
-   ];
+    	'name',
+    	'apartment_no',
+    	'description',
+    	'mother_name',
+    	'house_id',
+    	'rent_amount',
+    	'status'
+    ];
+
 }

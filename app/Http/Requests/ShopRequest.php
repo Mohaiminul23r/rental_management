@@ -13,7 +13,7 @@ class ShopRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,10 +21,17 @@ class ShopRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
-    {
+      public function rules(){
+       
         return [
-            //
+            'name' => 'required',
+        ];
+    }
+
+    public function messages(){
+
+         return [
+           'name.required' => 'Shop name is required',   
         ];
     }
 }

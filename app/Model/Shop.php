@@ -7,15 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Shop extends Model
 {
     use CommonTrait;
-     protected $fillable = [
+    protected $fillable = [
     	'name',
     	'description',
     	'house_id',
     	'rent_amount',
-    	'status',
+    	'status'
     ];
-
-    public function house(){
-    	return $this->belongsTo('App\Model\House');
-    }
 }

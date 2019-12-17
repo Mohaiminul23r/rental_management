@@ -3,13 +3,13 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title"><b>Delete House Details</b></h4>
+            <h4 class="modal-title"><b>Delete Shop Details</b></h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <h5>Do you want to delete this house ?</h5>
+            <h5>Do you want to delete this shop ?</h5>
           </div>
       	      <form id="delete_form" class="form-horizontal" role="form">
       	        <input type="hidden" id="id" name="id" value="">

@@ -24,14 +24,14 @@ class ApartmentRequest extends FormRequest
      public function rules()
     {
         return [
-            'apartment_name' => 'required | unique:name'
+            'name' => 'required',
         ];
     }
 
     public function messages(){
 
          return [
-           // 'name.required' => 'Country name is required',   
+           'name.required' => 'Apartment name is required',   
         ];
     }
 }

@@ -70,9 +70,14 @@ class ShopController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ShopRequest $request)
     {
-        //
+       /// dd($request->all());
+        $shop = new Shop();
+        $shop->name        = $request->name;
+        $shop->rent_amount = $request->rent_amount;
+        $shop->description = $request->description;
+        $shop->save();
     }
 
     /**
@@ -94,7 +99,7 @@ class ShopController extends Controller
      */
     public function edit($id)
     {
-        //
+        return Shop::findOrFail($id);
     }
 
     /**
@@ -104,9 +109,12 @@ class ShopController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ShopRequest $request, Shop $shop)
     {
-        //
+       $shop->name        = $request->name;
+        $shop->rent_amount = $request->rent_amount;
+        $shop->description = $request->description;
+        $shop->update();
     }
 
     /**
@@ -117,6 +125,7 @@ class ShopController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $shop = Shop::findOrFail($id);
+        $shop->delete();
     }
 }

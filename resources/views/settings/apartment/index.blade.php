@@ -2,14 +2,6 @@
 @section('pagetitle')
 	Apartment Information
 @endsection
-{{-- @section('breadcrumbs')
-	<li class="separator">
-		<i class="flaticon-right-arrow"></i>
-	</li>
-	<li class="nav-item">
-		<a href="#">Apartment</a>
-	</li>
-@endsection --}}
 @section('button')
 <a class="btn btn-info btn-round" id="addBtn" data-toggle="modal" data-target="#apartmentAddModal">Add+</a>
 @endsection
@@ -32,8 +24,88 @@ var apartmentDataTable = null;
 window.addEventListener("load",function(){
 
 //add apartment
+	$(document).on('click', '#addBtn', function(){
+		document.getElementById("add_apartment_form").reset();
+		$('#add_apartment_form .has-error').removeClass('has-error');
+      	$('#add_apartment_form').find('.help-block').empty();	
+	});
+	$('#addApartmentBtn').click(function(){	
+		axios.post('api/apartments', $('#add_apartment_form').serialize()).then(function(response){
+			$('#apartmentDataTable').DataTable().ajax.reload();
+	        $('#apartmentAddModal').modal('hide');
+	        toastr.success('Apartment added successfully.');
+		}).catch(function(failData){
+			 $.each(failData.response.data.errors, function(inputName, errors){
+                  $.each(failData.response.data.errors, function(inputName, errors){
+                    $("#add_apartment_form [name="+inputName+"]").parent().removeClass('has-error').addClass('has-error');
+                    if(typeof errors == "object"){
+                        $("#add_apartment_form [name="+inputName+"]").parent().find('.help-block').empty();
+                        $.each(errors, function(indE, valE){
+                            $("#add_apartment_form [name="+inputName+"]").parent().find('.help-block').append(valE+"<br>");
+                            $('.help-block').css("color", "red");
+                        });
+                    }else{
+                        $("#add_apartment_form [name="+inputName+"]").parent().find('.help-block').html(valE);
+                    }
+                });
+            });
+		});
+	});
+//end of adding apartment
 
+//edit apartment details
+	$(document).on('click', '.edit-modal', function(){
+		var id = $(this).data('id');
+		$("#apartmentEditModal").modal();
+		 axios.get('api/apartments/'+id+'/edit').then(function(response){
+          	$('#add_apartment_no').val(response.data.apartment_no);
+          	$('#add_apartment_name').val(response.data.name);
+          	$('#add_rent_amount').val(response.data.rent_amount);
+          	$('#add_description').val(response.data.description);
+        }).catch(function(failData){
+            alert("Something wrong..");
+        });
+        $('#editApartmentBtn').click(function(){
+         	$('#edit_apartment_form .has-error').removeClass('has-error');
+      		$('#edit_apartment_form').find('.help-block').empty();
+            axios.put('api/apartments/'+id, $('#edit_apartment_form').serialize())
+            .then(function(response){
+                $('#apartmentDataTable').DataTable().ajax.reload();
+                $('#apartmentEditModal').modal('hide');
+                toastr.success('Edited Successfully.'); 
+            }).catch(function(failData){
+                $.each(failData.response.data.errors, function(inputName, errors){
+                $("#edit_apartment_form [name="+inputName+"]").parent().removeClass('has-error').addClass('has-error');
+                if(typeof errors == "object"){
+                    $("#edit_apartment_form [name="+inputName+"]").parent().find('.help-block').empty();
+                    $.each(errors, function(indE, valE){
+                        $("#edit_apartment_form [name="+inputName+"]").parent().find('.help-block').append(valE+"<br>");
+                    });
+                }else{
+                    $("#edit_apartment_form [name="+inputName+"]").parent().find('.help-block').html(valE);
+                }
+            });
+           });
+        }); 
+	});
+//end of editing apartment details
 
+//start of deleteing apartment
+	$(document).on('click', '.delete-modal', function() {
+        $('#id').val($(this).data('id'));
+        $("#modalDelete").modal();
+    });
+	$('#deleteBtn').click(function(){
+        var id = $("#id").val();
+        axios.delete('api/apartments/'+id, $('#delete_form').serialize()).then(function(response){
+            $('#apartmentDataTable').DataTable().ajax.reload();
+            $('#modalDelete').modal('hide');
+            toastr.warning('Successfully Deleted.');
+        }).catch(function(failData){
+            alert("Can not delete apartment!!");
+        });
+  	 });  
+//end of deleting apartment
 
 //datatable value
 var apartmentDataTable = $('#apartmentDataTable').DataTable({
@@ -57,14 +129,19 @@ var apartmentDataTable = $('#apartmentDataTable').DataTable({
 			}
 		},
 		{
+			'title' : 'Apartment No.',
+			'name' : 'apartment_no',
+			'data' : 'apartment_no'
+		},
+		{
 			'title' : 'Apartment Name',
-			'name' : 'apartment_name',
+			'name' : 'name',
 			'data' : 'name'
 		},
 		{
-			'title' : 'Apartment No.',
-			'name' : 'apartment_no',
-			'data' : 'name'
+			'title' : 'Rent Amount',
+			'name' : 'rent_amount',
+			'data' : 'rent_amount'
 		},
 		{
 			'title' : 'OPT',

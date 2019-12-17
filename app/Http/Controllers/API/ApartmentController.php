@@ -72,7 +72,13 @@ class ApartmentController extends Controller
      */
     public function store(ApartmentRequest $request)
     {
-        dd($request->all());
+      // dd($request->all());
+       $apartment = new Apartment();
+       $apartment->apartment_no = $request->apartment_no;
+       $apartment->name         = ucwords($request->name);
+       $apartment->rent_amount  = $request->rent_amount;
+       $apartment->description  = $request->description;
+       $apartment->save();
     }
 
     /**
@@ -94,7 +100,7 @@ class ApartmentController extends Controller
      */
     public function edit($id)
     {
-        //
+        return Apartment::findOrFail($id);
     }
 
     /**
@@ -104,9 +110,13 @@ class ApartmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ApartmentRequest $request, Apartment $apartment)
     {
-        //
+       $apartment->apartment_no = $request->apartment_no;
+       $apartment->name         = ucwords($request->name);
+       $apartment->rent_amount  = $request->rent_amount;
+       $apartment->description  = $request->description;
+       $apartment->update();
     }
 
     /**
@@ -117,6 +127,7 @@ class ApartmentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $apartment = Apartment::findOrFail($id);
+        $apartment->delete();
     }
 }
