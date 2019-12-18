@@ -15,14 +15,15 @@
 		<form id="edit_apartment_form" class="form-horizontal" role="form">
 			<div class="row">
 				<div class="col-sm-12">
+					<input type="hidden" name="apt_id" id="apt_id">
 					<div class="form-group">
-						<label for="name">Apartment No.</label>
-						<input type="name" name="apartment_no" class="form-control" id="add_apartment_no" placeholder="Enter Apartment No.">
+						<label for="name">Complex No.</label>
+						<input type="name" name="apartment_no" class="form-control" id="add_apartment_no" placeholder="Enter Complex No.">
 						<span class="help-block"></span>
 					</div>
 					<div class="form-group">
-						<label for="name">Apartment Name</label>
-						<input type="name" name="name" class="form-control" id="add_apartment_name" placeholder="Enter Apartment Name">
+						<label for="name">Complex Name</label>
+						<input type="name" name="name" class="form-control" id="add_apartment_name" placeholder="Enter Complex Name">
 						<span class="help-block"></span>
 					</div>
 					<div class="form-group">

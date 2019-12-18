@@ -29,3 +29,5 @@ Route::resource('thanas', 'API\ThanaController');
 Route::resource('houses', 'API\HouseController');
 Route::resource('apartments', 'API\ApartmentController');
 Route::resource('shops', 'API\ShopController');
+Route::resource('advance_payments', 'API\AdvancePaymentController');
+Route::resource('electric_bills', 'API\ElectricityBillController');

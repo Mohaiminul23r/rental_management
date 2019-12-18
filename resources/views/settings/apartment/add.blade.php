@@ -16,13 +16,13 @@
 			<div class="row">
 				<div class="col-sm-12">
 					<div class="form-group">
-						<label for="name">Apartment No.</label>
-						<input type="name" name="apartment_no" class="form-control" id="apartment_no" placeholder="Enter Apartment No.">
+						<label for="name">Complex No.</label>
+						<input type="name" name="apartment_no" class="form-control" id="apartment_no" placeholder="Enter Complex No.">
 						<span class="help-block"></span>
 					</div>
 					<div class="form-group">
-						<label for="name">Apartment Name</label>
-						<input type="name" name="name" class="form-control" id="apartment_no" placeholder="Enter Apartment Name">
+						<label for="name">Complex Name</label>
+						<input type="name" name="name" class="form-control" id="apartment_name" placeholder="Enter Complex Name">
 						<span class="help-block"></span>
 					</div>
 					<div class="form-group">

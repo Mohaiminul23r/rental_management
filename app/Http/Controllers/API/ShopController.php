@@ -34,8 +34,7 @@ class ShopController extends Controller
 
         if($request->input('search') && $request->input('search')['value'] != ""){
 
-            // $search['cities.name'] = $request->input('search')['value'];
-            // $search['countries.name'] = $request->input('search')['value'];
+            $search['shops.name'] = $request->input('search')['value'];
         }
 
         if($request->input('where')){

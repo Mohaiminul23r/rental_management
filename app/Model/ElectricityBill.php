@@ -6,20 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class ElectricityBill extends Model
 {
+    use CommonTrait;
     protected $fillable = [
-    	'apartment_id',
-    	'shop_id',
     	'bill_type_id',
-    	'billing_month',
-    	'amount',
+    	'minimum_unit',
+    	'duty_on_kwh',
+    	'demand_charge',
+    	'machine_charge',
+        'service_charge',
+        'vat',
+        'delay_charge',
     	'status',
     ];
 
-    public function shop(){
-    	return $this->belongsTo('App\Model\Shop');
-    }
-
-    public function apartment(){
-    	return $this->belongsTo('App\Model\Apartment');
+    public function bill_type(){
+    	return $this->belongsTo('App\Model\BillType');
     }
 }

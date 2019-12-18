@@ -15,6 +15,7 @@
 		<form id="edit_shop_form" class="form-horizontal" role="form">
 			<div class="row">
 				<div class="col-sm-12">
+					<input type="hidden" name="id" id="id">
 					<div class="form-group">
 						<label for="name">Shop Name</label>
 						<input type="name" name="name" class="form-control" id="add_shop_name" placeholder="Enter Shop Name">

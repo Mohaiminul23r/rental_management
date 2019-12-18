@@ -1,12 +1,12 @@
 @extends('layouts.master2')
 @section('pagetitle')
-	Apartment Information
+	Apartment or Complex Information
 @endsection
 @section('button')
 <a class="btn btn-info btn-round" id="addBtn" data-toggle="modal" data-target="#apartmentAddModal">Add+</a>
 @endsection
 @section('card-title')
-<b>Apartment List</b>
+<b>Complex List</b>
 @endsection
 @section('body')
 	{{-- start modals --}}
@@ -21,6 +21,7 @@
 <script type="text/javascript">
 // datatable starts
 var apartmentDataTable = null;
+
 window.addEventListener("load",function(){
 
 //add apartment
@@ -56,6 +57,7 @@ window.addEventListener("load",function(){
 //edit apartment details
 	$(document).on('click', '.edit-modal', function(){
 		var id = $(this).data('id');
+		$('#apt_id').val(id);
 		$("#apartmentEditModal").modal();
 		 axios.get('api/apartments/'+id+'/edit').then(function(response){
           	$('#add_apartment_no').val(response.data.apartment_no);
@@ -65,29 +67,31 @@ window.addEventListener("load",function(){
         }).catch(function(failData){
             alert("Something wrong..");
         });
-        $('#editApartmentBtn').click(function(){
-         	$('#edit_apartment_form .has-error').removeClass('has-error');
-      		$('#edit_apartment_form').find('.help-block').empty();
-            axios.put('api/apartments/'+id, $('#edit_apartment_form').serialize())
-            .then(function(response){
-                $('#apartmentDataTable').DataTable().ajax.reload();
-                $('#apartmentEditModal').modal('hide');
-                toastr.success('Edited Successfully.'); 
-            }).catch(function(failData){
-                $.each(failData.response.data.errors, function(inputName, errors){
-                $("#edit_apartment_form [name="+inputName+"]").parent().removeClass('has-error').addClass('has-error');
-                if(typeof errors == "object"){
-                    $("#edit_apartment_form [name="+inputName+"]").parent().find('.help-block').empty();
-                    $.each(errors, function(indE, valE){
-                        $("#edit_apartment_form [name="+inputName+"]").parent().find('.help-block').append(valE+"<br>");
-                    });
-                }else{
-                    $("#edit_apartment_form [name="+inputName+"]").parent().find('.help-block').html(valE);
-                }
-            });
-           });
-        }); 
 	});
+
+	 $('#editApartmentBtn').click(function(){
+ 		var id = $(document).find('#edit_apartment_form input[name="apt_id"]').val();
+     	$('#edit_apartment_form .has-error').removeClass('has-error');
+  		$('#edit_apartment_form').find('.help-block').empty();
+        axios.put('api/apartments/'+id, $('#edit_apartment_form').serialize())
+        .then(function(response){
+            $('#apartmentDataTable').DataTable().ajax.reload();
+            $('#apartmentEditModal').modal('hide');
+            toastr.success('Edited Successfully.'); 
+        }).catch(function(failData){
+            $.each(failData.response.data.errors, function(inputName, errors){
+            $("#edit_apartment_form [name="+inputName+"]").parent().removeClass('has-error').addClass('has-error');
+            if(typeof errors == "object"){
+                $("#edit_apartment_form [name="+inputName+"]").parent().find('.help-block').empty();
+                $.each(errors, function(indE, valE){
+                    $("#edit_apartment_form [name="+inputName+"]").parent().find('.help-block').append(valE+"<br>");
+                });
+            }else{
+                $("#edit_apartment_form [name="+inputName+"]").parent().find('.help-block').html(valE);
+            }
+        });
+       });
+    }); 
 //end of editing apartment details
 
 //start of deleteing apartment
@@ -129,19 +133,22 @@ var apartmentDataTable = $('#apartmentDataTable').DataTable({
 			}
 		},
 		{
-			'title' : 'Apartment No.',
+			'title' : 'Complex No.',
 			'name' : 'apartment_no',
 			'data' : 'apartment_no'
 		},
 		{
-			'title' : 'Apartment Name',
+			'title' : 'Complex Name',
 			'name' : 'name',
 			'data' : 'name'
 		},
 		{
 			'title' : 'Rent Amount',
 			'name' : 'rent_amount',
-			'data' : 'rent_amount'
+			'data' : 'rent_amount',
+			'render' : function(data, type, row, ind){
+				return data + ' tk';
+			}
 		},
 		{
 			'title' : 'OPT',

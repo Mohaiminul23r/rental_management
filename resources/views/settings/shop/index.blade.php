@@ -56,6 +56,7 @@ $('#addShopBtn').click(function(){
 //edit apartment details
 	$(document).on('click', '.edit-modal', function(){
 		var id = $(this).data('id');
+		$('#id').val(id);
 		$("#shopEditModal").modal();
 		 axios.get('api/shops/'+id+'/edit').then(function(response){
           	$('#add_shop_name').val(response.data.name);
@@ -64,7 +65,9 @@ $('#addShopBtn').click(function(){
         }).catch(function(failData){
             alert("Something wrong..");
         });
-        $('#editShopBtn').click(function(){
+	});
+	 $('#editShopBtn').click(function(){
+	 	 	var id = $(document).find('#edit_shop_form input[name="id"]').val();
          	$('#edit_shop_form .has-error').removeClass('has-error');
       		$('#edit_shop_form').find('.help-block').empty();
             axios.put('api/shops/'+id, $('#edit_shop_form').serialize())
@@ -86,7 +89,6 @@ $('#addShopBtn').click(function(){
             });
            });
         }); 
-	});
 //end of editing apartment details
 //start of deleteing shop
 	$(document).on('click', '.delete-modal', function() {

@@ -52,5 +52,9 @@ Route::group(['middleware' => 'auth'], function () {
      Route::get('thanas', "CommonController@thanaIndex");
 
      Route::get('cities', "CommonController@cityIndex");
+
+     Route::get('advance_payments', "CommonController@advancePaymentIndex");
+
+     Route::get('electric_bills', "CommonController@electricityBillIndex");
 });
 //resource routes

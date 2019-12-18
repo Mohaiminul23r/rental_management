@@ -106,13 +106,14 @@ window.addEventListener("load", function(){
 	$(document).on('click', '.edit-modal', function(){
 		var id = $(this).data('id');
 		$('#editRentalModal').modal();
+		$('#renter_edit_form .has-error').removeClass('has-error');
+        $('#renter_edit_form').find('.help-block').empty();
 		html_countries       = '<option value="" disabled selected>Select Country</option>';
 		html_thanas          = '<option value="" disabled selected>Select Thana</option>';
 		html_cities          = '<option value="" disabled selected>Select City</option>';
 		html_renter_types    = '<option value="" disabled selected>Select Renter Type</option>';
 
 		axios.get('api/renters/'+id+'/edit').then(function(response){
-			console.log(response);
 			$.each(country, function(ind,val){
 				if(val.id == response.data.address.country_id){
 					html_countries += '<option value="'+val.id+'" selected>'+val.name+'</option>';

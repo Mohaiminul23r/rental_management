@@ -112,7 +112,7 @@
 											</a>
 										</li>
 										<li>
-											<a href="">
+											<a href="{{url('/electric_bills')}}">
 												<span class="sub-item">Electric Bill</span>
 											</a>
 										</li>
@@ -124,11 +124,6 @@
 										<li>
 											<a href="">
 												<span class="sub-item">Water Bill</span>
-											</a>
-										</li>
-											<li>
-											<a href="">
-												<span class="sub-item">Advance Payment</span>
 											</a>
 										</li>
 									</ul>
@@ -169,6 +164,22 @@
 							<li>
 								<a href="{{url('/renters')}}">
 									<span class="sub-item">Active Renters</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</li>
+				<li class="nav-item">
+					<a data-toggle="collapse" href="#maps">
+						<i class="fas fa-money-bill-alt"></i>
+						<p>Advance Payment</p>
+						<span class="caret"></span>
+					</a>
+					<div class="collapse" id="maps">
+						<ul class="nav nav-collapse">
+							<li>
+								<a href="{{url('/advance_payments')}}">
+									<span class="sub-item">Payments</span>
 								</a>
 							</li>
 						</ul>

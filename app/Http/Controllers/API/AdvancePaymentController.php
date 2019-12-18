@@ -4,10 +4,10 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Model\Apartment;
-use App\Http\Requests\ApartmentRequest;
+use App\Model\AdvancePayment;
+use App\Http\Requests\AdvancePaymentRequest;
 
-class ApartmentController extends Controller
+class AdvancePaymentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class ApartmentController extends Controller
      */
     public function index(Request $request)
     {
-        $apartment = new Apartment();
+        $advancePayment = new AdvancePayment();
         $limit = 20;
         $offset = 0;
         $search = [];
@@ -34,8 +34,10 @@ class ApartmentController extends Controller
 
         if($request->input('search') && $request->input('search')['value'] != ""){
 
+             $search['renters.first_name'] = $request->input('search')['value'];
              $search['apartments.name'] = $request->input('search')['value'];
-             $search['apartments.apartment_no'] = $request->input('search')['value'];
+             $search['shops.name'] = $request->input('search')['value'];
+             $search['advance_payments.date_of_payment'] = $request->input('search')['value'];
         }
 
         if($request->input('where')){
@@ -48,10 +50,12 @@ class ApartmentController extends Controller
 
         $join = [ 
             /* "table name",  "table2 name. id" , "unique column name by as"   */
-            // ['countries', 'cities.country_id', 'countries.name as countryName']
+            ['renters', 'advance_payments.renter_id', 'renters.first_name as renterFirstName'],
+            ['shops', 'advance_payments.shop_id', 'shops.name as shopName'],
+            ['apartments', 'advance_payments.apartment_id', 'apartments.name as complexName'],
+  
         ];  
-
-       return $apartment->GetDataForDataTable($limit, $offset, $search, $where, $with, $join);
+       return $advancePayment->GetDataForDataTable($limit, $offset, $search, $where, $with, $join);
     }
 
     /**
@@ -70,15 +74,19 @@ class ApartmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ApartmentRequest $request)
+    public function store(AdvancePaymentRequest $request)
     {
       // dd($request->all());
-       $apartment = new Apartment();
-       $apartment->apartment_no = $request->apartment_no;
-       $apartment->name         = ucwords($request->name);
-       $apartment->rent_amount  = $request->rent_amount;
-       $apartment->description  = $request->description;
-       $apartment->save();
+        $advancePayment = new AdvancePayment();
+       // dd($advancePayment);
+        $advancePayment->renter_id = $request->renter_id;
+        $advancePayment->apartment_id = $request->complex_id;
+        $advancePayment->shop_id = $request->shop_id;
+        $advancePayment->payment_amount = $request->payment_amount;
+        $advancePayment->date_of_payment = $request->date_of_payment;
+        $advancePayment->status = $request->status;
+        $advancePayment->save();
+       // $advancePayment->
     }
 
     /**
@@ -100,7 +108,7 @@ class ApartmentController extends Controller
      */
     public function edit($id)
     {
-        return Apartment::findOrFail($id);
+        return AdvancePayment::findOrFail($id);
     }
 
     /**
@@ -110,13 +118,15 @@ class ApartmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ApartmentRequest $request, Apartment $apartment)
+    public function update(AdvancePaymentRequest $request, AdvancePayment $advancePayment)
     {
-       $apartment->apartment_no = $request->apartment_no;
-       $apartment->name         = ucwords($request->name);
-       $apartment->rent_amount  = $request->rent_amount;
-       $apartment->description  = $request->description;
-       $apartment->update();
+        $advancePayment->renter_id = $request->renter_id;
+        $advancePayment->apartment_id = $request->complex_id;
+        $advancePayment->shop_id = $request->shop_id;
+        $advancePayment->payment_amount = $request->payment_amount;
+        $advancePayment->date_of_payment = $request->date_of_payment;
+        $advancePayment->status = $request->status;
+        $advancePayment->update();
     }
 
     /**
@@ -127,7 +137,7 @@ class ApartmentController extends Controller
      */
     public function destroy($id)
     {
-        $apartment = Apartment::findOrFail($id);
-        $apartment->delete();
+        $advancePayment = AdvancePayment::findOrFail($id);
+        $advancePayment->delete();
     }
 }
