@@ -1,4 +1,4 @@
-<!-- Sidebar -->
+Sidebar -->
 <div class="sidebar sidebar-style-2">			
 	<div class="sidebar-wrapper scrollbar scrollbar-inner">
 		<div class="sidebar-content">
@@ -116,7 +116,7 @@
 												<span class="sub-item">Electric Bill</span>
 											</a>
 										</li>
-										<li>
+										{{-- <li>
 											<a href="">
 												<span class="sub-item">Gas Bill</span>
 											</a>
@@ -125,7 +125,7 @@
 											<a href="">
 												<span class="sub-item">Water Bill</span>
 											</a>
-										</li>
+										</li> --}}
 									</ul>
 								</div>
 							</li>
@@ -221,4 +221,4 @@
 		</div>
 	</div>
 </div>
-<!-- End Sidebar -->
+<!-- End Sidebar

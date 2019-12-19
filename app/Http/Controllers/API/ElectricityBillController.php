@@ -34,7 +34,7 @@ class ElectricityBillController extends Controller
 
         if($request->input('search') && $request->input('search')['value'] != ""){
 
-            // $search['cities.name'] = $request->input('search')['value'];
+             $search['bill_types.name'] = $request->input('search')['value'];
             // $search['countries.name'] = $request->input('search')['value'];
         }
 
@@ -116,6 +116,8 @@ class ElectricityBillController extends Controller
      */
     public function update(ElectricityBillRequest $request, ElectricityBill $electricityBill)
     {
+     // dd($request->all());
+        $electricityBill = ElectricityBill::findOrFail($request->ebill_id);
         $electricityBill->bill_type_id   = $request->bill_type_id;
         $electricityBill->minimum_unit   = $request->minimum_unit;
         $electricityBill->duty_on_kwh    = $request->duty_on_kwh;

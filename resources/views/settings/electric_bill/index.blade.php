@@ -68,7 +68,6 @@ window.addEventListener("load",function(){
 		$('#ebill_id').val(id);
 		$("#electricBillEditModal").modal();
 		 axios.get('api/electric_bills/'+id+'/edit').then(function(response){
-		 	console.log(response);
 		 	html_bill_types = '<option value="" disabled selected>Select Bill Type</option>';
 			$.each(bill_type, function(ind,val){
 				if(val.id == response.data.bill_type_id){
@@ -158,9 +157,9 @@ var electricityBillDataTable = $('#electricityBillDataTable').DataTable({
 			'title' : 'OPT',
 			'name' : 'opt',
 			'data' : 'id',
-			'width' : '135px',
+			'width' : '150px',
 			'render' : function(data, type, row, ind){
-				return '<span class="edit-modal btn btn-sm btn-primary" data-id = '+data+'>Edit</span> <span class="delete-modal btn btn-sm btn-danger" data-id = '+data+'>Delete</span>';
+				return '<span class="edit-modal btn btn-link btn-primary btn-lg" data-id = '+data+'><i class="fa fa-edit"></i></span><span  class="delete-modal btn btn-link btn-danger" data-id = '+data+'><i class="fa fa-times"></i></span>';
 			}
 		},
 		{
@@ -206,6 +205,7 @@ var electricityBillDataTable = $('#electricityBillDataTable').DataTable({
 		],
 		serverSide : true,
 		processing : true,
+		responsive: true,
 		ajax: {
 			url: utlt.siteUrl('api/electric_bills'),
 			dataSrc: 'data'
