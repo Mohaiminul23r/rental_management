@@ -56,5 +56,7 @@ Route::group(['middleware' => 'auth'], function () {
      Route::get('advance_payments', "CommonController@advancePaymentIndex");
 
      Route::get('electric_bills', "CommonController@electricityBillIndex");
+
+     Route::get('active_renters', "CommonController@activeRenterIndex");
 });
 //resource routes

@@ -31,3 +31,4 @@ Route::resource('apartments', 'API\ApartmentController');
 Route::resource('shops', 'API\ShopController');
 Route::resource('advance_payments', 'API\AdvancePaymentController');
 Route::resource('electric_bills', 'API\ElectricityBillController');
+Route::resource('active_renters', 'API\ActiveRenterController');

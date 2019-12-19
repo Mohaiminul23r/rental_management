@@ -43,4 +43,8 @@ class CommonController extends Controller
         $bill_type    = BillType::orderBy('name')->get();
         return view('settings.electric_bill.index', ['bill_type' => $bill_type]);
     }
+
+    public function activeRenterIndex(){
+        return view('active_renter.index');
+    }
 }

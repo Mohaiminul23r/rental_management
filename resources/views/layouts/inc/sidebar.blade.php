@@ -162,7 +162,7 @@ Sidebar -->
 								</a>
 							</li>
 							<li>
-								<a href="{{url('/renters')}}">
+								<a href="{{url('/active_renters')}}">
 									<span class="sub-item">Active Renters</span>
 								</a>
 							</li>

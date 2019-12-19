@@ -18,11 +18,15 @@
 		});
 	</script>
 	<!-- CSS Files -->
-
 	<link rel="stylesheet" href="{{ asset('assets') }}/css/bootstrap.min.css">
 	<link rel="stylesheet" href="{{ asset('assets') }}/css/atlantis.min.css">
 	<link rel="stylesheet" href="{{ asset('css/custom_css.css') }}">
 	<link rel="stylesheet" href="{{ asset('assets/toaster/build/toastr.css') }}">
+	<!-- MultiStep stylesheet -->
+	<link rel="stylesheet" href="{{ asset('assets/step-wizard/dist/css/MultiStep.min.css')}}">
+	<!-- Optional theme for Multistep -->
+	<link rel="stylesheet" href="{{ asset('assets/step-wizard/dist/css/MultiStep-theme.min.css')}}">
+
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<!-- CSS Just for demo purpose, don't include it in your project -->
 	{{-- 	<link rel="stylesheet" href="/css/demo.css"> --}}
@@ -72,9 +76,13 @@
 				<div class="row mt--2">
 					<div class="col-xl-12">
 						<div class="card full-height">
+							<div class="card-header">
+									<div class="card-title">@yield('card-title')</div>
+							</div>
 							<div class="card-body">
-								<div class="card-title">@yield('card-title')</div>
-								@yield('body')
+								<div class="row">	
+									@yield('body')
+								</div>
 							</div>
 						</div>
 					</div>
@@ -90,6 +98,7 @@
 <script src="{{ asset('assets/toaster/toastr.js') }}"></script>
 <script src="{{ asset('assets') }}/js/core/popper.min.js"></script>
 <script src="{{ asset('assets') }}/js/core/bootstrap.min.js"></script>
+<script src="{{ asset('assets/step-wizard/dist/js/MultiStep.min.js')}}"></script>
 <!-- jQuery UI -->
 <script src="{{ asset('assets') }}/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
 <script src="{{ asset('assets') }}/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
