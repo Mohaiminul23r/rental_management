@@ -45,6 +45,13 @@ class CommonController extends Controller
     }
 
     public function activeRenterIndex(){
-        return view('active_renter.index');
+
+        $renterType = RenterType::all();
+        $renter  = Renter::orderBy('first_name')->get();
+        $complex = Apartment::orderBy('name')->get();
+        $shop    = Shop::orderBy('name')->get();
+        $bill_type    = BillType::orderBy('name')->get();
+
+        return view('active_renter.index', ['renterType' => $renterType,'renter' => $renter, 'complex' => $complex, 'shop' => $shop, 'bill_type' => $bill_type]);
     }
 }

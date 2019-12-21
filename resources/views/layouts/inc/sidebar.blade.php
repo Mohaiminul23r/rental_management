@@ -87,7 +87,7 @@ Sidebar -->
 										</li>
 										<li>
 											<a href="{{url('/apartments')}}">
-												<span class="sub-item">Apartment Info.</span>
+												<span class="sub-item">Complex Info.</span>
 											</a>
 										</li>
 										<li>

@@ -50,9 +50,10 @@ class ActiveRenterController extends Controller
 
         $join = [ 
             /* "table name",  "table2 name. id" , "unique column name by as"   */
-            // ['renters', 'advance_payments.renter_id', 'renters.first_name as renterFirstName'],
-            // ['shops', 'advance_payments.shop_id', 'shops.name as shopName'],
-            // ['apartments', 'advance_payments.apartment_id', 'apartments.name as complexName'],
+            ['renters', 'active_renters.renter_id', 'renters.first_name as renterFirstName'],
+            ['shops', 'active_renters.shop_id', 'shops.name as shopName'],
+            ['apartments', 'active_renters.apartment_id', 'apartments.name as complexName'],
+            ['renter_types', 'active_renters.renter_type_id', 'renter_types.name as renterTypeName'],
   
         ];  
        return $activeRenter->GetDataForDataTable($limit, $offset, $search, $where, $with, $join);
@@ -74,9 +75,21 @@ class ActiveRenterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ActiveRenterRequest $request)
     {
-        //
+        //dd($request->all());
+        $activeRenter = new ActiveRenter();
+        $activeRenter->renter_id         = $request->renter_id;
+        $activeRenter->renter_type_id    = $request->renter_type_id;
+        $activeRenter->apartment_id      = $request->complex_id;
+        $activeRenter->shop_id           = $request->shop_id;
+        $activeRenter->level_no          = $request->level_no;
+        $activeRenter->rent_amount       = $request->rent_amount;
+        $activeRenter->rent_started_at   = $request->rent_started_at;
+       // $activeRenter->rent_ended_at     = $request->rent_ended_at;
+       // $activeRenter->status            = $request->status;
+        $activeRenter->save();
+
     }
 
     /**
@@ -121,6 +134,7 @@ class ActiveRenterController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $activeRenter = ActiveRenter::findOrFail($id);
+        $activeRenter->delete();
     }
 }
