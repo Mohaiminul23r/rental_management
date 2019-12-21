@@ -114,6 +114,7 @@ const mySteps = [{
 			'</div>'+
 			'<div class="row">'+
 				'<div class="col-md-4">'+
+				'<input type="hidden" name="active_renter_id" id="active_renter_id">'+
 					'<div class="form-group">'+
 						'<label for="name">Bill Type</label>'+
 						'<select class="form-control" id="bill_type_id" name="bill_type_id">'+
@@ -129,7 +130,7 @@ const mySteps = [{
 					'</div>'+
 					'<div class="form-check">'+
 						'<label class="form-check-label">'+
-							'<input class="form-check-input" type="checkbox" id="wbill_check" name="" value="">'+
+							'<input class="form-check-input" type="checkbox" id="wbill_check" name="is_wbill_required" value="">'+
 							'<span class="form-check-sign">Water bill is not required.</span>'+
 						'</label>'+
 					'</div>'+
@@ -142,7 +143,7 @@ const mySteps = [{
 					'</div>'+
 				'<div class="form-check">'+
 						'<label class="form-check-label">'+
-							'<input class="form-check-input" type="checkbox" id="gbill_check" value="">'+
+							'<input class="form-check-input" type="checkbox" id="gbill_check" name="is_gbill_required" value="">'+
 							'<span class="form-check-sign">Gas bill is not required.</span>'+
 						'</label>'+
 					'</div>'+
@@ -163,11 +164,16 @@ const mySteps = [{
 						'<span class="help-block"></span>'+
 					'</div>'+
 				'</div>'+
-			'</div>',
+			'</div>'+
+			'<div>'+
+				'<button type="button" style="align:left;" id="save_utility_bills" class="btn btn-primary">Save Utility Bill</button>'+
+			'</div>'+
+			'</form>',
         skip:true,
         label: 'Utility Bills'
       },{
         content:
+        '<form id="electric_bills_add_form" class="form-horizontal" role="form">'+
         	'<div class="row">'+
 				'<div class="col-md-12">'+
 					'<h6 style="text-align: center; color: blue;"><b>Electric Bill Details</b></h6>'+
@@ -182,7 +188,7 @@ const mySteps = [{
 					'</div>'+
 					'<div class="form-check">'+
 						'<label class="form-check-label">'+
-							'<input class="form-check-input" type="checkbox" id="check_ebill_fix" value="Yes">'+
+							'<input class="form-check-input" type="checkbox" id="check_ebill_fix" name="is_ebill_fixed" value="No">'+
 							'<span class="form-check-sign">Fix electric bill.</span>'+
 						'</label>'+
 					'</div>'+
@@ -195,10 +201,13 @@ const mySteps = [{
 					'</div>'+
 					'<div class="form-group">'+
 						'<label for="name">Fix Electric Bill Amount</label>'+
-						'<input type="number" class="form-control" id="electric_bill_amount" disabled="disabled" name="electric_meter_no" placeholder="Fix Electric Bill Amount">'+
+						'<input type="number" class="form-control" id="electric_bill_amount" disabled="disabled" value="0.00" name="fix_ebill_amount" placeholder="Fix Electric Bill Amount">'+
 						'<span class="help-block"></span>'+
 					'</div>'+
 				'</div>'+
+			'</div>'+
+			'<div>'+
+				'<button type="button" style="align:left;" id="save_electric_bills" class="btn btn-primary">Save Electric Bill</button>'+
 			'</div>'+
 			'</form>',
         skip: true,
@@ -218,8 +227,10 @@ $('#multi_step_add_modal').MultiStep({
   nextText:'Next',
   finishText:'Finish',
   onClose:function() {
+
   },
   onDestroy:function($elem) {
+
   }
 });
 
@@ -261,9 +272,13 @@ $(document).on('click', '#add_rent_info_btn', function(){
 	$('input#check_ebill_fix').on('change', function(e) {
 		var isDisabled = $(this).is(':checked');
 		if(isDisabled){
+			$('#electric_bill_amount').val("");
+			$('#check_ebill_fix').val("Yes");
 			$('#electric_bill_amount').removeAttr("disabled", "disabled");
 		}else{
 			$('#electric_bill_amount').attr("disabled", "disabled");
+			$('#electric_bill_amount').val("0.00");
+			$('#check_ebill_fix').val("No");
 		}
 	});
 
@@ -272,10 +287,12 @@ $(document).on('click', '#add_rent_info_btn', function(){
 		var isDisabled = $(this).is(':checked');
 		if(isDisabled){
 			$('#water_bill').val("0.00");
+			$('#wbill_check').val("No");
 			$('#water_bill').attr("disabled", "disabled");
 		}else{
-			$('#water_bill').val(" ");
+			$('#water_bill').val("");
 			$('#water_bill').removeAttr("disabled", "disabled");
+			$('##wbill_check').val("Yes");
 		}
 	});
 
@@ -284,16 +301,21 @@ $(document).on('click', '#add_rent_info_btn', function(){
 		var isDisabled = $(this).is(':checked');
 		if(isDisabled){
 			$('#gas_bill').val("0.00");
+			$('#gbill_check').val("No");
 			$('#gas_bill').attr("disabled", "disabled");
 		}else{
-			$('#gas_bill').val(" ");
+			$('#gas_bill').val("");
+			$('#gbill_check').val("Yes");
 			$('#gas_bill').removeAttr("disabled", "disabled");
 		}
 	});
 });
+
 //adding rent details at first step
 $(document).on('click', '#save_rent_details', function(){
 	axios.post('api/active_renters', $('#rent_details_form1').serialize()).then(function(response){
+		console.log(response);
+		//$('#active_renter_id').val($(this).)
 		$('.btn-next').removeAttr("disabled", "disabled");
 		$('#activeRenterDataTable').DataTable().ajax.reload();
 		toastr.success('Successfully Added. Go Next.');
@@ -313,8 +335,27 @@ $(document).on('click', '#save_rent_details', function(){
             });
         });
 	});
+
 });
 //end of adding step 1
+
+//adding utility bill details
+	$(document).on('click','#save_utility_bills', function(){
+		axios.post('api/active_renter/utility_bills', $('#utility_bills_add_form').serialize()).then(function(response){
+			toastr.success('Utility bills added successfully.');
+		}).catch(function(failData){
+			alert("Something worng");
+		});
+	});
+
+//adding utility bill details
+	$(document).on('click','#save_electric_bills', function(){
+		axios.post('api/active_renter/electric_bills', $('#electric_bills_add_form').serialize()).then(function(response){
+			toastr.success('Electric bills added successfully.');
+		}).catch(function(failData){
+			alert("Something worng");
+		});
+	});
 
 //delete active renter details
 $(document).on('click', '.delete-modal', function(){

@@ -34,4 +34,8 @@ class ActiveRenter extends Model
    public function renter_type(){
     return $this->belongsTo('App\Model\RenterType');
    }
+
+   public function utility_bill(){
+    return $this->hasOne('App\Model\UtilityBill');
+   }
 }

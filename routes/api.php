@@ -32,3 +32,5 @@ Route::resource('shops', 'API\ShopController');
 Route::resource('advance_payments', 'API\AdvancePaymentController');
 Route::resource('electric_bills', 'API\ElectricityBillController');
 Route::resource('active_renters', 'API\ActiveRenterController');
+Route::post('active_renter/utility_bills', 'API\ActiveRenterController@storeUtilityBill');
+Route::post('active_renter/electric_bills', 'API\ActiveRenterController@storeUtilityBill');

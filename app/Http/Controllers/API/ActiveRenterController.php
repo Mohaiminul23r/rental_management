@@ -5,7 +5,9 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\ActiveRenter;
+use App\Model\UtilityBill;
 use App\Http\Requests\ActiveRenterRequest;
+use App\Http\Requests\UtilityBillRequest;
 
 class ActiveRenterController extends Controller
 {
@@ -75,6 +77,32 @@ class ActiveRenterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function storeUtilityBill(UtilityBillRequest $request)
+    {
+        $utilityBill = new UtilityBill();
+       
+        //$utilityBill->active_renter_id    = $request->active_renter_id;
+        $utilityBill->bill_type_id        = $request->bill_type_id;
+        $utilityBill->water_bill          = $request->water_bill;
+        $utilityBill->is_wbill_required   = $request->is_wbill_required;
+        $utilityBill->gas_bill            = $request->gas_bill;
+        $utilityBill->is_gbill_required   = $request->is_gbill_required;
+        $utilityBill->service_charge      = $request->service_charge;
+        $utilityBill->other_charge        = $request->other_charge;
+        $utilityBill->save();
+
+        //storing electricity bills
+        $electricBill = new UtilityBill();
+       // dd($request->all());
+        $electricBill->electric_meter_no   = $request->electric_meter_no;
+        $electricBill->is_ebill_fixed      = $request->is_ebill_fixed;
+        //$electricBill->opening_reading      = $request->opening_reading;
+        $electricBill->fix_ebill_amount    = $request->fix_ebill_amount;
+        //$utilityBill->status              = $request->status;
+        $electricBill->save();
+
+    }
+
     public function store(ActiveRenterRequest $request)
     {
         //dd($request->all());
