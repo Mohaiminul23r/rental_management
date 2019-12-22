@@ -28,6 +28,11 @@ var complex = <?php echo json_encode($complex)?>;
 var shop    = <?php echo json_encode($shop)?>;
 var bill_type    = <?php echo json_encode($bill_type)?>;
 var renterType    = <?php echo json_encode($renterType)?>;
+var activeRenter    = <?php echo json_encode($activeRenter)?>;
+var electricity_bill    = <?php echo json_encode($electricity_bill)?>;
+@php
+	//dd($electricity_bill);
+@endphp
 
 window.addEventListener("load",function(){
 //multi step active rental add
@@ -114,7 +119,6 @@ const mySteps = [{
 			'</div>'+
 			'<div class="row">'+
 				'<div class="col-md-4">'+
-				'<input type="hidden" name="active_renter_id" id="active_renter_id">'+
 					'<div class="form-group">'+
 						'<label for="name">Bill Type</label>'+
 						'<select class="form-control" id="bill_type_id" name="bill_type_id">'+
@@ -130,7 +134,7 @@ const mySteps = [{
 					'</div>'+
 					'<div class="form-check">'+
 						'<label class="form-check-label">'+
-							'<input class="form-check-input" type="checkbox" id="wbill_check" name="is_wbill_required" value="">'+
+							'<input class="form-check-input" type="checkbox" id="wbill_check" name="is_wbill_required" value="Yes">'+
 							'<span class="form-check-sign">Water bill is not required.</span>'+
 						'</label>'+
 					'</div>'+
@@ -143,26 +147,34 @@ const mySteps = [{
 					'</div>'+
 				'<div class="form-check">'+
 						'<label class="form-check-label">'+
-							'<input class="form-check-input" type="checkbox" id="gbill_check" name="is_gbill_required" value="">'+
+							'<input class="form-check-input" type="checkbox" id="gbill_check" name="is_gbill_required" value="Yes">'+
 							'<span class="form-check-sign">Gas bill is not required.</span>'+
 						'</label>'+
 					'</div>'+
 				'</div>'+
 			'</div>'+
 			'<div class="row">'+
-				'<div class="col-md-6">'+
+				'<div class="col-md-4">'+
 					'<div class="form-group">'+
 						'<label for="number">Service Charge</label>'+
 						'<input type="number" class="form-control" id="service_charge" name="service_charge" placeholder="Enter Water Bill">'+
 						'<span class="help-block"></span>'+
 					'</div>'+
 				'</div>'+
-				'<div class="col-md-6">'+
+				'<div class="col-md-4">'+
 					'<div class="form-group">'+
 						'<label for="number">Other Charge</label>'+
 						'<input type="number" class="form-control" id="other_charge" name="other_charge" placeholder="Other Charge Amount">'+
 						'<span class="help-block"></span>'+
 					'</div>'+
+				'</div>'+
+				'<div class="col-md-4">'+
+					'<div class="form-group">'+
+						'<label for="name">Active Renter</label>'+
+						'<select class="form-control" id="ac_renter_id" name="active_renter_id">'+
+						'</select>'+
+						'<span class="help-block"></span>'+
+					'</div>'+	
 				'</div>'+
 			'</div>'+
 			'<div>'+
@@ -173,14 +185,14 @@ const mySteps = [{
         label: 'Utility Bills'
       },{
         content:
-        '<form id="electric_bills_add_form" class="form-horizontal" role="form">'+
+         '<form id="electric_bills_add_form" class="form-horizontal" role="form">'+
         	'<div class="row">'+
 				'<div class="col-md-12">'+
 					'<h6 style="text-align: center; color: blue;"><b>Electric Bill Details</b></h6>'+
 				'</div>'+
 			'</div>'+
 			'<div class="row">'+
-				'<div class="col-md-6">'+
+				'<div class="col-md-4">'+
 					'<div class="form-group">'+
 						'<label for="name">Electric Meter No.</label>'+
 						'<input type="text" class="form-control" id="electric_meter_no" name="electric_meter_no" placeholder="Electric Meter No.">'+
@@ -193,7 +205,7 @@ const mySteps = [{
 						'</label>'+
 					'</div>'+
 				'</div>'+
-				'<div class="col-md-6">'+
+				'<div class="col-md-4">'+
 					'<div class="form-group">'+
 						'<label for="name">Opening Reading</label>'+
 						'<input type="text" class="form-control" id="opening_reading" name="opening_reading" placeholder="Opening Meter Reading">'+
@@ -205,6 +217,20 @@ const mySteps = [{
 						'<span class="help-block"></span>'+
 					'</div>'+
 				'</div>'+
+				'<div class="col-md-4">'+
+					'<div class="form-group">'+
+						'<label for="name">Active Renter</label>'+
+						'<select class="form-control" id="active_renter_id2" name="active_renter_id2">'+
+						'</select>'+
+						'<span class="help-block"></span>'+
+					'</div>'+
+					'<div class="form-group">'+
+						'<label for="name">Electric Bill Types</label>'+
+						'<select class="form-control" id="electricity_bills_id" name="electricity_bill_id">'+
+						'</select>'+
+						'<span class="help-block"></span>'+
+					'</div>'+		
+				'</div>'+
 			'</div>'+
 			'<div>'+
 				'<button type="button" style="align:left;" id="save_electric_bills" class="btn btn-primary">Save Electric Bill</button>'+
@@ -213,7 +239,6 @@ const mySteps = [{
         skip: true,
         label: 'Electric Bills'
       }]
-
 
 //initializing multi-step modal
 $('#multi_step_add_modal').MultiStep({
@@ -265,8 +290,8 @@ $(document).on('click', '#add_rent_info_btn', function(){
 	$('#renter_type').html(html_renterType);
 	$('#bill_type_id').html(html_billType);
 	$('#close_modal_btn').click(function(){
-		$('#multi_step_add_modal').modal('hide');
-	});
+	$('#multi_step_add_modal').modal('hide');
+});
 
 	//changing check box fields for fix electric bills
 	$('input#check_ebill_fix').on('change', function(e) {
@@ -292,7 +317,7 @@ $(document).on('click', '#add_rent_info_btn', function(){
 		}else{
 			$('#water_bill').val("");
 			$('#water_bill').removeAttr("disabled", "disabled");
-			$('##wbill_check').val("Yes");
+			$('#wbill_check').val("Yes");
 		}
 	});
 
@@ -314,8 +339,6 @@ $(document).on('click', '#add_rent_info_btn', function(){
 //adding rent details at first step
 $(document).on('click', '#save_rent_details', function(){
 	axios.post('api/active_renters', $('#rent_details_form1').serialize()).then(function(response){
-		console.log(response);
-		//$('#active_renter_id').val($(this).)
 		$('.btn-next').removeAttr("disabled", "disabled");
 		$('#activeRenterDataTable').DataTable().ajax.reload();
 		toastr.success('Successfully Added. Go Next.');
@@ -339,21 +362,71 @@ $(document).on('click', '#save_rent_details', function(){
 });
 //end of adding step 1
 
+//getting values at step-2
+$(document).on('click', '.btn-next',function(){
+	html_ac_renter = '<option value="" disabled selected>Select Active Renter</option>';
+	html_ac_renters = '<option value="" disabled selected>Select Active Renter</option>';
+	html_electric_bill = '<option value="" disabled selected>Select Electric Bill Type</option>';
+	axios.get('api/active_renter_details').then(function(response){
+		$.each(response.data, function(ind,val){
+			html_ac_renter += '<option value="'+val.id+'">'+ val.first_name +'-'+ val.father_name +'(Father)'+'</option>';
+		});
+		$.each(response.data, function(ind,val){
+			html_ac_renters += '<option value="'+val.id+'">'+ val.first_name +'-'+ val.father_name +'(Father)'+'</option>';
+		});
+		$('#ac_renter_id').html(html_ac_renter);
+		$('#active_renter_id2').html(html_ac_renters);
+	}).catch(function(failData){
+
+	});
+	$.each(electricity_bill, function(ind,val){
+		html_electric_bill += '<option value="'+val.id+'">'+ val.bill_type.name +'</option>';
+	});
+	$('#electricity_bills_id').html(html_electric_bill);
+});
+
+
 //adding utility bill details
 	$(document).on('click','#save_utility_bills', function(){
-		axios.post('api/active_renter/utility_bills', $('#utility_bills_add_form').serialize()).then(function(response){
+		axios.post('api/active_renter/utility_bills', $('#utility_bills_add_form').serialize()).then(function(response){	
 			toastr.success('Utility bills added successfully.');
 		}).catch(function(failData){
-			alert("Something worng");
+				$.each(failData.response.data.errors, function(inputName, errors){
+	              $.each(failData.response.data.errors, function(inputName, errors){
+	                $("#utility_bills_add_form [name="+inputName+"]").parent().removeClass('has-error').addClass('has-error');
+	                if(typeof errors == "object"){
+	                    $("#utility_bills_add_form [name="+inputName+"]").parent().find('.help-block').empty();
+	                    $.each(errors, function(indE, valE){
+	                        $("#utility_bills_add_form [name="+inputName+"]").parent().find('.help-block').append(valE+"<br>");
+	                        $('.help-block').css("color", "red");
+	                    });
+	                }else{
+	                    $("#utility_bills_add_form [name="+inputName+"]").parent().find('.help-block').html(valE);
+	                }
+	            });
+	        });
 		});
 	});
 
-//adding utility bill details
+//adding electric bill details
 	$(document).on('click','#save_electric_bills', function(){
 		axios.post('api/active_renter/electric_bills', $('#electric_bills_add_form').serialize()).then(function(response){
 			toastr.success('Electric bills added successfully.');
 		}).catch(function(failData){
-			alert("Something worng");
+			$.each(failData.response.data.errors, function(inputName, errors){
+	              $.each(failData.response.data.errors, function(inputName, errors){
+	                $("#electric_bills_add_form [name="+inputName+"]").parent().removeClass('has-error').addClass('has-error');
+	                if(typeof errors == "object"){
+	                    $("#electric_bills_add_form [name="+inputName+"]").parent().find('.help-block').empty();
+	                    $.each(errors, function(indE, valE){
+	                        $("#electric_bills_add_form [name="+inputName+"]").parent().find('.help-block').append(valE+"<br>");
+	                        $('.help-block').css("color", "red");
+	                    });
+	                }else{
+	                    $("#electric_bills_add_form [name="+inputName+"]").parent().find('.help-block').html(valE);
+	                }
+	            });
+	        });
 		});
 	});
 

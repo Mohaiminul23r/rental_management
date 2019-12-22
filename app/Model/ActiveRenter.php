@@ -18,11 +18,10 @@ class ActiveRenter extends Model
     	'rent_ended_at',
     	'status'
     ];
-
-   public function renter(){
-    return $this->belongsTo('App\Model\Renter');
-   }
-
+ 
+ public function renter(){
+    return $this->hasOne('App\Model\Renter');
+  }
    public function apartment(){
     return $this->belongsTo('App\Model\Apartment');
    }

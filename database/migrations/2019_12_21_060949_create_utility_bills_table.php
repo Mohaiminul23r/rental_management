@@ -23,6 +23,7 @@ class CreateUtilityBillsTable extends Migration
             $table->string('is_gbill_required', 10)->nullable();
             $table->decimal('service_charge', 8, 2)->nullable();
             $table->decimal('other_charge', 8, 2)->nullable();
+            $table->unsignedBigInteger('electricity_bill_id')->nullable();
             $table->string('electric_meter_no', 100)->nullable();
             $table->string('opening_reading', 15)->nullable();
             $table->decimal('fix_ebill_amount', 8, 2)->nullable();
@@ -30,6 +31,7 @@ class CreateUtilityBillsTable extends Migration
             $table->unsignedTinyInteger('status')->default('1');
             $table->foreign('active_renter_id')->references('id')->on('active_renters')->onDelete('cascade');
             $table->foreign('bill_type_id')->references('id')->on('bill_types');
+            $table->foreign('electricity_bill_id')->references('id')->on('electricity_bills');
             $table->timestamps();
         });
     }

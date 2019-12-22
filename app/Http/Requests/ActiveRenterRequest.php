@@ -30,6 +30,7 @@ class ActiveRenterRequest extends FormRequest
             'shop_id'            => 'required',    
             'level_no'           => 'required',
             'rent_started_at'    => 'required',
+            // 'advance_amount'     => 'required',
             'rent_amount'        => 'required',
         ];
     }

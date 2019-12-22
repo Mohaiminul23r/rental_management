@@ -15,6 +15,7 @@ class Renter extends Model
     	'mother_name',
     	'address_id',
     	'date_of_birth',
+        'email',
     	'photo',
     	'nid_photo',
     	'phone',
@@ -31,5 +32,9 @@ public function rentertype(){
 
 public function address(){
     return $this->belongsTo('App\Model\Address');
+   }
+
+public function activeRenter(){
+    return $this->belongsTo('App\Model\ActiveRenter');
    }
 }

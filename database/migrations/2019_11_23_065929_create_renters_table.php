@@ -21,6 +21,7 @@ class CreateRentersTable extends Migration
             $table->string('mother_name')->nullable();
             $table->unsignedBigInteger('address_id')->nullable();
             $table->date('date_of_birth')->nullable();
+            $table->string('email')->unique()->nullable();
             $table->string('photo')->default('images/no_image1.png')->nullable();
             $table->string('nid_photo')->default('images/no_image2.png')->nullable();
             $table->string('phone', 25)->unique()->nullable();

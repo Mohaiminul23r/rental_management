@@ -15,6 +15,7 @@ class UtilityBill extends Model
     	'is_gbill_required',
     	'service_charge',
     	'other_charge',
+    	'electricity_bill_id',
     	'electric_meter_no',
     	'opening_reading',
     	'fix_ebill_amount',

@@ -11,6 +11,9 @@ use App\Model\Renter;
 use App\Model\Apartment;
 use App\Model\Shop;
 use App\Model\Country;
+use App\Model\ActiveRenter;
+use App\Model\ElectricityBill;
+use DB;
 
 class CommonController extends Controller
 {
@@ -45,13 +48,18 @@ class CommonController extends Controller
     }
 
     public function activeRenterIndex(){
-
         $renterType = RenterType::all();
         $renter  = Renter::orderBy('first_name')->get();
         $complex = Apartment::orderBy('name')->get();
         $shop    = Shop::orderBy('name')->get();
         $bill_type    = BillType::orderBy('name')->get();
+        $activeRenter  = DB::table('renters')
+                    ->join('active_renters', 'renters.id', '=', 'active_renters.renter_id')
+                    ->select('renters.first_name', 'renters.last_name', 'renters.father_name', 'renters.mother_name','active_renters.*')
+                    ->get();
 
-        return view('active_renter.index', ['renterType' => $renterType,'renter' => $renter, 'complex' => $complex, 'shop' => $shop, 'bill_type' => $bill_type]);
+        $electricity_bill  = ElectricityBill::with('bill_type')->get();
+                    
+        return view('active_renter.index', ['renterType' => $renterType,'renter' => $renter, 'complex' => $complex, 'shop' => $shop, 'bill_type' => $bill_type, 'activeRenter' => $activeRenter, 'electricity_bill' => $electricity_bill]);
     }
 }
