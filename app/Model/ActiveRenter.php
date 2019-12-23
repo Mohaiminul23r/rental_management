@@ -20,7 +20,7 @@ class ActiveRenter extends Model
     ];
  
  public function renter(){
-    return $this->hasOne('App\Model\Renter');
+    return $this->belongsTo('App\Model\Renter');
   }
    public function apartment(){
     return $this->belongsTo('App\Model\Apartment');

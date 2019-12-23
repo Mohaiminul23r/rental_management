@@ -25,10 +25,10 @@ class UtilityBillRequest extends FormRequest
     {
         return [
             'bill_type_id'      => 'required',    
-            'water_bill'        => 'required',    
-            'gas_bill'          => 'required',       
-            'service_charge'    => 'required',
-            'other_charge'      => 'required',
+            // 'water_bill'        => 'required',    
+             'gas_bill'          => 'required',       
+            // 'service_charge'    => 'required',
+            //'other_charge'      => 'required',
             // 'advance_amount' => 'required',
             'active_renter_id'  => 'required',
         ];
@@ -37,12 +37,12 @@ class UtilityBillRequest extends FormRequest
     public function messages(){
 
          return [
-            'bill_type_id.required'          => 'Select renter name',
-            'water_bill.required'     => 'Select renter type',
-            'gas_bill.required'         => 'Select Complex',
-            'service_charge.required'            => 'Select Shop',
-            'other_charge.required'           => 'Enter level number',
-            'active_renter_id.required'    => 'Enter renter active date',
+            'bill_type_id.required'       => 'Select bill type',
+            // 'water_bill.required'         => 'Enter water bill',
+            'gas_bill.required'           => 'Enter gas bill',
+            // 'service_charge.required'     => 'Enter service charge',
+            // 'other_charge.required'       => 'Enter other charge',
+            'active_renter_id.required'   => 'Select active renter',
         ];
     }
 }

@@ -35,3 +35,6 @@ Route::resource('active_renters', 'API\ActiveRenterController');
 Route::post('active_renter/utility_bills', 'API\ActiveRenterController@storeUtilityBill');
 Route::post('active_renter/electric_bills', 'API\ActiveRenterController@storeElectricBill');
 Route::get('active_renter_details', 'API\ActiveRenterController@getActiveRenters');
+Route::get('renter_details/{id}', 'API\ActiveRenterController@getRenterDetails');
+
+

@@ -62,4 +62,19 @@ class CommonController extends Controller
                     
         return view('active_renter.index', ['renterType' => $renterType,'renter' => $renter, 'complex' => $complex, 'shop' => $shop, 'bill_type' => $bill_type, 'activeRenter' => $activeRenter, 'electricity_bill' => $electricity_bill]);
     }
+
+    public function renterDetailsReportIndex(){
+        $renterType = RenterType::all();
+        $renter_info  = Renter::orderBy('first_name')->get();
+        $complex = Apartment::orderBy('name')->get();
+        $shop    = Shop::orderBy('name')->get();
+        $bill_type    = BillType::orderBy('name')->get();
+        $activeRenter  = DB::table('renters')
+                    ->join('active_renters', 'renters.id', '=', 'active_renters.renter_id')
+                    ->select('renters.first_name', 'renters.last_name', 'renters.father_name', 'renters.mother_name','active_renters.*')
+                    ->get();
+
+        $electricity_bill  = ElectricityBill::with('bill_type')->get();
+        return view('renter_details.renter_information', ['renterType' => $renterType,'renter_info' => $renter_info, 'complex' => $complex, 'shop' => $shop, 'bill_type' => $bill_type, 'activeRenter' => $activeRenter, 'electricity_bill' => $electricity_bill]);
+    }
 }

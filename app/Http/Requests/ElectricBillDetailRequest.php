@@ -24,7 +24,19 @@ class ElectricBillDetailRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'electric_meter_no'       => 'required | unique:utility_bills',           
+            'active_renter_id2'       => 'required',
+            'electricity_bill_id'     => 'required',
+        ];
+    }
+
+    public function messages(){
+
+         return [
+            'electric_meter_no.required'      => 'Enter electric meter',
+            'electric_meter_no.unique'        => 'Electric meter already exist',
+            'active_renter_id2.required'      => 'Select active renter',
+            'electricity_bill_id.required'    => 'Select electric bill type',
         ];
     }
 }

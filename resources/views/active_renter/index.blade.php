@@ -64,7 +64,7 @@ const mySteps = [{
 				'<div class="col-md-4">'+
 					'<div class="form-group">'+
 						'<label for="name">Complex Name</label>'+
-						'<select class="form-control" id="complex_name" name="complex_id">'+
+						'<select class="form-control" id="complex_name" name="apartment_id">'+
 						'</select>'+
 						'<span class="help-block"></span>'+
 					'</div>'+
@@ -88,17 +88,24 @@ const mySteps = [{
 				'</div>'+
 			'</div>'+
 			'<div class="row">'+
-				'<div class="col-md-6">'+
+				'<div class="col-md-4">'+
 					'<div class="form-group">'+
 						'<label for="date">Activation Date</label>'+
 						'<input type="date" class="form-control" name="rent_started_at">'+
 						'<span class="help-block"></span>'+
 					'</div>'+	
 				'</div>'+
-				'<div class="col-md-6">'+
+				'<div class="col-md-4">'+
 					'<div class="form-group">'+
 						'<label for="name">Rent Amount</label>'+
-						'<input type="text" class="form-control" id="rent_amount" name="rent_amount" placeholder="Enter Rent Amount">'+
+						'<input type="number" class="form-control" id="rent_amount" value="0.00" name="rent_amount" placeholder="Enter Rent Amount">'+
+						'<span class="help-block"></span>'+
+					'</div>'+	
+				'</div>'+
+				'<div class="col-md-4">'+
+					'<div class="form-group">'+
+						'<label for="name">Advance Amount</label>'+
+						'<input type="number" class="form-control" id="advance_amount" name="advance_amount" placeholder="Enter Advance Amount" value="0.00">'+
 						'<span class="help-block"></span>'+
 					'</div>'+	
 				'</div>'+
@@ -129,7 +136,7 @@ const mySteps = [{
 				'<div class="col-md-4">'+
 					'<div class="form-group">'+
 						'<label for="number">Water Bill</label>'+
-						'<input type="number" class="form-control" id="water_bill" name="water_bill" placeholder="Enter Water Bill">'+
+						'<input type="number" class="form-control" id="water_bill" value="0.00" name="water_bill" placeholder="Enter Water Bill">'+
 						'<span class="help-block"></span>'+
 					'</div>'+
 					'<div class="form-check">'+
@@ -142,7 +149,7 @@ const mySteps = [{
 				'<div class="col-md-4">'+
 					'<div class="form-group">'+
 						'<label for="number">Gas Bill</label>'+
-						'<input type="number" class="form-control" id="gas_bill" name="gas_bill" placeholder="Enter Gas Bill">'+
+						'<input type="number" class="form-control" id="gas_bill" value="0.00" name="gas_bill" placeholder="Enter Gas Bill">'+
 						'<span class="help-block"></span>'+
 					'</div>'+
 				'<div class="form-check">'+
@@ -157,14 +164,14 @@ const mySteps = [{
 				'<div class="col-md-4">'+
 					'<div class="form-group">'+
 						'<label for="number">Service Charge</label>'+
-						'<input type="number" class="form-control" id="service_charge" name="service_charge" placeholder="Enter Water Bill">'+
+						'<input type="number" class="form-control" id="service_charge" value="0.00" name="service_charge" placeholder="Enter service charge">'+
 						'<span class="help-block"></span>'+
 					'</div>'+
 				'</div>'+
 				'<div class="col-md-4">'+
 					'<div class="form-group">'+
 						'<label for="number">Other Charge</label>'+
-						'<input type="number" class="form-control" id="other_charge" name="other_charge" placeholder="Other Charge Amount">'+
+						'<input type="number" class="form-control" id="other_charge" value="0.00"  name="other_charge" placeholder="Other Charge Amount">'+
 						'<span class="help-block"></span>'+
 					'</div>'+
 				'</div>'+
@@ -261,9 +268,13 @@ $('#multi_step_add_modal').MultiStep({
 
 //getting renter details
 $(document).on('click', '#add_rent_info_btn', function(){
-	//$('.btn-next').attr("disabled", "disabled");
+	$('.btn-next').attr("disabled", "disabled");
 	$('#rent_details_form1 .has-error').removeClass('has-error');
 	$('#rent_details_form1').find('.help-block').empty();
+	$('#electric_bills_add_form .has-error').removeClass('has-error');
+	$('#electric_bills_add_form').find('.help-block').empty();
+	$('#utility_bills_add_form .has-error').removeClass('has-error');
+	$('#utility_bills_add_form').find('.help-block').empty();
 	html_renter = '<option value="" disabled selected>Select Renter</option>';
 	html_complex = '<option value="" disabled selected>Select Complex</option>';
 	html_shop     = '<option value="" disabled selected>Select Shop</option>';
@@ -434,20 +445,24 @@ $(document).on('click', '.btn-next',function(){
 $(document).on('click', '.delete-modal', function(){
 	$('#id').val($(this).data('id'));
 	$('#active_renter_delete_modal').modal();
-	$('#ar_deleteBtn').click(function(){
-		var id = $('#id').val();
-		axios.delete('api/active_renters'+'/'+id, {
-			data: $('ar_delete_form').serialize()
-		}).then(function(resData){
-			$('#activeRenterDataTable').DataTable().ajax.reload();
-			$('#active_renter_delete_modal').modal('hide');
-			toastr.warning('Active Renter Deleted Successfully.');	
-		}).catch(function(failData){
-			alert("Can not delete this active renter.");
-		});
+});
+
+$('#ar_deleteBtn').click(function(){
+	var id = $('#id').val();
+	axios.delete('api/active_renters'+'/'+id, {
+		data: $('ar_delete_form').serialize()
+	}).then(function(resData){
+		$('#activeRenterDataTable').DataTable().ajax.reload();
+		$('#active_renter_delete_modal').modal('hide');
+		toastr.warning('Active Renter Deleted Successfully.');	
+	}).catch(function(failData){
+		alert("Can not delete this active renter.");
 	});
 });
 //end of delete active renter details
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
 
 //datatable value
 var activeRenterDataTable = $('#activeRenterDataTable').DataTable({
@@ -474,9 +489,10 @@ var activeRenterDataTable = $('#activeRenterDataTable').DataTable({
 			'title' : 'OPT',
 			'name' : 'opt',
 			'data' : 'id',
-			'width' : '135px',
+			'width' : '25px',
 			'render' : function(data, type, row, ind){
-				return '<span class="edit-modal btn btn-link btn-primary btn-lg" data-id = '+data+'><i class="fa fa-edit"></i></span><span class="delete-modal btn btn-link btn-danger" data-id = '+data+'><i class="fa fa-times"></i></span>';
+				// return '<span class="edit-modal btn btn-link btn-primary btn-lg" data-id = '+data+'><i class="fa fa-edit"></i></span><span class="delete-modal btn btn-link btn-danger" data-id = '+data+'><i class="fa fa-times"></i></span>';
+				return '<span class="delete-modal glyphicon glyphicon-trash" data-id = '+data+' data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash-alt"></i></span>';
 			}
 		},
 		{
@@ -520,6 +536,7 @@ var activeRenterDataTable = $('#activeRenterDataTable').DataTable({
 		],
 		serverSide : true,
 		processing : true,
+		responsive : true,
 		ajax: {
 			url: utlt.siteUrl('api/active_renters'),
 			dataSrc: 'data'

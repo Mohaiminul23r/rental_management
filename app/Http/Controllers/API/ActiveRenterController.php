@@ -38,10 +38,11 @@ class ActiveRenterController extends Controller
 
         if($request->input('search') && $request->input('search')['value'] != ""){
 
-             // $search['renters.first_name'] = $request->input('search')['value'];
-             // $search['apartments.name'] = $request->input('search')['value'];
-             // $search['shops.name'] = $request->input('search')['value'];
-             // $search['advance_payments.date_of_payment'] = $request->input('search')['value'];
+             $search['renters.first_name'] = $request->input('search')['value'];
+             $search['shops.name'] = $request->input('search')['value'];
+             $search['apartments.name'] = $request->input('search')['value'];
+             $search['active_renters.level_no'] = $request->input('search')['value'];
+             $search['active_renters.rent_started_at'] = $request->input('search')['value'];
         }
 
         if($request->input('where')){
@@ -86,10 +87,11 @@ class ActiveRenterController extends Controller
         $activeRenter = new ActiveRenter();
         $activeRenter->renter_id         = $request->renter_id;
         $activeRenter->renter_type_id    = $request->renter_type_id;
-        $activeRenter->apartment_id      = $request->complex_id;
+        $activeRenter->apartment_id      = $request->apartment_id;
         $activeRenter->shop_id           = $request->shop_id;
         $activeRenter->level_no          = $request->level_no;
         $activeRenter->rent_amount       = $request->rent_amount;
+        $activeRenter->advance_amount    = $request->advance_amount;
         $activeRenter->rent_started_at   = $request->rent_started_at;
        // $activeRenter->rent_ended_at     = $request->rent_ended_at;
         $activeRenter->save();
@@ -171,11 +173,17 @@ class ActiveRenterController extends Controller
         $activeRenter->delete();
     }
 
-      public function getActiveRenters(){
+  public function getActiveRenters(){
         $active_renters = DB::table('renters')
                         ->join('active_renters', 'renters.id', '=', 'active_renters.renter_id')
                         ->select('renters.first_name', 'renters.last_name', 'renters.father_name', 'renters.mother_name','active_renters.*')
                         ->get();
         return $active_renters;
+    }
+
+    public function getRenterDetails($id)
+    {
+        $renter_info = ActiveRenter::with('renter')->whereId($id)->first();
+        return $renter_info;
     }
 }

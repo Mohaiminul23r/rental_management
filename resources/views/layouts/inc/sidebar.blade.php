@@ -116,16 +116,6 @@ Sidebar -->
 												<span class="sub-item">Electric Bill</span>
 											</a>
 										</li>
-										{{-- <li>
-											<a href="">
-												<span class="sub-item">Gas Bill</span>
-											</a>
-										</li>
-										<li>
-											<a href="">
-												<span class="sub-item">Water Bill</span>
-											</a>
-										</li> --}}
 									</ul>
 								</div>
 							</li>
@@ -164,6 +154,11 @@ Sidebar -->
 							<li>
 								<a href="{{url('/active_renters')}}">
 									<span class="sub-item">Active Renters</span>
+								</a>
+							</li>
+							<li>
+								<a href="{{url('/renter_details')}}">
+									<span class="sub-item">Renter Details Report</span>
 								</a>
 							</li>
 						</ul>
