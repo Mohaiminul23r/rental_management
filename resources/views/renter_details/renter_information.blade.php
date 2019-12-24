@@ -7,20 +7,34 @@
 @endsection
 @section('body')
 <div class="container-fluid">
-  <form id="renter_info_search_form" class="form-horizontal" role="form">
-	<div class="row">
-		<div class="col-md-6">
-			<div class="form-group">
-				<input type="hidden" name="renter_search_id" id="renter_search_id">
-				<label for="name">Renter Name</label>
-				<select class="form-control" id="search_renter_name" name="renter_id">
-				</select>
-				<span class="help-block"></span>
-			</div>	
+	<div class="align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm" style="background: cadetblue;">
+       <form id="renter_info_search_form" class="form-horizontal" role="form">
+		<div class="row">
+			<div class="col-md-3">
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<input type="hidden" name="renter_search_id" id="renter_search_id">
+					<label for="name"><strong  style="font-size: 18px;">Renter Name</strong></label>
+					<select class="form-control" id="search_renter_name" name="renter_id">
+					</select>
+					<span class="help-block"></span>
+				</div>	
+			</div>
+			<div class="col-md-3">
+			</div>
 		</div>
-	</div>
-		<button type="button" id="search_renter_info_btn" class="btn btn-secondary btn-round btn-border">Search</button>
-	</form>
+		<div class="row">
+			<div class="col-md-3">
+			</div>
+			<div class="col-md-6" align="center">
+				<button type="button" id="search_renter_info_btn" class="btn btn-secondary btn-round">Search</button>
+			</div>
+			<div class="col-md-3">
+			</div>
+		</div>	
+		</form>
+    </div>
 	<div class="row">
 		
 	</div>
@@ -31,17 +45,18 @@
 		@include('renter_details.add')
 	</div>
 </div>
+@endsection
+
+@push('javascript')
 <script type="text/javascript">
-// datatable starts
+	// datatable starts
 var renter_info  = <?php echo json_encode($renter_info)?>;
 var activeRenter  = <?php echo json_encode($activeRenter)?>;
-@php
-	//dd($renter_info);
-@endphp
+
 window.addEventListener("load",function(){
 	html_renter = '<option value="" disabled selected>Select Renter</option>';
 	$.each(activeRenter, function(ind,val){
-		html_renter += '<option id="'+val.id+'" value="'+val.id+'">'+val.first_name+'</option>';
+		html_renter += '<option id="'+val.id+'" value="'+val.id+'">'+val.first_name+' -'+ val.father_name +' (Father)'+'</option>';
 	});
 	$('#search_renter_name').html(html_renter);
 
@@ -82,12 +97,64 @@ window.addEventListener("load",function(){
 		var id = $(document).find('#renter_info_search_form input[name="renter_search_id"]').val();
 		axios.get('api/renter_details/'+id).then(function(response){
 			console.log(response);
+			$(document).find('.profile-values td p').text("");
 			$('#renter_info_div').html(renter_info_details);
+
+			//general information
 			$('#renter_name').text(response.data.renter.first_name);
+			$('#father_name').text(response.data.renter.father_name);
+			$('#email_address').text(response.data.renter.email);
+			$('#date_of_birth').text(response.data.renter.date_of_birth);
+			$('#nid_no').text(response.data.renter.nid_no);
+			$('#renter_photo').attr("src", response.data.renter.photo);
+			$('#nid_photo').attr("src", response.data.renter.nid_photo);
+			$('#phone').text(response.data.renter.phone);
+			$('#mobile').text(response.data.renter.mobile);
+
+			//rent details
+			$('#renter_type').text(response.data.renter_type.name);
+			$('#complex_no').text(response.data.apartment.apartment_no);
+			$('#apartment_name').text(response.data.apartment.name);
+			if(typeof response.data.shop != 'undefined' &&  response.data.shop != null){
+
+			}
+			$('#level_no').text(response.data.level_no);
+			$('#rent_amount').text(response.data.rent_amount);
+			$('#advance_amount').text(response.data.advance_amount);
+			$('#rent_started_at').text(response.data.rent_started_at);
+
+			//getting and apending address
+
+
+
+			//utility billing details
+			$('#bill_type').text(response.data.utility_bill.bill_type.name);
+			$('#is_water_bill_required').text(response.data.utility_bill.is_wbill_required);
+			$('#water_bill').text(response.data.utility_bill.water_bill);
+			$('#is_gas_bill_required').text(response.data.utility_bill.is_gbill_required);
+			$('#gas_bill').text(response.data.utility_bill.gas_bill);
+			$('#other_charge').text(response.data.utility_bill.other_charge);
+			$('#service_charge').text(response.data.utility_bill.service_charge);
+
+			//electricity billing details
+			$('#ebill_type').text(response.data.utility_bill.electricity_bill.bill_type.name);
+			$('#electric_meter_no').text(response.data.utility_bill.electric_meter_no);
+			$('#opening_reading').text(response.data.utility_bill.opening_reading);
+			$('#is_ebill_fixed').text(response.data.utility_bill.is_ebill_fixed);
+			$('#fix_ebill_amount').text(response.data.utility_bill.fix_ebill_amount);
+
+			//other billing charges
+			$('#minimum_unit').text(response.data.utility_bill.electricity_bill.minimum_unit);
+			$('#duty_on_kwh').text(response.data.utility_bill.electricity_bill.duty_on_kwh);
+			$('#demand_charge').text(response.data.utility_bill.electricity_bill.demand_charge);
+			$('#machine_charge').text(response.data.utility_bill.electricity_bill.machine_charge);
+			$('#service_charge-1').text(response.data.utility_bill.electricity_bill.service_charge);
+			$('#vat').text(response.data.utility_bill.electricity_bill.vat);
+			$('#delay_charge').text(response.data.utility_bill.electricity_bill.delay_charge);
 		}).catch(function(failData){
-			alert("Can not get renter information !!");
+			alert("Select renter name to see details !!");
 		});
 	});
 });
 </script>
-@endsection
+@endpush

@@ -183,7 +183,7 @@ class ActiveRenterController extends Controller
 
     public function getRenterDetails($id)
     {
-        $renter_info = ActiveRenter::with('renter')->whereId($id)->first();
+        $renter_info = ActiveRenter::with('renter', 'apartment', 'shop', 'renter_type', 'renter.address', 'utility_bill.bill_type', 'utility_bill.electricity_bill.bill_type')->whereId($id)->first();
         return $renter_info;
     }
 }

@@ -27,13 +27,11 @@
 	<!-- Optional theme for Multistep -->
 	<link rel="stylesheet" href="{{ asset('assets/step-wizard/dist/css/MultiStep-theme.min.css')}}">
 
-	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
 	<!-- CSS Just for demo purpose, don't include it in your project -->
 	{{-- 	<link rel="stylesheet" href="/css/demo.css"> --}}
 	<script type="text/javascript">
-
 	/****************necessary utility*****************/
-	/***************************************************/
 		var utlt =[];
         utlt["siteUrl"] = function(url){
             url = typeof url == "undefined" ? "" : url;
@@ -123,7 +121,7 @@
 <script src="{{ asset('assets') }}/js/atlantis.min.js"></script>
 <script type="text/javascript" src="{{ asset('assets') }}/dataTables/datatables.min.js"></script>
 <link rel="stylesheet" type="text/css" href="{{ asset('assets') }}/dataTables/datatables.min.css"/>
-@yield('javascript')
+@stack('javascript')
 <script type="text/javascript">
 	//sidebar jquery
 	$(document).ready(function(){

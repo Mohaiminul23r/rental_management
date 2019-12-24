@@ -34,7 +34,7 @@ public function address(){
     return $this->belongsTo('App\Model\Address');
    }
 
-public function activeRenter(){
-    return $this->belongsTo('App\Model\ActiveRenter');
-   }
+// public function activeRenter(){
+//     return $this->belongsTo('App\Model\ActiveRenter');
+//    }
 }

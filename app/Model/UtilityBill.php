@@ -30,4 +30,8 @@ public function active_renter(){
 public function bill_type(){
     return $this->belongsTo('App\Model\BillType');
    }
+
+public function electricity_bill(){
+    return $this->belongsTo('App\Model\ElectricityBill');
+   }
 }
