@@ -17,6 +17,6 @@ class Country extends Model
     }
 
      public function address(){
-    	return $this->hasMany('App\Model\Address');
+        return $this->belongsTo('App\Model\Address');
     }
 }

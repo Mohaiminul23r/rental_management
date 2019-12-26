@@ -181,6 +181,38 @@ Sidebar -->
 					</div>
 				</li>
 				<li class="nav-item">
+					<a data-toggle="collapse" href="#dashboard">
+						<i class="fas fa-dollar-sign"></i>
+						<p>Create Bill</p>
+						<span class="caret"></span>
+					</a>
+					<div class="collapse" id="dashboard">
+						<ul class="nav nav-collapse">
+							<li>
+								<a href="{{url('/create_bills')}}">
+									<span class="sub-item">Electric Bill</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</li>
+				<li class="nav-item">
+					<a data-toggle="collapse" href="#charts">
+						<i class="fas fa-donate"></i>
+						<p>Bill Collection</p>
+						<span class="caret"></span>
+					</a>
+					<div class="collapse" id="charts">
+						<ul class="nav nav-collapse">
+							<li>
+								<a href="">
+									<span class="sub-item">Rent Collection</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</li>
+				<li class="nav-item">
 					<a data-toggle="collapse" href="#forms">
 						<i class="fas fa-file-invoice"></i>
 						<p>Generate Invoice</p>

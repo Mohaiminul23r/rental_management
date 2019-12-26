@@ -27,6 +27,10 @@
 	<!-- Optional theme for Multistep -->
 	<link rel="stylesheet" href="{{ asset('assets/step-wizard/dist/css/MultiStep-theme.min.css')}}">
 
+	{{-- select2 plugin --}}
+	<link href="{{ asset('assets/select2/css/select2.min.css') }}" rel="stylesheet"/>
+	
+
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
 	<!-- CSS Just for demo purpose, don't include it in your project -->
 	{{-- 	<link rel="stylesheet" href="/css/demo.css"> --}}
@@ -94,6 +98,7 @@
 <!--   Core JS Files   -->
 <script src="{{ asset('assets') }}/js/core/jquery.3.2.1.min.js"></script>
 <script src="{{ asset('assets/toaster/toastr.js') }}"></script>
+<script src="{{ asset('assets/select2/js/select2.min.js') }}"></script>
 <script src="{{ asset('assets') }}/js/core/popper.min.js"></script>
 <script src="{{ asset('assets') }}/js/core/bootstrap.min.js"></script>
 <script src="{{ asset('assets/step-wizard/dist/js/MultiStep.min.js')}}"></script>

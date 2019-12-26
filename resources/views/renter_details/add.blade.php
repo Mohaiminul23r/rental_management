@@ -136,8 +136,8 @@
                     <!--/row-->
                 </div>
                 <div class="tab-pane" id="Utility_bills">
-                  {{--   <div class="alert alert-info alert-dismissable">
-                        <a class="panel-close close" data-dismiss="alert">×</a> This is an <strong>.alert</strong>. Use this to show important messages to the user.
+                    {{-- <div class="alert alert-info alert-dismissable">
+                        <a class="panel-close close" data-dismiss="alert">×</a> You can <strong>Update</strong> Utility bill details by clicking update button.
                     </div> --}}
                     <table class="table-striped" width="100%">
                         <h4 class="mt-2"><strong>Utility Billing Details</strong></h4>

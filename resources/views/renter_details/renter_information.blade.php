@@ -65,92 +65,85 @@ window.addEventListener("load",function(){
 		$('#renter_search_id').val(id);
 	});
 
-	var renter_info_details = 
-		'<div class="container-fluid">'+
-			'<div class="row">'+
-				'<div class="col-xl-12">'+
-					'<h6 style="text-align: center; color: blue;"><b>Renter Information</b></h6>'+
-				'</div>'+
-			'</div>'+
-			'<div class="row">'+
-			'<div class="container">'+
-				'<div class="row">'+
-					'<div class="col-xl-12">'+
-						'<div class="col-xl-8">'+
-							'<h2 id="" style="text-align: center;"></h2>'+
-						'</div>'+
-						'<div class="col-xl-4">'+
-
-						'</div>'+
-					'</div>'+
-				'</div>'+
-				'<div class="row">'+
-					'<div class="col-xl-12">'+
-						
-					'</div>'+
-				'</div>'+
-			'</div>'+
-			'</div>'+
-		'</div>';
-
 	$('#search_renter_info_btn').click(function(){
 		var id = $(document).find('#renter_info_search_form input[name="renter_search_id"]').val();
 		axios.get('api/renter_details/'+id).then(function(response){
-			console.log(response);
+			//console.log(response);
 			$(document).find('.profile-values td p').text("");
-			$('#renter_info_div').html(renter_info_details);
 
 			//general information
-			$('#renter_name').text(response.data.renter.first_name);
-			$('#father_name').text(response.data.renter.father_name);
-			$('#email_address').text(response.data.renter.email);
-			$('#date_of_birth').text(response.data.renter.date_of_birth);
-			$('#nid_no').text(response.data.renter.nid_no);
-			$('#renter_photo').attr("src", response.data.renter.photo);
-			$('#nid_photo').attr("src", response.data.renter.nid_photo);
-			$('#phone').text(response.data.renter.phone);
-			$('#mobile').text(response.data.renter.mobile);
+			if(typeof response.data.renter != 'undefined' &&  response.data.renter != null){
+					$('#renter_name').text(response.data.renter.first_name);
+					$('#father_name').text(response.data.renter.father_name);
+					if(typeof response.data.renter.email!= 'undefined' &&  response.data.renter.email!= null){
+						$('#email_address').text(response.data.renter.email);
+					}else{
+						$('#email_address').text("Null");
+					}
+					$('#date_of_birth').text(response.data.renter.date_of_birth);
+					$('#nid_no').text(response.data.renter.nid_no);
+					$('#renter_photo').attr("src", response.data.renter.photo);
+					$('#nid_photo').attr("src", response.data.renter.nid_photo);
+					$('#phone').text(response.data.renter.phone);
+					$('#mobile').text(response.data.renter.mobile);	
+			}
 
 			//rent details
-			$('#renter_type').text(response.data.renter_type.name);
-			$('#complex_no').text(response.data.apartment.apartment_no);
-			$('#apartment_name').text(response.data.apartment.name);
-			if(typeof response.data.shop != 'undefined' &&  response.data.shop != null){
-
+			if(typeof response.data.renter_type != 'undefined' &&  response.data.renter_type != null){
+				$('#renter_type').text(response.data.renter_type.name);
 			}
-			$('#level_no').text(response.data.level_no);
-			$('#rent_amount').text(response.data.rent_amount);
-			$('#advance_amount').text(response.data.advance_amount);
-			$('#rent_started_at').text(response.data.rent_started_at);
+
+			if(typeof response.data.apartment != 'undefined' &&  response.data.apartment != null){
+				$('#complex_no').text(response.data.apartment.apartment_no);
+				$('#apartment_name').text(response.data.apartment.name);
+			}
+
+			if(typeof response.data.shop != 'undefined' &&  response.data.shop != null){
+				$('#shop_name').text(response.data.shop.name);
+			}else{
+				$('#shop_name').text("Null");
+			}
+
+			if(typeof response.data != 'undefined' &&  response.data != null){
+				$('#level_no').text(response.data.level_no);
+				$('#rent_amount').text(response.data.rent_amount);
+				$('#advance_amount').text(response.data.advance_amount);
+				$('#rent_started_at').text(response.data.rent_started_at);
+			}
 
 			//getting and apending address
-
-
+			if(typeof response.data.renter.address != 'undefined' &&  response.data.renter.address != null){
+				$address = response.data.renter.address.address_line1 + ' , ' + response.data.renter.address.thana.name+ ' , ' + 'Post- '+ response.data.renter.address.postal_code + ' , ' + response.data.renter.address.city.name + ' , ' + response.data.renter.address.country.name;
+				$('#address').text($address);
+			}
 
 			//utility billing details
-			$('#bill_type').text(response.data.utility_bill.bill_type.name);
-			$('#is_water_bill_required').text(response.data.utility_bill.is_wbill_required);
-			$('#water_bill').text(response.data.utility_bill.water_bill);
-			$('#is_gas_bill_required').text(response.data.utility_bill.is_gbill_required);
-			$('#gas_bill').text(response.data.utility_bill.gas_bill);
-			$('#other_charge').text(response.data.utility_bill.other_charge);
-			$('#service_charge').text(response.data.utility_bill.service_charge);
+			if(typeof response.data.utility_bill != 'undefined' &&  response.data.utility_bill != null){
+				$('#bill_type').text(response.data.utility_bill.bill_type.name);
+				$('#is_water_bill_required').text(response.data.utility_bill.is_wbill_required);
+				$('#water_bill').text(response.data.utility_bill.water_bill);
+				$('#is_gas_bill_required').text(response.data.utility_bill.is_gbill_required);
+				$('#gas_bill').text(response.data.utility_bill.gas_bill);
+				$('#other_charge').text(response.data.utility_bill.other_charge);
+				$('#service_charge').text(response.data.utility_bill.service_charge);
 
-			//electricity billing details
-			$('#ebill_type').text(response.data.utility_bill.electricity_bill.bill_type.name);
-			$('#electric_meter_no').text(response.data.utility_bill.electric_meter_no);
-			$('#opening_reading').text(response.data.utility_bill.opening_reading);
-			$('#is_ebill_fixed').text(response.data.utility_bill.is_ebill_fixed);
-			$('#fix_ebill_amount').text(response.data.utility_bill.fix_ebill_amount);
-
-			//other billing charges
-			$('#minimum_unit').text(response.data.utility_bill.electricity_bill.minimum_unit);
-			$('#duty_on_kwh').text(response.data.utility_bill.electricity_bill.duty_on_kwh);
-			$('#demand_charge').text(response.data.utility_bill.electricity_bill.demand_charge);
-			$('#machine_charge').text(response.data.utility_bill.electricity_bill.machine_charge);
-			$('#service_charge-1').text(response.data.utility_bill.electricity_bill.service_charge);
-			$('#vat').text(response.data.utility_bill.electricity_bill.vat);
-			$('#delay_charge').text(response.data.utility_bill.electricity_bill.delay_charge);
+				//electricity billing details
+				if(typeof response.data.utility_bill.electricity_bill != 'undefined' &&  response.data.utility_bill.electricity_bill != null){
+					$('#ebill_type').text(response.data.utility_bill.electricity_bill.bill_type.name);
+						//other billing charges
+					$('#minimum_unit').text(response.data.utility_bill.electricity_bill.minimum_unit);
+					$('#duty_on_kwh').text(response.data.utility_bill.electricity_bill.duty_on_kwh);
+					$('#demand_charge').text(response.data.utility_bill.electricity_bill.demand_charge);
+					$('#machine_charge').text(response.data.utility_bill.electricity_bill.machine_charge);
+					$('#service_charge-1').text(response.data.utility_bill.electricity_bill.service_charge);
+					$('#vat').text(response.data.utility_bill.electricity_bill.vat);
+					$('#delay_charge').text(response.data.utility_bill.electricity_bill.delay_charge);
+				}
+				$('#electric_meter_no').text(response.data.utility_bill.electric_meter_no);
+				$('#opening_reading').text(response.data.utility_bill.opening_reading);
+				$('#is_ebill_fixed').text(response.data.utility_bill.is_ebill_fixed);
+				$('#fix_ebill_amount').text(response.data.utility_bill.fix_ebill_amount);	
+			}	
 		}).catch(function(failData){
 			alert("Select renter name to see details !!");
 		});

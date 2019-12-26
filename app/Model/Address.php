@@ -15,14 +15,14 @@ class Address extends Model
     ];
 
     public function city(){
-    	return $this->hasMany('App\Model\City');
+    	return $this->belongsTo('App\Model\City');
     }
 
     public function thana(){
-    	return $this->hasMany('App\Model\Thana');
+    	return $this->belongsTo('App\Model\Thana');
     }
 
     public function country(){
-    	return $this->hasMany('App\Model\Country');
+    	return $this->belongsTo('App\Model\Country');
     }
 }
