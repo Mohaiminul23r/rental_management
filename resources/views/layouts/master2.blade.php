@@ -29,7 +29,9 @@
 
 	{{-- select2 plugin --}}
 	<link href="{{ asset('assets/select2/css/select2.min.css') }}" rel="stylesheet"/>
-	
+
+	{{-- datepicker plugin --}}
+	<link  href="{{ asset('assets/datepicker/datepicker.css') }}" rel="stylesheet">
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
 	<!-- CSS Just for demo purpose, don't include it in your project -->
@@ -99,9 +101,11 @@
 <script src="{{ asset('assets') }}/js/core/jquery.3.2.1.min.js"></script>
 <script src="{{ asset('assets/toaster/toastr.js') }}"></script>
 <script src="{{ asset('assets/select2/js/select2.min.js') }}"></script>
+<script src="{{ asset('assets/datepicker/datepicker.js') }}"></script>
 <script src="{{ asset('assets') }}/js/core/popper.min.js"></script>
 <script src="{{ asset('assets') }}/js/core/bootstrap.min.js"></script>
 <script src="{{ asset('assets/step-wizard/dist/js/MultiStep.min.js')}}"></script>
+
 <!-- jQuery UI -->
 <script src="{{ asset('assets') }}/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
 <script src="{{ asset('assets') }}/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
