@@ -542,7 +542,7 @@ var activeRenterDataTable = $('#activeRenterDataTable').DataTable({
 			dataSrc: 'data'
 		},
 	});
- });
 // end datatable
+ });
 </script>
 @endsection
