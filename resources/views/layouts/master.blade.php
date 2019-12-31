@@ -23,8 +23,11 @@
 	<link rel="stylesheet" href="{{ asset('assets') }}/css/atlantis.min.css">
 	<link rel="stylesheet" href="{{ asset('css/custom_css.css') }}">
 	<link rel="stylesheet" href="{{ asset('assets/toaster/build/toastr.css') }}">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
-	<!-- CSS Just for demo purpose, don't include it in your project -->
+
+	{{-- axios link --}}
+	<script src="{{ asset('assets/axios/dist/axios.min.js') }}"></script>
+
+
 	{{-- 	<link rel="stylesheet" href="/css/demo.css"> --}}
 	<script type="text/javascript">
 

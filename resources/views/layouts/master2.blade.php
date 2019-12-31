@@ -33,8 +33,10 @@
 	{{-- datepicker plugin --}}
 	<link  href="{{ asset('assets/datepicker/datepicker.css') }}" rel="stylesheet">
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
-	<!-- CSS Just for demo purpose, don't include it in your project -->
+	{{-- axios link --}}
+	<script src="{{ asset('assets/axios/dist/axios.min.js') }}"></script>
+
+
 	{{-- 	<link rel="stylesheet" href="/css/demo.css"> --}}
 	<script type="text/javascript">
 	/****************necessary utility*****************/

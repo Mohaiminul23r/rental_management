@@ -190,7 +190,7 @@ Sidebar -->
 						<ul class="nav nav-collapse">
 							<li>
 								<a href="{{url('/create_bills')}}">
-									<span class="sub-item">Electric Bill</span>
+									<span class="sub-item">Manage Billings</span>
 								</a>
 							</li>
 						</ul>
