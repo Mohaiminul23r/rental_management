@@ -40,7 +40,9 @@
 </div>
 	{{-- 	including modals --}}
 	@include('create_bill.create_ebill_modal')
-	@include('create_bill.create_gbill_modal')
+	@include('create_bill.create_utilitybill_modal')
+	@include('create_bill.create_rent_modal')
+	@include('create_bill.delete_bill')
 
 <div class="container p-3 my-3 border" id="index_container">
 
@@ -101,10 +103,10 @@ window.addEventListener("load",function(){
 							'<a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Electric Bill</a>'+
 						'</li>'+
 						'<li class="nav-item">'+
-							'<a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Gas Bill</a>'+
+							'<a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Utility Bill</a>'+
 						'</li>'+
 						'<li class="nav-item">'+
-							'<a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Water Bill</a>'+
+							'<a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Rent Bill</a>'+
 						'</li>'+
 					'</ul>'+
 					'<div class="tab-content mt-2 mb-3" id="pills-tabContent">'+
@@ -115,7 +117,7 @@ window.addEventListener("load",function(){
 										'<p class="mt-2"><strong>Electric bill details for renter</strong></p>'+
 									'</div>'+	
 									'<div class="col-md-6" style="text-align: right;">'+
-										'<button type="button" class="btn  btn-sm btn-round btn-outline-primary" data-toggle="modal" data-target="#create_ebill_modal_2">Create Electric Bill</button>'+
+										'<button type="button" class="btn  btn-sm btn-round btn-outline-primary" id="create_ebill_btn" data-toggle="modal" data-target="#create_ebill_modal_2">Create Electric Bill</button>'+
 									'</div>'+	
 								'</div>'+
 			                    '<thead>'+
@@ -155,7 +157,7 @@ window.addEventListener("load",function(){
 									'<p class="mt-2"><strong>Gas bill details for the renter</strong></p>'+
 								'</div>'+	
 								'<div class="col-md-6" style="text-align: right;">'+
-									'<button type="button" class="btn  btn-sm btn-round btn-outline-success" data-toggle="modal" data-target="#modal_for_gbill">Create Gas Bill</button>'+
+									'<button type="button" class="btn  btn-sm btn-round btn-outline-success" data-toggle="modal" data-target="#create_gbill_modal">Create Utility Bill</button>'+
 								'</div>'+	
 							'</div>'+
 		                    '<thead>'+
@@ -187,7 +189,7 @@ window.addEventListener("load",function(){
 								'<p class="mt-2"><strong>Rent details for renter</strong></p>'+
 							'</div>'+	
 							'<div class="col-md-6" style="text-align: right;">'+
-								'<button type="button" class="btn  btn-sm btn-round btn-outline-secondary" data-toggle="modal" data-target="#create_rbill_modal">Create Water Bill</button>'+
+								'<button type="button" class="btn  btn-sm btn-round btn-outline-secondary" data-toggle="modal" data-target="#create_rent_bill_modal">Create Rent Bill</button>'+
 							'</div>'+	
 						'</div>'+
 	                    '<thead>'+
@@ -303,6 +305,7 @@ window.addEventListener("load",function(){
 
 	$(document).on('click', '#billing_list_show_btn', function(){
 		$('#data_table_div').html(billing_datatable);
+	    var	acr_id = $('#renter_name').val();
 		//billing data table
 		var billingDataTable = $('#billingDataTable').DataTable({
 				dom : '<"row"<"col-md-6"l><"col-md-6"f>>rtip',
@@ -329,8 +332,17 @@ window.addEventListener("load",function(){
 					'data' : 'id',
 					'width' : '25px',
 					'render' : function(data, type, row, ind){
-						// return '<span class="edit-modal btn btn-link btn-primary btn-lg" data-id = '+data+'><i class="fa fa-edit"></i></span><span class="delete-modal btn btn-link btn-danger" data-id = '+data+'><i class="fa fa-times"></i></span>';
-						return '<span class="delete-modal glyphicon glyphicon-trash" data-id = '+data+' data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash-alt"></i></span>';
+						$action_dropdown =	
+							'<div class="dropdown show">'+
+							  '<a class="btn btn-outline-info btn-sm btn-round dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">action</a>'+
+							  '<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">'+
+							    '<a class="dropdown-item view_data" data-id = '+ data +'><i class="fa fa-eye"></i> View Details</a>'+
+							    '<a class="dropdown-item print_data" data-id = '+ data +'><i class="fa fa-print text-info"></i> Print/Download</a>'+
+		                        '<a class="dropdown-item edit_data" data-id = '+ data +'><i class="fa fa-edit text-secondary"></i> Edit Bill</a>'+
+		                        '<a class="dropdown-item delete_data" data-id = '+ data +'><i class="fa fa-trash text-danger" ></i> Delete</a>'+
+							  '</div>'+
+							'</div>';
+						return $action_dropdown;
 					}
 				},
 				{
@@ -376,7 +388,7 @@ window.addEventListener("load",function(){
 					'data' : 'date_of_issue'
 				},
 				{
-					'title' : 'Total Bill',
+					'title' : 'Electric Bill',
 					'name' : 'total_ebill',
 					'data' : 'total_ebill',
 					'render' : function(data, type, row, ind){
@@ -403,7 +415,12 @@ window.addEventListener("load",function(){
 				responsive : true,
 				ajax: {
 					url: utlt.siteUrl('api/create_bills'),
-					dataSrc: 'data'
+					dataSrc : function(json){                                
+                    return json.data;
+	                },
+	                data : function(dataParam){
+	                    dataParam['acr_id'] = acr_id;
+	                },
 				},
 		});
 
@@ -416,6 +433,7 @@ window.addEventListener("load",function(){
 	$(document).on('click','#save_ebill_btn', function(){
 		axios.post('api/create_bills', $('#ebill_create_form').serialize()).then(function(response){
 			toastr.success('Successfully created Electric Bill.');
+			$('#billingDataTable').DataTable().ajax.reload();
 			$('#create_ebill_modal_2').modal('hide');
 		}).catch(function(failData){
 				$.each(failData.response.data.errors, function(inputName, errors){
@@ -432,6 +450,45 @@ window.addEventListener("load",function(){
 	                }
 	            });
 	        });
+		});
+	});
+
+	//delete bill details
+	$(document).on('click', '.delete_data', function(){
+		$('#monthly_bill_delete_id').val($(this).data('id'));
+		$('#bill_delete_modal').modal();
+	});
+	$('#bill_deleteBtn').click(function(){
+		var delete_mbill_id = $('#monthly_bill_delete_id').val();
+		var id = delete_mbill_id;
+		axios.delete('api/create_bills/'+ id).then(function(response){
+			toastr.warning("Bill deleted Successfully !!");
+			$('#bill_delete_modal').modal('hide');
+			$('#billingDataTable').DataTable().ajax.reload();
+		}).catch(function(failData){
+			alert("Can not delete this bill.");
+		});
+	});
+
+	//view billing details
+	$(document).on('click', '.view_data', function(){
+		$('#monthly_bill_delete_id').val($(this).data('id'));
+		$('#bill_delete_modal').modal();
+	});
+
+	//code for create electric bill modal
+	$(document).on('click', '#create_ebill_btn', function(){
+		$('.hidden_div').hide();
+		$('#ebill_create_form .has-error').removeClass('has-error');
+		$('#ebill_create_form').find('.help-block').empty();
+		document.getElementById("ebill_create_form").reset();
+		$('#add_more').prop("checked", false);
+		$('#add_more').change(function() {
+		  if ($(this).is(':checked')) {
+		    $('.hidden_div').show();
+		  } else {
+		    $('.hidden_div').hide();
+		  }
 		});
 	});
 });

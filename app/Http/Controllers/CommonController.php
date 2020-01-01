@@ -86,4 +86,8 @@ class CommonController extends Controller
         $renter_info  = Renter::orderBy('first_name')->get();
         return view('create_bill.index', ['renter_info' => $renter_info, 'activeRenter' => $activeRenter]);
     }
+
+    public function generateReportIndex(){
+        return view('report.index');
+    }
 }

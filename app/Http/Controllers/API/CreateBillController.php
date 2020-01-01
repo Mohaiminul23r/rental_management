@@ -33,13 +33,17 @@ class CreateBillController extends Controller
         }
 
         if($request->input('search') && $request->input('search')['value'] != ""){
-
-             // $search['renters.first_name'] = $request->input('search')['value'];
-             // $search['shops.name'] = $request->input('search')['value'];
+             $search['monthly_bills.billing_month'] = $request->input('search')['value'];
+             $search['monthly_bills.grand_total'] = $request->input('search')['value'];
+             $search['monthly_bills.date_of_issue'] = $request->input('search')['value'];
         }
 
         if($request->input('where')){
             $where = $request->input('where');
+        }
+
+        if($request->acr_id != null){
+         $where['active_renters_id']= $request->acr_id;  
         }
 
         $with = [
@@ -48,8 +52,7 @@ class CreateBillController extends Controller
 
         $join = [ 
             /* "table name",  "table2 name. id" , "unique column name by as"   */
-            // ['renters', 'active_renters.renter_id', 'renters.first_name as renterFirstName'],
-            // ['shops', 'active_renters.shop_id', 'shops.name as shopName'],
+            ['active_renters', 'monthly_bills.active_renters_id', 'monthly_bills.date_of_issue as date_of_issue'],
         ];  
        return $monthly_bills->GetDataForDataTable($limit, $offset, $search, $where, $with, $join); 
     }
@@ -132,6 +135,7 @@ class CreateBillController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $monthly_bills = MonthlyBills::findOrFail($id);
+        $monthly_bills->delete();
     }
 }

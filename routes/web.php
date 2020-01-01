@@ -61,5 +61,6 @@ Route::group(['middleware' => 'auth'], function () {
      
      Route::get('renter_details', "CommonController@renterDetailsReportIndex");
      Route::get('create_bills', "CommonController@createBillIndex");
+     Route::get('reports', "CommonController@generateReportIndex");
 });
 //resource routes

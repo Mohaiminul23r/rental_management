@@ -1,4 +1,4 @@
-Sidebar -->
+{{-- Sidebar --}}
 <div class="sidebar sidebar-style-2">			
 	<div class="sidebar-wrapper scrollbar scrollbar-inner">
 		<div class="sidebar-content">
@@ -9,7 +9,6 @@ Sidebar -->
 				<div class="info">
 					<a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
 						<span>
-							
 							<span class="user-level"></span>
 							<span class="caret"></span>
 						</span>
@@ -183,7 +182,7 @@ Sidebar -->
 				<li class="nav-item">
 					<a data-toggle="collapse" href="#dashboard">
 						<i class="fas fa-dollar-sign"></i>
-						<p>Create Bill</p>
+						<p>Create & Collect Bill</p>
 						<span class="caret"></span>
 					</a>
 					<div class="collapse" id="dashboard">
@@ -196,7 +195,7 @@ Sidebar -->
 						</ul>
 					</div>
 				</li>
-				<li class="nav-item">
+				{{-- <li class="nav-item">
 					<a data-toggle="collapse" href="#charts">
 						<i class="fas fa-donate"></i>
 						<p>Bill Collection</p>
@@ -211,8 +210,8 @@ Sidebar -->
 							</li>
 						</ul>
 					</div>
-				</li>
-				<li class="nav-item">
+				</li> --}}
+				{{-- <li class="nav-item">
 					<a data-toggle="collapse" href="#forms">
 						<i class="fas fa-file-invoice"></i>
 						<p>Generate Invoice</p>
@@ -227,7 +226,7 @@ Sidebar -->
 							</li>
 						</ul>
 					</div>
-				</li>
+				</li> --}}
 				<li class="nav-item">
 					<a data-toggle="collapse" href="#tables">
 						<i class="fas fa-file-pdf"></i>
@@ -237,8 +236,8 @@ Sidebar -->
 					<div class="collapse" id="tables">
 						<ul class="nav nav-collapse">
 							<li>
-								<a href="tables/tables.html">
-									<span class="sub-item">Rent Collection Report</span>
+								<a href="{{url('/reports')}}">
+									<span class="sub-item">View Reports</span>
 								</a>
 							</li>
 						</ul>
@@ -248,4 +247,4 @@ Sidebar -->
 		</div>
 	</div>
 </div>
-<!-- End Sidebar
+{{--  End Sidebar --}}

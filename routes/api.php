@@ -37,5 +37,6 @@ Route::post('active_renter/electric_bills', 'API\ActiveRenterController@storeEle
 Route::get('active_renter_details', 'API\ActiveRenterController@getActiveRenters');
 Route::get('renter_details/{id}', 'API\ActiveRenterController@getRenterDetails');
 Route::resource('create_bills', 'API\CreateBillController');
+Route::resource('reports', 'API\ReportController');
 
 
