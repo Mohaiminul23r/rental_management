@@ -27,6 +27,9 @@
 	{{-- axios link --}}
 	<script src="{{ asset('assets/axios/dist/axios.min.js') }}"></script>
 
+	{{-- datepicker plugin --}}
+	<link  href="{{ asset('assets/datepicker/datepicker.css') }}" rel="stylesheet">
+
 
 	{{-- 	<link rel="stylesheet" href="/css/demo.css"> --}}
 	<script type="text/javascript">
@@ -80,6 +83,7 @@
 <script src="{{ asset('assets') }}/js/core/jquery.3.2.1.min.js"></script>
 <script src="{{ asset('assets/toaster/toastr.js') }}"></script>
 <script src="{{ asset('assets') }}/js/core/popper.min.js"></script>
+<script src="{{ asset('assets/datepicker/datepicker.js') }}"></script>
 <script src="{{ asset('assets') }}/js/core/bootstrap.min.js"></script>
 <!-- jQuery UI -->
 <script src="{{ asset('assets') }}/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>

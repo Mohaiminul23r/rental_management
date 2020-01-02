@@ -82,10 +82,11 @@ class RenterController extends Controller
      */
     public function store(RenterRequest $request)
     {
-      // dd($request->all());
+      //dd($request->all());
         $renter = new Renter();
         $first_name     = $request->input('first_name');
-        $last_name      = $request->input('last_name');
+        $email          = $request->input('email');
+       // $last_name      = $request->input('last_name');
         $father_name    = $request->input('father_name');
         $mother_name    = $request->input('mother_name');
         $phone          = $request->input('phone');
@@ -95,15 +96,23 @@ class RenterController extends Controller
         $date_of_birth  = $request->input('date_of_birth');
         $renter_type_id = $request->input('renter_type_id');
         $status         = $request->input('status');
-        $photo          = $request->file('photo');
-        $nid_photo      = $request->file('nid_photo');
-        $imgPath              = 'public/images/';
-        $uniqueName_photo     = $photo->getClientOriginalName();
-        $uniqueName_nid_photo = $nid_photo->getClientOriginalName();
-        $renter_photo_path    = $imgPath.$uniqueName_photo;
-        $nid_photo_path       = $imgPath.$uniqueName_nid_photo;
-        $photo->move($imgPath, $uniqueName_photo);
-        $nid_photo->move($imgPath, $uniqueName_nid_photo);
+        $imgPath        = 'public/images/';
+        $renter_photo_path = "";
+        $nid_photo_path    = "";
+        
+        if($request->input('photo') != "undefined" && $request->input('photo') != null){
+            $photo          = $request->file('photo');
+            $uniqueName_photo     = $photo->getClientOriginalName();
+            $renter_photo_path    = $imgPath.$uniqueName_photo;
+            $photo->move($imgPath, $uniqueName_photo);
+        }
+        
+        if($request->input('nid_photo') != "undefined" && $request->input('nid_photo') != null){
+            $nid_photo      = $request->file('nid_photo');
+            $uniqueName_nid_photo = $nid_photo->getClientOriginalName();
+            $nid_photo_path       = $imgPath.$uniqueName_nid_photo;
+            $nid_photo->move($imgPath, $uniqueName_nid_photo);
+        }
 
         $address   = new Address();
         $address->address_line1 = $request->input('address_line1');
@@ -115,7 +124,8 @@ class RenterController extends Controller
 
         $renter_information = [
             'first_name'      => $first_name,
-            'last_name'       => $last_name,
+            'email'           => $email,
+           // 'last_name'       => $last_name,
             'father_name'     => $father_name,
             'mother_name'     => $mother_name,
             'address_id'      => $address->id,
@@ -165,7 +175,8 @@ class RenterController extends Controller
     {
        // dd($request->all());
         $first_name     = $request->input('first_name');
-        $last_name      = $request->input('last_name');
+        $email          = $request->input('email');
+       // $last_name      = $request->input('last_name');
         $father_name    = $request->input('father_name');
         $mother_name    = $request->input('mother_name');
         $phone          = $request->input('phone');
@@ -206,7 +217,8 @@ class RenterController extends Controller
           $renter->nid_photo = $nid_photo_path;
         }
         $renter->first_name      = $first_name;
-        $renter->last_name       = $last_name;
+        $renter->email           = $email;
+       // $renter->last_name       = $last_name;
         $renter->father_name     = $father_name;
         $renter->mother_name     = $mother_name;
         $renter->address_id      = $address->id;

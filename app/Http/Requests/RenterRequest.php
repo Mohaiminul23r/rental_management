@@ -25,22 +25,23 @@ class RenterRequest extends FormRequest
     {
         return [
             'first_name'      => 'required',    
-            'last_name'       => 'required',    
+            //'last_name'       => 'required',    
             'father_name'     => 'required',    
-            'mother_name'     => 'required',    
-            'phone'           => 'required',    
-            'mobile'          => 'required',    
+            'email'           => 'unique:renters',    
+           // 'mother_name'     => 'required',    
+           // 'phone'           => 'required',    
+            'mobile'          => 'required | unique:renters',    
             // 'gender'          => 'required',    
-             'nid_no'          => 'required',    
+            // 'nid_no'          => 'required',    
             // 'nid_photo'       => 'required',    
             //'photo'           => 'required',    
-            'date_of_birth'   => 'required',    
+            //'date_of_birth'   => 'required',    
             'renter_type_id'  => 'required',    
             'address_line1'   => 'required',    
             'thana_id'        => 'required',    
             'postal_code'     => 'required',    
             'city_id'         => 'required',    
-            'country_id'      => 'required',    
+           // 'country_id'      => 'required',    
             'status'          => 'required'   
         ];
     }
@@ -48,8 +49,15 @@ class RenterRequest extends FormRequest
     public function messages(){
 
          return [
-            'first_name.required' => 'First name is required',
-            'last_name.required' => 'Last name is required',
+            'first_name.required'    => 'Enter renter first name',
+            'father_name.required'   => 'Enter father name',
+            'mobile.required'        => 'Enter concact number',
+            'mobile.unique'          => 'Mobile no already exist',
+            'address_line1.required' => 'Enter address area',
+            'address_line1.required' => 'Enter address area',
+            'thana_id.required'      => 'Select thana name',
+            'postal_code.required'   => 'Enter post code',
+            'city_id.required'       => 'Select city name',
         ];
     }
 }

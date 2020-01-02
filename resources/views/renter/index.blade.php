@@ -48,6 +48,14 @@ window.addEventListener("load", function(){
         $('#renter_add_form').find('.help-block').empty();
 	});
 
+    //datepicker details
+	$(function(){
+		  $('[data-toggle="datepicker"]').datepicker({
+		    autoHide: true,
+		    zIndex: 2048,
+		    format: 'yyyy-mm-dd',
+		  });
+	});
 	//adding renter details
 	$('#renterAddBtn').click(function(){
 		var renterForm = document.getElementById('renter_add_form');
@@ -114,6 +122,7 @@ window.addEventListener("load", function(){
 		html_renter_types    = '<option value="" disabled selected>Select Renter Type</option>';
 
 		axios.get('api/renters/'+id+'/edit').then(function(response){
+			console.log(response);
 			$.each(country, function(ind,val){
 				if(val.id == response.data.address.country_id){
 					html_countries += '<option value="'+val.id+'" selected>'+val.name+'</option>';
@@ -147,7 +156,8 @@ window.addEventListener("load", function(){
 			$('#add_city_name').html(html_cities);
 			$('#type_name').html(html_renter_types);
 			$('#add_first_name').val(response.data.first_name);
-			$('#add_last_name').val(response.data.last_name);
+			$('#add_email').val(response.data.email);
+			//$('#add_last_name').val(response.data.last_name);
 			$('#add_father_name').val(response.data.father_name);
 			$('#add_mother_name').val(response.data.mother_name);
 			$('#add_phone').val(response.data.phone);
@@ -156,6 +166,8 @@ window.addEventListener("load", function(){
 			$('#address_line').val(response.data.address.address_line1);
 			$('#post_code').val(response.data.address.postal_code);
 			// $('#add_photo').val(response.data.photo);
+			$('#edit_nid_photo').attr("src", response.data.photo);
+			$('#edit_renter_photo').attr("src", response.data.nid_photo);
 			 $('#add_date_of_birth').val(response.data.date_of_birth);
 			 if(response.data.status == 1){
 			 	$('#active').attr("selected","selected");
@@ -199,17 +211,17 @@ window.addEventListener("load", function(){
 	$(document).on('click', '.delete-modal', function(){
 		$('#id').val($(this).data('id'));
 		$('#modalDelete').modal();
-		$('#deleteBtn').click(function(){
-			var id = $('#id').val();
-			axios.delete('api/renters'+'/'+id, {
-				data: $('delete_form').serialize()
-			}).then(function(resData){
-				$('#renterDataTable').DataTable().ajax.reload();
-				$('#modalDelete').modal('hide');
-				toastr.warning('Renter Deleted Successfully.');	
-			}).catch(function(failData){
-				utlt.cLog(arguments);
-			});
+	});
+	$('#deleteBtn').click(function(){
+		var id = $('#id').val();
+		axios.delete('api/renters'+'/'+id, {
+			data: $('delete_form').serialize()
+		}).then(function(resData){
+			$('#renterDataTable').DataTable().ajax.reload();
+			$('#modalDelete').modal('hide');
+			toastr.warning('Renter Deleted Successfully.');	
+		}).catch(function(failData){
+			alert("Can not delete this Renter !!");
 		});
 	});
 	//end of delete renter details
@@ -251,18 +263,29 @@ window.addEventListener("load", function(){
 		'data' : 'id',
 		'width' : '135px',
 		'render' : function(data, type, row, ind){
-			return '<span class="edit-modal btn btn-link btn-primary btn-lg" data-id = '+data+'><i class="fa fa-edit"></i></span><span class="delete-modal btn btn-link btn-danger" data-id = '+data+'><i class="fa fa-times"></i></span>';
+			// return '<span class="edit-modal btn btn-link btn-primary btn-lg" data-id = '+data+'><i class="fa fa-edit"></i></span><span class="delete-modal btn btn-link btn-danger" data-id = '+data+'><i class="fa fa-times"></i></span>';
+			$action_dropdown =	
+				'<div class="dropdown show">'+
+				  '<a class="btn btn-outline-info btn-sm btn-round dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">action</a>'+
+				  '<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">'+
+				    // '<a class="dropdown-item view_data" data-id = '+ data +'><i class="fa fa-eye"></i> View Details</a>'+
+				    // '<a class="dropdown-item print_data" data-id = '+ data +'><i class="fa fa-print text-info"></i> Print/Download</a>'+
+                    '<a class="dropdown-item edit-modal" data-id = '+ data +'><i class="fa fa-edit text-secondary"></i> Edit Renter Details</a>'+
+                    '<a class="dropdown-item delete-modal" data-id = '+ data +'><i class="fa fa-trash text-danger" ></i> Delete</a>'+
+				  '</div>'+
+				'</div>';
+			return $action_dropdown;
 		}
 	},
 	{
-		'title' : 'First Name',
+		'title' : 'Renter Name',
 		'name' : 'first_name',
 		'data' : 'first_name'
 	},
 	{
-		'title' : 'Last Name',
-		'name' : 'last_name',
-		'data' : 'last_name'
+		'title' : 'Modile No',
+		'name' : 'mobile',
+		'data' : 'mobile'
 	},
 	{
 		'title' : 'Father Name',
@@ -275,16 +298,6 @@ window.addEventListener("load", function(){
 		'data' : 'mother_name'
 	},
 	{
-		'title' : 'Phone',
-		'name' : 'phone',
-		'data' : 'phone'
-	},
-	{
-		'title' : 'Modile No',
-		'name' : 'mobile',
-		'data' : 'mobile'
-	},
-	{
 		'title' : 'Gender',
 		'name' : 'gender',
 		'data' : 'gender'
@@ -294,7 +307,6 @@ window.addEventListener("load", function(){
 		'name' : 'nid_no',
 		'data' : 'nid_no'
 	},
-
 	{
 		'title' : 'NID Photo',
 		'name' : 'nid_photo',
@@ -351,9 +363,13 @@ window.addEventListener("load", function(){
 		'title' : 'Active Status',
 		'name' : 'status',
 		'data' : 'status',
-		// 'render': function (data, type, row, ind) {
-  //           return (data) ? 'Active' : '<span class="text-danger">Inactive</span>';
-  //       }
+		'render': function (data, type, row, ind) {
+            if(data == 1){
+            	return "Active";
+            }else{
+            	return "inactive";
+            }
+        }
 	}
 	],
 	serverSide : true,

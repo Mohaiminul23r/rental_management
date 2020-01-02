@@ -1,54 +1,140 @@
+<!-- Card With Icon States Color -->
 <div class="row">
-<div class="col-sm-6 col-lg-3">
-	<div class="card p-3">
-		<div class="d-flex align-items-center">
-			<span class="stamp stamp-md bg-secondary mr-3">
-				<i class="fa fa-dollar-sign"></i>
-			</span>
-			<div>
-				<h5 class="mb-1"><b><a href="#">132 <small>Sales</small></a></b></h5>
-				<small class="text-muted">12 waiting payments</small>
+	<div class="col-sm-6 col-md-6">
+		<div class="card card-stats card-round">
+			<div class="card-body ">
+				<div class="row">
+					<div class="col-5">
+						<div class="icon-big text-center">
+							<i class="flaticon-users text-danger"></i>
+						</div>
+					</div>
+					<div class="col-7 col-stats">
+						<div class="numbers">
+							<strong><p class="card-category">Number of Registered Renters</p></strong>
+							<h4 class="card-title">0</h4>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-6 col-md-6">
+		<div class="card card-stats card-round">
+			<div class="card-body ">
+				<div class="row">
+					<div class="col-5">
+						<div class="icon-big text-center">
+							<i class="flaticon-user-6 text-success"></i>
+						</div>
+					</div>
+					<div class="col-7 col-stats">
+						<div class="numbers">
+							<strong><p class="card-category">Number of Active Renters</p></strong>
+							<h4 class="card-title">0</h4>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
-<div class="col-sm-6 col-lg-3">
-	<div class="card p-3">
-		<div class="d-flex align-items-center">
-			<span class="stamp stamp-md bg-success mr-3">
-				<i class="fa fa-shopping-cart"></i>
-			</span>
-			<div>
-				<h5 class="mb-1"><b><a href="#">78 <small>Orders</small></a></b></h5>
-				<small class="text-muted">32 shipped</small>
+<div class="row">
+	<div class="col-sm-6 col-md-6">
+		<div class="card card-stats card-round">
+			<div class="card-body">
+				<div class="row">
+					<div class="col-5">
+						<div class="icon-big text-center">
+							<i class="flaticon-coins text-success"></i>
+						</div>
+					</div>
+					<div class="col-7 col-stats">
+						<div class="numbers">
+							<strong><p class="card-category">Total Collections</p></strong>
+							<h4 class="card-title">৳ 0.00</h4>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-6 col-md-6">
+		<div class="card card-stats card-round">
+			<div class="card-body">
+				<div class="row">
+					<div class="col-5">
+						<div class="icon-big text-center">
+							<i class="flaticon-clock text-success"></i>
+						</div>
+					</div>
+					<div class="col-7 col-stats">
+						<div class="numbers">
+							<strong><p class="card-category">Collection of this Month</p></strong>
+							<h4 class="card-title">৳ 0.00</h4>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
-<div class="col-sm-6 col-lg-3">
-	<div class="card p-3">
-		<div class="d-flex align-items-center">
-			<span class="stamp stamp-md bg-danger mr-3">
-				<i class="fa fa-users"></i>
-			</span>
-			<div>
-				<h5 class="mb-1"><b><a href="#">1,352 <small>Members</small></a></b></h5>
-				<small class="text-muted">163 registered today</small>
+<div class="row">
+	<div class="col-sm-6 col-md-4">
+		<div class="card card-stats card-round card-pricing2">
+			<div class="card-body ">
+				<div class="row">
+					<div class="col-5">
+						<div class="icon-big text-center">
+							<i class="flaticon-coins text-danger"></i>
+						</div>
+					</div>
+					<div class="col-7 col-stats">
+						<div class="numbers">
+							<strong><p class="card-category">Due Collection</p></strong>
+							<h4 class="card-title">৳ 0.00</h4>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
-<div class="col-sm-6 col-lg-3">
-	<div class="card p-3">
-		<div class="d-flex align-items-center">
-			<span class="stamp stamp-md bg-warning mr-3">
-				<i class="fa fa-comment-alt"></i>
-			</span>
-			<div>
-				<h5 class="mb-1"><b><a href="#">132 <small>Comments</small></a></b></h5>
-				<small class="text-muted">16 waiting</small>
+	<div class="col-sm-6 col-md-4">
+		<div class="card card-stats card-round">
+			<div class="card-body ">
+				<div class="row">
+					<div class="col-5">
+						<div class="icon-big text-center">
+							<i class="flaticon-home text-success"></i>
+						</div>
+					</div>
+					<div class="col-7 col-stats">
+						<div class="numbers">
+							<strong><p class="card-category">Number of Complexes</p></strong>
+							<h4 class="card-title">2</h4>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
+	<div class="col-sm-6 col-md-4">
+		<div class="card card-stats card-round">
+			<div class="card-body">
+				<div class="row">
+					<div class="col-5">
+						<div class="icon-big text-center">
+							<i class="flaticon-box-3 text-info"></i>
+						</div>
+					</div>
+					<div class="col-7 col-stats">
+						<div class="numbers">
+							<strong><p class="card-category">Number of Shops</p></strong>
+							<h4 class="card-title">5</h4>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

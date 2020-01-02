@@ -21,10 +21,17 @@
 						<span class="help-block"></span>
 					</div>	
 				</div>
-				<div class="col-md-4">
+				{{-- <div class="col-md-4">
 					<div class="form-group">
 						<label for="name">Last Name</label>
 						<input type="name" name="last_name" class="form-control" id="add_last_name" placeholder="Enter Last Name">
+						<span class="help-block"></span>
+					</div>	
+				</div> --}}
+				<div class="col-md-4">
+					<div class="form-group">
+						<label for="name">Email Address</label>
+						<input type="name" name="email" class="form-control" id="add_email" placeholder="example@gmail.com">
 						<span class="help-block"></span>
 					</div>	
 				</div>
@@ -99,8 +106,8 @@
 				</div>
 				<div class="col-md-4">
 					<div class="form-group">
-						<label for="date">Date of Birth</label>
-						<input type="date" class="form-control-file" id="add_date_of_birth" name="date_of_birth">
+						<label for="name">Date of Birth</label>
+						<input type="text" class="form-control" data-toggle="datepicker" id="add_date_of_birth" name="date_of_birth" placeholder="yyyy-mm-dd">
 						<span class="help-block"></span>
 					</div>	
 				</div>
@@ -168,8 +175,8 @@
 			</div>
 		</div>
 		<div class="modal-footer no-bd">
-			<button type="button" id="renterEditBtn" class="btn btn-primary">Edit</button>
-			<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			<button type="button" id="renterEditBtn" class="btn btn-primary btn-round">Edit</button>
+			<button type="button" class="btn btn-danger btn-round" data-dismiss="modal">Close</button>
 		</div>
 		</form>
 	</div>

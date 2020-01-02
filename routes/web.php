@@ -46,19 +46,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('shops', function(){
         return view('settings.shop.index');
     });
-
      Route::get('renters', "CommonController@renterIndex");
-
      Route::get('thanas', "CommonController@thanaIndex");
-
      Route::get('cities', "CommonController@cityIndex");
-
      Route::get('advance_payments', "CommonController@advancePaymentIndex");
-
      Route::get('electric_bills', "CommonController@electricityBillIndex");
-
-     Route::get('active_renters', "CommonController@activeRenterIndex");
-     
+     Route::get('active_renters', "CommonController@activeRenterIndex");  
      Route::get('renter_details', "CommonController@renterDetailsReportIndex");
      Route::get('create_bills', "CommonController@createBillIndex");
      Route::get('reports', "CommonController@generateReportIndex");
