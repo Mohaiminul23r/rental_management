@@ -1,6 +1,6 @@
 @extends('layouts.master2')
 @section('pagetitle')
-	House Information
+	<a type="button" href="{{ url('/home')}}" class="btn btn-outline-info btn-round btn-outline-light"><i class="fas fa-home text-success"></i><strong> Home</strong></a>
 @endsection
 @section('button')
 <a class="btn btn-info btn-round" id="addBtn" data-toggle="modal" data-target="#houseAddModal">Add+</a>

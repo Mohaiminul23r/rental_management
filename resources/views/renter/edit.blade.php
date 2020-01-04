@@ -15,6 +15,7 @@
 		<form id="renter_edit_form" class="form-horizontal" role="form" enctype="multipart/form-data">
 			<div class="row">
 				<div class="col-md-4">
+					<input type="hidden" name="renter_id" id="renter_id">
 					<div class="form-group">
 						<label for="name">First Name</label>
 						<input type="name" name="first_name" class="form-control" id="add_first_name" placeholder="Enter First Name">

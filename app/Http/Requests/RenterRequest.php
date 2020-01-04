@@ -27,7 +27,7 @@ class RenterRequest extends FormRequest
             'first_name'      => 'required',    
             //'last_name'       => 'required',    
             'father_name'     => 'required',    
-            'email'           => 'unique:renters',    
+            'email'           => 'email | unique:renters',    
            // 'mother_name'     => 'required',    
            // 'phone'           => 'required',    
             'mobile'          => 'required | unique:renters',    

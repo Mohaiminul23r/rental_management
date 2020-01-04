@@ -1,9 +1,9 @@
 @extends('layouts.master2')
 @section('pagetitle')
-	Advance Payments
+	<a type="button" href="{{ url('/home')}}" class="btn btn-outline-info btn-round btn-outline-light"><i class="fas fa-home text-success"></i><strong> Home</strong></a>
 @endsection
 @section('button')
-<a class="btn btn-info btn-round" id="add_advance_Btn" data-toggle="modal" data-target="#advancePaymentAddModal">Add+</a>
+<a class="btn btn-info btn-round" id="add_advance_Btn" data-toggle="modal" data-target="#advancePaymentAddModal">Add Advance+</a>
 @endsection
 @section('card-title')
 <b>Advance Payment List</b>

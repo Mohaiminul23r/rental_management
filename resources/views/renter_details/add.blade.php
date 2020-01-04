@@ -24,7 +24,7 @@
                         <div class="col-md-6">
                             <h4><strong>Personal Information</strong></h4>
                            <table class="table-striped" width="100%">
-                           	 <thead>
+                <thead>
 							    <tr>
 							      <th scope="col" width="35%"></th>
 							      <th scope="col"></th>

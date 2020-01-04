@@ -2,37 +2,9 @@
 <div class="sidebar sidebar-style-2">			
 	<div class="sidebar-wrapper scrollbar scrollbar-inner">
 		<div class="sidebar-content">
-			<div class="user">
-				<div class="avatar-sm float-left mr-2">
-					<img src="/img/profile.jpg" alt="user photo" class="avatar-img rounded-circle">
-				</div>
-				<div class="info">
-					<a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
-						<span>
-							<span class="user-level"></span>
-							<span class="caret"></span>
-						</span>
-					</a>
-					<div class="clearfix"></div>
-					<div class="collapse in" id="collapseExample">
-						<ul class="nav">
-							<li>
-								<a href="#profile">
-									<span class="link-collapse">My Profile</span>
-								</a>
-							</li>
-							<li>
-								<a href="#edit">
-									<span class="link-collapse">Edit Profile</span>
-								</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
 			<ul class="nav nav-primary">
 				<li class="nav-item active">
-					<a data-toggle="collapse" href="{{url('/home')}}" class="collapsed" aria-expanded="false">
+					<a href="{{url('/home')}}"  aria-expanded="false">
 						<i class="fas fa-home"></i>
 						<p>Dashboard</p>
 					</a>
@@ -74,7 +46,7 @@
 							<li>
 								<a data-toggle="collapse" href="#subnav3">
 									<i class="fas fa-building"></i>
-									<p>House Settings</p>
+									<p>Rent Settings</p>
 									<span class="caret"></span>
 								</a>
 								<div class="collapse" id="subnav3">
@@ -157,7 +129,7 @@
 							</li>
 							<li>
 								<a href="{{url('/renter_details')}}">
-									<span class="sub-item">Renter Details Report</span>
+									<span class="sub-item">Active Renter Details</span>
 								</a>
 							</li>
 						</ul>
@@ -242,6 +214,19 @@
 							</li>
 						</ul>
 					</div>
+				</li>
+			</ul>
+			<ul class="nav nav-collapse">
+				<li class="nav-item active">
+					<a style="font-size: 16px; background: lightgray;" href="{{ route('logout') }}"
+						 onclick="event.preventDefault();
+	                     document.getElementById('logout-form').submit();">
+	                     <i class="icon-logout text-danger"></i>
+	                     {{ __('Logout') }}
+	                   </a>
+	                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+	                        @csrf
+	                    </form>
 				</li>
 			</ul>
 		</div>

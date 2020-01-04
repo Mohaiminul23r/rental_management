@@ -3,6 +3,11 @@
 	Bill Type
 @endsection
 @section('breadcrumbs')
+    <li class="nav-home">
+        <a href="{{url('/home')}}">
+            <i class="flaticon-home"></i>
+        </a>
+    </li>
 	<li class="separator">
 		<i class="flaticon-right-arrow"></i>
 	</li>

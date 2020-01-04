@@ -1,6 +1,6 @@
 @extends('layouts.master2')
 @section('pagetitle')
-	View Reports
+	<a type="button" href="{{ url('/home')}}" class="btn btn-outline-info btn-round btn-outline-light"><i class="fas fa-home text-success"></i><strong> Home</strong></a>
 @endsection
 @section('card-title')
 <b>Generate and Download Reports</b>

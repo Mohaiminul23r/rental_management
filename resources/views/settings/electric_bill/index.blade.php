@@ -1,9 +1,9 @@
 @extends('layouts.master2')
 @section('pagetitle')
-	Electric Bill 
+	<a type="button" href="{{ url('/home')}}" class="btn btn-outline-info btn-round btn-outline-light"><i class="fas fa-home text-success"></i><strong> Home</strong></a>
 @endsection
 @section('button')
-<a class="btn btn-info btn-round" id="add_eb_Btn" data-toggle="modal" data-target="#electricBillAddModal">Add+</a>
+<a class="btn btn-info btn-round" id="add_eb_Btn" data-toggle="modal" data-target="#electricBillAddModal">Add eBill+</a>
 @endsection
 @section('card-title')
 <b>Electric Bill Details</b>

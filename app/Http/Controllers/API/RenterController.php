@@ -41,7 +41,11 @@ class RenterController extends Controller
         if($request->input('search') && $request->input('search')['value'] != ""){
 
              $search['renters.first_name'] = $request->input('search')['value'];
-             $search['renters.last_name'] = $request->input('search')['value'];
+             $search['renters.father_name'] = $request->input('search')['value'];
+             $search['renters.date_of_birth'] = $request->input('search')['value'];
+             $search['renters.mobile'] = $request->input('search')['value'];
+             $search['renters.nid_no'] = $request->input('search')['value'];
+             $search['renter_types.name'] = $request->input('search')['value'];
         }
 
         if($request->input('where')){
@@ -173,7 +177,7 @@ class RenterController extends Controller
      */
     public function update(RenterRequest $request, Renter $renter)
     {
-       // dd($request->all());
+        dd($request->all());
         $first_name     = $request->input('first_name');
         $email          = $request->input('email');
        // $last_name      = $request->input('last_name');
@@ -252,5 +256,10 @@ class RenterController extends Controller
         $renter->delete();
         $address = Address::findOrFail($renter->address_id);
         $address->delete();
+    }
+
+    public function getRenterInformation($id){
+        $renter_info = Renter::with('rentertype', 'address', 'address.city', 'address.thana', 'address.country')->whereId($id)->first();
+        return $renter_info;
     }
 }

@@ -1,12 +1,12 @@
 @extends('layouts.master2')
 @section('pagetitle')
-	Active Renters
+	<a type="button" href="{{ url('/home')}}" class="btn btn-outline-info btn-round btn-outline-light"><i class="fas fa-home text-success"></i><strong> Home</strong></a>
 @endsection
 @section('button')
 <button class="btn btn-white btn-border btn-round mr-2" data-toggle="modal" data-target="#multi_step_add_modal" id="add_rent_info_btn">Add Rent Info.</button>
 @endsection
 @section('card-title')
-<b>Active Renter List</b>
+<b>Active Renter's List</b>
 @endsection
 @section('body')
 	{{-- start modals --}}
@@ -20,6 +20,7 @@
 		<table id="activeRenterDataTable" class="display table table-striped table-hover">
 		</table>
 	</div>
+	
 <script type="text/javascript">
 // datatable starts
 var activeRenterDataTable = null;

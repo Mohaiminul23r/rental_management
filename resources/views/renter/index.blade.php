@@ -1,38 +1,26 @@
-@extends('layouts.master')
+@extends('layouts.master2')
 @section('pagetitle')
-	Renter Details
+	<a type="button" href="{{ url('/home')}}" class="btn btn-outline-info btn-round btn-outline-light"><i class="fas fa-home text-success"></i><strong> Home</strong></a>
 @endsection
-@section('breadcrumbs')
-	<li class="separator">
-		<i class="flaticon-right-arrow"></i>
-	</li>
-	<li class="nav-item">
-		<a href="#">Renter</a>
-	</li>
+
+@section('button')
+<button class="btn btn-white btn-border btn-round mr-2" data-toggle="modal" data-target="#addRentalModal" id="addBtn">Add Renter Details</button>
+@endsection
+@section('card-title')
+<b>List of Renter Details</b>
 @endsection
 @section('body')
-<div class="row">
-<div class="col-md-12">
-<div class="card">
-	<div class="card-header">
-		<div class="d-flex align-items-center">
-			<h4 class="card-title">Renters List</h4>
-		</div>
+	{{-- start modals --}}
+	@include('renter.add')
+	@include('renter.edit')
+    @include('renter.delete')
+    @include('renter.view_info')
+	{{-- end modals --}}
+
+	<div class="table-responsive">
+		<table id="renterDataTable" class="display table table-striped table-hover">
+		</table>
 	</div>
-	<div class="card-body">
-		{{-- start modals --}}
-		@include('renter.add')
-		@include('renter.edit')
-        @include('renter.delete')
-		{{-- end modals --}}
-		<div class="table-responsive">
-			<table id="renterDataTable" class="display table table-striped table-hover">
-			</table>
-		</div>
-	</div>
-</div>
-</div>
-</div>
 <script type="text/javascript">
 var renterDataTable = null;
 var renterType = <?php echo json_encode($renterType)?>;
@@ -207,6 +195,7 @@ window.addEventListener("load", function(){
 			});
 		});
 	});
+
 	//delete renter details
 	$(document).on('click', '.delete-modal', function(){
 		$('#id').val($(this).data('id'));
@@ -225,26 +214,102 @@ window.addEventListener("load", function(){
 		});
 	});
 	//end of delete renter details
+
+	//view renter details
+	$(document).on('click', '.view-modal', function(){
+		$('#view_renter_info_modal').modal('show');
+		var view_id = $(this).data('id');
+		axios.get('api/renters/info/'+ view_id).then(function(response){
+			//$(document).find('#intro_div p').empty();
+			if(typeof response.data != 'undefined' &&  response.data != null){
+
+				$('#renter_name_1').text(response.data.first_name);
+				$('#father_name_1').text(response.data.father_name);
+				$('#mobile_1').text(response.data.mobile);
+
+				if(typeof response.data.mother_name != 'undefined' && response.data.mother_name !=null){
+					$('#mother_name_1').text(response.data.mother_name);
+				}else{
+					$('#mother_name_1').text("Null");
+				}
+				
+				if(typeof response.data.date_of_birth != 'undefined' && response.data.date_of_birth !=null){
+					$('#date_of_birth_1').text(response.data.date_of_birth);
+				}else{
+					$('#date_of_birth_1').text("Null");
+				}
+				
+				if(typeof response.data.email != 'undefined' && response.data.email !=null){
+					$('#email_1').text(response.data.email);
+				}else{
+					$('#email_1').text("Null");
+				}
+
+				if(typeof response.data.photo != 'undefined' && response.data.photo !=null && response.data.photo != ""){
+					$('#renter_image_1').attr("src", response.data.photo);
+				}else{
+					$('#renter_image_1').attr("alt", "Renter Photo is Not Uploaded");
+				}
+
+				if(typeof response.data.nid_photo != 'undefined' && response.data.nid_photo !=null && response.data.nid_photo != ""){
+					$('#nid_image_1').attr("src", response.data.nid_photo);
+				}else{
+					$('#nid_image_1').attr("alt", "NID is Not Uploaded");
+				}
+
+				if(typeof response.data.phone != 'undefined' && response.data.phone !=null){
+					$('#phone_1').text(response.data.phone);
+				}else{
+					$('#phone_1').text("N/A");
+				}
+				
+				if(typeof response.data.nid_no != 'undefined' && response.data.nid_no !=null){
+					$('#nid_no_1').text(response.data.nid_no);
+				}else{
+					$('#nid_no_1').text("Null");
+				}
+
+				if(typeof response.data.gender != 'undefined' && response.data.gender !=null){
+					$('#gender_1').text(response.data.gender);
+				}else{
+					$('#gender_1').text("Null");
+				}
+
+				if(response.data.status == '0'){
+					$('#status_1').text("Not Active");
+				}else if(response.data.status == '1'){
+					$('#status_1').text("Active");
+				}
+			}
+				
+				if(typeof response.data.rentertype != 'undefined' &&  response.data.rentertype != null){
+					$('#renter_type_1').text(response.data.rentertype.name);
+				}else{
+					$('#renter_type_1').text("Null");
+				}
+
+				if(typeof response.data.address != 'undefined' &&  response.data.address != null){
+
+					$address = response.data.address.address_line1 + ', ' + response.data.address.thana.name + ', '+ 'Post- ' + response.data.address.postal_code +', ' + response.data.address.country.name;
+					$('#address_1').text($address);
+					$('#country_name_1').text(response.data.address.country.name);
+				}else{
+					$('#address_1').text("Null");
+					$('#country_name_1').text("Null");
+				}
+		}).catch(function(failData){
+			alert("Can not view renter details !!");
+		});
+	});
 	
 	//start of data table
 	var renterDataTable = $('#renterDataTable').DataTable({
 
-	dom : '<"row"<"col-md-3"B><"col-md-3"l><"col-md-6"f>>rtip',
+	dom : '<"row"<"col-md-6"l><"col-md-6"f>>rtip',
 	initComplete : function(){
 
 	},
 	lengthMenu : [[5, 10, 20, -1], [5, 10, 20, 'All']],
-	buttons : [
-	{
-		text : 'Add New Renter',
-		attr : {
-			'id' : "addBtn",
-			'class' : "btn btn-info btn-sm",
-			'data-toggle' : "modal",
-			'data-target' : "#addRentalModal"
-		}
-	}
-	],
 	columns : [
 	{
 		'title' : '#SL',
@@ -261,16 +326,15 @@ window.addEventListener("load", function(){
 		'title' : 'OPT',
 		'name' : 'opt',
 		'data' : 'id',
-		'width' : '135px',
+		'width' : '40px',
 		'render' : function(data, type, row, ind){
-			// return '<span class="edit-modal btn btn-link btn-primary btn-lg" data-id = '+data+'><i class="fa fa-edit"></i></span><span class="delete-modal btn btn-link btn-danger" data-id = '+data+'><i class="fa fa-times"></i></span>';
 			$action_dropdown =	
 				'<div class="dropdown show">'+
 				  '<a class="btn btn-outline-info btn-sm btn-round dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">action</a>'+
 				  '<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">'+
-				    // '<a class="dropdown-item view_data" data-id = '+ data +'><i class="fa fa-eye"></i> View Details</a>'+
 				    // '<a class="dropdown-item print_data" data-id = '+ data +'><i class="fa fa-print text-info"></i> Print/Download</a>'+
                     '<a class="dropdown-item edit-modal" data-id = '+ data +'><i class="fa fa-edit text-secondary"></i> Edit Renter Details</a>'+
+                    '<a class="dropdown-item view-modal" data-id = '+ data +'><i class="fa fa-eye"></i> View Details</a>'+
                     '<a class="dropdown-item delete-modal" data-id = '+ data +'><i class="fa fa-trash text-danger" ></i> Delete</a>'+
 				  '</div>'+
 				'</div>';
@@ -283,51 +347,9 @@ window.addEventListener("load", function(){
 		'data' : 'first_name'
 	},
 	{
-		'title' : 'Modile No',
-		'name' : 'mobile',
-		'data' : 'mobile'
-	},
-	{
 		'title' : 'Father Name',
 		'name' : 'father_name',
 		'data' : 'father_name'
-	},
-	{
-		'title' : 'Mother Name',
-		'name' : 'mother_name',
-		'data' : 'mother_name'
-	},
-	{
-		'title' : 'Gender',
-		'name' : 'gender',
-		'data' : 'gender'
-	},
-	{
-		'title' : 'NID No.',
-		'name' : 'nid_no',
-		'data' : 'nid_no'
-	},
-	{
-		'title' : 'NID Photo',
-		'name' : 'nid_photo',
-		'data' : 'nidPhoto',
-		'render': function (data, type, row, ind) {
-            return '<img height="50" width="45" src="'+data+'" alt="something">';
-        }
-	},
-	{
-		'title' : 'Renter Photo',
-		'name' : 'photo',
-		'data' : 'photo',
-		'width': '30px',
-        'render': function (data, type, row, ind) {
-            return '<img height="50" width="45" src="'+data+'" alt="something">';
-        }
-	},
-	{
-		'title' : 'Date of Birth',
-		'name' : 'date_of_birth',
-		'data' : 'date_of_birth'
 	},
 	{
 		'title' : 'Renter Type',
@@ -335,29 +357,23 @@ window.addEventListener("load", function(){
 		'data' : 'renterTypeName'
 	},
 	{
-		'title' : 'Address (Area)',
-		'name' : 'address_line1',
-		'data' : 'address_line1'
+		'title' : 'Modile No',
+		'name' : 'mobile',
+		'data' : 'mobile'
 	},
 	{
-		'title' : 'Thana',
-		'name' : 'name',
-		'data' : 'thanaName'
+		'title' : 'NID No.',
+		'name' : 'nid_no',
+		'data' : 'nid_no'
 	},
 	{
-		'title' : 'Post Code',
-		'name' : 'postal_code',
-		'data' : 'postCode'
-	},
-	{
-		'title' : 'City',
-		'name' : 'name',
-		'data' : 'cityName'
-	},
-	{
-		'title' : 'Country',
-		'name' : 'name',
-		'data' : 'countryName'
+		'title' : 'Renter Photo',
+		'name' : 'photo',
+		'data' : 'photo',
+		'width': '30px',
+        'render': function (data, type, row, ind) {
+            return '<img height="50" width="45" class="avatar-img" src="'+data+'" alt="something">';
+        }
 	},
 	{
 		'title' : 'Active Status',
@@ -374,7 +390,7 @@ window.addEventListener("load", function(){
 	],
 	serverSide : true,
 	processing : true,
-	responsive : true,
+	// responsive : true,
 	ajax: {
 		url: utlt.siteUrl('api/renters'),
 		dataSrc: 'data'

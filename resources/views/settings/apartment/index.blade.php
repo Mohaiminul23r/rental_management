@@ -1,9 +1,9 @@
 @extends('layouts.master2')
 @section('pagetitle')
-	Apartment or Complex Information
+	<a type="button" href="{{ url('/home')}}" class="btn btn-outline-info btn-round btn-outline-light"><i class="fas fa-home text-success"></i><strong> Home</strong></a>
 @endsection
 @section('button')
-<a class="btn btn-info btn-round" id="addBtn" data-toggle="modal" data-target="#apartmentAddModal">Add+</a>
+<a class="btn btn-info btn-round" id="addBtn" data-toggle="modal" data-target="#apartmentAddModal">Add Complex+</a>
 @endsection
 @section('card-title')
 <b>Complex List</b>

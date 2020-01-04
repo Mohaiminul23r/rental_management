@@ -1,9 +1,9 @@
 @extends('layouts.master2')
 @section('pagetitle')
-	Create Bill for Renters
+	<a type="button" href="{{ url('/home')}}" class="btn btn-outline-info btn-round btn-outline-light"><i class="fas fa-home text-success"></i><strong> Home</strong></a>
 @endsection
 @section('card-title')
-<b>Create Bills</b>
+<b>Create and Collect Bills</b>
 @endsection
 @section('body')
 <div class="container-fluid">
