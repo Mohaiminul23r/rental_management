@@ -3,7 +3,9 @@
 	<a type="button" href="{{ url('/home')}}" class="btn btn-outline-info btn-round btn-outline-light"><i class="fas fa-home text-success"></i><strong> Home</strong></a>
 @endsection
 @section('button')
-<button class="btn btn-white btn-border btn-round mr-2" data-toggle="modal" data-target="#multi_step_add_modal" id="add_rent_info_btn">Add Rent Info.</button>
+<a class="btn btn-secondary btn-round" href="{{ url('/renter_details') }}">
+<i class="fas fa-angle-double-right text-info"></i><strong> View Details</strong></a>
+<button class="btn btn-white btn-border btn-round mr-2" data-toggle="modal" data-target="#multi_step_add_modal" id="add_rent_info_btn"><i class="fas fa-plus text-success"></i><strong> Add Rent Info.</strong></button>
 @endsection
 @section('card-title')
 <b>Active Renter's List</b>
@@ -111,9 +113,13 @@ const mySteps = [{
 					'</div>'+	
 				'</div>'+
 			'</div>'+
-			'<div>'+
-				'<button type="button" style="align:left;" id="save_rent_details" class="btn btn-primary">Save</button>'+
-				'<button type="button"  id="close_modal_btn" class="btn btn-success">Cancel</button>'+
+			'<div class="row">'+
+				'<div class="col-md-6" style="text-align: left;">'+
+					'<button type="button" style="align:left;" id="save_rent_details" class="btn btn-primary">Save</button>'+
+				'</div>'+
+				'<div class="col-md-6" style="text-align: right;">'+
+					'<button type="button"  id="close_modal_btn" class="btn btn-warning">Cancel</button>'+
+				'</div>'+	
 			'</div>'+
 			'</form>',
         label:'Rent Info.'
@@ -492,8 +498,7 @@ var activeRenterDataTable = $('#activeRenterDataTable').DataTable({
 			'data' : 'id',
 			'width' : '25px',
 			'render' : function(data, type, row, ind){
-				// return '<span class="edit-modal btn btn-link btn-primary btn-lg" data-id = '+data+'><i class="fa fa-edit"></i></span><span class="delete-modal btn btn-link btn-danger" data-id = '+data+'><i class="fa fa-times"></i></span>';
-				return '<span class="delete-modal glyphicon glyphicon-trash" data-id = '+data+' data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash-alt"></i></span>';
+				return '<span class="delete-modal glyphicon glyphicon-trash" data-id = '+data+' data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash-alt text-danger"></i></span>';
 			}
 		},
 		{

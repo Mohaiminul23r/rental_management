@@ -43,15 +43,22 @@
 	</div>
 	<div class="row">
 		@include('renter_details.add')
+		@include('renter_details.update_rent_details')
+		@include('renter_details.update_other_bills')
+		@include('renter_details.update_utility_bills')
+		@include('renter_details.update_electric_bill')
 	</div>
 </div>
 @endsection
 
 @push('javascript')
 <script type="text/javascript">
-	// datatable starts
-var renter_info  = <?php echo json_encode($renter_info)?>;
-var activeRenter  = <?php echo json_encode($activeRenter)?>;
+	var complex = <?php echo json_encode($complex)?>;
+	var renterType = <?php echo json_encode($renterType)?>;
+	var bill_type = <?php echo json_encode($bill_type)?>;
+	var shop = <?php echo json_encode($shop)?>;
+	var renter_info  = <?php echo json_encode($renter_info)?>;
+	var activeRenter  = <?php echo json_encode($activeRenter)?>;
 
 window.addEventListener("load",function(){
 	html_renter = '<option value="" disabled selected>Select Renter</option>';
@@ -65,12 +72,20 @@ window.addEventListener("load",function(){
 		$('#renter_search_id').val(id);
 	});
 
+	//getting values at update
+
 	$('#search_renter_info_btn').click(function(){
 		var id = $(document).find('#renter_info_search_form input[name="renter_search_id"]').val();
 		axios.get('api/renter_details/'+id).then(function(response){
 			//console.log(response);
 			$(document).find('.profile-values td p').text("");
-
+			$('#update_rd_div').css('display','inherit');
+			if(response.data.utility_bill != 'undefined' && response.data.utility_bill != null){
+				//console.log(response.data.utility_bill.id);
+				$('#utility_bill_id_2').val(response.data.utility_bill.id);
+				$('#active_renter_id_3').val(response.data.id);
+			}
+			
 			//general information
 			if(typeof response.data.renter != 'undefined' &&  response.data.renter != null){
 					$('#renter_name').text(response.data.renter.first_name);
@@ -147,6 +162,119 @@ window.addEventListener("load",function(){
 		}).catch(function(failData){
 			alert("Select renter name to see details !!");
 		});
+	});
+	
+	//datepicker details
+	$(function(){
+		  $('[data-toggle="datepicker"]').datepicker({
+		    autoHide: true,
+		    zIndex: 2048,
+		    format: 'yyyy-mm-dd',
+		  });
+	});
+
+	//getting values at update rent details
+	$(document).on('click', '.update-rd-btn', function(){
+		$('#update_rent_details_modal').modal();
+		$('#update_rent_details_form .has-error').removeClass('has-error');
+        $('#update_rent_details_form').find('.help-block').empty();
+
+		renter_name_2 = '<option value="" disabled selected>Select Renter</option>';
+		complex_name_2 = '<option value="" disabled selected>Select Complex</option>';
+		html_shop_2     = '<option value="" disabled selected>Select Shop</option>';
+		html_renterType_2     = '<option value="" disabled selected>Select Renter Type</option>';
+		html_billType_2     = '<option value="" disabled selected>Select Bill Type</option>';
+
+		var ubill_id = $(document).find('#update_rent_details_form input[name="utility_bill_id"]').val();
+		var id = ubill_id;
+		axios.get('api/get_utility_bill_details/'+id).then(function(response){
+			//console.log(response);
+			$.each(activeRenter, function(ind,val){
+				if(val.first_name == response.data.active_renter.renter.first_name){
+					renter_name_2 += '<option id="'+val.id+'" value="'+val.id+'" selected>'+val.first_name+' -'+ val.father_name +' (Father)'+'</option>';
+				}else{
+					renter_name_2 += '<option id="'+val.id+'" value="'+val.id+'">'+val.first_name+' -'+ val.father_name +' (Father)'+'</option>';
+				}
+				
+			});
+
+			$.each(complex, function(ind,val){
+				if(val.name == response.data.active_renter.apartment.name){
+					complex_name_2 += '<option value="'+val.id+'" selected>'+val.name+'</option>';
+				}else{
+					complex_name_2 += '<option value="'+val.id+'">'+val.name+'</option>';
+				}
+			});
+			$.each(shop, function(ind,val){
+				if(val.name == response.data.active_renter.shop.name){
+					html_shop_2 += '<option value="'+val.id+'" selected>'+val.name+'</option>';
+				}else{
+					html_shop_2 += '<option value="'+val.id+'">'+val.name+'</option>';
+				}
+				
+			});
+			$.each(renterType, function(ind,val){
+				if(val.name == response.data.active_renter.renter_type.name){
+					html_renterType_2 += '<option value="'+val.id+'" selected>'+val.name+'</option>';
+				}else{
+					html_renterType_2 += '<option value="'+val.id+'">'+val.name+'</option>';
+				}
+				
+			});
+			$('#renter_name_2').html(renter_name_2);
+			$('#complex_name_2').html(complex_name_2);
+			$('#shop_name_2').html(html_shop_2);
+			$('#renter_type_2').html(html_renterType_2);
+
+			$('#activation_date_2').val(response.data.active_renter.rent_started_at);
+			$('#level_no_2').val(response.data.active_renter.level_no);
+			$('#rent_amount_2').val(response.data.active_renter.rent_amount);
+			$('#advance_amount_2').val(response.data.active_renter.advance_amount);
+
+		}).catch(function(failData){
+
+		});
+	});
+
+	//update the rent details
+	$('#update_rd_btn').click(function(){
+		var up_id = $('#active_renter_id_3').val();
+		var id = up_id;
+		axios.post('api/update_renter_details/'+id, $('#update_rent_details_form').serialize()).then(function(response){
+			$('#update_rent_details_modal').modal('hide');
+			toastr.success('Successfully updated rent info. ');
+		}).catch(function(failData){
+			$.each(failData.response.data.errors, function(inputName, errors){
+                $("#update_rent_details_form [name="+inputName+"]").parent().removeClass('has-error').addClass('has-error');
+                if(typeof errors == "object"){
+                    $("#update_rent_details_form [name="+inputName+"]").parent().find('.help-block').empty();
+
+                    $.each(errors, function(indE, valE){
+                        $("#update_rent_details_form [name="+inputName+"]").parent().find('.help-block').append(valE+"<br>");
+                         $('.help-block').css("color", "red");
+                    });
+                }
+                else{
+                    $("#update_rent_details_form [name="+inputName+"]").parent().find('.help-block').html(valE);
+                }
+            }); 
+		});
+	});
+
+
+	//update utility bill details of active renters
+	$(document).on('click', '.update-ubill-btn', function(){
+		$('#update_utility_bill_details_modal').modal();
+	});
+
+	//update electric bill details of active renters
+	$(document).on('click', '.update-ebill-btn', function(){
+		$('#update_electric_bill_details_modal').modal();
+	});
+
+	//update other service charges of active renters
+	$(document).on('click', '.update-obill-btn', function(){
+		$('#update_other_bill_details_modal').modal();
 	});
 });
 </script>

@@ -14,6 +14,7 @@ class ActiveRenter extends Model
     	'shop_id',
     	'level_no',
     	'rent_amount',
+      'advance_amount',
     	'rent_started_at',
     	'rent_ended_at',
     	'status'

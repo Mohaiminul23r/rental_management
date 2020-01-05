@@ -1,6 +1,6 @@
 <div class="container">
     <div class="align-items-center text-white-50 bg-purple rounded shadow-sm" style="background: seagreen;">
-       <h4 style="text-align: center;"><strong>Detail Information of Renter</strong></h4>
+       <h4 style="text-align: center;"><strong>Detail Information of Active Renter</strong></h4>
     </div>
     <div class="row my-2 profile-values">
         <div class="col-lg-8 order-lg-2">
@@ -24,7 +24,7 @@
                         <div class="col-md-6">
                             <h4><strong>Personal Information</strong></h4>
                            <table class="table-striped" width="100%">
-                <thead>
+                            <thead>
 							    <tr>
 							      <th scope="col" width="35%"></th>
 							      <th scope="col"></th>
@@ -79,7 +79,7 @@
                                   <th scope="row" style="text-align: center;"><strong>Address</strong></th>
                                   <td><p id="address" style="margin: 2px;"></p></td>
                                 </tr>
-   {{--                              <tr>
+                           {{--  <tr>
                                     <td><p id="address" style="margin: 2px;"></p></td>
                                 </tr> --}}
                               </tbody>
@@ -88,7 +88,14 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <h4 class="mt-2"><strong>Rent Details</strong></h4>
+                            <div class="row">
+                                <div class="col-md-8" style="text-align: left;">
+                                   <h4 class="mt-2"><strong>Rent Details</strong></h4> 
+                                </div>
+                                <div id="update_rd_div" class="col-md-4" style="text-align: right; display: none;">
+                                    <button type="button" class="update-rd-btn btn btn-sm btn-round btn-outline-success"><i class="fas fa-arrow-alt-circle-right text-danger"></i><strong> Update Rent Details</strong></button>
+                                </div>
+                            </div>
                             <table class="table-striped" width="100%">
                                 <thead>
                                     <tr>
@@ -140,7 +147,14 @@
                         <a class="panel-close close" data-dismiss="alert">×</a> You can <strong>Update</strong> Utility bill details by clicking update button.
                     </div> --}}
                     <table class="table-striped" width="100%">
-                        <h4 class="mt-2"><strong>Utility Billing Details</strong></h4>
+                        <div class="row">
+                            <div class="col-md-8" style="text-align: left;">
+                               <h4 class="mt-2"><strong>Utility Billing Details</strong></h4> 
+                            </div>
+                            <div class="col-md-4" style="text-align: right;">
+                                <button type="button" class="update-ubill-btn btn btn-sm btn-round btn-outline-success"><i class="fas fa-arrow-alt-circle-right text-danger"></i><strong> Update Utility Bills</strong></button>
+                            </div>
+                        </div>
                         <thead>
                             <tr>
                               <th scope="col" width="30%"></th>
@@ -184,7 +198,14 @@
                         <a class="panel-close close" data-dismiss="alert">×</a> This is an <strong>.alert</strong>. Use this to show important messages to the user.
                     </div> --}}
                     <table class="table-striped" width="100%">
-                        <h4 class="mt-2"><strong>Electric Bill Details</strong></h4>
+                        <div class="row">
+                            <div class="col-md-8" style="text-align: left;">
+                               <h4 class="mt-2"><strong>Electric Bill Details</strong></h4>
+                            </div>
+                            <div class="col-md-4" style="text-align: right;">
+                                <button type="button" class="update-ebill-btn btn btn-sm btn-round btn-outline-success"><i class="fas fa-arrow-alt-circle-right text-danger"></i><strong> Update Electric Bills</strong></button>
+                            </div>
+                        </div>
                         <thead>
                             <tr>
                               <th scope="col" width="30%"></th>
@@ -220,7 +241,14 @@
                     <a class="panel-close close" data-dismiss="alert">×</a> This is an <strong>.alert</strong>. Use this to show important messages to the user.
                 </div> --}}
                 <table class="table-striped" width="100%">
-                    <h4 class="mt-2"><strong>Other Billing Charges</strong></h4>
+                    <div class="row">
+                        <div class="col-md-8" style="text-align: left;">
+                           <h4 class="mt-2"><strong>Other Billing Charges</strong></h4>
+                        </div>
+                        <div class="col-md-4" style="text-align: right;">
+                            <button type="button" class="update-obill-btn btn btn-sm btn-round btn-outline-success"><i class="fas fa-arrow-alt-circle-right text-danger"></i><strong> Update Other Bills</strong></button>
+                        </div>
+                    </div>
                     <thead>
                         <tr>
                           <th scope="col" width="40%"></th>

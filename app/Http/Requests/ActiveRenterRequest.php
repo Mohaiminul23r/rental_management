@@ -23,17 +23,34 @@ class ActiveRenterRequest extends FormRequest
      */
      public function rules()
     {
-        return [
-            'renter_id'          => 'required | unique:active_renters',    
-            'renter_type_id'     => 'required',    
-            'apartment_id'       => 'unique:active_renters',    
-            'shop_id'            => 'unique:active_renters',    
-            'level_no'           => 'unique:active_renters',
-            'rent_started_at'    => 'required',
-            // 'advance_amount'     => 'required',
-            'rent_amount'        => 'required',
-            'advance_amount'     => 'required',
-        ];
+
+        if(\Request::route()->getName('updateRentDetails')){
+                return [
+                'renter_id'          => 'required | unique:active_renters',    
+                'renter_type_id'     => 'required',    
+                'apartment_id'       => 'unique:active_renters.apartment_id,'.$id,    
+                'shop_id'            => 'unique:active_renters.shop_id,'.$id,    
+                'level_no'           => 'unique:active_renters.level,'.$id,
+                'rent_started_at'    => 'required',
+                'advance_amount'     => 'required',
+                'rent_amount'        => 'required',
+                'advance_amount'     => 'required',
+            ];
+        }
+        // else if(route('')){
+        //          return [
+        //         'renter_id'          => 'required | unique:active_renters',    
+        //         'renter_type_id'     => 'required',    
+        //         'apartment_id'       => 'unique:active_renters',    
+        //         'shop_id'            => 'unique:active_renters',    
+        //         'level_no'           => 'unique:active_renters',
+        //         'rent_started_at'    => 'required',
+        //         // 'advance_amount'     => 'required',
+        //         'rent_amount'        => 'required',
+        //         'advance_amount'     => 'required',
+        //     ];
+        // }
+        
     }
 
     public function messages(){
@@ -42,7 +59,7 @@ class ActiveRenterRequest extends FormRequest
             'renter_id.required'          => 'Select renter name',
             'renter_id.unique'            => 'Renter already exist',
             'renter_type_id.required'     => 'Select renter type',
-            'apartment_id.unique'           => 'Complex already exist',
+            'apartment_id.unique'         => 'Complex already exist',
             'shop_id.unique'              => 'Shop already exist',
             'level_no.unique'             => 'Level already taken',
             'rent_started_at.required'    => 'Enter renter active date',

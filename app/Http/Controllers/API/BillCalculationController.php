@@ -4,6 +4,12 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Model\ActiveRenter;
+use App\Model\UtilityBill;
+use App\Http\Requests\ActiveRenterRequest;
+use App\Http\Requests\UtilityBillRequest;
+use App\Http\Requests\ElectricBillDetailRequest;
+use DB;
 
 class BillCalculationController extends Controller
 {
@@ -81,5 +87,15 @@ class BillCalculationController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getUtilityBillDetails($id){
+        $utilityBills = UtilityBill::with('active_renter', 'active_renter.renter', 'active_renter.shop','active_renter.apartment', 'active_renter.renter_type', 'bill_type', 'electricity_bill')->whereId($id)->first();
+        return $utilityBills;
+    }
+
+    public function updateRentDetails(ActiveRenterRequest $request, $id){
+        dd($request->all());
+        
     }
 }
