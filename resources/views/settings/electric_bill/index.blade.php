@@ -3,7 +3,7 @@
 	<a type="button" href="{{ url('/home')}}" class="btn btn-outline-info btn-round btn-outline-light"><i class="fas fa-home text-success"></i><strong> Home</strong></a>
 @endsection
 @section('button')
-<a class="btn btn-info btn-round" id="add_eb_Btn" data-toggle="modal" data-target="#electricBillAddModal">Add eBill+</a>
+<a class="btn btn-info btn-round" id="add_eb_Btn" data-toggle="modal" data-target="#electricBillAddModal"><i class="fas fa-plus text-white"></i><strong> Add eBill</strong></a>
 @endsection
 @section('card-title')
 <b>Electric Bill Details</b>
@@ -159,7 +159,15 @@ var electricityBillDataTable = $('#electricityBillDataTable').DataTable({
 			'data' : 'id',
 			'width' : '150px',
 			'render' : function(data, type, row, ind){
-				return '<span class="edit-modal btn btn-link btn-primary btn-lg" data-id = '+data+'><i class="fa fa-edit"></i></span><span  class="delete-modal btn btn-link btn-danger" data-id = '+data+'><i class="fa fa-times"></i></span>';
+				$action_dropdown =	
+				'<div class="dropdown show">'+
+				  '<a class="btn btn-outline-info btn-sm btn-round dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">action</a>'+
+				  '<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">'+
+                    '<a class="dropdown-item edit-modal" data-id = '+ data +'><i class="fa fa-edit text-secondary"></i> Edit eBill</a>'+
+                    '<a class="dropdown-item delete-modal" data-id = '+ data +'><i class="fa fa-trash text-danger" ></i> Delete</a>'+
+				  '</div>'+
+				'</div>';
+			return $action_dropdown;
 			}
 		},
 		{

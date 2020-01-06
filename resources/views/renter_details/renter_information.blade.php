@@ -3,7 +3,7 @@
 	<a type="button" href="{{ url('/home')}}" class="btn btn-outline-info btn-round btn-outline-light"><i class="fas fa-home text-success"></i><strong> Home</strong></a>
 @endsection
 @section('card-title')
-<b>Renter Details</b>
+<b>Manage Active Renter Details</b>
 @endsection
 @section('body')
 <div class="container-fluid">
@@ -55,7 +55,7 @@
 <script type="text/javascript">
 	var complex = <?php echo json_encode($complex)?>;
 	var renterType = <?php echo json_encode($renterType)?>;
-	var bill_type = <?php echo json_encode($bill_type)?>;
+	var bill_type_2 = <?php echo json_encode($bill_type)?>;
 	var shop = <?php echo json_encode($shop)?>;
 	var renter_info  = <?php echo json_encode($renter_info)?>;
 	var activeRenter  = <?php echo json_encode($activeRenter)?>;
@@ -66,7 +66,6 @@ window.addEventListener("load",function(){
 		html_renter += '<option id="'+val.id+'" value="'+val.id+'">'+val.first_name+' -'+ val.father_name +' (Father)'+'</option>';
 	});
 	$('#search_renter_name').html(html_renter);
-
 	$("#search_renter_name").change(function() {
 		var id = $(this).children(":selected").attr("id");
 		$('#renter_search_id').val(id);
@@ -80,9 +79,13 @@ window.addEventListener("load",function(){
 			//console.log(response);
 			$(document).find('.profile-values td p').text("");
 			$('#update_rd_div').css('display','inherit');
+			$('#update_ubill_div').css('display','inherit');
+			$('#update_ebill_div').css('display','inherit');
+			$('#update_obill_div').css('display','inherit');
 			if(response.data.utility_bill != 'undefined' && response.data.utility_bill != null){
 				//console.log(response.data.utility_bill.id);
 				$('#utility_bill_id_2').val(response.data.utility_bill.id);
+				$('#ubill_id_2').val(response.data.utility_bill.id);
 				$('#active_renter_id_3').val(response.data.id);
 			}
 			
@@ -147,7 +150,7 @@ window.addEventListener("load",function(){
 					$('#ebill_type').text(response.data.utility_bill.electricity_bill.bill_type.name);
 						//other billing charges
 					$('#minimum_unit').text(response.data.utility_bill.electricity_bill.minimum_unit);
-					$('#duty_on_kwh').text(response.data.utility_bill.electricity_bill.duty_on_kwh);
+					// $('#duty_on_kwh').text(response.data.utility_bill.electricity_bill.duty_on_kwh);
 					$('#demand_charge').text(response.data.utility_bill.electricity_bill.demand_charge);
 					$('#machine_charge').text(response.data.utility_bill.electricity_bill.machine_charge);
 					$('#service_charge-1').text(response.data.utility_bill.electricity_bill.service_charge);
@@ -232,7 +235,7 @@ window.addEventListener("load",function(){
 			$('#advance_amount_2').val(response.data.active_renter.advance_amount);
 
 		}).catch(function(failData){
-
+			alert("Can not update rent details !!");
 		});
 	});
 
@@ -265,6 +268,43 @@ window.addEventListener("load",function(){
 	//update utility bill details of active renters
 	$(document).on('click', '.update-ubill-btn', function(){
 		$('#update_utility_bill_details_modal').modal();
+		$('#utility_bills_update_form .has-error').removeClass('has-error');
+        $('#utility_bills_update_form').find('.help-block').empty();
+        html_bill_type_2 = '<option value="" disabled selected>Select Bill Type</option>';
+        var ubill_id = $(document).find('#update_rent_details_form input[name="utility_bill_id"]').val();
+		var id = ubill_id;
+        axios.get('api/get_utility_bill_details/'+id).then(function(response){
+        	console.log(response);    
+			$.each(bill_type_2, function(ind,val){
+				if(val.name == response.data.bill_type.name){
+					html_bill_type_2 += '<option value="'+val.id+'" selected>'+val.name+'</option>';
+				}else{
+					html_bill_type_2 += '<option value="'+val.id+'">'+val.name+'</option>';
+				}
+			});
+
+			$('#bill_type_id_2').html(html_bill_type_2);
+			$('#water_bill_2').val(response.data.water_bill);
+			$('#wbill_check_2').val(response.data.is_wbill_required);
+			$('#gas_bill_2').val(response.data.gas_bill);
+			$('#gbill_check_2').val(response.data.is_gbill_required);
+			$('#service_charge_2').val(response.data.service_charge);
+			$('#other_charge_2').val(response.data.other_charge);
+
+        }).catch(function(failData){
+        	alert("Can not update utility bills !!");
+        });
+	});
+
+	//update utility bills
+	$('#update_ubill_btn').click(function(){
+		var id = $(document).find('#utility_bills_update_form input[name="ubill_id_2"]').val();
+		alert(id);
+		axios.post('api/update_utility_bills/'+id, $('#utility_bills_update_form').serialize()).then(function(response){
+
+		}).catch(function(failData){
+			alert("Update Failed !!");
+		});
 	});
 
 	//update electric bill details of active renters

@@ -39,6 +39,7 @@ Route::get('renter_details/{id}', 'API\ActiveRenterController@getRenterDetails')
 Route::get('renters/info/{id}', 'API\RenterController@getRenterInformation');
 Route::get('get_utility_bill_details/{id}', 'API\BillCalculationController@getUtilityBillDetails');
 Route::post('update_renter_details/{id}', 'API\BillCalculationController@updateRentDetails')->name('updateRentDetails');
+Route::post('update_utility_bills/{id}', 'API\BillCalculationController@updateUtilityBills')->name('update-utility-bills');
 Route::resource('create_bills', 'API\CreateBillController');
 Route::resource('reports', 'API\ReportController');
 

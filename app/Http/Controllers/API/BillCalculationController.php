@@ -96,6 +96,9 @@ class BillCalculationController extends Controller
 
     public function updateRentDetails(ActiveRenterRequest $request, $id){
         dd($request->all());
-        
+    }
+
+    public function updateUtilityBills(Request $request, $id){
+        dd($id);
     }
 }

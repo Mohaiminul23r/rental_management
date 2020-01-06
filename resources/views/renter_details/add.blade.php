@@ -65,7 +65,6 @@
                    		 <div class="col-md-6 text-center">
                             <h5 class="mt-2"><strong>NID Photo</strong></h5>
                             <img src="" id="nid_photo" style="height: 135px; width: 280px;" class="mx-auto img-fluid img-circle img-thumbnail d-block" alt="NID Photo">
-                {{--                 <h5 style="text-align: center;"><strong>Address</strong></h5> --}}
                             <div class="row">
                                 <table class="table-striped" width="100%">
                              <thead>
@@ -79,9 +78,6 @@
                                   <th scope="row" style="text-align: center;"><strong>Address</strong></th>
                                   <td><p id="address" style="margin: 2px;"></p></td>
                                 </tr>
-                           {{--  <tr>
-                                    <td><p id="address" style="margin: 2px;"></p></td>
-                                </tr> --}}
                               </tbody>
                             </table>
                                <p id="address"></p> 
@@ -93,7 +89,7 @@
                                    <h4 class="mt-2"><strong>Rent Details</strong></h4> 
                                 </div>
                                 <div id="update_rd_div" class="col-md-4" style="text-align: right; display: none;">
-                                    <button type="button" class="update-rd-btn btn btn-sm btn-round btn-outline-success"><i class="fas fa-arrow-alt-circle-right text-danger"></i><strong> Update Rent Details</strong></button>
+                                    <button type="button" class="update-rd-btn btn btn-round btn-outline-success"><i class="fas fa-arrow-alt-circle-right text-danger"></i><strong> Update rDetails</strong></button>
                                 </div>
                             </div>
                             <table class="table-striped" width="100%">
@@ -143,16 +139,16 @@
                     <!--/row-->
                 </div>
                 <div class="tab-pane" id="Utility_bills">
-                    {{-- <div class="alert alert-info alert-dismissable">
-                        <a class="panel-close close" data-dismiss="alert">×</a> You can <strong>Update</strong> Utility bill details by clicking update button.
-                    </div> --}}
+                    <div class="alert alert-info alert-dismissable">
+                        <a class="panel-close close" data-dismiss="alert">×</a> You can <strong>Update</strong> Utility Bill details by clicking the update button.
+                    </div>
                     <table class="table-striped" width="100%">
                         <div class="row">
                             <div class="col-md-8" style="text-align: left;">
                                <h4 class="mt-2"><strong>Utility Billing Details</strong></h4> 
                             </div>
-                            <div class="col-md-4" style="text-align: right;">
-                                <button type="button" class="update-ubill-btn btn btn-sm btn-round btn-outline-success"><i class="fas fa-arrow-alt-circle-right text-danger"></i><strong> Update Utility Bills</strong></button>
+                            <div id="update_ubill_div" class="col-md-4" style="text-align: right; display: none;">
+                                <button type="button" class="update-ubill-btn btn btn-round btn-outline-success"><i class="fas fa-arrow-alt-circle-right text-danger"></i><strong> Update</strong></button>
                             </div>
                         </div>
                         <thead>
@@ -194,16 +190,16 @@
                     </table>
                 </div>
                 <div class="tab-pane" id="electric_bills">
-                  {{--   <div class="alert alert-info alert-dismissable">
-                        <a class="panel-close close" data-dismiss="alert">×</a> This is an <strong>.alert</strong>. Use this to show important messages to the user.
-                    </div> --}}
+                    <div class="alert alert-info alert-dismissable">
+                        <a class="panel-close close" data-dismiss="alert">×</a> You can <strong>Update</strong> General Electric Bill settings by clicking update button.
+                    </div>
                     <table class="table-striped" width="100%">
                         <div class="row">
                             <div class="col-md-8" style="text-align: left;">
                                <h4 class="mt-2"><strong>Electric Bill Details</strong></h4>
                             </div>
-                            <div class="col-md-4" style="text-align: right;">
-                                <button type="button" class="update-ebill-btn btn btn-sm btn-round btn-outline-success"><i class="fas fa-arrow-alt-circle-right text-danger"></i><strong> Update Electric Bills</strong></button>
+                            <div id="update_ebill_div" class="col-md-4" style="text-align: right; display: none;">
+                                <button type="button" class="update-ebill-btn btn btn-round btn-outline-secondary"><i class="fas fa-arrow-alt-circle-right text-info"></i><strong> Update</strong></button>
                             </div>
                         </div>
                         <thead>
@@ -237,16 +233,16 @@
                     </table>
                 </div>
                 <div class="tab-pane" id="other_billing_details">
-              {{--   <div class="alert alert-info alert-dismissable">
-                    <a class="panel-close close" data-dismiss="alert">×</a> This is an <strong>.alert</strong>. Use this to show important messages to the user.
-                </div> --}}
+                <div class="alert alert-info alert-dismissable" style="display: none;">
+                    <a class="panel-close close" data-dismiss="alert">×</a> You can <strong>Update</strong> General Other Billing Settings by clicking update button.
+                </div>
                 <table class="table-striped" width="100%">
                     <div class="row">
                         <div class="col-md-8" style="text-align: left;">
                            <h4 class="mt-2"><strong>Other Billing Charges</strong></h4>
                         </div>
-                        <div class="col-md-4" style="text-align: right;">
-                            <button type="button" class="update-obill-btn btn btn-sm btn-round btn-outline-success"><i class="fas fa-arrow-alt-circle-right text-danger"></i><strong> Update Other Bills</strong></button>
+                        <div id="update_obill_div" class="col-md-4" style="text-align: right; display: none;">
+                            <button type="button" class="update-obill-btn btn btn-outline-info btn-round"><i class="fas fa-arrow-alt-circle-right text-info"></i><strong> Update</strong></button>
                         </div>
                     </div>
                     <thead>
@@ -260,10 +256,10 @@
                           <th scope="row"><strong>Minimum Unit:</strong></th>
                           <td><p style="margin: 2px;" id="minimum_unit"></p></td>
                         </tr>
-                        <tr>
+                       {{--  <tr>
                           <th scope="row"><strong>Duty On Kwh:</strong></th>
                           <td><p style="margin: 2px;" id="duty_on_kwh"></p></td>
-                        </tr> 
+                        </tr> --}} 
                         <tr>
                           <th scope="row"><strong>Demand Charge:</strong></th>
                           <td><p style="margin: 2px;" id="demand_charge"></p></td>
