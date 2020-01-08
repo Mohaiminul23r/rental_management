@@ -51,11 +51,11 @@
 								</a>
 								<div class="collapse" id="subnav3">
 									<ul class="nav nav-collapse subnav">
-										<li>
+										{{-- <li>
 											<a href="{{url('/houses')}}">
 												<span class="sub-item">House Information</span>
 											</a>
-										</li>
+										</li> --}}
 										<li>
 											<a href="{{url('/apartments')}}">
 												<span class="sub-item">Complex Info.</span>

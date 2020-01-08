@@ -95,10 +95,34 @@ class BillCalculationController extends Controller
     }
 
     public function updateRentDetails(ActiveRenterRequest $request, $id){
-        dd($request->all());
+        //dd($request->all());
+        $acr_id = $request->active_renter_id_3;
+        $active_renter = ActiveRenter::findOrFail($acr_id);
+        $active_renter->renter_id         = $request->renter_id;
+        $active_renter->renter_type_id    = $request->renter_type_id;
+        $active_renter->apartment_id      = $request->apartment_id;
+        $active_renter->shop_id           = $request->shop_id;
+        $active_renter->level_no          = $request->level_no;
+        $active_renter->rent_amount       = $request->rent_amount;
+        $active_renter->advance_amount    = $request->advance_amount;
+        $active_renter->rent_started_at   = $request->rent_started_at;
+        $active_renter->update();
     }
 
-    public function updateUtilityBills(Request $request, $id){
-        dd($id);
+    public function updateUtilityBills(UtilityBillRequest $request, $id){
+       // dd($request->all());
+        $ubill_id = $request->ubill_id_2;
+        $utility_bill = UtilityBill::findOrFail($ubill_id);
+       // dd($utility_bill);
+        $utility_bill->bill_type_id        = $request->bill_type_id;
+        $utility_bill->water_bill          = $request->water_bill;
+        $utility_bill->is_wbill_required   = $request->is_wbill_required;
+        $utility_bill->gas_bill            = $request->gas_bill;
+        $utility_bill->is_gbill_required   = $request->is_gbill_required;
+        $utility_bill->service_charge      = $request->service_charge;
+        $utility_bill->other_charge        = $request->other_charge;
+        $utility_bill->update();
+        //dd($utility_bill);
+       echo $utility_bill;
     }
 }

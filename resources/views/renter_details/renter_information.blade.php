@@ -76,92 +76,7 @@ window.addEventListener("load",function(){
 	$('#search_renter_info_btn').click(function(){
 		var id = $(document).find('#renter_info_search_form input[name="renter_search_id"]').val();
 		axios.get('api/renter_details/'+id).then(function(response){
-			//console.log(response);
-			$(document).find('.profile-values td p').text("");
-			$('#update_rd_div').css('display','inherit');
-			$('#update_ubill_div').css('display','inherit');
-			$('#update_ebill_div').css('display','inherit');
-			$('#update_obill_div').css('display','inherit');
-			if(response.data.utility_bill != 'undefined' && response.data.utility_bill != null){
-				//console.log(response.data.utility_bill.id);
-				$('#utility_bill_id_2').val(response.data.utility_bill.id);
-				$('#ubill_id_2').val(response.data.utility_bill.id);
-				$('#active_renter_id_3').val(response.data.id);
-			}
-			
-			//general information
-			if(typeof response.data.renter != 'undefined' &&  response.data.renter != null){
-					$('#renter_name').text(response.data.renter.first_name);
-					$('#father_name').text(response.data.renter.father_name);
-					if(typeof response.data.renter.email!= 'undefined' &&  response.data.renter.email!= null){
-						$('#email_address').text(response.data.renter.email);
-					}else{
-						$('#email_address').text("Null");
-					}
-					$('#date_of_birth').text(response.data.renter.date_of_birth);
-					$('#nid_no').text(response.data.renter.nid_no);
-					$('#renter_photo').attr("src", response.data.renter.photo);
-					$('#nid_photo').attr("src", response.data.renter.nid_photo);
-					$('#phone').text(response.data.renter.phone);
-					$('#mobile').text(response.data.renter.mobile);	
-			}
-
-			//rent details
-			if(typeof response.data.renter_type != 'undefined' &&  response.data.renter_type != null){
-				$('#renter_type').text(response.data.renter_type.name);
-			}
-
-			if(typeof response.data.apartment != 'undefined' &&  response.data.apartment != null){
-				$('#complex_no').text(response.data.apartment.apartment_no);
-				$('#apartment_name').text(response.data.apartment.name);
-			}
-
-			if(typeof response.data.shop != 'undefined' &&  response.data.shop != null){
-				$('#shop_name').text(response.data.shop.name);
-			}else{
-				$('#shop_name').text("Null");
-			}
-
-			if(typeof response.data != 'undefined' &&  response.data != null){
-				$('#level_no').text(response.data.level_no);
-				$('#rent_amount').text(response.data.rent_amount);
-				$('#advance_amount').text(response.data.advance_amount);
-				$('#rent_started_at').text(response.data.rent_started_at);
-			}
-
-			//getting and apending address
-			if(typeof response.data.renter.address != 'undefined' &&  response.data.renter.address != null){
-				$address = response.data.renter.address.address_line1 + ' , ' + response.data.renter.address.thana.name+ ' , ' + 'Post- '+ response.data.renter.address.postal_code + ' , ' + response.data.renter.address.city.name + ' , ' + response.data.renter.address.country.name;
-				$('#address').text($address);
-			}
-
-			//utility billing details
-			if(typeof response.data.utility_bill != 'undefined' &&  response.data.utility_bill != null){
-				$('#bill_type').text(response.data.utility_bill.bill_type.name);
-				$('#is_water_bill_required').text(response.data.utility_bill.is_wbill_required);
-				$('#water_bill').text(response.data.utility_bill.water_bill);
-				$('#is_gas_bill_required').text(response.data.utility_bill.is_gbill_required);
-				$('#gas_bill').text(response.data.utility_bill.gas_bill);
-				$('#other_charge').text(response.data.utility_bill.other_charge);
-				$('#service_charge').text(response.data.utility_bill.service_charge);
-
-				//electricity billing details
-				if(typeof response.data.utility_bill.electricity_bill != 'undefined' &&  response.data.utility_bill.electricity_bill != null){
-					$('#ebill_type').text(response.data.utility_bill.electricity_bill.bill_type.name);
-						//other billing charges
-					$('#minimum_unit').text(response.data.utility_bill.electricity_bill.minimum_unit);
-					// $('#duty_on_kwh').text(response.data.utility_bill.electricity_bill.duty_on_kwh);
-					$('#demand_charge').text(response.data.utility_bill.electricity_bill.demand_charge);
-					$('#machine_charge').text(response.data.utility_bill.electricity_bill.machine_charge);
-					$('#service_charge-1').text(response.data.utility_bill.electricity_bill.service_charge);
-					$('#vat').text(response.data.utility_bill.electricity_bill.vat);
-					$('#delay_charge').text(response.data.utility_bill.electricity_bill.delay_charge);
-				}
-				$('#electric_meter_no').text(response.data.utility_bill.electric_meter_no);
-				$('#opening_reading').text(response.data.utility_bill.opening_reading);
-				$('#is_ebill_fixed').text(response.data.utility_bill.is_ebill_fixed);
-				$('#fix_ebill_amount').text(response.data.utility_bill.fix_ebill_amount);	
-			}	
+			data(response);
 		}).catch(function(failData){
 			alert("Select renter name to see details !!");
 		});
@@ -185,14 +100,14 @@ window.addEventListener("load",function(){
 		renter_name_2 = '<option value="" disabled selected>Select Renter</option>';
 		complex_name_2 = '<option value="" disabled selected>Select Complex</option>';
 		html_shop_2     = '<option value="" disabled selected>Select Shop</option>';
-		html_renterType_2     = '<option value="" disabled selected>Select Renter Type</option>';
+		html_renterType_2  = '<option value="" disabled selected>Select Renter Type</option>';
 		html_billType_2     = '<option value="" disabled selected>Select Bill Type</option>';
 
 		var ubill_id = $(document).find('#update_rent_details_form input[name="utility_bill_id"]').val();
 		var id = ubill_id;
 		axios.get('api/get_utility_bill_details/'+id).then(function(response){
 			//console.log(response);
-			$.each(activeRenter, function(ind,val){
+			$.each(renter_info, function(ind,val){
 				if(val.first_name == response.data.active_renter.renter.first_name){
 					renter_name_2 += '<option id="'+val.id+'" value="'+val.id+'" selected>'+val.first_name+' -'+ val.father_name +' (Father)'+'</option>';
 				}else{
@@ -222,7 +137,6 @@ window.addEventListener("load",function(){
 				}else{
 					html_renterType_2 += '<option value="'+val.id+'">'+val.name+'</option>';
 				}
-				
 			});
 			$('#renter_name_2').html(renter_name_2);
 			$('#complex_name_2').html(complex_name_2);
@@ -265,16 +179,17 @@ window.addEventListener("load",function(){
 	});
 
 
-	//update utility bill details of active renters
+	//update utility bill details of active renters & getting values at modal
 	$(document).on('click', '.update-ubill-btn', function(){
 		$('#update_utility_bill_details_modal').modal();
 		$('#utility_bills_update_form .has-error').removeClass('has-error');
         $('#utility_bills_update_form').find('.help-block').empty();
+        $('#utility_bills_update_form').trigger('reset');
         html_bill_type_2 = '<option value="" disabled selected>Select Bill Type</option>';
         var ubill_id = $(document).find('#update_rent_details_form input[name="utility_bill_id"]').val();
 		var id = ubill_id;
         axios.get('api/get_utility_bill_details/'+id).then(function(response){
-        	console.log(response);    
+        	//console.log(response);
 			$.each(bill_type_2, function(ind,val){
 				if(val.name == response.data.bill_type.name){
 					html_bill_type_2 += '<option value="'+val.id+'" selected>'+val.name+'</option>';
@@ -285,23 +200,62 @@ window.addEventListener("load",function(){
 
 			$('#bill_type_id_2').html(html_bill_type_2);
 			$('#water_bill_2').val(response.data.water_bill);
-			$('#wbill_check_2').val(response.data.is_wbill_required);
 			$('#gas_bill_2').val(response.data.gas_bill);
-			$('#gbill_check_2').val(response.data.is_gbill_required);
 			$('#service_charge_2').val(response.data.service_charge);
 			$('#other_charge_2').val(response.data.other_charge);
+			if(typeof response.data.water_bill == null || response.data.water_bill == undefined || response.data.water_bill == "0.00"){
+				$('#wbill_check_2').attr("checked", "checked");
+				$('#water_bill_2').attr("disabled", "disabled");
+				$('#water_bill_2').val("0.00");
+			}
+			if(typeof response.data.gas_bill == null || response.data.gas_bill == undefined || response.data.gas_bill == "0.00"){
+				$('#gbill_check_2').attr("checked", "checked");
+				$('#gas_bill_2').attr("disabled", "disabled");
+				$('#gas_bill_2').val("0.00");
+			}
 
+				//changing check box fields for fix gas bills at update utility bill settings
+				$('input#gbill_check_2').on('change', function(e) {
+					var isDisabled = $(this).is(':checked');
+					if(isDisabled){
+						$('#gas_bill_2').val("0.00");
+						$('#gbill_check_2').val("No");
+						$('#gas_bill_2').attr("disabled", "disabled");
+					}else{
+						$('#gas_bill_2').val("");
+						$('#gbill_check_2').val("Yes");
+						$('#gas_bill_2').removeAttr("disabled", "disabled");
+						$('#gas_bill_2').val(response.data.gas_bill);
+					}
+				});
+
+				//changing check box fields for fix water bills at update utility bill settings
+				$('input#wbill_check_2').on('change', function(e) {
+					var isDisabled = $(this).is(':checked');
+					if(isDisabled){
+						$('#water_bill_2').val("0.00");
+						$('#wbill_check_2').val("No");
+						$('#water_bill_2').attr("disabled", "disabled");
+					}else{
+						$('#water_bill_2').val("");
+						$('#water_bill_2').removeAttr("disabled", "disabled");
+						$('#wbill_check_2').val("Yes");
+						$('#water_bill_2').val(response.data.water_bill);
+					}
+				});
         }).catch(function(failData){
         	alert("Can not update utility bills !!");
         });
 	});
 
-	//update utility bills
+
+	//update utility bills when update btn is clicked
 	$('#update_ubill_btn').click(function(){
 		var id = $(document).find('#utility_bills_update_form input[name="ubill_id_2"]').val();
-		alert(id);
 		axios.post('api/update_utility_bills/'+id, $('#utility_bills_update_form').serialize()).then(function(response){
-
+			$('#update_utility_bill_details_modal').modal('hide');
+			utility_bill_show(response);
+			toastr.success('Successfully updated utility bills.');
 		}).catch(function(failData){
 			alert("Update Failed !!");
 		});
@@ -317,5 +271,135 @@ window.addEventListener("load",function(){
 		$('#update_other_bill_details_modal').modal();
 	});
 });
+
+function data(response){
+	//console.log(response);
+	$(document).find('.profile-values td p').text("");
+	$('#update_rd_div').css('display','inherit');
+	$('#update_ubill_div').css('display','inherit');
+	$('#update_ebill_div').css('display','inherit');
+	$('#update_obill_div').css('display','inherit');
+	$('#notify_obill_div').css('display','inherit');
+	$('#notify_ubill_div').css('display','inherit');
+	$('#notify_ebill_div').css('display','inherit');
+	if(response.data.utility_bill != 'undefined' && response.data.utility_bill != null){
+		//console.log(response.data.utility_bill.id);
+		$('#utility_bill_id_2').val(response.data.utility_bill.id);
+		$('#ubill_id_2').val(response.data.utility_bill.id);
+		$('#active_renter_id_3').val(response.data.id);
+	}
+	
+	//general information
+	if(typeof response.data.renter != 'undefined' &&  response.data.renter != null){
+			$('#renter_name').text(response.data.renter.first_name);
+			$('#father_name').text(response.data.renter.father_name);
+			if(typeof response.data.renter.email!= 'undefined' &&  response.data.renter.email!= null){
+				$('#email_address').text(response.data.renter.email);
+			}else{
+				$('#email_address').text("Null");
+			}
+			$('#date_of_birth').text(response.data.renter.date_of_birth);
+			$('#nid_no').text(response.data.renter.nid_no);
+			$('#renter_photo').attr("src", response.data.renter.photo);
+			$('#nid_photo').attr("src", response.data.renter.nid_photo);
+			$('#phone').text(response.data.renter.phone);
+			$('#mobile').text(response.data.renter.mobile);	
+	}
+
+	//rent details
+	if(typeof response.data.renter_type != 'undefined' &&  response.data.renter_type != null){
+		$('#renter_type').text(response.data.renter_type.name);
+	}
+
+	if(typeof response.data.apartment != 'undefined' &&  response.data.apartment != null){
+		$('#complex_no').text(response.data.apartment.apartment_no);
+		$('#apartment_name').text(response.data.apartment.name);
+	}
+
+	if(typeof response.data.shop != 'undefined' &&  response.data.shop != null){
+		$('#shop_name').text(response.data.shop.name);
+	}else{
+		$('#shop_name').text("Null");
+	}
+
+	if(typeof response.data != 'undefined' &&  response.data != null){
+		$('#level_no').text(response.data.level_no);
+		$('#rent_amount').text(response.data.rent_amount);
+		$('#advance_amount').text(response.data.advance_amount);
+		$('#rent_started_at').text(response.data.rent_started_at);
+	}
+
+	//getting and apending address
+	if(typeof response.data.renter.address != 'undefined' &&  response.data.renter.address != null){
+		$address = response.data.renter.address.address_line1 + ' , ' + response.data.renter.address.thana.name+ ' , ' + 'Post- '+ response.data.renter.address.postal_code + ' , ' + response.data.renter.address.city.name + ' , ' + response.data.renter.address.country.name;
+		$('#address').text($address);
+	}
+
+	//utility billing details
+	if(typeof response.data.utility_bill != 'undefined' &&  response.data.utility_bill != null){
+		$('#bill_type').text(response.data.utility_bill.bill_type.name);
+
+			if(typeof response.data.utility_bill.water_bill == null || response.data.utility_bill.water_bill == undefined || response.data.utility_bill.water_bill == "0.00"){
+					$('#is_water_bill_required').text("Not Required");
+					$('#water_bill').text("0.00");
+				}else{
+					$('#is_water_bill_required').text("Required");
+					$('#water_bill').text(response.data.utility_bill.water_bill);
+				}
+
+			if(typeof response.data.utility_bill.gas_bill == null || response.data.utility_bill.gas_bill == undefined || response.data.utility_bill.gas_bill == "0.00"){
+				$('#is_gas_bill_required').text("Not Required");
+				$('#gas_bill').text("0.00");
+			}else{
+				$('#is_gas_bill_required').text("Required");
+				$('#gas_bill').text(response.data.utility_bill.gas_bill);
+			}
+
+		$('#other_charge').text(response.data.utility_bill.other_charge);
+		$('#service_charge').text(response.data.utility_bill.service_charge);
+
+		//electricity billing details
+		if(typeof response.data.utility_bill.electricity_bill != 'undefined' &&  response.data.utility_bill.electricity_bill != null){
+			$('#ebill_type').text(response.data.utility_bill.electricity_bill.bill_type.name);
+				//other billing charges
+			$('#minimum_unit').text(response.data.utility_bill.electricity_bill.minimum_unit);
+			// $('#duty_on_kwh').text(response.data.utility_bill.electricity_bill.duty_on_kwh);
+			$('#demand_charge').text(response.data.utility_bill.electricity_bill.demand_charge);
+			$('#machine_charge').text(response.data.utility_bill.electricity_bill.machine_charge);
+			$('#service_charge-1').text(response.data.utility_bill.electricity_bill.service_charge);
+			$('#vat').text(response.data.utility_bill.electricity_bill.vat);
+			$('#delay_charge').text(response.data.utility_bill.electricity_bill.delay_charge);
+		}
+		$('#electric_meter_no').text(response.data.utility_bill.electric_meter_no);
+		$('#opening_reading').text(response.data.utility_bill.opening_reading);
+		$('#is_ebill_fixed').text(response.data.utility_bill.is_ebill_fixed);
+		$('#fix_ebill_amount').text(response.data.utility_bill.fix_ebill_amount);	
+	}
+}
+
+// function utility_bill_show(response){
+// 	//$(document).find('#Utility_bills td p').text("");
+// 	//utility billing details
+// 	if(typeof response.data.utility_bill != 'undefined' &&  response.data.utility_bill != null){
+// 		$('#bill_type').text(response.data.utility_bill.bill_type.name);
+// 			if(typeof response.data.utility_bill.water_bill == null || response.data.utility_bill.water_bill == undefined || response.data.utility_bill.water_bill == "0.00"){
+// 					$('#is_water_bill_required').text("Not Required");
+// 					$('#water_bill').text("0.00");
+// 				}else{
+// 					$('#is_water_bill_required').text("Required");
+// 					$('#water_bill').text(response.data.utility_bill.water_bill);
+// 				}
+
+// 			if(typeof response.data.utility_bill.gas_bill == null || response.data.utility_bill.gas_bill == undefined || response.data.utility_bill.gas_bill == "0.00"){
+// 				$('#is_gas_bill_required').text("Not Required");
+// 				$('#gas_bill').text("0.00");
+// 			}else{
+// 				$('#is_gas_bill_required').text("Required");
+// 				$('#gas_bill').text(response.data.utility_bill.gas_bill);
+// 			}
+// 		$('#other_charge').text(response.data.utility_bill.other_charge);
+// 		$('#service_charge').text(response.data.utility_bill.service_charge);
+// 	}
+// } 
 </script>
 @endpush

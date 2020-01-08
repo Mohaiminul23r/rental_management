@@ -23,25 +23,32 @@ class UtilityBillRequest extends FormRequest
      */
      public function rules()
     {
-        return [
-            'bill_type_id'      => 'required',    
-            // 'water_bill'        => 'required',    
-             'gas_bill'          => 'required',       
-            // 'service_charge'    => 'required',
-            //'other_charge'      => 'required',
-            // 'advance_amount' => 'required',
-            'active_renter_id'  => 'required',
-        ];
+
+        if($this->route()->getName() == 'update_utility_bills'){
+            $utility_bill = $this->all();
+            return [
+       
+            ]; 
+        }
+
+       else if($this->route()->getName() == 'store_utility_bills'){
+            return [
+                'bill_type_id'      => 'required',    
+                // 'water_bill'        => 'required',    
+                 'gas_bill'          => 'required',       
+                // 'service_charge'    => 'required',
+                //'other_charge'      => 'required',
+                // 'advance_amount' => 'required',
+                'active_renter_id'  => 'required',
+            ];
+        }
+        
     }
 
     public function messages(){
-
          return [
             'bill_type_id.required'       => 'Select bill type',
-            // 'water_bill.required'         => 'Enter water bill',
             'gas_bill.required'           => 'Enter gas bill',
-            // 'service_charge.required'     => 'Enter service charge',
-            // 'other_charge.required'       => 'Enter other charge',
             'active_renter_id.required'   => 'Select active renter',
         ];
     }

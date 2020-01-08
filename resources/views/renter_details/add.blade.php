@@ -139,7 +139,7 @@
                     <!--/row-->
                 </div>
                 <div class="tab-pane" id="Utility_bills">
-                    <div class="alert alert-info alert-dismissable">
+                    <div id="notify_ubill_div" class="alert alert-info alert-dismissable" style="display: none;">
                         <a class="panel-close close" data-dismiss="alert">×</a> You can <strong>Update</strong> Utility Bill details by clicking the update button.
                     </div>
                     <table class="table-striped" width="100%">
@@ -190,7 +190,7 @@
                     </table>
                 </div>
                 <div class="tab-pane" id="electric_bills">
-                    <div class="alert alert-info alert-dismissable">
+                    <div id="notify_ebill_div" class="alert alert-info alert-dismissable" style="display: none;">
                         <a class="panel-close close" data-dismiss="alert">×</a> You can <strong>Update</strong> General Electric Bill settings by clicking update button.
                     </div>
                     <table class="table-striped" width="100%">
@@ -233,7 +233,7 @@
                     </table>
                 </div>
                 <div class="tab-pane" id="other_billing_details">
-                <div class="alert alert-info alert-dismissable" style="display: none;">
+                <div id="notify_obill_div" class="alert alert-info alert-dismissable" style="display: none;">
                     <a class="panel-close close" data-dismiss="alert">×</a> You can <strong>Update</strong> General Other Billing Settings by clicking update button.
                 </div>
                 <table class="table-striped" width="100%">
@@ -288,10 +288,6 @@
         <div class="col-lg-4 order-lg-1 text-center">
             <img src="" id="renter_photo" style="height: 180px; width: 250px;" class="mx-auto img-fluid img-circle img-thumbnail d-block" alt="Renter Photo">
             <h6 class="mt-2"><strong>Renter Photo</strong></h6>
-{{--             <label class="custom-file">
-            <input type="file" id="file" class="custom-file-input">
-            <span class="custom-file-control">Choose file</span>
-        </label> --}}
-    </div>
+        </div>
 </div>
 </div>

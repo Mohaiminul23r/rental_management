@@ -23,38 +23,36 @@ class ActiveRenterRequest extends FormRequest
      */
      public function rules()
     {
-
-        if(\Request::route()->getName('updateRentDetails')){
-                return [
-                'renter_id'          => 'required | unique:active_renters',    
+        if($this->route()->getName() == 'update_rent_details'){
+            $active_renter = $this->all();
+          // dd($active_renter);
+            return [
+                'renter_id'          => 'required | unique:active_renters,renter_id,'.$active_renter['active_renter_id_3'],    
                 'renter_type_id'     => 'required',    
-                'apartment_id'       => 'unique:active_renters.apartment_id,'.$id,    
-                'shop_id'            => 'unique:active_renters.shop_id,'.$id,    
-                'level_no'           => 'unique:active_renters.level,'.$id,
+                'apartment_id'       => 'unique:active_renters,apartment_id,'.$active_renter['active_renter_id_3'],    
+                'shop_id'            => 'unique:active_renters,shop_id,'.$active_renter['active_renter_id_3'],    
+                'level_no'           => 'unique:active_renters,level_no,'.$active_renter['active_renter_id_3'],
                 'rent_started_at'    => 'required',
-                'advance_amount'     => 'required',
                 'rent_amount'        => 'required',
                 'advance_amount'     => 'required',
             ];
         }
-        // else if(route('')){
-        //          return [
-        //         'renter_id'          => 'required | unique:active_renters',    
-        //         'renter_type_id'     => 'required',    
-        //         'apartment_id'       => 'unique:active_renters',    
-        //         'shop_id'            => 'unique:active_renters',    
-        //         'level_no'           => 'unique:active_renters',
-        //         'rent_started_at'    => 'required',
-        //         // 'advance_amount'     => 'required',
-        //         'rent_amount'        => 'required',
-        //         'advance_amount'     => 'required',
-        //     ];
-        // }
-        
+
+        else if($this->route()->getName() == 'active_renters.store'){
+             return [
+                'renter_id'          => 'required | unique:active_renters',    
+                'renter_type_id'     => 'required',    
+                'apartment_id'       => 'unique:active_renters',    
+                'shop_id'            => 'unique:active_renters',    
+                'level_no'           => 'unique:active_renters',
+                'rent_started_at'    => 'required',
+                'rent_amount'        => 'required',
+                'advance_amount'     => 'required',
+            ];
+        }  
     }
 
     public function messages(){
-
          return [
             'renter_id.required'          => 'Select renter name',
             'renter_id.unique'            => 'Renter already exist',

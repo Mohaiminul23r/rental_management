@@ -23,12 +23,12 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="number">Water Bill</label>
-                        <input type="number" class="form-control" id="water_bill_2" value="0.00" name="water_bill" placeholder="Enter Water Bill">
+                        <input type="number" class="form-control" id="water_bill_2" name="water_bill" placeholder="Enter Water Bill">
                         <span class="help-block"></span>
                     </div>
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input class="form-check-input" type="checkbox" id="wbill_check_2" name="is_wbill_required" value="Yes">
+                            <input class="form-check-input" type="checkbox" id="wbill_check_2" name="is_wbill_required">
                             <span class="form-check-sign">Water bill is not required.</span>
                         </label>
                     </div>
@@ -36,12 +36,12 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="number">Gas Bill</label>
-                        <input type="number" class="form-control" id="gas_bill_2" value="0.00" name="gas_bill" placeholder="Enter Gas Bill">
+                        <input type="number" class="form-control" id="gas_bill_2" name="gas_bill" placeholder="Enter Gas Bill">
                         <span class="help-block"></span>
                     </div>
                 <div class="form-check">
                         <label class="form-check-label">
-                            <input class="form-check-input" type="checkbox" id="gbill_check_2" name="is_gbill_required" value="Yes">
+                            <input class="form-check-input" type="checkbox" id="gbill_check_2" name="is_gbill_required">
                             <span class="form-check-sign">Gas bill is not required.</span>
                         </label>
                     </div>
@@ -51,14 +51,14 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="number">Service Charge</label>
-                        <input type="number" class="form-control" id="service_charge_2" value="0.00" name="service_charge" placeholder="Enter service charge">
+                        <input type="number" class="form-control" id="service_charge_2" name="service_charge" placeholder="Enter service charge">
                         <span class="help-block"></span>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="number">Other Charge</label>
-                        <input type="number" class="form-control" id="other_charge_2" value="0.00"  name="other_charge" placeholder="Other Charge Amount">
+                        <input type="number" class="form-control" id="other_charge_2" name="other_charge" placeholder="Other Charge Amount">
                         <span class="help-block"></span>
                     </div>
                 </div>
