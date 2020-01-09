@@ -23,11 +23,22 @@ class ElectricBillDetailRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'electric_meter_no'       => 'required | unique:utility_bills',           
-            'active_renter_id2'       => 'required',
-            'electricity_bill_id'     => 'required',
-        ];
+        if($this->route()->getName() == 'update_electric_bills'){
+            $utility_bill = $this->all();
+           // dd($utility_bill);
+            return [
+                'electric_meter_no'       => 'required | unique:utility_bills,electric_meter_no,'.$utility_bill['ubill_id_3'],           
+              //  'electricity_bill_id'     => 'required,'.$utility_bill['ubill_id_3'],
+            ]; 
+        }
+
+        else if($this->route()->getName() == 'create_electric_bills'){
+            return [
+                'electric_meter_no'       => 'required | unique:utility_bills',           
+                'active_renter_id2'       => 'required',
+                'electricity_bill_id'     => 'required',
+            ]; 
+        }
     }
 
     public function messages(){

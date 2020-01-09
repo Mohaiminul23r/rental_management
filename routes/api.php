@@ -33,13 +33,14 @@ Route::resource('advance_payments', 'API\AdvancePaymentController');
 Route::resource('electric_bills', 'API\ElectricityBillController');
 Route::resource('active_renters', 'API\ActiveRenterController');
 Route::post('active_renter/utility_bills', 'API\ActiveRenterController@storeUtilityBill')->name('store_utility_bills');
-Route::post('active_renter/electric_bills', 'API\ActiveRenterController@storeElectricBill');
+Route::post('active_renter/electric_bills', 'API\ActiveRenterController@storeElectricBill')->name('create_electric_bills');
 Route::get('active_renter_details', 'API\ActiveRenterController@getActiveRenters');
 Route::get('renter_details/{id}', 'API\ActiveRenterController@getRenterDetails');
 Route::get('renters/info/{id}', 'API\RenterController@getRenterInformation');
 Route::get('get_utility_bill_details/{id}', 'API\BillCalculationController@getUtilityBillDetails');
 Route::post('update_renter_details/{id}', 'API\BillCalculationController@updateRentDetails')->name('update_rent_details');
 Route::post('update_utility_bills/{id}', 'API\BillCalculationController@updateUtilityBills')->name('update_utility_bills');
+Route::post('update_electric_bills/{id}', 'API\BillCalculationController@updateElectricBills')->name('update_electric_bills');
 Route::resource('create_bills', 'API\CreateBillController');
 Route::resource('reports', 'API\ReportController');
 

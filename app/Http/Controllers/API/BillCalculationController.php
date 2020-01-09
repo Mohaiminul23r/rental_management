@@ -90,7 +90,7 @@ class BillCalculationController extends Controller
     }
 
     public function getUtilityBillDetails($id){
-        $utilityBills = UtilityBill::with('active_renter', 'active_renter.renter', 'active_renter.shop','active_renter.apartment', 'active_renter.renter_type', 'bill_type', 'electricity_bill')->whereId($id)->first();
+        $utilityBills = UtilityBill::with('active_renter', 'active_renter.renter', 'active_renter.shop','active_renter.apartment', 'active_renter.renter_type', 'bill_type', 'electricity_bill.bill_type')->whereId($id)->first();
         return $utilityBills;
     }
 
@@ -113,7 +113,6 @@ class BillCalculationController extends Controller
        // dd($request->all());
         $ubill_id = $request->ubill_id_2;
         $utility_bill = UtilityBill::findOrFail($ubill_id);
-       // dd($utility_bill);
         $utility_bill->bill_type_id        = $request->bill_type_id;
         $utility_bill->water_bill          = $request->water_bill;
         $utility_bill->is_wbill_required   = $request->is_wbill_required;
@@ -122,7 +121,19 @@ class BillCalculationController extends Controller
         $utility_bill->service_charge      = $request->service_charge;
         $utility_bill->other_charge        = $request->other_charge;
         $utility_bill->update();
-        //dd($utility_bill);
-       echo $utility_bill;
+        echo $utility_bill;
+    }
+
+    public function updateElectricBills(ElectricBillDetailRequest $request, $id){
+        
+        $electricBill_data = DB::table('utility_bills')->where('active_renter_id', '=', $request->active_renter_id_4)->first();
+        //dd($electricBill_data);
+        $electricBill = UtilityBill::findOrFail($electricBill_data->id);
+        $electricBill->electric_meter_no       = $request->electric_meter_no;
+        $electricBill->is_ebill_fixed          = $request->is_ebill_fixed;
+        $electricBill->opening_reading         = $request->opening_reading;
+        $electricBill->fix_ebill_amount        = $request->fix_ebill_amount;
+        $electricBill->electricity_bill_id     = $request->electricity_bill_id;
+        $electricBill->update();
     }
 }

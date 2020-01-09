@@ -59,6 +59,7 @@
 	var shop = <?php echo json_encode($shop)?>;
 	var renter_info  = <?php echo json_encode($renter_info)?>;
 	var activeRenter  = <?php echo json_encode($activeRenter)?>;
+	var electricity_bill    = <?php echo json_encode($electricity_bill)?>;
 
 window.addEventListener("load",function(){
 	html_renter = '<option value="" disabled selected>Select Renter</option>';
@@ -261,9 +262,82 @@ window.addEventListener("load",function(){
 		});
 	});
 
-	//update electric bill details of active renters
+	//update electric bill details of active renters and getting and settings billings
 	$(document).on('click', '.update-ebill-btn', function(){
 		$('#update_electric_bill_details_modal').modal();
+		$('#electric_bills_edit_form .has-error').removeClass('has-error');
+        $('#electric_bills_edit_form').find('.help-block').empty();
+        $('#electric_bills_edit_form').trigger('reset');
+		html_bill_type = '<option value="" disabled selected>Select Electric Bill Type</option>';
+		var ubill_id = $(document).find('#update_rent_details_form input[name="utility_bill_id"]').val();
+		var id = ubill_id;
+        axios.get('api/get_utility_bill_details/'+id).then(function(response){
+        	console.log(response);
+			$.each(electricity_bill, function(ind,val){
+				console.log(val);
+				if(val.bill_type.name == response.data.electricity_bill.bill_type.name){
+					html_bill_type += '<option value="'+val.id+'" selected>'+val.bill_type.name+'</option>';
+				}else{
+					html_bill_type += '<option value="'+val.id+'">'+val.bill_type.name+'</option>';
+				}
+			});
+			$('#electricity_bills_id_2').html(html_bill_type);
+			$('#electric_meter_no_2').val(response.data.electric_meter_no);
+			$('#opening_reading_2').val(response.data.opening_reading);
+			$('#electric_bill_amount_2').val(response.data.fix_ebill_amount);
+
+			if(typeof response.data.fix_ebill_amount == null || response.data.fix_ebill_amount == undefined || response.data.fix_ebill_amount == "0.00"){
+				$('#electric_bill_amount_2').attr("disabled", "disabled");
+				$('#electric_bill_amount_2').val("0.00");	
+			}else{
+				$('#electric_bill_amount_2').removeAttr("disabled", "disabled");
+				$('#electric_bill_amount_2').val(response.data.fix_ebill_amount);
+				$('#check_ebill_fix_2').attr("checked", "checked");
+			}
+
+				//changing check box fields for fix gas bills at update utility bill settings
+				$('input#check_ebill_fix_2').on('change', function(e) {
+					var isDisabled = $(this).is(':checked');
+					if(isDisabled){
+						$('#electric_bill_amount_2').val(response.data.fix_ebill_amount);
+						$('#check_ebill_fix_2').val("Yes");
+						$('#electric_bill_amount_2').removeAttr("disabled", "disabled");
+					}else{
+						$('#electric_bill_amount_2').attr("disabled", "disabled");
+						$('#electric_bill_amount_2').val("0.00");
+					}
+				});
+
+			//$('#electricity_bills_id_2').val(response.data.opening_reading);
+			//$('#check_ebill_fix_2').val(response.data.is_ebill_fixed);
+			//$('#check_ebill_fix_2').val(response.data.electricity_bill.bill_type.name);
+		}).catch(function(){
+			alert("Can not set previous value.");
+		});	
+	});
+
+	//update ebill button code
+	$('#update_ebill_btn_1').click(function(){
+		var id = $(document).find('#electric_bills_edit_form input[name="ubill_id_3"]').val();
+		axios.post('api/update_electric_bills/'+id, $('#electric_bills_edit_form').serialize()).then(function(response){
+			$('#update_electric_bill_details_modal').modal('hide');
+			toastr.success('Successfully updated Electric bill details !!');
+		}).catch(function(failData){
+			$.each(failData.response.data.errors, function(inputName, errors){
+                $("#electric_bills_edit_form [name="+inputName+"]").parent().removeClass('has-error').addClass('has-error');
+                if(typeof errors == "object"){
+                    $("#electric_bills_edit_form [name="+inputName+"]").parent().find('.help-block').empty();
+
+                    $.each(errors, function(indE, valE){
+                        $("#electric_bills_edit_form [name="+inputName+"]").parent().find('.help-block').append(valE+"<br>");
+                         $('.help-block').css("color", "red");
+                    });
+                }
+                else{
+                    $("#electric_bills_edit_form [name="+inputName+"]").parent().find('.help-block').html(valE);
+                }
+            });
+		});
 	});
 
 	//update other service charges of active renters
@@ -272,6 +346,7 @@ window.addEventListener("load",function(){
 	});
 });
 
+//function for showing data after searching
 function data(response){
 	//console.log(response);
 	$(document).find('.profile-values td p').text("");
@@ -286,7 +361,9 @@ function data(response){
 		//console.log(response.data.utility_bill.id);
 		$('#utility_bill_id_2').val(response.data.utility_bill.id);
 		$('#ubill_id_2').val(response.data.utility_bill.id);
+		$('#ubill_id_3').val(response.data.utility_bill.id);
 		$('#active_renter_id_3').val(response.data.id);
+		$('#active_renter_id_4').val(response.data.id);
 	}
 	
 	//general information
