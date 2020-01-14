@@ -4,7 +4,7 @@
 @endsection
 
 @section('button')
-<button class="btn btn-white btn-border btn-round mr-2" data-toggle="modal" data-target="#addRentalModal" id="addBtn">Add Renter Details</button>
+<button class="btn btn-white btn-border btn-round mr-2" data-toggle="modal" data-target="#addRentalModal" id="addBtn"><i class="fas fa-plus text-success"></i> Add Renter Details</button>
 @endsection
 @section('card-title')
 <b>List of Renter Details</b>

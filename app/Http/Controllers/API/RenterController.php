@@ -177,7 +177,7 @@ class RenterController extends Controller
      */
     public function update(RenterRequest $request, Renter $renter)
     {
-        dd($request->all());
+        // dd($request->all());
         $first_name     = $request->input('first_name');
         $email          = $request->input('email');
        // $last_name      = $request->input('last_name');

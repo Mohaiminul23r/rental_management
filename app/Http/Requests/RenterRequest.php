@@ -23,27 +23,35 @@ class RenterRequest extends FormRequest
      */
    public function rules()
     {
-        return [
-            'first_name'      => 'required',    
-            //'last_name'       => 'required',    
-            'father_name'     => 'required',    
-            'email'           => 'email | unique:renters',    
-           // 'mother_name'     => 'required',    
-           // 'phone'           => 'required',    
-            'mobile'          => 'required | unique:renters',    
-            // 'gender'          => 'required',    
-            // 'nid_no'          => 'required',    
-            // 'nid_photo'       => 'required',    
-            //'photo'           => 'required',    
-            //'date_of_birth'   => 'required',    
-            'renter_type_id'  => 'required',    
-            'address_line1'   => 'required',    
-            'thana_id'        => 'required',    
-            'postal_code'     => 'required',    
-            'city_id'         => 'required',    
-           // 'country_id'      => 'required',    
-            'status'          => 'required'   
-        ];
+        if($this->route()->getName() == 'renters.update'){
+            return [
+                
+            ];
+        }
+
+        if($this->route()->getName() == 'renters.store'){
+            return [
+                'first_name'      => 'required',    
+                //'last_name'       => 'required',    
+                'father_name'     => 'required',    
+                'email'           => 'email | unique:renters',    
+               // 'mother_name'     => 'required',    
+               // 'phone'           => 'required',    
+                'mobile'          => 'required | unique:renters',    
+                // 'gender'          => 'required',    
+                // 'nid_no'          => 'required',    
+                // 'nid_photo'       => 'required',    
+                //'photo'           => 'required',    
+                //'date_of_birth'   => 'required',    
+                'renter_type_id'  => 'required',    
+                'address_line1'   => 'required',    
+                'thana_id'        => 'required',    
+                'postal_code'     => 'required',    
+                'city_id'         => 'required',    
+               // 'country_id'      => 'required',    
+                'status'          => 'required'
+            ];
+        }
     }
 
     public function messages(){
