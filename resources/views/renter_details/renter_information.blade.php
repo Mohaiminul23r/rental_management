@@ -114,7 +114,6 @@ window.addEventListener("load",function(){
 				}else{
 					renter_name_2 += '<option id="'+val.id+'" value="'+val.id+'">'+val.first_name+' -'+ val.father_name +' (Father)'+'</option>';
 				}
-				
 			});
 
 			$.each(complex, function(ind,val){
@@ -189,6 +188,9 @@ window.addEventListener("load",function(){
         html_bill_type_2 = '<option value="" disabled selected>Select Bill Type</option>';
         var ubill_id = $(document).find('#update_rent_details_form input[name="utility_bill_id"]').val();
 		var id = ubill_id;
+		if(id == undefined || id == null || id == ""){
+			alert("no id");
+		}
         axios.get('api/get_utility_bill_details/'+id).then(function(response){
         	//console.log(response);
 			$.each(bill_type_2, function(ind,val){
@@ -249,7 +251,6 @@ window.addEventListener("load",function(){
         });
 	});
 
-
 	//update utility bills when update btn is clicked
 	$('#update_ubill_btn').click(function(){
 		var id = $(document).find('#utility_bills_update_form input[name="ubill_id_2"]').val();
@@ -272,9 +273,8 @@ window.addEventListener("load",function(){
 		var ubill_id = $(document).find('#update_rent_details_form input[name="utility_bill_id"]').val();
 		var id = ubill_id;
         axios.get('api/get_utility_bill_details/'+id).then(function(response){
-        	console.log(response);
+        	//console.log(response);
 			$.each(electricity_bill, function(ind,val){
-				console.log(val);
 				if(val.bill_type.name == response.data.electricity_bill.bill_type.name){
 					html_bill_type += '<option value="'+val.id+'" selected>'+val.bill_type.name+'</option>';
 				}else{
@@ -343,12 +343,88 @@ window.addEventListener("load",function(){
 	//update other service charges of active renters
 	$(document).on('click', '.update-obill-btn', function(){
 		$('#update_other_bill_details_modal').modal();
+		$('#update_other_bill_details_form .has-error').removeClass('has-error');
+        $('#update_other_bill_details_form').find('.help-block').empty();
+        $('#update_other_bill_details_form').trigger('reset');
+		var other_bill_id = $(document).find('#update_rent_details_form input[name="utility_bill_id"]').val();
+		var id = other_bill_id;
+		axios.get('api/get_other_bill_details/'+id).then(function(response){
+			console.log(response);
+			if(response.data.electricity_bill != 'undefined' && response.data.electricity_bill != null){
+				$('#add_minimum_unit_2').val(response.data.electricity_bill.minimum_unit);
+				$('#add_duty_on_kwh_2').val(response.data.electricity_bill.duty_on_kwh);
+				$('#add_demand_charge_2').val(response.data.electricity_bill.demand_charge);
+				$('#add_machine_charge_2').val(response.data.electricity_bill.machine_charge);
+				$('#add_service_charge_2').val(response.data.electricity_bill.service_charge);
+				$('#add_vat_2').val(response.data.electricity_bill.vat);
+				$('#add_delay_charge_2').val(response.data.electricity_bill.delay_charge);
+				$('#electricity_bill_id').val(response.data.electricity_bill.id);
+			}
+		}).catch(function(failData){
+			alert("Can not get other bill details !!");
+		});
 	});
+});
+
+//update other billing details 
+$('#update_other_bill_btn').click(function(){
+	var id = $(document).find('#electric_bills_edit_form input[name="ubill_id_3"]').val();
+	axios.post('api/update_other_bill_details/'+id, $('#update_other_bill_details_form').serialize()).then(function(response){
+		$('#update_other_bill_details_modal').modal('hide');
+		toastr.success('Successfully updated other bills.');
+	}).catch(function(failData){
+		$.each(failData.response.data.errors, function(inputName, errors){
+            $("#update_other_bill_details_form [name="+inputName+"]").parent().removeClass('has-error').addClass('has-error');
+            if(typeof errors == "object"){
+                $("#update_other_bill_details_form [name="+inputName+"]").parent().find('.help-block').empty();
+
+                $.each(errors, function(indE, valE){
+                    $("#update_other_bill_details_form [name="+inputName+"]").parent().find('.help-block').append(valE+"<br>");
+                     $('.help-block').css("color", "red");
+                });
+            }
+            else{
+                $("#update_other_bill_details_form [name="+inputName+"]").parent().find('.help-block').html(valE);
+            }
+        });
+	});
+});
+
+//removing alters at view active renter details
+var first_click = true;
+$("#ubill_list").click(function(){
+	if(first_click){
+		$("#notify_ubill_div").delay(3200).fadeOut(300);
+		first_click = false;
+	}else{
+
+	}
+});
+
+var ebill_first_click = true;
+$("#ebill_list").click(function(){
+	if(ebill_first_click){
+		$("#notify_ebill_div").delay(3200).fadeOut(300);
+		ebill_first_click = false;
+	}else{
+
+	}
+});
+
+var obill_first_click = true;
+$("#obill_list").click(function(){
+	if(obill_first_click){
+		$("#notify_obill_div").delay(3200).fadeOut(300);
+		obill_first_click = false;
+	}else{
+
+	}
 });
 
 //function for showing data after searching
 function data(response){
 	//console.log(response);
+	$('.container').removeAttr('style');
 	$(document).find('.profile-values td p').text("");
 	$('#update_rd_div').css('display','inherit');
 	$('#update_ubill_div').css('display','inherit');
@@ -443,14 +519,19 @@ function data(response){
 			// $('#duty_on_kwh').text(response.data.utility_bill.electricity_bill.duty_on_kwh);
 			$('#demand_charge').text(response.data.utility_bill.electricity_bill.demand_charge);
 			$('#machine_charge').text(response.data.utility_bill.electricity_bill.machine_charge);
-			$('#service_charge-1').text(response.data.utility_bill.electricity_bill.service_charge);
+			$('#service_charge_2').text(response.data.utility_bill.electricity_bill.service_charge);
 			$('#vat').text(response.data.utility_bill.electricity_bill.vat);
 			$('#delay_charge').text(response.data.utility_bill.electricity_bill.delay_charge);
 		}
 		$('#electric_meter_no').text(response.data.utility_bill.electric_meter_no);
 		$('#opening_reading').text(response.data.utility_bill.opening_reading);
-		$('#is_ebill_fixed').text(response.data.utility_bill.is_ebill_fixed);
-		$('#fix_ebill_amount').text(response.data.utility_bill.fix_ebill_amount);	
+		if(typeof response.data.utility_bill.fix_ebill_amount != 'undefined' &&  response.data.utility_bill.fix_ebill_amount != null){
+			$('#fix_ebill_amount').text(response.data.utility_bill.fix_ebill_amount);
+			$('#is_ebill_fixed').text("Electric bill is fixed.");	
+		}else{
+			$('#fix_ebill_amount').text("0.00");
+			$('#is_ebill_fixed').text("Electric bill is not fixed.");
+		}
 	}
 }
 

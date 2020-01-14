@@ -1,4 +1,4 @@
-<div class="container">
+<div id="active_renter_info_div" class="container" style="display: none;">
     <div class="align-items-center text-white-50 bg-purple rounded shadow-sm" style="background: seagreen;">
        <h4 style="text-align: center;"><strong>Detail Information of Active Renter</strong></h4>
     </div>
@@ -8,13 +8,13 @@
                 <li class="nav-item">
                     <a href="" data-target="#profile" data-toggle="tab" class="nav-link active"><strong>Renter Profile</strong></a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" id="ubill_list">
                     <a href="" data-target="#Utility_bills" data-toggle="tab" class="nav-link"><strong>Utility Bill Info.</strong></a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" id="ebill_list">
                     <a href="" data-target="#electric_bills" data-toggle="tab" class="nav-link"><strong>Electricity Bill Info.</strong></a>
                 </li>
-                 <li class="nav-item">
+                 <li class="nav-item" id="obill_list">
                     <a href="" data-target="#other_billing_details" data-toggle="tab" class="nav-link"><strong>Other Billing Info.</strong></a>
                 </li>
             </ul>
@@ -90,6 +90,9 @@
                                 </div>
                                 <div id="update_rd_div" class="col-md-4" style="text-align: right; display: none;">
                                     <button type="button" class="update-rd-btn btn btn-round btn-outline-success"><i class="fas fa-arrow-alt-circle-right text-danger"></i><strong> Update rDetails</strong></button>
+                                </div>
+                                <div id="add_rd_div" class="col-md-4" style="text-align: right; display: none;">
+                                    <button type="button" class="update-rd-btn btn btn-round btn-outline-success"><i class="fas fa-arrow-alt-circle-right text-danger"></i><strong> Add rent details</strong></button>
                                 </div>
                             </div>
                             <table class="table-striped" width="100%">
@@ -270,7 +273,7 @@
                         </tr>                            
                        <tr>
                           <th scope="row"><strong>Service Charge:</strong></th>
-                          <td><p style="margin: 2px;" id="service_charge"></p></td>
+                          <td><p style="margin: 2px;" id="service_charge_2"></p></td>
                         </tr>
                         <tr>
                           <th scope="row"><strong>VAT:</strong></th>

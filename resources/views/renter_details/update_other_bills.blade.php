@@ -1,4 +1,4 @@
-<!-- update other bill details Modal -->
+{{-- update other bill details Modal --}}
 <div class="modal fade" id="update_other_bill_details_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -9,51 +9,42 @@
         </button>
       </div>
       <div class="modal-body">
-         <form id="edit_ebill_form" class="form-horizontal" role="form">
+         <form id="update_other_bill_details_form" class="form-horizontal" role="form">
             <div class="row">
-                <div class="col-md-4">
-                    <input type="hidden" name="ebill_id" id="ebill_id">
+                <input type="hidden" name="electricity_bill_id" id="electricity_bill_id">
+              {{--   <div class="col-md-4">  
                     <div class="form-group">
                         <label for="name">Bill Type</label>
                         <select class="form-control" id="add_bill_type_id" name="bill_type_id">
                         </select>
                         <span class="help-block"></span>
                     </div>  
-                </div>
+                </div> --}}
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="name">Minimum Unit</label>
-                        <input type="name" name="minimum_unit" class="form-control" id="add_minimum_unit" placeholder="Enter Minimum Unit">
+                        <input type="name" name="minimum_unit" class="form-control" id="add_minimum_unit_2" placeholder="Enter Minimum Unit">
                         <span class="help-block"></span>
                     </div>  
                 </div>
-                <div class="col-md-4">
+                {{-- <div class="col-md-6">
                     <div class="form-group">
                         <label for="name">Duty on KWH</label>
-                        <input type="name" name="duty_on_kwh" class="form-control" id="add_duty_on_kwh" placeholder="Enter Kilowatt Hour">
+                        <input type="name" name="duty_on_kwh" class="form-control" id="add_duty_on_kwh_2" placeholder="Enter Kilowatt Hour">
                         <span class="help-block"></span>
                     </div>  
-                </div>
-            </div>
-            <div class="row">
+                </div> --}}
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="name">Demand Charge</label>
-                        <input type="name" name="demand_charge" class="form-control" id="add_demand_charge" placeholder="Enter Demanded Charge">
+                        <input type="name" name="demand_charge" class="form-control" id="add_demand_charge_2" placeholder="Enter Demanded Charge">
                         <span class="help-block"></span>
                     </div>  
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="name">Machine Charge</label>
-                        <input type="name" name="machine_charge" class="form-control" id="add_machine_charge" placeholder="Electric Machine Charge">
-                        <span class="help-block"></span>
-                    </div>  
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="name">Service Charge</label>
-                        <input type="name" name="service_charge" class="form-control" id="add_service_charge" placeholder="Enter Service Charge">
+                        <input type="name" name="machine_charge" class="form-control" id="add_machine_charge_2" placeholder="Electric Machine Charge">
                         <span class="help-block"></span>
                     </div>  
                 </div>
@@ -61,15 +52,22 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
+                        <label for="name">Service Charge</label>
+                        <input type="name" name="service_charge" class="form-control" id="add_service_charge_2" placeholder="Enter Service Charge">
+                        <span class="help-block"></span>
+                    </div>  
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
                         <label for="name">VAT</label>
-                        <input type="name" name="vat" class="form-control" id="add_vat" placeholder="Enter Value Added Tax">
+                        <input type="name" name="vat" class="form-control" id="add_vat_2" placeholder="Enter Value Added Tax">
                         <span class="help-block"></span>
                     </div>  
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="name">Delay Charge</label>
-                        <input type="name" name="delay_charge" class="form-control" id="add_delay_chargee" placeholder="Enter Delay Charge">
+                        <input type="name" name="delay_charge" class="form-control" id="add_delay_charge_2" placeholder="Enter Delay Charge">
                         <span class="help-block"></span>
                     </div>  
                 </div>
@@ -77,10 +75,10 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary btn-round">Update</button>
+        <button type="button" id="update_other_bill_btn" class="btn btn-primary btn-round">Update</button>
         <button type="button" class="btn btn-secondary btn-round" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
 </div>
-<!-- End of update other bill details Modal -->
+<!-- End of update other bill details Modal

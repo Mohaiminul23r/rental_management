@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\ActiveRenter;
 use App\Model\UtilityBill;
+use App\Model\ElectricityBill;
 use App\Http\Requests\ActiveRenterRequest;
 use App\Http\Requests\UtilityBillRequest;
 use App\Http\Requests\ElectricBillDetailRequest;
+use App\Http\Requests\ElectricityBillRequest;
 use DB;
 
 class BillCalculationController extends Controller
@@ -94,6 +96,11 @@ class BillCalculationController extends Controller
         return $utilityBills;
     }
 
+    public function getOtherBillDetails($id){
+        $other_bill_details = UtilityBill::with('electricity_bill.bill_type')->whereId($id)->first();
+        return $other_bill_details;
+    }
+
     public function updateRentDetails(ActiveRenterRequest $request, $id){
         //dd($request->all());
         $acr_id = $request->active_renter_id_3;
@@ -135,5 +142,19 @@ class BillCalculationController extends Controller
         $electricBill->fix_ebill_amount        = $request->fix_ebill_amount;
         $electricBill->electricity_bill_id     = $request->electricity_bill_id;
         $electricBill->update();
+    }
+
+    public function updateOtherBills(ElectricityBillRequest $request, $id){
+        $electricityBill = ElectricityBill::findOrFail($request->electricity_bill_id);
+        //dd($electricityBill);
+        //$electricityBill->bill_type_id   = $request->bill_type_id;
+        $electricityBill->minimum_unit   = $request->minimum_unit;
+       // $electricityBill->duty_on_kwh    = $request->duty_on_kwh;
+        $electricityBill->demand_charge  = $request->demand_charge;
+        $electricityBill->machine_charge = $request->machine_charge;
+        $electricityBill->service_charge = $request->service_charge;
+        $electricityBill->vat            = $request->vat;
+        $electricityBill->delay_charge   = $request->delay_charge;
+        $electricityBill->update();
     }
 }

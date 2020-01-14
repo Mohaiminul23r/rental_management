@@ -24,38 +24,15 @@
 				</div>
 				<div class="col-md-4">
 					<div class="form-group">
-						<label for="name">Minimum Unit</label>
-						<input type="name" name="minimum_unit" class="form-control" placeholder="Enter Minimum Unit">
+						<label for="number">Minimum Unit</label>
+						<input type="number" name="minimum_unit" class="form-control" placeholder="Enter Minimum Unit">
 						<span class="help-block"></span>
 					</div>	
 				</div>
 				<div class="col-md-4">
 					<div class="form-group">
-						<label for="name">Duty on KWH</label>
-						<input type="name" name="duty_on_kwh" class="form-control" placeholder="Enter Kilowatt Hour">
-						<span class="help-block"></span>
-					</div>	
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-4">
-					<div class="form-group">
-						<label for="name">Demand Charge</label>
-						<input type="name" name="demand_charge" class="form-control" placeholder="Enter Demanded Charge">
-						<span class="help-block"></span>
-					</div>	
-				</div>
-				<div class="col-md-4">
-					<div class="form-group">
-						<label for="name">Machine Charge</label>
-						<input type="name" name="machine_charge" class="form-control" placeholder="Electric Machine Charge">
-						<span class="help-block"></span>
-					</div>	
-				</div>
-				<div class="col-md-4">
-					<div class="form-group">
-						<label for="name">Service Charge</label>
-						<input type="name" name="service_charge" class="form-control" placeholder="Enter Service Charge">
+						<label for="number">Duty on KWH</label>
+						<input type="number" name="duty_on_kwh" class="form-control" placeholder="Enter Kilowatt Hour">
 						<span class="help-block"></span>
 					</div>	
 				</div>
@@ -63,15 +40,38 @@
 			<div class="row">
 				<div class="col-md-4">
 					<div class="form-group">
-						<label for="name">VAT</label>
-						<input type="name" name="vat" class="form-control" placeholder="Enter Value Added Tax">
+						<label for="number">Demand Charge</label>
+						<input type="number" name="demand_charge" class="form-control" placeholder="Enter Demanded Charge">
 						<span class="help-block"></span>
 					</div>	
 				</div>
 				<div class="col-md-4">
 					<div class="form-group">
-						<label for="name">Delay Charge</label>
-						<input type="name" name="delay_charge" class="form-control" placeholder="Enter Delay Charge">
+						<label for="number">Machine Charge</label>
+						<input type="number" name="machine_charge" class="form-control" placeholder="Electric Machine Charge">
+						<span class="help-block"></span>
+					</div>	
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<label for="number">Service Charge</label>
+						<input type="number" name="service_charge" class="form-control" placeholder="Enter Service Charge">
+						<span class="help-block"></span>
+					</div>	
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<div class="form-group">
+						<label for="number">VAT</label>
+						<input type="number" name="vat" class="form-control" placeholder="Enter Value Added Tax">
+						<span class="help-block"></span>
+					</div>	
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<label for="number">Delay Charge</label>
+						<input type="number" name="delay_charge" class="form-control" placeholder="Enter Delay Charge">
 						<span class="help-block"></span>
 					</div>	
 				</div>

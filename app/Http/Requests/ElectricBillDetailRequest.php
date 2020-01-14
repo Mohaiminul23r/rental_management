@@ -42,7 +42,6 @@ class ElectricBillDetailRequest extends FormRequest
     }
 
     public function messages(){
-
          return [
             'electric_meter_no.required'      => 'Enter electric meter',
             'electric_meter_no.unique'        => 'Electric meter already exist',
