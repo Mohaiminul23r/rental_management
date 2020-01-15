@@ -71,7 +71,7 @@
             <div class="row">
                  <div class="col-md-6">
                     <div class="avatar avatar-xxl">
-                      <img id="nid_image_1" class="avatar-img imagecheck-figure clear_data" style="width: 335px; height: 156px;">
+                      <img id="nid_image_1" class="imagecheck-figure clear_data" style="width: 300px; height: 160px; margin-left: 10px;">
                     </div>
                 </div>
                 <div class="col-md-6">

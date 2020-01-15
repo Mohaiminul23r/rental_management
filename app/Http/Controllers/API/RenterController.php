@@ -86,7 +86,7 @@ class RenterController extends Controller
      */
     public function store(RenterRequest $request)
     {
-      //dd($request->all());
+     // dd($request->all());
         $renter = new Renter();
         $first_name     = $request->input('first_name');
         $email          = $request->input('email');
@@ -100,18 +100,21 @@ class RenterController extends Controller
         $date_of_birth  = $request->input('date_of_birth');
         $renter_type_id = $request->input('renter_type_id');
         $status         = $request->input('status');
-        $imgPath        = 'public/images/';
+        $photo          = $request->input('photo');
+        $nid_photo      = $request->input('nid_photo');
         $renter_photo_path = "";
         $nid_photo_path    = "";
         
-        if($request->input('photo') != "undefined" && $request->input('photo') != null){
+        if($request->hasFile($photo)){
+            $imgPath        = 'public/images/';
             $photo          = $request->file('photo');
             $uniqueName_photo     = $photo->getClientOriginalName();
             $renter_photo_path    = $imgPath.$uniqueName_photo;
             $photo->move($imgPath, $uniqueName_photo);
         }
         
-        if($request->input('nid_photo') != "undefined" && $request->input('nid_photo') != null){
+        if($request->hasFile($nid_photo)){
+            $imgPath        = 'public/images/';
             $nid_photo      = $request->file('nid_photo');
             $uniqueName_nid_photo = $nid_photo->getClientOriginalName();
             $nid_photo_path       = $imgPath.$uniqueName_nid_photo;
@@ -190,8 +193,43 @@ class RenterController extends Controller
         $date_of_birth  = $request->input('date_of_birth');
         $renter_type_id = $request->input('renter_type_id');
         $status         = $request->input('status');
-        $photo          = $request->file('photo');
-        $nid_photo      = $request->file('nid_photo');
+        // $photo          = $request->file('photo');
+        // $nid_photo      = $request->file('nid_photo');
+        $photo          = $request->input('photo');
+        $nid_photo      = $request->input('nid_photo');
+        $renter_photo_path = "";
+        $nid_photo_path    = "";
+        
+    if($request->input('photo') != "undefined" && $request->input('photo') != null && $request->input('photo') != ""){
+        $photo = $request->file('photo');
+        $filename = $photo->getClientOriginalName();
+        $photo->move(public_path('public/images'), $filename);
+        $renter->photo = $request->file('photo')->getClientOriginalName();
+    }
+
+    if($request->input('nid_photo') != "undefined" && $request->input('nid_photo') != null && $request->input('nid_photo') != ""){
+        $nid_photo = $request->file('nid_photo');
+        $filename = $nid_photo->getClientOriginalName();
+        $nid_photo->move(public_path('public/images'), $filename);
+        $renter->nid_photo = $request->file('nid_photo')->getClientOriginalName();
+    }
+        // if($request->hasFile($photo)){
+        //     $imgPath        = 'public/images/';
+        //     $photo          = $request->file('photo');
+        //     $uniqueName_photo     = $photo->getClientOriginalName();
+        //     $renter_photo_path    = $imgPath.$uniqueName_photo;
+        //     $photo->move($imgPath, $uniqueName_photo);
+        //     $renter->photo = $renter_photo_path;
+        // }
+        
+        // if($request->hasFile($nid_photo)){
+        //     $imgPath        = 'public/images/';
+        //     $nid_photo      = $request->file('nid_photo');
+        //     $uniqueName_nid_photo = $nid_photo->getClientOriginalName();
+        //     $nid_photo_path       = $imgPath.$uniqueName_nid_photo;
+        //     $nid_photo->move($imgPath, $uniqueName_nid_photo);
+        //     $renter->nid_photo = $nid_photo_path;
+        // }
 
         //updating address
         $address = Address::findOrFail($renter->address_id);
@@ -202,24 +240,25 @@ class RenterController extends Controller
         $address->country_id     = $request->input('country_id');
         $address->update();
 
-        if(!is_null($photo)){
-            unlink($renter->photo);
-            $imgPath              = 'public/images/';
-            $uniqueName_photo     = $photo->getClientOriginalName();
-            $renter_photo_path    = $imgPath.$uniqueName_photo;
-            $photo->move($imgPath, $uniqueName_photo);
-            $renter->photo = $renter_photo_path;
+        // if(!is_null($photo)){
+        //     unlink($renter->photo);
+        //     $imgPath              = 'public/images/';
+        //     $uniqueName_photo     = $photo->getClientOriginalName();
+        //     $renter_photo_path    = $imgPath.$uniqueName_photo;
+        //     $photo->move($imgPath, $uniqueName_photo);
+        //     $renter->photo = $renter_photo_path;
 
-        }
+        // }
 
-        if(!is_null($nid_photo)){
-           unlink($renter->nid_photo);
-           $imgPath              = 'public/images/';
-           $uniqueName_nid_photo = $nid_photo->getClientOriginalName(); 
-           $nid_photo_path       = $imgPath.$uniqueName_nid_photo;
-          $nid_photo->move($imgPath, $uniqueName_nid_photo);
-          $renter->nid_photo = $nid_photo_path;
-        }
+        // if(!is_null($nid_photo)){
+        //    unlink($renter->nid_photo);
+        //    $imgPath              = 'public/images/';
+        //    $uniqueName_nid_photo = $nid_photo->getClientOriginalName(); 
+        //    $nid_photo_path       = $imgPath.$uniqueName_nid_photo;
+        //    $nid_photo->move($imgPath, $uniqueName_nid_photo);
+        //    $renter->nid_photo = $nid_photo_path;
+        // }
+
         $renter->first_name      = $first_name;
         $renter->email           = $email;
        // $renter->last_name       = $last_name;

@@ -15,8 +15,8 @@
       	        <input type="hidden" id="id" name="id" value="">
       	     </form>
           <div class="modal-footer">
-            <button type="button" id="ar_deleteBtn" class="btn btn-danger">Delete</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" id="ar_deleteBtn" class="btn btn-danger btn-round">Delete</button>
+            <button type="button" class="btn btn-secondary btn-round" data-dismiss="modal">Close</button>
           </div>
         </div>
     </div>

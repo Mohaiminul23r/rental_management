@@ -12,8 +12,9 @@
 @endsection
 @section('body')
 	{{-- start modals --}}
-	@include('active_renter.edit')
     @include('active_renter.delete')
+    @include('active_renter.add_ebill_modal')
+    @include('active_renter.add_ubill_modal')
 	{{-- end modals --}}
 	<div id="multi_step_add_modal" class="multi-step">
 	
@@ -118,7 +119,7 @@ const mySteps = [{
 					'<button type="button" style="align:left;" id="save_rent_details" class="btn btn-primary">Save</button>'+
 				'</div>'+
 				'<div class="col-md-6" style="text-align: right;">'+
-					'<button type="button"  id="close_modal_btn" class="btn btn-warning">Cancel</button>'+
+					'<button type="button"  id="close_modal_btn" class="btn btn-warning">Close</button>'+
 				'</div>'+	
 			'</div>'+
 			'</form>',
@@ -471,6 +472,11 @@ $(function () {
   $('[data-toggle="tooltip"]').tooltip()
 })
 
+//add utility bill details for renter
+$(document).on('click', '.add_utility_bill_modal', function(){
+	$('#activeRenterUbillAddModal').modal();
+});
+
 //datatable value
 var activeRenterDataTable = $('#activeRenterDataTable').DataTable({
 
@@ -498,7 +504,19 @@ var activeRenterDataTable = $('#activeRenterDataTable').DataTable({
 			'data' : 'id',
 			'width' : '25px',
 			'render' : function(data, type, row, ind){
-				return '<span class="delete-modal glyphicon glyphicon-trash" data-id = '+data+' data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash-alt text-danger"></i></span>';
+				// return '<span class="delete-modal glyphicon glyphicon-trash" data-id = '+data+' data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash-alt text-danger"></i></span>';
+				$action_dropdown =	
+					'<div class="dropdown show">'+
+					  '<a class="btn btn-outline-info btn-sm btn-round dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">action</a>'+
+					  '<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">'+
+					    // '<a class="dropdown-item view_data" data-id = '+ data +'><i class="fa fa-eye"></i> View Details</a>'+
+					    // '<a class="dropdown-item print_data" data-id = '+ data +'><i class="fa fa-print text-info"></i> Print/Download</a>'+
+                        '<a class="dropdown-item add_utility_bill_modal" data-id = '+ data +'><i class="fa fa-plus text-primary"></i> Add Utility Bill</a>'+
+                        '<a class="dropdown-item add_electric_bill_modal" data-id = '+ data +'><i class="fa fa-plus text-secondary"></i> Add Electric Bill</a>'+
+                        '<a class="dropdown-item delete-modal" data-id = '+ data +'><i class="fa fa-trash text-danger" ></i> Delete</a>'+
+					  '</div>'+
+					'</div>';
+				return $action_dropdown;
 			}
 		},
 		{

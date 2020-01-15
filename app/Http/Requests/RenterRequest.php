@@ -24,6 +24,8 @@ class RenterRequest extends FormRequest
    public function rules()
     {
         if($this->route()->getName() == 'renters.update'){
+            $renter = $this->all();
+           // dd($renter);
             return [
                 
             ];
@@ -43,13 +45,13 @@ class RenterRequest extends FormRequest
                 // 'nid_photo'       => 'required',    
                 //'photo'           => 'required',    
                 //'date_of_birth'   => 'required',    
-                'renter_type_id'  => 'required',    
-                'address_line1'   => 'required',    
-                'thana_id'        => 'required',    
-                'postal_code'     => 'required',    
-                'city_id'         => 'required',    
+                 'renter_type_id'  => 'required',    
+                // 'address_line1'   => 'required',    
+                // 'thana_id'        => 'required',    
+                // 'postal_code'     => 'required',    
+                // 'city_id'         => 'required',    
                // 'country_id'      => 'required',    
-                'status'          => 'required'
+               // 'status'          => 'required'
             ];
         }
     }
@@ -57,15 +59,15 @@ class RenterRequest extends FormRequest
     public function messages(){
 
          return [
-            'first_name.required'    => 'Enter renter first name',
+            'first_name.required'    => 'Enter renter name',
             'father_name.required'   => 'Enter father name',
             'mobile.required'        => 'Enter concact number',
             'mobile.unique'          => 'Mobile no already exist',
-            'address_line1.required' => 'Enter address area',
-            'address_line1.required' => 'Enter address area',
-            'thana_id.required'      => 'Select thana name',
-            'postal_code.required'   => 'Enter post code',
-            'city_id.required'       => 'Select city name',
+            // 'address_line1.required' => 'Enter address area',
+            'renter_type_id.required' => 'Select renter type',
+            // 'thana_id.required'      => 'Select thana name',
+            // 'postal_code.required'   => 'Enter post code',
+            // 'city_id.required'       => 'Select city name',
         ];
     }
 }

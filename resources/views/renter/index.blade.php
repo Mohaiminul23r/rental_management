@@ -46,11 +46,13 @@ window.addEventListener("load", function(){
 	});
 	//adding renter details
 	$('#renterAddBtn').click(function(){
+		$('#renter_add_form .has-error').removeClass('has-error');
+        $('#renter_add_form').find('.help-block').empty();
 		var renterForm = document.getElementById('renter_add_form');
 	    var formData = new FormData(renterForm);
    	    formData.append('photo', document.getElementById('photo').files[0]);
    	    formData.append('nid_photo', document.getElementById('nid_photo').files[0]);
-		axios.post('api/renters', formData).then(function(resData){
+		axios.post('api/renters', formData).then(function(response){
 			$('#renterDataTable').DataTable().ajax.reload();
 			$('#addRentalModal').modal('hide');
 			toastr.success('Renter Added Successfully');
@@ -101,6 +103,7 @@ window.addEventListener("load", function(){
 	//edit renter details
 	$(document).on('click', '.edit-modal', function(){
 		var id = $(this).data('id');
+		$('#renter_id').val(id);
 		$('#editRentalModal').modal();
 		$('#renter_edit_form .has-error').removeClass('has-error');
         $('#renter_edit_form').find('.help-block').empty();
@@ -110,7 +113,7 @@ window.addEventListener("load", function(){
 		html_renter_types    = '<option value="" disabled selected>Select Renter Type</option>';
 
 		axios.get('api/renters/'+id+'/edit').then(function(response){
-			console.log(response);
+			//console.log(response);
 			$.each(country, function(ind,val){
 				if(val.id == response.data.address.country_id){
 					html_countries += '<option value="'+val.id+'" selected>'+val.name+'</option>';
@@ -172,35 +175,45 @@ window.addEventListener("load", function(){
 		}).catch(function(failData){
 			alert("Something wrong.");
 		});
+	});
 
-		$('#renterEditBtn').click(function(){
-			axios.put('api/renters/'+id, $('#renter_edit_form').serialize())
-			.then(function(response){
-				$('#renterDataTable').DataTable().ajax.reload();
-                $('#editRentalModal').modal('hide');
-                toastr.success('Edited Successfully.'); 
-			}).catch(function(failData){
+	//edit renter details when button is clicked
+	$('#renterEditBtn').click(function(){
+		var renter_id = $(document).find('#renter_edit_form input[name="renter_id"]').val();
+		var id = renter_id;
+		var renter_edit_form = document.getElementById('renter_edit_form');
+	    var formData = new FormData(renter_edit_form);
+   	    formData.append('add_photo', document.getElementById('add_photo').files[0]);
+   	    formData.append('add_nid_photo', document.getElementById('add_nid_photo').files[0]);
+   	    //console.log(formData);
+		axios.put('api/renters/'+id, formData)
+		.then(function(response){
+			$('#renterDataTable').DataTable().ajax.reload();
+            $('#editRentalModal').modal('hide');
+            toastr.success('Edited Successfully.'); 
+		}).catch(function(failData){
 				$.each(failData.response.data.errors, function(inputName, errors){
-                $("#renter_edit_form [name="+inputName+"]").parent().removeClass('has-error').addClass('has-error');
-                if(typeof errors == "object"){
-                    $("#renter_edit_form [name="+inputName+"]").parent().find('.help-block').empty();
-                    $.each(errors, function(indE, valE){
-                        $("#renter_edit_form [name="+inputName+"]").parent().find('.help-block').append(valE+"<br>");
-                        $('.help-block').css("color", "red");
-                    });
-                }else{
-                    $("#renter_edit_form [name="+inputName+"]").parent().find('.help-block').html(valE);
-                }
-            });
-			});
+	            $("#renter_edit_form [name="+inputName+"]").parent().removeClass('has-error').addClass('has-error');
+	            if(typeof errors == "object"){
+	                $("#renter_edit_form [name="+inputName+"]").parent().find('.help-block').empty();
+	                $.each(errors, function(indE, valE){
+	                    $("#renter_edit_form [name="+inputName+"]").parent().find('.help-block').append(valE+"<br>");
+	                    $('.help-block').css("color", "red");
+	                });
+	            }else{
+	                $("#renter_edit_form [name="+inputName+"]").parent().find('.help-block').html(valE);
+	            }
+	        });
 		});
 	});
+	
 
 	//delete renter details
 	$(document).on('click', '.delete-modal', function(){
 		$('#id').val($(this).data('id'));
 		$('#modalDelete').modal();
 	});
+
 	$('#deleteBtn').click(function(){
 		var id = $('#id').val();
 		axios.delete('api/renters'+'/'+id, {
@@ -222,7 +235,6 @@ window.addEventListener("load", function(){
 		axios.get('api/renters/info/'+ view_id).then(function(response){
 			//$(document).find('#intro_div p').empty();
 			if(typeof response.data != 'undefined' &&  response.data != null){
-
 				$('#renter_name_1').text(response.data.first_name);
 				$('#father_name_1').text(response.data.father_name);
 				$('#mobile_1').text(response.data.mobile);
@@ -362,17 +374,12 @@ window.addEventListener("load", function(){
 		'data' : 'mobile'
 	},
 	{
-		'title' : 'NID No.',
-		'name' : 'nid_no',
-		'data' : 'nid_no'
-	},
-	{
 		'title' : 'Renter Photo',
 		'name' : 'photo',
 		'data' : 'photo',
 		'width': '30px',
         'render': function (data, type, row, ind) {
-            return '<img height="50" width="45" class="avatar-img" src="'+data+'" alt="something">';
+            return '<img height="50" width="45" class="avatar-img" src="'+data+'" alt="renter photo">';
         }
 	},
 	{
@@ -383,7 +390,7 @@ window.addEventListener("load", function(){
             if(data == 1){
             	return "Active";
             }else{
-            	return "inactive";
+            	return "Inactive";
             }
         }
 	}
