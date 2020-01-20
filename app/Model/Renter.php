@@ -34,6 +34,10 @@ public function address(){
     return $this->belongsTo('App\Model\Address');
    }
 
+ public function files()
+    {
+        return $this->morphMany('App\File', 'fileable');
+    }
 // public function activeRenter(){
 //     return $this->belongsTo('App\Model\ActiveRenter');
 //    }

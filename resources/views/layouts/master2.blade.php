@@ -22,6 +22,10 @@
 	<link rel="stylesheet" href="{{ asset('assets') }}/css/atlantis.min.css">
 	<link rel="stylesheet" href="{{ asset('css/custom_css.css') }}">
 	<link rel="stylesheet" href="{{ asset('assets/toaster/build/toastr.css') }}">
+
+	{{-- step plugin --}}
+	<link href="{{ asset('assets/steps/jquery.steps.css') }}" rel="stylesheet">
+
 	<!-- MultiStep stylesheet -->
 	<link rel="stylesheet" href="{{ asset('assets/step-wizard/dist/css/MultiStep.min.css')}}">
 	<!-- Optional theme for Multistep -->
@@ -35,7 +39,6 @@
 
 	{{-- axios link --}}
 	<script src="{{ asset('assets/axios/dist/axios.min.js') }}"></script>
-
 
 	{{-- 	<link rel="stylesheet" href="/css/demo.css"> --}}
 	<script type="text/javascript">
@@ -101,6 +104,7 @@
 </div>
 <!--   Core JS Files   -->
 <script src="{{ asset('assets') }}/js/core/jquery.3.2.1.min.js"></script>
+<script src="{{ asset('assets/steps/jquery.steps.js') }}"></script>
 <script src="{{ asset('assets/toaster/toastr.js') }}"></script>
 <script src="{{ asset('assets/select2/js/select2.min.js') }}"></script>
 <script src="{{ asset('assets/datepicker/datepicker.js') }}"></script>
