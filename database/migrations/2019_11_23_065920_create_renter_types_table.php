@@ -15,7 +15,7 @@ class CreateRenterTypesTable extends Migration
     {
         Schema::create('renter_types', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name', 100);
+            $table->string('name', 100)->nullable();
             $table->timestamps();
         });
     }

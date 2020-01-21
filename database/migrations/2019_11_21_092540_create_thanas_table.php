@@ -16,7 +16,7 @@ class CreateThanasTable extends Migration
         Schema::create('thanas', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('city_id')->nullable();
-            $table->string('name', 50);
+            $table->string('name', 50)->nullable();
             $table->foreign('city_id')->references('id')->on('cities');
             $table->timestamps();
         });

@@ -16,11 +16,9 @@ class CreateShopsTable extends Migration
         Schema::create('shops', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name', 50)->nullable();
-            $table->string('description', 500)->nullable();
-            $table->unsignedBigInteger('house_id')->nullable();
-            $table->double('rent_amount',8 ,2);
+            $table->unsignedBigInteger('complex_id')->nullable();
             $table->tinyInteger('status')->default('1');
-            $table->foreign('house_id')->references('id')->on('houses');
+            $table->foreign('complex_id')->references('id')->on('complexes');
             $table->timestamps();
         });
     }

@@ -12,7 +12,7 @@
 					<div class="col-7 col-stats">
 						<div class="numbers">
 							<strong><p class="card-category">Number of Registered Renters</p></strong>
-							<h4 class="card-title">{{ App\Model\Renter::all()->count() }}</h4>
+							<h4 class="card-title">{{ App\Model\RenterInformation::all()->count() }}</h4>
 						</div>
 					</div>
 				</div>
@@ -111,7 +111,7 @@
 					<div class="col-7 col-stats">
 						<div class="numbers">
 							<strong><p class="card-category">Number of Complexes</p></strong>
-							<h4 class="card-title">{{ App\Model\Apartment::all()->count() }}</h4>
+							<h4 class="card-title">{{ App\Model\Complex::all()->count() }}</h4>
 						</div>
 					</div>
 				</div>

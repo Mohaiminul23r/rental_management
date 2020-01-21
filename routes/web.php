@@ -57,7 +57,8 @@ Route::group(['middleware' => 'auth'], function () {
      Route::get('reports', "CommonController@generateReportIndex");
      
      Route::get('add_renter_info', function(){
-        return view('renter.add_renter_info');
+        $renterType = App\Model\RenterType::orderBy('name')->get();
+        return view('renter.add_renter_info', ['renterType' => $renterType]);
      });
 });
 //resource routes

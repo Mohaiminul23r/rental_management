@@ -4,23 +4,23 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Renter extends Model
+class RenterInformation extends Model
 {
     use CommonTrait;
 
     protected $fillable = [
-    	'first_name',
-    	'last_name',
+    	'renter_name',
     	'father_name',
     	'mother_name',
-    	'address_id',
-    	'date_of_birth',
         'email',
-    	'photo',
-    	'nid_photo',
-    	'phone',
-    	'mobile',
+    	'phone_no',
+    	'mobile_no',
     	'nid_no',
+        'nationality',
+    	'date_of_birth',
+        'occupation',
+        'present_address',
+        'permanent_address',
         'gender',
     	'renter_type_id',
     	'status'
@@ -34,10 +34,10 @@ public function address(){
     return $this->belongsTo('App\Model\Address');
    }
 
- public function files()
-    {
-        return $this->morphMany('App\File', 'fileable');
-    }
+public function files()
+{
+    return $this->morphMany('App\File', 'fileable');
+}
 // public function activeRenter(){
 //     return $this->belongsTo('App\Model\ActiveRenter');
 //    }

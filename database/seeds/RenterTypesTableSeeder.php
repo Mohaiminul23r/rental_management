@@ -24,5 +24,12 @@ class RenterTypesTableSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now()
         ]);
+
+         DB::table('renter_types')->insert([
+            'id' => 3,
+            'name' => 'House Holder',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
     }
 }

@@ -37,6 +37,7 @@ class CreateMonthlyBillsTable extends Migration
             $table->float('paid_amount', 8, 2)->nullable();
             $table->float('due_amount', 8, 2)->nullable();
             $table->unsignedTinyInteger('status')->default('1');
+            $table->foreign('active_renters_id')->references('id')->on('active_renters');
             $table->timestamps();
         });
     }

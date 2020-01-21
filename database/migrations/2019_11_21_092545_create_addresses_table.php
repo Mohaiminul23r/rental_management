@@ -15,11 +15,11 @@ class CreateAddressesTable extends Migration
     {
         Schema::create('addresses', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('address_line1');
-            $table->string('postal_code'); 
-            $table->unsignedBigInteger('city_id');
-            $table->unsignedBigInteger('thana_id');
-            $table->unsignedBigInteger('country_id');
+            $table->string('address_line1')->nullable();
+            $table->string('postal_code')->nullable(); 
+            $table->unsignedBigInteger('city_id')->nullable();
+            $table->unsignedBigInteger('thana_id')->nullable();
+            $table->unsignedBigInteger('country_id')->nullable();
             $table->foreign('city_id')->references('id')->on('cities');
             $table->foreign('thana_id')->references('id')->on('thanas');
             $table->foreign('country_id')->references('id')->on('countries');

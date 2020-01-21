@@ -15,14 +15,14 @@ class CreateAdvancePaymentsTable extends Migration
     {
         Schema::create('advance_payments', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('renter_id')->nullable();
-            $table->unsignedBigInteger('apartment_id')->nullable();
+            $table->unsignedBigInteger('renter_information_id')->nullable();
+            $table->unsignedBigInteger('complex_id')->nullable();
             $table->unsignedBigInteger('shop_id')->nullable();
             $table->decimal('payment_amount', 8, 2);
             $table->date('date_of_payment')->nullable();
             $table->unsignedTinyInteger('status')->default('1');
-            $table->foreign('renter_id')->references('id')->on('renters');
-            $table->foreign('apartment_id')->references('id')->on('apartments');
+            $table->foreign('renter_information_id')->references('id')->on('renter_information');
+            $table->foreign('complex_id')->references('id')->on('complexes');
             $table->foreign('shop_id')->references('id')->on('shops');
             $table->timestamps();
         });

@@ -14,8 +14,7 @@ class ShopsTableSeeder extends Seeder
          DB::table('shops')->insert([
             'id' => 1,
             'name' => 'Shop-1',
-            'description' => 'Description of Shop-1',
-            'rent_amount' => 1500,
+            'complex_id' => 1,
             'status' => 1,
             'created_at' => now(),
             'updated_at' => now()
@@ -24,8 +23,7 @@ class ShopsTableSeeder extends Seeder
          DB::table('shops')->insert([
             'id' => 2,
             'name' => 'Shop-2',
-            'description' => 'Description of Shop-2',
-            'rent_amount' => 2000,
+            'complex_id' => 2,
             'status' => 1,
             'created_at' => now(),
             'updated_at' => now()

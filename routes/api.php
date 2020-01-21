@@ -25,6 +25,8 @@ Route::resource('cities', 'API\CityController');
 Route::resource('billtypes', 'API\BillTypeController');
 Route::resource('rentertypes', 'API\RenterTypeController');
 Route::resource('renters', 'API\RenterController');
+//Route::get('uploaded_files', 'API\RenterController@fileDataTable');
+
 Route::resource('thanas', 'API\ThanaController');
 Route::resource('houses', 'API\HouseController');
 Route::resource('apartments', 'API\ApartmentController');

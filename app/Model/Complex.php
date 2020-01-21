@@ -4,7 +4,7 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Apartment extends Model
+class Complex extends Model
 {
    use CommonTrait;
 
