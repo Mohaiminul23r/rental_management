@@ -25,6 +25,8 @@ Route::resource('cities', 'API\CityController');
 Route::resource('billtypes', 'API\BillTypeController');
 Route::resource('rentertypes', 'API\RenterTypeController');
 Route::resource('renters', 'API\RenterController');
+Route::post('renters/add_file', 'API\RenterController@store_files')->name('renters.add_file');
+Route::get('get_renter_informaiton_id', 'API\RenterController@getRenterInformationId');
 //Route::get('uploaded_files', 'API\RenterController@fileDataTable');
 
 Route::resource('thanas', 'API\ThanaController');

@@ -139,6 +139,9 @@
 					</div>
 				</div>
 			</div>
+			<div style="text-align: center;">
+				<button type="button" id="renter_info_add_btn" class="btn btn-info btn-sm btn-round">Save Renter Information</button>
+			</div>
 			</section>
 			<h3>Upload Documents</h3>
 		    <section>
@@ -147,7 +150,7 @@
 				<div class="col-md-4">
 					<div class="form-group">
 						<label for="status">File Type</label>
-						<select class="form-control form-control" id="document_type" name="document_type">
+						<select class="form-control form-control" id="file_type" name="file_type">
 							<option value="" disabled selected>Select type</option>
 							<option value="1">Renter Image</option>
 							<option value="2">National Id Card</option>
@@ -167,14 +170,14 @@
 				<div class="col-md-4">
 					<div class="form-group">
 						<label for="photo" id="label">Upload File</label>
-						<input type="file" class="form-control-file" id="upload_document" name="upload_document">
+						<input type="file" class="form-control-file" id="added_file" name="upload_document" required>
 						<span class="help-block"></span>
 					</div>
 				</div>
 			</div>
 			<div class="row" style="text-align: right;">
 				<div class="col-md-12">
-					<button type="button" class="btn btn-info btn-round btn-sm"><i class="fas fa-plus text-white"></i> Add File</button>
+					<button type="button" id="file_add_btn" class="btn btn-info btn-round btn-sm"><i class="fas fa-plus text-white"></i> Add File</button>
 				</div>
 			</div>
 			<div class="container p-3 my-3 border">
@@ -236,32 +239,7 @@ window.addEventListener("load",function(){
 	    transitionEffect: "slideLeft",
 	    onStepChanging: function (event, currentIndex, newIndex)
 	    {
-	    	$('#add_form .has-error').removeClass('has-error');
-        	$('#add_form').find('.help-block').empty();
-	    	axios.post('api/renters', $('#add_form').serialize()).then(function(response){
-	    		toastr.success("Saved Successfully..");
-	    		axios.get('api/get_renter_informaiton_id').then(function(response){
-	    			$('#renter_information_id').val(response.data.id);
-	    		}).catch(function(failData){
-	    			alert("Failed to get renter informaiton id !!");
-	    		});
-	    		return true;
-	    	}).catch(function(failData){
-		    		$.each(failData.response.data.errors, function(inputName, errors){
-	                $("#add_form [name="+inputName+"]").parent().removeClass('has-error').addClass('has-error');
-	                if(typeof errors == "object"){
-	                    $("#add_form [name="+inputName+"]").parent().find('.help-block').empty();
-	                    $.each(errors, function(indE, valE){
-	                        $("#add_form [name="+inputName+"]").parent().find('.help-block').append(valE+"<br>");
-	                         $('.help-block').css("color", "red");
-	                    });
-	                }
-	                else{
-	                    $("#add_form [name="+inputName+"]").parent().find('.help-block').html(valE);
-	                }
-	            });
-	    	});
-	    	
+	    	return true;
 	    },
 	    onFinishing: function (event, currentIndex)
 	    {
@@ -271,6 +249,52 @@ window.addEventListener("load",function(){
 	    {
 	       
 	    }
+	});
+
+	$(document).on('click', '#renter_info_add_btn', function(){
+		$('#add_form .has-error').removeClass('has-error');
+        $('#add_form').find('.help-block').empty();
+		axios.post('api/renters', $('#add_form').serialize()).then(function(response){
+    		toastr.success("Information Saved Successfully..");
+    		axios.get('api/get_renter_informaiton_id').then(function(response){
+    			var last_data = response.data.length-1;
+    			$.each(response.data, function(index, value){
+    				for(var i=0; i<response.data.length; i++){
+    					if(index == last_data){
+    						$('#renter_information_id').val(value.id);
+    						break;
+    					}
+    				}
+    			});
+    		}).catch(function(failData){
+    			alert("Failed to get renter informaiton id !!");
+    		});
+    	}).catch(function(failData){
+	    		$.each(failData.response.data.errors, function(inputName, errors){
+                $("#add_form [name="+inputName+"]").parent().removeClass('has-error').addClass('has-error');
+                if(typeof errors == "object"){
+                    $("#add_form [name="+inputName+"]").parent().find('.help-block').empty();
+                    $.each(errors, function(indE, valE){
+                        $("#add_form [name="+inputName+"]").parent().find('.help-block').append(valE+"<br>");
+                         $('.help-block').css("color", "red");
+                    });
+                }
+                else{
+                    $("#add_form [name="+inputName+"]").parent().find('.help-block').html(valE);
+                }
+            });
+    	});
+	});
+
+	$(document).on('click', '#file_add_btn', function(){
+		var file_add_form = document.getElementById('add_form');
+	    var formData = new FormData(file_add_form);
+   	    formData.append('added_file', document.getElementById('added_file').files[0]);
+		axios.post('api/renters/add_file', formData).then(function(response){
+			toastr.success("File added Successfully");
+		}).catch(function(failData){
+
+		});
 	});
 
 	// //datatable value

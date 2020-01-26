@@ -81,6 +81,10 @@ class RenterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function store_files(RenterInformationRequest $request){
+        dd($request->all());
+        $file = new File();
+    }
     public function store(RenterInformationRequest $request)
     {
          //dd($request->all());
@@ -294,7 +298,7 @@ class RenterController extends Controller
     }
 
     public function getRenterInformationId(){
-        $renter_information_id = RenterInformation::orderBy('renter_name')->get();
+        $renter_information_id = RenterInformation::orderBy('id')->get();
         return $renter_information_id;
     }
 }

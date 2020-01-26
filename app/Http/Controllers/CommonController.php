@@ -90,4 +90,5 @@ class CommonController extends Controller
     public function generateReportIndex(){
         return view('report.index');
     }
+
 }

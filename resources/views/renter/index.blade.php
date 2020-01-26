@@ -364,25 +364,25 @@ window.addEventListener("load", function(){
 		'name' : 'father_name',
 		'data' : 'father_name'
 	},
-	{
-		'title' : 'Renter Type',
-		'name' : 'renter_type',
-		'data' : 'renterTypeName'
-	},
+	// {
+	// 	'title' : 'Renter Type',
+	// 	'name' : 'renter_type',
+	// 	'data' : 'renterTypeName'
+	// },
 	{
 		'title' : 'Modile No',
 		'name' : 'mobile',
 		'data' : 'mobile'
 	},
-	{
-		'title' : 'Renter Photo',
-		'name' : 'photo',
-		'data' : 'photo',
-		'width': '30px',
-        'render': function (data, type, row, ind) {
-            return '<img height="50" width="45" class="avatar-img" src="'+data+'" alt="renter photo">';
-        }
-	},
+	// {
+	// 	'title' : 'Renter Photo',
+	// 	'name' : 'photo',
+	// 	'data' : 'photo',
+	// 	'width': '30px',
+ //        'render': function (data, type, row, ind) {
+ //            return '<img height="50" width="45" class="avatar-img" src="'+data+'" alt="renter photo">';
+ //        }
+	// },
 	{
 		'title' : 'Active Status',
 		'name' : 'status',

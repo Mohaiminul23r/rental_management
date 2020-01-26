@@ -8,7 +8,8 @@ class File extends Model
 {
 	use CommonTrait;
 	 protected $fillable = [
-    	'file_type',
+    	'renter_information_id',
+        'file_type',
     	'file_name',
     	'file_path',
     	'fileable_type',
