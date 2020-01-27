@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class File extends Model
 {
 	use CommonTrait;
-	 protected $fillable = [
+	protected $fillable = [
     	'renter_information_id',
         'file_type',
     	'file_name',

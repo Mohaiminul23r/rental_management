@@ -146,7 +146,7 @@
 			<h3>Upload Documents</h3>
 		    <section>
 			<div class="row">
-				<input type="hidden" name="renter_information_id" id="renter_information_id">
+				<input type="hidden" name="renter_information_id" id="renter_information_id" value="null">
 				<div class="col-md-4">
 					<div class="form-group">
 						<label for="status">File Type</label>
@@ -170,7 +170,7 @@
 				<div class="col-md-4">
 					<div class="form-group">
 						<label for="photo" id="label">Upload File</label>
-						<input type="file" class="form-control-file" id="added_file" name="upload_document" required>
+						<input type="file" class="form-control-file" id="added_file" name="file" required>
 						<span class="help-block"></span>
 					</div>
 				</div>

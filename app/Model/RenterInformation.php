@@ -36,7 +36,7 @@ public function address(){
 
 public function files()
 {
-    return $this->morphMany('App\File', 'fileable');
+    return $this->morphMany('App\Model\File', 'fileable');
 }
 // public function activeRenter(){
 //     return $this->belongsTo('App\Model\ActiveRenter');
