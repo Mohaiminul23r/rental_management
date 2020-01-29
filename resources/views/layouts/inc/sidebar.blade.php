@@ -1,4 +1,4 @@
-{{-- Sidebar --}}
+Sidebar --}}
 <div class="sidebar sidebar-style-2">			
 	<div class="sidebar-wrapper scrollbar scrollbar-inner">
 		<div class="sidebar-content">
@@ -17,7 +17,7 @@
 					</a>
 					<div class="collapse" id="submenu">
 						<ul class="nav nav-collapse">
-							<li>
+							{{-- <li>
 								<a data-toggle="collapse" href="#subnav1">
 									<i class="fas fa-address-card"></i>
 									<p>Address Settings</p>
@@ -42,7 +42,7 @@
 										</li>
 									</ul>
 								</div>
-							</li>
+							</li> --}}
 							<li>
 								<a data-toggle="collapse" href="#subnav3">
 									<i class="fas fa-building"></i>
@@ -82,11 +82,11 @@
 												<span class="sub-item">Bill Type</span>
 											</a>
 										</li>
-										<li>
+{{-- 										<li>
 											<a href="{{url('/electric_bills')}}">
 												<span class="sub-item">Electric Bill</span>
 											</a>
-										</li>
+										</li> --}}
 									</ul>
 								</div>
 							</li>
@@ -232,4 +232,4 @@
 		</div>
 	</div>
 </div>
-{{--  End Sidebar --}}
+{{--  End Sidebar

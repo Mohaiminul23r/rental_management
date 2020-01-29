@@ -38,10 +38,8 @@ class ActiveRenterController extends Controller
 
         if($request->input('search') && $request->input('search')['value'] != ""){
 
-             $search['renters.first_name'] = $request->input('search')['value'];
-             $search['shops.name'] = $request->input('search')['value'];
-             $search['apartments.name'] = $request->input('search')['value'];
-             $search['active_renters.level_no'] = $request->input('search')['value'];
+             $search['renter_information.renter_name'] = $request->input('search')['value'];
+             $search['complexes.name'] = $request->input('search')['value'];
              $search['active_renters.rent_started_at'] = $request->input('search')['value'];
         }
 
@@ -55,9 +53,8 @@ class ActiveRenterController extends Controller
 
         $join = [ 
             /* "table name",  "table2 name. id" , "unique column name by as"   */
-            ['renters', 'active_renters.renter_id', 'renters.first_name as renterFirstName'],
-            ['shops', 'active_renters.shop_id', 'shops.name as shopName'],
-            ['apartments', 'active_renters.apartment_id', 'apartments.name as complexName'],
+            ['renter_information', 'active_renters.renter_information_id', 'renter_information.renter_name as renterName'],
+            ['complexes', 'active_renters.complex_id', 'complexes.name as complexName'],
             ['renter_types', 'active_renters.renter_type_id', 'renter_types.name as renterTypeName'],
   
         ];  
@@ -83,17 +80,15 @@ class ActiveRenterController extends Controller
 
     public function store(ActiveRenterRequest $request)
     {
-        //dd($request->all());
         $activeRenter = new ActiveRenter();
-        $activeRenter->renter_id         = $request->renter_id;
+        $activeRenter->renter_information_id = $request->renter_information_id;
         $activeRenter->renter_type_id    = $request->renter_type_id;
-        $activeRenter->apartment_id      = $request->apartment_id;
-        $activeRenter->shop_id           = $request->shop_id;
+        $activeRenter->complex_id        = $request->complex_id;
+        $activeRenter->shop_name         = $request->shop_name;
         $activeRenter->level_no          = $request->level_no;
         $activeRenter->rent_amount       = $request->rent_amount;
         $activeRenter->advance_amount    = $request->advance_amount;
         $activeRenter->rent_started_at   = $request->rent_started_at;
-       // $activeRenter->rent_ended_at     = $request->rent_ended_at;
         $activeRenter->save();
 
     }
@@ -174,9 +169,9 @@ class ActiveRenterController extends Controller
     }
 
   public function getActiveRenters(){
-        $active_renters = DB::table('renters')
-                        ->join('active_renters', 'renters.id', '=', 'active_renters.renter_id')
-                        ->select('renters.first_name', 'renters.last_name', 'renters.father_name', 'renters.mother_name','active_renters.*')
+        $active_renters = DB::table('renter_information')
+                        ->join('active_renters', 'renter_information.id', '=', 'active_renters.renter_information_id')
+                        ->select('renter_information.renter_name', 'renter_information.father_name', 'renter_information.mother_name','active_renters.*')
                         ->get();
         return $active_renters;
     }

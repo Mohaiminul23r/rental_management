@@ -8,30 +8,22 @@ class UtilityBill extends Model
 {
     protected $fillable = [
     	'active_renter_id',
-    	'bill_type_id',
-    	'water_bill',
-    	'is_wbill_required',
+    	'house_rent',
+    	'electric_bill',
+        'water_bill',
     	'gas_bill',
-    	'is_gbill_required',
+        'internet_bill',
     	'service_charge',
     	'other_charge',
-    	'electricity_bill_id',
-    	'electric_meter_no',
-    	'opening_reading',
-    	'fix_ebill_amount',
-    	'is_ebill_fixed',
+        'total_monthly_rent',
     	'status'
     ];
 
-public function active_renter(){
-   	return $this->belongsTo('App\Model\ActiveRenter');
-   }
+    public function active_renter(){
+       	return $this->belongsTo('App\Model\ActiveRenter');
+       }
 
-public function bill_type(){
-    return $this->belongsTo('App\Model\BillType');
-   }
-
-public function electricity_bill(){
-    return $this->belongsTo('App\Model\ElectricityBill');
-   }
+    public function collection(){
+        return $this->hasMany('App\Model\Collection');
+       }
 }

@@ -82,22 +82,23 @@ class RenterController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store_files(RenterInformationRequest $request){
-        //dd($request->all());
-        $renter_information = new RenterInformation();
-        if($request->renter_information_id == null){
-            $renter_information_id = 0;
-        }
-        dd($renter_information_id);
+        $id = $request->renter_information_id;
+        $renter_information = RenterInformation::find($id);
         $fileName = time().'.'.$request->file->getClientOriginalName();
         $destinationPath = 'uploads/';
         $request->file->move(public_path('uploads'), $fileName);
         $filePath = $destinationPath.$fileName;
         $renter_information->files()->create([
-            'renter_information_id' => $$renter_information_id,
+            'fileable_id'           => $renter_information->id,
             'file_type'             => $request->file_type,
             'file_name'             => $request->file_name,     
             'file_path'             => $filePath    
         ]);
+    }
+
+    public function getAddedFiles($id){
+        $renter_files = RenterInformation::whereId($id)->with('files')->first();
+        return $renter_files;
     }
 
     public function store(RenterInformationRequest $request)

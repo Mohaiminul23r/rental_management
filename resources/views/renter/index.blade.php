@@ -356,23 +356,18 @@ window.addEventListener("load", function(){
 	},
 	{
 		'title' : 'Renter Name',
-		'name' : 'first_name',
-		'data' : 'first_name'
+		'name' : 'renter_name',
+		'data' : 'renter_name'
 	},
 	{
 		'title' : 'Father Name',
 		'name' : 'father_name',
 		'data' : 'father_name'
 	},
-	// {
-	// 	'title' : 'Renter Type',
-	// 	'name' : 'renter_type',
-	// 	'data' : 'renterTypeName'
-	// },
 	{
 		'title' : 'Modile No',
-		'name' : 'mobile',
-		'data' : 'mobile'
+		'name' : 'mobile_no',
+		'data' : 'mobile_no'
 	},
 	// {
 	// 	'title' : 'Renter Photo',

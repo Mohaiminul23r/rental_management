@@ -29,24 +29,14 @@
 var activeRenterDataTable = null;
 var renter  = <?php echo json_encode($renter)?>;
 var complex = <?php echo json_encode($complex)?>;
-var shop    = <?php echo json_encode($shop)?>;
 var bill_type    = <?php echo json_encode($bill_type)?>;
 var renterType    = <?php echo json_encode($renterType)?>;
 var activeRenter    = <?php echo json_encode($activeRenter)?>;
-var electricity_bill    = <?php echo json_encode($electricity_bill)?>;
-@php
-	//dd($electricity_bill);
-@endphp
 
 window.addEventListener("load",function(){
 //multi step active rental add
 const mySteps = [{
         content: 
-			'<div class="row">'+
-				'<div class="col-md-12">'+
-					'<h6 style="text-align: center; color: blue;"><b>Add Rent Details</b></h6>'+
-				'</div>'+
-			'</div>'+
 			'<form id="rent_details_form1" class="form-horizontal" role="form">'+
         	'<div class="row">'+
 				'<div class="col-md-4">'+
@@ -60,7 +50,7 @@ const mySteps = [{
 				'<div class="col-md-4">'+
 					'<div class="form-group">'+
 						'<label for="name">Renter Name</label>'+
-						'<select class="form-control" id="renter_name" name="renter_id">'+
+						'<select class="form-control" id="renter_name" name="renter_information_id">'+
 						'</select>'+
 						'<span class="help-block"></span>'+
 					'</div>	'+
@@ -68,191 +58,137 @@ const mySteps = [{
 				'<div class="col-md-4">'+
 					'<div class="form-group">'+
 						'<label for="name">Complex Name</label>'+
-						'<select class="form-control" id="complex_name" name="apartment_id">'+
+						'<select class="form-control" id="complex_name" name="complex_id">'+
 						'</select>'+
 						'<span class="help-block"></span>'+
 					'</div>'+
 				'</div>'+
 			'</div>'+
 			'<div class="row">'+
-				'<div class="col-md-6">'+
+				'<div class="col-md-4">'+
 					'<div class="form-group">'+
 						'<label for="name">Shop Name</label>'+
-						'<select class="form-control" id="shop_name" name="shop_id">'+
-						'</select>'+
+						'<input type="text" class="form-control" id="shop_name" name="shop_name" placeholder="Enter shop name.">'+
 						'<span class="help-block"></span>'+
 					'</div>'+	
 				'</div>'+
-				'<div class="col-md-6">'+
+				'<div class="col-md-4">'+
 					'<div class="form-group">'+
 						'<label for="name">Level No.</label>'+
 						'<input type="text" class="form-control" id="level_no" name="level_no" placeholder="Enter Level No.">'+
 						'<span class="help-block"></span>'+
 					'</div>'+	
 				'</div>'+
-			'</div>'+
-			'<div class="row">'+
 				'<div class="col-md-4">'+
 					'<div class="form-group">'+
 						'<label for="date">Activation Date</label>'+
-						'<input type="date" class="form-control" name="rent_started_at">'+
+						'<input type="text" class="form-control" data-toggle="datepicker" name="rent_started_at" placeholder="yyyy-mm-dd">'+
 						'<span class="help-block"></span>'+
-					'</div>'+	
-				'</div>'+
-				'<div class="col-md-4">'+
-					'<div class="form-group">'+
-						'<label for="name">Rent Amount</label>'+
-						'<input type="number" class="form-control" id="rent_amount" value="0.00" name="rent_amount" placeholder="Enter Rent Amount">'+
-						'<span class="help-block"></span>'+
-					'</div>'+	
-				'</div>'+
-				'<div class="col-md-4">'+
-					'<div class="form-group">'+
-						'<label for="name">Advance Amount</label>'+
-						'<input type="number" class="form-control" id="advance_amount" name="advance_amount" placeholder="Enter Advance Amount" value="0.00">'+
-						'<span class="help-block"></span>'+
-					'</div>'+	
+					'</div>'+
 				'</div>'+
 			'</div>'+
 			'<div class="row">'+
-				'<div class="col-md-6" style="text-align: left;">'+
-					'<button type="button" style="align:left;" id="save_rent_details" class="btn btn-primary">Save</button>'+
+				'<div class="col-md-3">'+
+					'<div class="form-group">'+
+						'<label for="name">Rent Amount</label>'+
+						'<input type="number" class="form-control" id="rent_amount" value="0.00" name="rent_amount" placeholder="rent amount">'+
+						'<span class="help-block"></span>'+
+					'</div>'+	
+				'</div>'+
+				'<div class="col-md-3">'+
+					'<div class="form-group">'+
+						'<label for="name">Advance Amount</label>'+
+						'<input type="number" class="form-control" id="advance_amount" name="advance_amount" placeholder="advance amount" value="0.00">'+
+						'<span class="help-block"></span>'+
+					'</div>'+	
 				'</div>'+
 				'<div class="col-md-6" style="text-align: right;">'+
-					'<button type="button"  id="close_modal_btn" class="btn btn-warning">Close</button>'+
+					'<button type="button" style="margin-top:45px;" id="save_rent_details" class="btn btn-primary">Save</button>'+
+					'<button type="button" style="margin-top:45px;"  id="close_modal_btn" class="btn btn-warning">Close</button>'+
 				'</div>'+	
 			'</div>'+
 			'</form>',
-        label:'Rent Info.'
+        label:'Adding Rent Details'
       },{
         content:
         '<form id="utility_bills_add_form" class="form-horizontal" role="form">'+
        ' <div class="row">'+
-				'<div class="col-md-12">'+
-					'<h6 style="text-align: center; color: blue;"><b>Utility Bill Details</b></h6>'+
-				'</div>'+
 			'</div>'+
 			'<div class="row">'+
-				'<div class="col-md-4">'+
+				'<div class="col-md-6">'+
 					'<div class="form-group">'+
-						'<label for="name">Bill Type</label>'+
-						'<select class="form-control" id="bill_type_id" name="bill_type_id">'+
-						'</select>'+
-						'<span class="help-block"></span>'+
-					'</div>'+	
-				'</div>'+
-				'<div class="col-md-4">'+
-					'<div class="form-group">'+
-						'<label for="number">Water Bill</label>'+
-						'<input type="number" class="form-control" id="water_bill" value="0.00" name="water_bill" placeholder="Enter Water Bill">'+
-						'<span class="help-block"></span>'+
-					'</div>'+
-					'<div class="form-check">'+
-						'<label class="form-check-label">'+
-							'<input class="form-check-input" type="checkbox" id="wbill_check" name="is_wbill_required" value="Yes">'+
-							'<span class="form-check-sign">Water bill is not required.</span>'+
-						'</label>'+
-					'</div>'+
-				'</div>'+
-				'<div class="col-md-4">'+
-					'<div class="form-group">'+
-						'<label for="number">Gas Bill</label>'+
-						'<input type="number" class="form-control" id="gas_bill" value="0.00" name="gas_bill" placeholder="Enter Gas Bill">'+
-						'<span class="help-block"></span>'+
-					'</div>'+
-				'<div class="form-check">'+
-						'<label class="form-check-label">'+
-							'<input class="form-check-input" type="checkbox" id="gbill_check" name="is_gbill_required" value="Yes">'+
-							'<span class="form-check-sign">Gas bill is not required.</span>'+
-						'</label>'+
-					'</div>'+
-				'</div>'+
-			'</div>'+
-			'<div class="row">'+
-				'<div class="col-md-4">'+
-					'<div class="form-group">'+
-						'<label for="number">Service Charge</label>'+
-						'<input type="number" class="form-control" id="service_charge" value="0.00" name="service_charge" placeholder="Enter service charge">'+
-						'<span class="help-block"></span>'+
-					'</div>'+
-				'</div>'+
-				'<div class="col-md-4">'+
-					'<div class="form-group">'+
-						'<label for="number">Other Charge</label>'+
-						'<input type="number" class="form-control" id="other_charge" value="0.00"  name="other_charge" placeholder="Other Charge Amount">'+
-						'<span class="help-block"></span>'+
-					'</div>'+
-				'</div>'+
-				'<div class="col-md-4">'+
-					'<div class="form-group">'+
-						'<label for="name">Active Renter</label>'+
+						'<label for="name">Select Active Renter</label>'+
 						'<select class="form-control" id="ac_renter_id" name="active_renter_id">'+
 						'</select>'+
 						'<span class="help-block"></span>'+
 					'</div>'+	
 				'</div>'+
 			'</div>'+
+			'<div class="row">'+
+				'<div class="col-md-3">'+
+					'<div class="form-group">'+
+						'<label for="number">House Rent</label>'+
+						'<input type="number" class="form-control" id="house_rent" value="0.00" name="house_rent" placeholder="house rent">'+
+						'<span class="help-block"></span>'+
+					'</div>'+	
+				'</div>'+
+				'<div class="col-md-3">'+
+					'<div class="form-group">'+
+						'<label for="number">Electric Bill</label>'+
+						'<input type="number" class="form-control" id="electric_bill" value="0.00" name="electric_bill" placeholder="electric bill">'+
+						'<span class="help-block"></span>'+
+					'</div>'+
+				'</div>'+
+				'<div class="col-md-3">'+
+					'<div class="form-group">'+
+						'<label for="number">Water Bill</label>'+
+						'<input type="number" class="form-control" id="water_bill" value="0.00" name="water_bill" placeholder="water bill">'+
+						'<span class="help-block"></span>'+
+					'</div>'+
+				'</div>'+
+				'<div class="col-md-3">'+
+					'<div class="form-group">'+
+						'<label for="number">Gas Bill</label>'+
+						'<input type="number" class="form-control" id="gas_bill" value="0.00" name="gas_bill" placeholder="gas bill">'+
+						'<span class="help-block"></span>'+
+					'</div>'+
+				'</div>'+
+			'</div>'+
+			'<div class="row">'+
+				'<div class="col-md-3">'+
+					'<div class="form-group">'+
+						'<label for="number">Internet Bill</label>'+
+						'<input type="number" class="form-control" id="internet_bill" value="0.00" name="internet_bill" placeholder="net bill">'+
+						'<span class="help-block"></span>'+
+					'</div>'+
+				'</div>'+
+				'<div class="col-md-3">'+
+					'<div class="form-group">'+
+						'<label for="number">Service Charge</label>'+
+						'<input type="number" class="form-control" id="service_charge" value="0.00" name="service_charge" placeholder="service charge">'+
+						'<span class="help-block"></span>'+
+					'</div>'+
+				'</div>'+
+				'<div class="col-md-3">'+
+					'<div class="form-group">'+
+						'<label for="number">Other Charge</label>'+
+						'<input type="number" class="form-control" id="other_charge" value="0.00"  name="other_charge" placeholder="other charge">'+
+						'<span class="help-block"></span>'+
+					'</div>'+
+				'</div>'+
+				'<div class="col-md-3">'+
+					'<div class="form-group">'+
+						'<label for="number">Monthly Total Rent</label>'+
+						'<input type="number" class="form-control" id="total_monthly_bill" value="0.00"  name="total_monthly_bill" placeholder="other charge">'+
+						'<span class="help-block"></span>'+
+					'</div>'+
+				'</div>'+
+			'</div>'+
 			'<div>'+
 				'<button type="button" style="align:left;" id="save_utility_bills" class="btn btn-primary">Save Utility Bill</button>'+
 			'</div>'+
 			'</form>',
-        skip:true,
-        label: 'Utility Bills'
-      },{
-        content:
-         '<form id="electric_bills_add_form" class="form-horizontal" role="form">'+
-        	'<div class="row">'+
-				'<div class="col-md-12">'+
-					'<h6 style="text-align: center; color: blue;"><b>Electric Bill Details</b></h6>'+
-				'</div>'+
-			'</div>'+
-			'<div class="row">'+
-				'<div class="col-md-4">'+
-					'<div class="form-group">'+
-						'<label for="name">Electric Meter No.</label>'+
-						'<input type="text" class="form-control" id="electric_meter_no" name="electric_meter_no" placeholder="Electric Meter No.">'+
-						'<span class="help-block"></span>'+
-					'</div>'+
-					'<div class="form-check">'+
-						'<label class="form-check-label">'+
-							'<input class="form-check-input" type="checkbox" id="check_ebill_fix" name="is_ebill_fixed" value="No">'+
-							'<span class="form-check-sign">Fix electric bill.</span>'+
-						'</label>'+
-					'</div>'+
-				'</div>'+
-				'<div class="col-md-4">'+
-					'<div class="form-group">'+
-						'<label for="name">Opening Reading</label>'+
-						'<input type="text" class="form-control" id="opening_reading" name="opening_reading" placeholder="Opening Meter Reading">'+
-						'<span class="help-block"></span>'+
-					'</div>'+
-					'<div class="form-group">'+
-						'<label for="name">Fix Electric Bill Amount</label>'+
-						'<input type="number" class="form-control" id="electric_bill_amount" disabled="disabled" value="0.00" name="fix_ebill_amount" placeholder="Fix Electric Bill Amount">'+
-						'<span class="help-block"></span>'+
-					'</div>'+
-				'</div>'+
-				'<div class="col-md-4">'+
-					'<div class="form-group">'+
-						'<label for="name">Active Renter</label>'+
-						'<select class="form-control" id="active_renter_id2" name="active_renter_id2">'+
-						'</select>'+
-						'<span class="help-block"></span>'+
-					'</div>'+
-					'<div class="form-group">'+
-						'<label for="name">Electric Bill Types</label>'+
-						'<select class="form-control" id="electricity_bills_id" name="electricity_bill_id">'+
-						'</select>'+
-						'<span class="help-block"></span>'+
-					'</div>'+		
-				'</div>'+
-			'</div>'+
-			'<div>'+
-				'<button type="button" style="align:left;" id="save_electric_bills" class="btn btn-primary">Save Electric Bill</button>'+
-			'</div>'+
-			'</form>',
-        skip: true,
-        label: 'Electric Bills'
+        label: 'Adding Utility Bill Details'
       }]
 
 //initializing multi-step modal
@@ -273,10 +209,17 @@ $('#multi_step_add_modal').MultiStep({
 
   }
 });
-
+//datepicker details
+$(function(){
+	  $('[data-toggle="datepicker"]').datepicker({
+	    autoHide: true,
+	    zIndex: 2048,
+	    format: 'yyyy-mm-dd',
+	  });
+});
 //getting renter details
 $(document).on('click', '#add_rent_info_btn', function(){
-	$('.btn-next').attr("disabled", "disabled");
+	//$('.btn-next').attr("disabled", "disabled");
 	$('#rent_details_form1 .has-error').removeClass('has-error');
 	$('#rent_details_form1').find('.help-block').empty();
 	$('#electric_bills_add_form .has-error').removeClass('has-error');
@@ -285,17 +228,13 @@ $(document).on('click', '#add_rent_info_btn', function(){
 	$('#utility_bills_add_form').find('.help-block').empty();
 	html_renter = '<option value="" disabled selected>Select Renter</option>';
 	html_complex = '<option value="" disabled selected>Select Complex</option>';
-	html_shop     = '<option value="" disabled selected>Select Shop</option>';
 	html_renterType     = '<option value="" disabled selected>Select Renter Type</option>';
 	html_billType     = '<option value="" disabled selected>Select Bill Type</option>';
 	$.each(renter, function(ind,val){
-		html_renter += '<option value="'+val.id+'">'+val.first_name+'</option>';
+		html_renter += '<option value="'+val.id+'">'+val.renter_name+' ('+val.father_name+')</option>';
 	});
 	$.each(complex, function(ind,val){
 		html_complex += '<option value="'+val.id+'">'+val.name+'</option>';
-	});
-	$.each(shop, function(ind,val){
-		html_shop += '<option value="'+val.id+'">'+val.name+'</option>';
 	});
 	$.each(renterType, function(ind,val){
 		html_renterType += '<option value="'+val.id+'">'+val.name+'</option>';
@@ -305,7 +244,6 @@ $(document).on('click', '#add_rent_info_btn', function(){
 	});
 	$('#renter_name').html(html_renter);
 	$('#complex_name').html(html_complex);
-	$('#shop_name').html(html_shop);
 	$('#renter_type').html(html_renterType);
 	$('#bill_type_id').html(html_billType);
 	$('#close_modal_btn').click(function(){
@@ -357,6 +295,8 @@ $(document).on('click', '#add_rent_info_btn', function(){
 
 //adding rent details at first step
 $(document).on('click', '#save_rent_details', function(){
+	$('#rent_details_form1 .has-error').removeClass('has-error');
+	$('#rent_details_form1').find('.help-block').empty();
 	axios.post('api/active_renters', $('#rent_details_form1').serialize()).then(function(response){
 		$('.btn-next').removeAttr("disabled", "disabled");
 		$('#activeRenterDataTable').DataTable().ajax.reload();
@@ -388,20 +328,16 @@ $(document).on('click', '.btn-next',function(){
 	html_electric_bill = '<option value="" disabled selected>Select Electric Bill Type</option>';
 	axios.get('api/active_renter_details').then(function(response){
 		$.each(response.data, function(ind,val){
-			html_ac_renter += '<option value="'+val.id+'">'+ val.first_name +'-'+ val.father_name +'(Father)'+'</option>';
+			html_ac_renter += '<option value="'+val.id+'">'+ val.renter_name +'-'+ val.father_name +'(Father)'+'</option>';
 		});
 		$.each(response.data, function(ind,val){
-			html_ac_renters += '<option value="'+val.id+'">'+ val.first_name +'-'+ val.father_name +'(Father)'+'</option>';
+			html_ac_renters += '<option value="'+val.id+'">'+ val.renter_name +'-'+ val.father_name +'(Father)'+'</option>';
 		});
 		$('#ac_renter_id').html(html_ac_renter);
 		$('#active_renter_id2').html(html_ac_renters);
 	}).catch(function(failData){
 
 	});
-	$.each(electricity_bill, function(ind,val){
-		html_electric_bill += '<option value="'+val.id+'">'+ val.bill_type.name +'</option>';
-	});
-	$('#electricity_bills_id').html(html_electric_bill);
 });
 
 
@@ -504,7 +440,6 @@ var activeRenterDataTable = $('#activeRenterDataTable').DataTable({
 			'data' : 'id',
 			'width' : '25px',
 			'render' : function(data, type, row, ind){
-				// return '<span class="delete-modal glyphicon glyphicon-trash" data-id = '+data+' data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash-alt text-danger"></i></span>';
 				$action_dropdown =	
 					'<div class="dropdown show">'+
 					  '<a class="btn btn-outline-info btn-sm btn-round dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">action</a>'+
@@ -521,18 +456,13 @@ var activeRenterDataTable = $('#activeRenterDataTable').DataTable({
 		},
 		{
 			'title' : 'Renter Name',
-			'name' : 'renterFirstName',
-			'data' : 'renterFirstName'
+			'name' : 'renterName',
+			'data' : 'renterName'
 		},
 		{
-			'title' : 'Complex',
+			'title' : 'Complex Name',
 			'name' : 'complexName',
 			'data' : 'complexName'
-		},
-		{
-			'title' : 'Shop Name',
-			'name' : 'shopName',
-			'data' : 'shopName'
 		},
 		{
 			'title' : 'Renter Type',
@@ -540,22 +470,17 @@ var activeRenterDataTable = $('#activeRenterDataTable').DataTable({
 			'data' : 'renterTypeName'
 		},
 		{
-			'title' : 'Level No',
-			'name' : 'level_no',
-			'data' : 'level_no'
+			'title' : 'Rent Strarted At',
+			'name' : 'rent_started_at',
+			'data' : 'rent_started_at'
 		},
 		{
-			'title' : 'Rent Amount',
+			'title' : 'Monthly Rent',
 			'name' : 'rent_amount',
 			'data' : 'rent_amount',
 			'render' : function(data, type, row, ind){
 				return data + ' tk';
 			}
-		},
-		{
-			'title' : 'Rent Strarted At',
-			'name' : 'rent_started_at',
-			'data' : 'rent_started_at'
 		}
 		],
 		serverSide : true,

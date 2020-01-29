@@ -13,7 +13,7 @@ class BillTypesTableSeeder extends Seeder
     {
         DB::table('bill_types')->insert([
             'id' => 1,
-            'name' => 'Commercial',
+            'name' => 'House Rent',
             'status' => 1,
             'created_at' => now(),
             'updated_at' => now()
@@ -21,7 +21,39 @@ class BillTypesTableSeeder extends Seeder
 
         DB::table('bill_types')->insert([
             'id' => 2,
-            'name' => 'General',
+            'name' => 'Current Bill',
+            'status' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        DB::table('bill_types')->insert([
+            'id' => 3,
+            'name' => 'Gas Bill',
+            'status' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        DB::table('bill_types')->insert([
+            'id' => 4,
+            'name' => 'Water Bill',
+            'status' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        DB::table('bill_types')->insert([
+            'id' => 5,
+            'name' => 'Internet Bill',
+            'status' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        DB::table('bill_types')->insert([
+            'id' => 6,
+            'name' => 'Service Charge',
             'status' => 1,
             'created_at' => now(),
             'updated_at' => now()

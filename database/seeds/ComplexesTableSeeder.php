@@ -28,5 +28,14 @@ class ComplexesTableSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now()
         ]);
+
+        DB::table('complexes')->insert([
+            'id' => 3,
+            'name' => 'Complex-3',
+            'complex_no' => 'V3-C',
+            'status' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
     }
 }

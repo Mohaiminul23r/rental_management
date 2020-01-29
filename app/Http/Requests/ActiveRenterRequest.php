@@ -29,7 +29,7 @@ class ActiveRenterRequest extends FormRequest
             return [
                 'renter_id'          => 'required | unique:active_renters,renter_id,'.$active_renter['active_renter_id_3'],    
                 'renter_type_id'     => 'required',    
-                'apartment_id'       => 'unique:active_renters,apartment_id,'.$active_renter['active_renter_id_3'],    
+                'complex_id'         => 'unique:active_renters,complex_id,'.$active_renter['active_renter_id_3'],    
                 'shop_id'            => 'unique:active_renters,shop_id,'.$active_renter['active_renter_id_3'],    
                 'level_no'           => 'unique:active_renters,level_no,'.$active_renter['active_renter_id_3'],
                 'rent_started_at'    => 'required',
@@ -40,28 +40,23 @@ class ActiveRenterRequest extends FormRequest
 
         else if($this->route()->getName() == 'active_renters.store'){
              return [
-                'renter_id'          => 'required | unique:active_renters',    
-                'renter_type_id'     => 'required',    
-                'apartment_id'       => 'unique:active_renters',    
-                'shop_id'            => 'unique:active_renters',    
+                'renter_information_id' => 'required | unique:active_renters',
+                'complex_id'            => 'required',    
+                'renter_type_id'     => 'required',       
                 'level_no'           => 'unique:active_renters',
                 'rent_started_at'    => 'required',
-                'rent_amount'        => 'required',
-                'advance_amount'     => 'required',
             ];
         }  
     }
 
     public function messages(){
          return [
-            'renter_id.required'          => 'Select renter name',
-            'renter_id.unique'            => 'Renter already exist',
+            'renter_information_id.required'  => 'Select renter name',
+            'renter_information_id.unique'    => 'Renter already exist',
+            'complex_id.required'             => 'Select complex',
             'renter_type_id.required'     => 'Select renter type',
-            'apartment_id.unique'         => 'Complex already exist',
-            'shop_id.unique'              => 'Shop already exist',
             'level_no.unique'             => 'Level already taken',
             'rent_started_at.required'    => 'Enter renter active date',
-            'rent_amount.required'        => 'Enter rent amount',
             'advance_amount.required'     => 'Enter advance amount',
         ];
     }

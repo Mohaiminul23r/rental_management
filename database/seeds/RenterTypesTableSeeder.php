@@ -13,21 +13,28 @@ class RenterTypesTableSeeder extends Seeder
     {
         DB::table('renter_types')->insert([
             'id' => 1,
-            'name' => 'Commercial',
+            'name' => 'Family',
             'created_at' => now(),
             'updated_at' => now()
         ]);
 
         DB::table('renter_types')->insert([
             'id' => 2,
-            'name' => 'General',
+            'name' => 'Shop',
             'created_at' => now(),
             'updated_at' => now()
         ]);
 
          DB::table('renter_types')->insert([
             'id' => 3,
-            'name' => 'House Holder',
+            'name' => 'Business Organization',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        DB::table('renter_types')->insert([
+            'id' => 4,
+            'name' => 'Other',
             'created_at' => now(),
             'updated_at' => now()
         ]);

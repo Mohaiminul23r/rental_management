@@ -145,7 +145,7 @@
 			</section>
 			<h3>Upload Documents</h3>
 		    <section>
-			<div class="row">
+			<div class="row" id="file_div">
 				<input type="hidden" name="renter_information_id" id="renter_information_id" value="null">
 				<div class="col-md-4">
 					<div class="form-group">
@@ -193,16 +193,8 @@
 					      <th scope="col" style="width: 15%;">Action</th>
 					    </tr>
 					  </thead>
-					  <tbody>
-					    <tr>
-					      <th scope="row">1</th>
-					      <td>Mark</td>
-					      <td>Otto</td>
-					      <td>@mdo</td>
-					      <td>
-					      	<a type="button" class="btn btn-danger btn-round btn-sm"><i class="fas fa-trash-alt text-white"></i>  Remove</a>
-					      </td>
-					    </tr>
+					  <tbody id="file_table_body">
+					    
 					  </tbody>
 					</table>
 				</div>
@@ -292,11 +284,37 @@ window.addEventListener("load",function(){
    	    formData.append('added_file', document.getElementById('added_file').files[0]);
 		axios.post('api/renters/add_file', formData).then(function(response){
 			toastr.success("File added Successfully");
+			get_files();
 		}).catch(function(failData){
-
+			alert("Failed to add file.");
 		});
 	});
 
+	var table_row = '<tr>'+
+				      '<th scope="row" id="sl_no"></th>'+
+				      '<td><p id="file_type_row"></p></td>'+
+				      '<td><p id="file_name_row"></p></td>'+
+				      '<td><p id="file_row"></p></td>'+
+				      '<td style="text-align: center;">'+
+				      	'<a type="button" id="file_remove_btn" class="btn btn-warning btn-xs"><i class="fas fa-trash-alt text-white"></i></a>'+
+				      '</td>'+
+				    '</tr>';
+
+	function get_files(){
+		var id = $('#file_div').find("input#renter_information_id").val();
+		axios.get('api/renters/added_files/'+id).then(function(response){
+			$.each(response.data.files, function(index, value){
+				console.log(value);
+				$('#file_table_body').append(table_row);
+				$('#file_type_row').text(value.file_type);
+				$('#file_name_row').text(value.file_name);
+				$('#file_row').text(value.file_path);
+			});
+		}).catch(function(failData){
+			alert("Failed go get files.");
+		});
+	}
+	
 	// //datatable value
 	// var filesDataTable = $('#filesDataTable').DataTable({
 	// 	dom : '<"row"<"col-md-6"l><"col-md-6"f>>rtip',
