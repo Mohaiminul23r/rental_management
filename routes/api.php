@@ -20,6 +20,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('login', 'API\ApiAuthController@login');
 Route::group(['middleware' => 'auth'], function () {
 });
+
+
 Route::resource('countries', 'API\CountryController');
 Route::resource('cities', 'API\CityController');
 Route::resource('billtypes', 'API\BillTypeController');
@@ -37,6 +39,9 @@ Route::resource('shops', 'API\ShopController');
 Route::resource('advance_payments', 'API\AdvancePaymentController');
 Route::resource('electric_bills', 'API\ElectricityBillController');
 Route::resource('active_renters', 'API\ActiveRenterController');
+
+Route::get('get_ubill_details/{id}', 'API\ActiveRenterController@get_utility_bill_details')->name('utilitybills.get_ubill_details');
+Route::post('update_ubill_details/{id}', 'API\ActiveRenterController@update_utility_bills')->name('utilitybills.update');
 Route::post('active_renter/utility_bills', 'API\ActiveRenterController@storeUtilityBill')->name('store_utility_bills');
 Route::post('active_renter/electric_bills', 'API\ActiveRenterController@storeElectricBill')->name('create_electric_bills');
 Route::get('active_renter_details', 'API\ActiveRenterController@getActiveRenters');

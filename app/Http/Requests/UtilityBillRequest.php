@@ -24,7 +24,7 @@ class UtilityBillRequest extends FormRequest
      public function rules()
     {
 
-        if($this->route()->getName() == 'update_utility_bills'){
+        if($this->route()->getName() == 'utilitybills.update'){
             $utility_bill = $this->all();
             return [
        
@@ -33,13 +33,8 @@ class UtilityBillRequest extends FormRequest
 
        else if($this->route()->getName() == 'store_utility_bills'){
             return [
-                'bill_type_id'      => 'required',    
-                // 'water_bill'        => 'required',    
-                 'gas_bill'          => 'required',       
-                // 'service_charge'    => 'required',
-                //'other_charge'      => 'required',
-                // 'advance_amount' => 'required',
-                'active_renter_id'  => 'required',
+                'active_renter_id'  => 'required | unique:utility_bills',
+                'house_rent'        => 'required',
             ];
         }
         
@@ -47,9 +42,9 @@ class UtilityBillRequest extends FormRequest
 
     public function messages(){
          return [
-            'bill_type_id.required'       => 'Select bill type',
-            'gas_bill.required'           => 'Enter gas bill',
             'active_renter_id.required'   => 'Select active renter',
+            'house_rent.required'         => 'Add home rent',
+            'active_renter_id.unique'     => 'Renter already exist',
         ];
     }
 }

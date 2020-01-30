@@ -13,8 +13,7 @@
 @section('body')
 	{{-- start modals --}}
     @include('active_renter.delete')
-    @include('active_renter.add_ebill_modal')
-    @include('active_renter.add_ubill_modal')
+    @include('active_renter.update_ubill_modal')
 	{{-- end modals --}}
 	<div id="multi_step_add_modal" class="multi-step">
 	
@@ -102,18 +101,16 @@ const mySteps = [{
 						'<span class="help-block"></span>'+
 					'</div>'+	
 				'</div>'+
-				'<div class="col-md-6" style="text-align: right;">'+
-					'<button type="button" style="margin-top:45px;" id="save_rent_details" class="btn btn-primary">Save</button>'+
-					'<button type="button" style="margin-top:45px;"  id="close_modal_btn" class="btn btn-warning">Close</button>'+
+				'<div class="col-md-6" style="text-align: left;">'+
+					'<button type="button" style="margin-top:45px;" id="save_rent_details" class="btn btn-primary btn-round">Save</button>'+
+					'<button type="button" style="margin-top:45px;"  id="close_modal_btn" class="btn btn-warning btn-round">Cancel</button>'+
 				'</div>'+	
 			'</div>'+
 			'</form>',
         label:'Adding Rent Details'
       },{
         content:
-        '<form id="utility_bills_add_form" class="form-horizontal" role="form">'+
-       ' <div class="row">'+
-			'</div>'+
+        '<form id="ubill_add_form" class="form-horizontal" role="form">'+
 			'<div class="row">'+
 				'<div class="col-md-6">'+
 					'<div class="form-group">'+
@@ -123,33 +120,17 @@ const mySteps = [{
 						'<span class="help-block"></span>'+
 					'</div>'+	
 				'</div>'+
-			'</div>'+
-			'<div class="row">'+
 				'<div class="col-md-3">'+
 					'<div class="form-group">'+
 						'<label for="number">House Rent</label>'+
-						'<input type="number" class="form-control" id="house_rent" value="0.00" name="house_rent" placeholder="house rent">'+
+						'<input type="number" class="form-control add-bill" name="house_rent" value="0.00" placeholder="house rent">'+
 						'<span class="help-block"></span>'+
 					'</div>'+	
 				'</div>'+
 				'<div class="col-md-3">'+
 					'<div class="form-group">'+
 						'<label for="number">Electric Bill</label>'+
-						'<input type="number" class="form-control" id="electric_bill" value="0.00" name="electric_bill" placeholder="electric bill">'+
-						'<span class="help-block"></span>'+
-					'</div>'+
-				'</div>'+
-				'<div class="col-md-3">'+
-					'<div class="form-group">'+
-						'<label for="number">Water Bill</label>'+
-						'<input type="number" class="form-control" id="water_bill" value="0.00" name="water_bill" placeholder="water bill">'+
-						'<span class="help-block"></span>'+
-					'</div>'+
-				'</div>'+
-				'<div class="col-md-3">'+
-					'<div class="form-group">'+
-						'<label for="number">Gas Bill</label>'+
-						'<input type="number" class="form-control" id="gas_bill" value="0.00" name="gas_bill" placeholder="gas bill">'+
+						'<input type="number" class="form-control add-bill" name="electric_bill" value="0.00"  placeholder="electric bill">'+
 						'<span class="help-block"></span>'+
 					'</div>'+
 				'</div>'+
@@ -157,46 +138,63 @@ const mySteps = [{
 			'<div class="row">'+
 				'<div class="col-md-3">'+
 					'<div class="form-group">'+
+						'<label for="number">Water Bill</label>'+
+						'<input type="number" name="water_bill" class="form-control add-bill" value="0.00"  placeholder="water bill">'+
+						'<span class="help-block"></span>'+
+					'</div>'+
+				'</div>'+
+				'<div class="col-md-3">'+
+					'<div class="form-group">'+
+						'<label for="number">Gas Bill</label>'+
+						'<input type="number" class="form-control add-bill"  name="gas_bill" value="0.00" placeholder="gas bill">'+
+						'<span class="help-block"></span>'+
+					'</div>'+
+				'</div>'+
+				'<div class="col-md-3">'+
+					'<div class="form-group">'+
 						'<label for="number">Internet Bill</label>'+
-						'<input type="number" class="form-control" id="internet_bill" value="0.00" name="internet_bill" placeholder="net bill">'+
+						'<input type="number" class="form-control add-bill" name="internet_bill"  value="0.00"  placeholder="net bill">'+
 						'<span class="help-block"></span>'+
 					'</div>'+
 				'</div>'+
 				'<div class="col-md-3">'+
 					'<div class="form-group">'+
 						'<label for="number">Service Charge</label>'+
-						'<input type="number" class="form-control" id="service_charge" value="0.00" name="service_charge" placeholder="service charge">'+
+						'<input type="number" class="form-control add-bill"  name="service_charge" value="0.00" placeholder="service charge">'+
 						'<span class="help-block"></span>'+
 					'</div>'+
 				'</div>'+
+			'</div>'+
+			'<div class="row">'+
 				'<div class="col-md-3">'+
 					'<div class="form-group">'+
 						'<label for="number">Other Charge</label>'+
-						'<input type="number" class="form-control" id="other_charge" value="0.00"  name="other_charge" placeholder="other charge">'+
+						'<input type="number" class="form-control add-bill"  name="other_charge" value="0.00" placeholder="other charge">'+
 						'<span class="help-block"></span>'+
 					'</div>'+
 				'</div>'+
 				'<div class="col-md-3">'+
 					'<div class="form-group">'+
 						'<label for="number">Monthly Total Rent</label>'+
-						'<input type="number" class="form-control" id="total_monthly_bill" value="0.00"  name="total_monthly_bill" placeholder="other charge">'+
+						'<input type="number" class="form-control total-bill"  name="total_monthly_bill" value="0.00" placeholder="other charge" readonly>'+
 						'<span class="help-block"></span>'+
 					'</div>'+
 				'</div>'+
-			'</div>'+
-			'<div>'+
-				'<button type="button" style="align:left;" id="save_utility_bills" class="btn btn-primary">Save Utility Bill</button>'+
+				'<div class="col-md-6" style="text-align:left;">'+
+						'<button type="button" style="margin-top: 45px;" id="save_utility_bills" class="btn btn-secondary btn-round">Save Utility Bill</button>'+
+				'</div>'+
 			'</div>'+
 			'</form>',
         label: 'Adding Utility Bill Details'
       }]
 
 //initializing multi-step modal
+//Multistep modal plugin link-----https://www.jqueryscript.net/other/multi-step-modal-wizard.html
 $('#multi_step_add_modal').MultiStep({
   data: mySteps,
   final:'You have successfully given rent details.',
   finalLabel:'Complete',
-  title:'Adding Rent Details for Renters',
+  title:'<b>Adding Rent Details for Renters</b>',
   modalSize:'lg',
   prevText:'Previous',
   skipText:'Skip',
@@ -211,21 +209,19 @@ $('#multi_step_add_modal').MultiStep({
 });
 //datepicker details
 $(function(){
-	  $('[data-toggle="datepicker"]').datepicker({
-	    autoHide: true,
-	    zIndex: 2048,
-	    format: 'yyyy-mm-dd',
-	  });
+  $('[data-toggle="datepicker"]').datepicker({
+    autoHide: true,
+    zIndex: 2048,
+    format: 'yyyy-mm-dd',
+  });	
 });
 //getting renter details
 $(document).on('click', '#add_rent_info_btn', function(){
 	//$('.btn-next').attr("disabled", "disabled");
 	$('#rent_details_form1 .has-error').removeClass('has-error');
 	$('#rent_details_form1').find('.help-block').empty();
-	$('#electric_bills_add_form .has-error').removeClass('has-error');
-	$('#electric_bills_add_form').find('.help-block').empty();
-	$('#utility_bills_add_form .has-error').removeClass('has-error');
-	$('#utility_bills_add_form').find('.help-block').empty();
+	$('#ubill_add_form .has-error').removeClass('has-error');
+	$('#ubill_add_form').find('.help-block').empty();
 	html_renter = '<option value="" disabled selected>Select Renter</option>';
 	html_complex = '<option value="" disabled selected>Select Complex</option>';
 	html_renterType     = '<option value="" disabled selected>Select Renter Type</option>';
@@ -246,51 +242,19 @@ $(document).on('click', '#add_rent_info_btn', function(){
 	$('#complex_name').html(html_complex);
 	$('#renter_type').html(html_renterType);
 	$('#bill_type_id').html(html_billType);
+
 	$('#close_modal_btn').click(function(){
-	$('#multi_step_add_modal').modal('hide');
+		$('#multi_step_add_modal').modal('hide');
+	});
 });
 
-	//changing check box fields for fix electric bills
-	$('input#check_ebill_fix').on('change', function(e) {
-		var isDisabled = $(this).is(':checked');
-		if(isDisabled){
-			$('#electric_bill_amount').val("");
-			$('#check_ebill_fix').val("Yes");
-			$('#electric_bill_amount').removeAttr("disabled", "disabled");
-		}else{
-			$('#electric_bill_amount').attr("disabled", "disabled");
-			$('#electric_bill_amount').val("0.00");
-			$('#check_ebill_fix').val("No");
-		}
-	});
-
-	//changing check box fields for fix water bills
-	$('input#wbill_check').on('change', function(e) {
-		var isDisabled = $(this).is(':checked');
-		if(isDisabled){
-			$('#water_bill').val("0.00");
-			$('#wbill_check').val("No");
-			$('#water_bill').attr("disabled", "disabled");
-		}else{
-			$('#water_bill').val("");
-			$('#water_bill').removeAttr("disabled", "disabled");
-			$('#wbill_check').val("Yes");
-		}
-	});
-
-	//changing check box fields for fix gas bills
-	$('input#gbill_check').on('change', function(e) {
-		var isDisabled = $(this).is(':checked');
-		if(isDisabled){
-			$('#gas_bill').val("0.00");
-			$('#gbill_check').val("No");
-			$('#gas_bill').attr("disabled", "disabled");
-		}else{
-			$('#gas_bill').val("");
-			$('#gbill_check').val("Yes");
-			$('#gas_bill').removeAttr("disabled", "disabled");
-		}
-	});
+//calculating the total bill and appending on total bill field
+$(document).on("change", ".add-bill", function() {
+    var sum = 0;
+    $(".add-bill").each(function(){
+        sum += +$(this).val();
+    });
+    $(".total-bill").val(sum);
 });
 
 //adding rent details at first step
@@ -298,7 +262,10 @@ $(document).on('click', '#save_rent_details', function(){
 	$('#rent_details_form1 .has-error').removeClass('has-error');
 	$('#rent_details_form1').find('.help-block').empty();
 	axios.post('api/active_renters', $('#rent_details_form1').serialize()).then(function(response){
-		$('.btn-next').removeAttr("disabled", "disabled");
+		//$('.btn-next').removeAttr("disabled", "disabled");
+		$("#rent_details_form1").trigger("reset");
+		$(document).find('.stepcurrent').removeClass("current").addClass("completed");
+		$("[data-step=2]").find().addClass("current");
 		$('#activeRenterDataTable').DataTable().ajax.reload();
 		toastr.success('Successfully Added. Go Next.');
 	}).catch(function(failData){
@@ -324,61 +291,35 @@ $(document).on('click', '#save_rent_details', function(){
 //getting values at step-2
 $(document).on('click', '.btn-next',function(){
 	html_ac_renter = '<option value="" disabled selected>Select Active Renter</option>';
-	html_ac_renters = '<option value="" disabled selected>Select Active Renter</option>';
-	html_electric_bill = '<option value="" disabled selected>Select Electric Bill Type</option>';
 	axios.get('api/active_renter_details').then(function(response){
 		$.each(response.data, function(ind,val){
 			html_ac_renter += '<option value="'+val.id+'">'+ val.renter_name +'-'+ val.father_name +'(Father)'+'</option>';
 		});
-		$.each(response.data, function(ind,val){
-			html_ac_renters += '<option value="'+val.id+'">'+ val.renter_name +'-'+ val.father_name +'(Father)'+'</option>';
-		});
 		$('#ac_renter_id').html(html_ac_renter);
-		$('#active_renter_id2').html(html_ac_renters);
 	}).catch(function(failData){
 
 	});
 });
 
-
 //adding utility bill details
 	$(document).on('click','#save_utility_bills', function(){
-		axios.post('api/active_renter/utility_bills', $('#utility_bills_add_form').serialize()).then(function(response){	
+		$('#ubill_add_form .has-error').removeClass('has-error');
+		$('#ubill_add_form').find('.help-block').empty();
+		axios.post('api/active_renter/utility_bills', $('#ubill_add_form').serialize()).then(function(response){	
 			toastr.success('Utility bills added successfully.');
+			$('#multi_step_add_modal').modal('hide');
 		}).catch(function(failData){
 				$.each(failData.response.data.errors, function(inputName, errors){
 	              $.each(failData.response.data.errors, function(inputName, errors){
-	                $("#utility_bills_add_form [name="+inputName+"]").parent().removeClass('has-error').addClass('has-error');
+	                $("#ubill_add_form [name="+inputName+"]").parent().removeClass('has-error').addClass('has-error');
 	                if(typeof errors == "object"){
-	                    $("#utility_bills_add_form [name="+inputName+"]").parent().find('.help-block').empty();
+	                    $("#ubill_add_form [name="+inputName+"]").parent().find('.help-block').empty();
 	                    $.each(errors, function(indE, valE){
-	                        $("#utility_bills_add_form [name="+inputName+"]").parent().find('.help-block').append(valE+"<br>");
+	                        $("#ubill_add_form [name="+inputName+"]").parent().find('.help-block').append(valE+"<br>");
 	                        $('.help-block').css("color", "red");
 	                    });
 	                }else{
-	                    $("#utility_bills_add_form [name="+inputName+"]").parent().find('.help-block').html(valE);
-	                }
-	            });
-	        });
-		});
-	});
-
-//adding electric bill details
-	$(document).on('click','#save_electric_bills', function(){
-		axios.post('api/active_renter/electric_bills', $('#electric_bills_add_form').serialize()).then(function(response){
-			toastr.success('Electric bills added successfully.');
-		}).catch(function(failData){
-			$.each(failData.response.data.errors, function(inputName, errors){
-	              $.each(failData.response.data.errors, function(inputName, errors){
-	                $("#electric_bills_add_form [name="+inputName+"]").parent().removeClass('has-error').addClass('has-error');
-	                if(typeof errors == "object"){
-	                    $("#electric_bills_add_form [name="+inputName+"]").parent().find('.help-block').empty();
-	                    $.each(errors, function(indE, valE){
-	                        $("#electric_bills_add_form [name="+inputName+"]").parent().find('.help-block').append(valE+"<br>");
-	                        $('.help-block').css("color", "red");
-	                    });
-	                }else{
-	                    $("#electric_bills_add_form [name="+inputName+"]").parent().find('.help-block').html(valE);
+	                    $("#ubill_add_form [name="+inputName+"]").parent().find('.help-block').html(valE);
 	                }
 	            });
 	        });
@@ -409,8 +350,35 @@ $(function () {
 })
 
 //add utility bill details for renter
-$(document).on('click', '.add_utility_bill_modal', function(){
-	$('#activeRenterUbillAddModal').modal();
+$(document).on('click', '.update_ubill_modal', function(){
+	var uid = $('#ubill_id').val($(this).data('uid'));
+	var id2 = $(document).find('#ubill_update_form input[name="ubill_id2"]').val();
+	$('#acrUbillupdateModal').modal();
+	axios.get('api/get_ubill_details/'+id2).then(function(response){
+		$('.add-bill').val("");
+		$('#house_rent').val(response.data.house_rent);
+		$('#electric_bill').val(response.data.electric_bill);
+		$('#water_bill').val(response.data.water_bill);
+		$('#gas_bill').val(response.data.gas_bill);
+		$('#internet_bill').val(response.data.internet_bill);
+		$('#service_charge').val(response.data.service_charge);
+		$('#other_charge').val(response.data.other_charge);
+		$('#total_monthly_bill').val(response.data.total_monthly_rent);
+	}).catch(function(failData){
+
+	});
+});
+
+//update utility bill details when update button clicked
+$(document).on('click', '#update_ubill_btn', function(){
+	var id3 = $('#ubill_id').val();
+	axios.post('api/update_ubill_details/'+id3, $('#ubill_update_form').serialize()).then(function(response){
+		$('#activeRenterDataTable').DataTable().ajax.reload();
+		toastr.warning('Utility bills updated successfully.');
+		$('#acrUbillupdateModal').modal('hide');
+	}).catch(function(failData){
+
+	});
 });
 
 //datatable value
@@ -440,18 +408,32 @@ var activeRenterDataTable = $('#activeRenterDataTable').DataTable({
 			'data' : 'id',
 			'width' : '25px',
 			'render' : function(data, type, row, ind){
-				$action_dropdown =	
+				if(row.utility_bill == null){
+					$action_dropdown =	
 					'<div class="dropdown show">'+
 					  '<a class="btn btn-outline-info btn-sm btn-round dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">action</a>'+
 					  '<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">'+
 					    // '<a class="dropdown-item view_data" data-id = '+ data +'><i class="fa fa-eye"></i> View Details</a>'+
 					    // '<a class="dropdown-item print_data" data-id = '+ data +'><i class="fa fa-print text-info"></i> Print/Download</a>'+
-                        '<a class="dropdown-item add_utility_bill_modal" data-id = '+ data +'><i class="fa fa-plus text-primary"></i> Add Utility Bill</a>'+
-                        '<a class="dropdown-item add_electric_bill_modal" data-id = '+ data +'><i class="fa fa-plus text-secondary"></i> Add Electric Bill</a>'+
+                        '<a class="dropdown-item add_ubill_modal" data-id = '+ data +'><i class="fa fa-plus text-success"></i> Add Utility Bill</a>'+
                         '<a class="dropdown-item delete-modal" data-id = '+ data +'><i class="fa fa-trash text-danger" ></i> Delete</a>'+
 					  '</div>'+
 					'</div>';
-				return $action_dropdown;
+					return $action_dropdown;
+				}
+				else if(row.utility_bill != null){
+					$action_dropdown =	
+					'<div class="dropdown show">'+
+					  '<a class="btn btn-outline-info btn-sm btn-round dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">action</a>'+
+					  '<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">'+
+					    // '<a class="dropdown-item view_data" data-id = '+ data +'><i class="fa fa-eye"></i> View Details</a>'+
+					    // '<a class="dropdown-item print_data" data-id = '+ data +'><i class="fa fa-print text-info"></i> Print/Download</a>'+
+                        '<a class="dropdown-item update_ubill_modal" data-id = '+ data +' data-uid = '+row.utility_bill.id+'><i class="fa fa-external-link-alt text-primary"></i> Update Utility Bill</a>'+
+                        '<a class="dropdown-item delete-modal" data-id = '+ data +'><i class="fa fa-trash text-danger" ></i> Delete</a>'+
+					  '</div>'+
+					'</div>';
+					return $action_dropdown;
+				}
 			}
 		},
 		{
@@ -475,11 +457,25 @@ var activeRenterDataTable = $('#activeRenterDataTable').DataTable({
 			'data' : 'rent_started_at'
 		},
 		{
-			'title' : 'Monthly Rent',
-			'name' : 'rent_amount',
-			'data' : 'rent_amount',
+			'title' : 'Advance Paid',
+			'name' : 'advance_amount',
+			'data' : 'advance_amount',
 			'render' : function(data, type, row, ind){
 				return data + ' tk';
+			}
+		},
+		{
+			'title' : 'Monthly Total Rent',
+			'name' : 'total_monthly_rent',
+			'data' : 'total_monthly_rent',
+			'render' : function(data, type, row, ind){
+				if(row.utility_bill != null){
+					var total_rent = row.utility_bill.total_monthly_rent;
+					return total_rent + ' tk';
+				}else{
+					var bill_msg = '<span style="color:red;"><b>Bill Not Added</b</span>';
+					return bill_msg;
+				}
 			}
 		}
 		],

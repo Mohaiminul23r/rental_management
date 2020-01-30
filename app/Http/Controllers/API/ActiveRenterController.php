@@ -40,6 +40,7 @@ class ActiveRenterController extends Controller
 
              $search['renter_information.renter_name'] = $request->input('search')['value'];
              $search['complexes.name'] = $request->input('search')['value'];
+             $search['renter_types.name'] = $request->input('search')['value'];
              $search['active_renters.rent_started_at'] = $request->input('search')['value'];
         }
 
@@ -48,7 +49,7 @@ class ActiveRenterController extends Controller
         }
 
         $with = [
-
+                'utility_bill',
             ]; 
 
         $join = [ 
@@ -95,16 +96,16 @@ class ActiveRenterController extends Controller
 
      public function storeUtilityBill(UtilityBillRequest $request)
     {
-       // dd($request->all());
         $utilityBill = new UtilityBill();
         $utilityBill->active_renter_id    = $request->active_renter_id;
-        $utilityBill->bill_type_id        = $request->bill_type_id;
+        $utilityBill->house_rent          = $request->house_rent;
+        $utilityBill->electric_bill       = $request->electric_bill;
         $utilityBill->water_bill          = $request->water_bill;
-        $utilityBill->is_wbill_required   = $request->is_wbill_required;
         $utilityBill->gas_bill            = $request->gas_bill;
-        $utilityBill->is_gbill_required   = $request->is_gbill_required;
+        $utilityBill->internet_bill       = $request->internet_bill;
         $utilityBill->service_charge      = $request->service_charge;
         $utilityBill->other_charge        = $request->other_charge;
+        $utilityBill->total_monthly_rent  = $request->total_monthly_bill;
         //$utilityBill->status            = $request->status;
         $utilityBill->save();
     }
@@ -180,5 +181,25 @@ class ActiveRenterController extends Controller
     {
         $renter_info = ActiveRenter::with('renter', 'apartment', 'shop', 'renter_type', 'renter.address.thana','renter.address.city', 'renter.address.country','utility_bill.bill_type', 'utility_bill.electricity_bill.bill_type')->whereId($id)->first();
         return $renter_info;
+    }
+
+    public function get_utility_bill_details($id){
+        $utility_bill = UtilityBill::with('active_renter')->whereId($id)->first();
+        return $utility_bill;
+    }
+
+    public function update_utility_bills(UtilityBillRequest $request, $id){
+        $utilityBill = UtilityBill::findOrFail($id)->first();
+        // dd($request->all());
+        $utilityBill->house_rent          = $request->house_rent;
+        $utilityBill->electric_bill       = $request->electric_bill;
+        $utilityBill->water_bill          = $request->water_bill;
+        $utilityBill->gas_bill            = $request->gas_bill;
+        $utilityBill->internet_bill       = $request->internet_bill;
+        $utilityBill->service_charge      = $request->service_charge;
+        $utilityBill->other_charge        = $request->other_charge;
+        $utilityBill->total_monthly_rent  = $request->total_monthly_bill;
+        //$utilityBill->status            = $request->status;
+        $utilityBill->update();
     }
 }

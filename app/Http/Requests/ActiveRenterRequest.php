@@ -43,7 +43,7 @@ class ActiveRenterRequest extends FormRequest
                 'renter_information_id' => 'required | unique:active_renters',
                 'complex_id'            => 'required',    
                 'renter_type_id'     => 'required',       
-                'level_no'           => 'unique:active_renters',
+                'level_no'           => 'nullable|unique:active_renters',
                 'rent_started_at'    => 'required',
             ];
         }  
