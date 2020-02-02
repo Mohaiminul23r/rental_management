@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Model\Apartment;
+use App\Model\Complex;
 use App\Http\Requests\ApartmentRequest;
 
 class ApartmentController extends Controller
@@ -16,7 +16,7 @@ class ApartmentController extends Controller
      */
     public function index(Request $request)
     {
-        $apartment = new Apartment();
+        $complex = new Complex();
         $limit = 20;
         $offset = 0;
         $search = [];
@@ -34,8 +34,8 @@ class ApartmentController extends Controller
 
         if($request->input('search') && $request->input('search')['value'] != ""){
 
-             $search['apartments.name'] = $request->input('search')['value'];
-             $search['apartments.apartment_no'] = $request->input('search')['value'];
+             $search['complexes.name'] = $request->input('search')['value'];
+             $search['complexes.complex_no'] = $request->input('search')['value'];
         }
 
         if($request->input('where')){
@@ -51,7 +51,7 @@ class ApartmentController extends Controller
             // ['countries', 'cities.country_id', 'countries.name as countryName']
         ];  
 
-       return $apartment->GetDataForDataTable($limit, $offset, $search, $where, $with, $join);
+       return $complex->GetDataForDataTable($limit, $offset, $search, $where, $with, $join);
     }
 
     /**

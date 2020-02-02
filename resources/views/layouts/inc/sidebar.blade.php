@@ -44,6 +44,21 @@ Sidebar --}}
 								</div>
 							</li> --}}
 							<li>
+								<a href="{{url('/billtypes')}}">
+									<span class="sub-item">Bill Type</span>
+								</a>
+							</li>
+							<li>
+								<a href="{{url('/rentertypes')}}">
+									<span class="sub-item">Renter Type</span>
+								</a>
+							</li>
+							<li>
+								<a href="{{url('/complexes')}}">
+									<span class="sub-item">Complex Info.</span>
+								</a>
+							</li>
+							{{-- <li>
 								<a data-toggle="collapse" href="#subnav3">
 									<i class="fas fa-building"></i>
 									<p>Rent Settings</p>
@@ -51,11 +66,11 @@ Sidebar --}}
 								</a>
 								<div class="collapse" id="subnav3">
 									<ul class="nav nav-collapse subnav">
-										{{-- <li>
+										<li>
 											<a href="{{url('/houses')}}">
 												<span class="sub-item">House Information</span>
 											</a>
-										</li> --}}
+										</li>
 										<li>
 											<a href="{{url('/apartments')}}">
 												<span class="sub-item">Complex Info.</span>
@@ -82,11 +97,11 @@ Sidebar --}}
 												<span class="sub-item">Bill Type</span>
 											</a>
 										</li>
-{{-- 										<li>
+										<li>
 											<a href="{{url('/electric_bills')}}">
 												<span class="sub-item">Electric Bill</span>
 											</a>
-										</li> --}}
+										</li>
 									</ul>
 								</div>
 							</li>
@@ -105,14 +120,14 @@ Sidebar --}}
 										</li>
 									</ul>
 								</div>
-							</li>	
+							</li>	 --}}
 						</ul>
 					</div>
 				</li>
 				<li class="nav-item">
 					<a data-toggle="collapse" href="#sidebarLayouts">
 						<i class="fas fa-users"></i>
-						<p>Renter or Client</p>
+						<p>Renter or Customer</p>
 						<span class="caret"></span>
 					</a>
 					<div class="collapse" id="sidebarLayouts">
@@ -127,15 +142,15 @@ Sidebar --}}
 									<span class="sub-item">Active Renters</span>
 								</a>
 							</li>
-							<li>
+{{-- 							<li>
 								<a href="{{url('/renter_details')}}">
 									<span class="sub-item">Active Renter Details</span>
 								</a>
-							</li>
+							</li> --}}
 						</ul>
 					</div>
 				</li>
-				<li class="nav-item">
+{{-- 				<li class="nav-item">
 					<a data-toggle="collapse" href="#maps">
 						<i class="fas fa-money-bill-alt"></i>
 						<p>Advance Payment</p>
@@ -150,18 +165,18 @@ Sidebar --}}
 							</li>
 						</ul>
 					</div>
-				</li>
+				</li> --}}
 				<li class="nav-item">
 					<a data-toggle="collapse" href="#dashboard">
 						<i class="fas fa-dollar-sign"></i>
-						<p>Create & Collect Bill</p>
+						<p>Bill Collection</p>
 						<span class="caret"></span>
 					</a>
 					<div class="collapse" id="dashboard">
 						<ul class="nav nav-collapse">
 							<li>
 								<a href="{{url('/create_bills')}}">
-									<span class="sub-item">Manage Billings</span>
+									<span class="sub-item">Collections</span>
 								</a>
 							</li>
 						</ul>
@@ -199,7 +214,7 @@ Sidebar --}}
 						</ul>
 					</div>
 				</li> --}}
-				<li class="nav-item">
+{{-- 				<li class="nav-item">
 					<a data-toggle="collapse" href="#tables">
 						<i class="fas fa-file-pdf"></i>
 						<p>Reports</p>
@@ -214,7 +229,7 @@ Sidebar --}}
 							</li>
 						</ul>
 					</div>
-				</li>
+				</li> --}}
 			</ul>
 			<ul class="nav nav-collapse">
 				<li class="nav-item active">

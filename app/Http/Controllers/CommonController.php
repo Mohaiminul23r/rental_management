@@ -63,15 +63,12 @@ class CommonController extends Controller
         $renterType = RenterType::all();
         $renter_info  = RenterInformation::orderBy('renter_name')->get();
         $complex = Complex::orderBy('name')->get();
-        $shop    = Shop::orderBy('name')->get();
         $bill_type    = BillType::orderBy('name')->get();
-        $activeRenter  = DB::table('renters')
-                    ->join('active_renters', 'renters.id', '=', 'active_renters.renter_id')
-                    ->select('renters.first_name', 'renters.last_name', 'renters.father_name', 'renters.mother_name','active_renters.*')
+        $activeRenter  = DB::table('renter_information')
+                    ->join('active_renters', 'renter_information.id', '=', 'active_renters.renter_information_id')
+                    ->select('renter_information.renter_name','renter_information.father_name', 'renter_information.mother_name','active_renters.*')
                     ->get();
-
-        $electricity_bill  = ElectricityBill::with('bill_type')->get();
-        return view('renter_details.renter_information', ['renterType' => $renterType,'renter_info' => $renter_info, 'complex' => $complex, 'shop' => $shop, 'bill_type' => $bill_type, 'activeRenter' => $activeRenter, 'electricity_bill' => $electricity_bill]);
+        return view('renter_details.renter_information', ['renterType' => $renterType,'renter_info' => $renter_info, 'complex' => $complex,'bill_type' => $bill_type, 'activeRenter' => $activeRenter]);
     }
 
     public function createBillIndex(){

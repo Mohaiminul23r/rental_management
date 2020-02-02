@@ -56,15 +56,13 @@
 	var complex = <?php echo json_encode($complex)?>;
 	var renterType = <?php echo json_encode($renterType)?>;
 	var bill_type_2 = <?php echo json_encode($bill_type)?>;
-	var shop = <?php echo json_encode($shop)?>;
 	var renter_info  = <?php echo json_encode($renter_info)?>;
 	var activeRenter  = <?php echo json_encode($activeRenter)?>;
-	var electricity_bill    = <?php echo json_encode($electricity_bill)?>;
 
 window.addEventListener("load",function(){
 	html_renter = '<option value="" disabled selected>Select Renter</option>';
 	$.each(activeRenter, function(ind,val){
-		html_renter += '<option id="'+val.id+'" value="'+val.id+'">'+val.first_name+' -'+ val.father_name +' (Father)'+'</option>';
+		html_renter += '<option id="'+val.id+'" value="'+val.id+'">'+val.renter_name+' -'+ val.father_name +' (Father)'+'</option>';
 	});
 	$('#search_renter_name').html(html_renter);
 	$("#search_renter_name").change(function() {
@@ -100,7 +98,6 @@ window.addEventListener("load",function(){
 
 		renter_name_2 = '<option value="" disabled selected>Select Renter</option>';
 		complex_name_2 = '<option value="" disabled selected>Select Complex</option>';
-		html_shop_2     = '<option value="" disabled selected>Select Shop</option>';
 		html_renterType_2  = '<option value="" disabled selected>Select Renter Type</option>';
 		html_billType_2     = '<option value="" disabled selected>Select Bill Type</option>';
 
@@ -115,21 +112,12 @@ window.addEventListener("load",function(){
 					renter_name_2 += '<option id="'+val.id+'" value="'+val.id+'">'+val.first_name+' -'+ val.father_name +' (Father)'+'</option>';
 				}
 			});
-
 			$.each(complex, function(ind,val){
 				if(val.name == response.data.active_renter.apartment.name){
 					complex_name_2 += '<option value="'+val.id+'" selected>'+val.name+'</option>';
 				}else{
 					complex_name_2 += '<option value="'+val.id+'">'+val.name+'</option>';
 				}
-			});
-			$.each(shop, function(ind,val){
-				if(val.name == response.data.active_renter.shop.name){
-					html_shop_2 += '<option value="'+val.id+'" selected>'+val.name+'</option>';
-				}else{
-					html_shop_2 += '<option value="'+val.id+'">'+val.name+'</option>';
-				}
-				
 			});
 			$.each(renterType, function(ind,val){
 				if(val.name == response.data.active_renter.renter_type.name){
@@ -140,7 +128,6 @@ window.addEventListener("load",function(){
 			});
 			$('#renter_name_2').html(renter_name_2);
 			$('#complex_name_2').html(complex_name_2);
-			$('#shop_name_2').html(html_shop_2);
 			$('#renter_type_2').html(html_renterType_2);
 
 			$('#activation_date_2').val(response.data.active_renter.rent_started_at);
@@ -177,7 +164,6 @@ window.addEventListener("load",function(){
             }); 
 		});
 	});
-
 
 	//update utility bill details of active renters & getting values at modal
 	$(document).on('click', '.update-ubill-btn', function(){
@@ -467,12 +453,6 @@ function data(response){
 	if(typeof response.data.apartment != 'undefined' &&  response.data.apartment != null){
 		$('#complex_no').text(response.data.apartment.apartment_no);
 		$('#apartment_name').text(response.data.apartment.name);
-	}
-
-	if(typeof response.data.shop != 'undefined' &&  response.data.shop != null){
-		$('#shop_name').text(response.data.shop.name);
-	}else{
-		$('#shop_name').text("Null");
 	}
 
 	if(typeof response.data != 'undefined' &&  response.data != null){

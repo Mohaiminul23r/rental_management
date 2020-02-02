@@ -13,7 +13,9 @@
 @section('body')
 	{{-- start modals --}}
     @include('active_renter.delete')
+    @include('active_renter.add_ubill_modal')
     @include('active_renter.update_ubill_modal')
+    @include('active_renter.view_details')
 	{{-- end modals --}}
 	<div id="multi_step_add_modal" class="multi-step">
 	
@@ -222,6 +224,8 @@ $(document).on('click', '#add_rent_info_btn', function(){
 	$('#rent_details_form1').find('.help-block').empty();
 	$('#ubill_add_form .has-error').removeClass('has-error');
 	$('#ubill_add_form').find('.help-block').empty();
+	$("#ubill_add_form").trigger("reset");
+	$(".total-bill").val("0.00");
 	html_renter = '<option value="" disabled selected>Select Renter</option>';
 	html_complex = '<option value="" disabled selected>Select Complex</option>';
 	html_renterType     = '<option value="" disabled selected>Select Renter Type</option>';
@@ -381,6 +385,112 @@ $(document).on('click', '#update_ubill_btn', function(){
 	});
 });
 
+//add utility bills for renter
+$(document).on('click', '.add_ubill_modal', function(){
+	$('#acrUbilladdModal').modal();
+	var active_renter_id = $(this).data('acrid');
+	$('#acr_id_2').val(active_renter_id);
+});
+$(document).on('click', '#add_ubill_btn', function(){
+	axios.post('api/active_renter/utility_bills', $('#ubill_add_form').serialize()).then(function(response){
+		toastr.success("Successfully Added Utility Bills.");
+		$('#acrUbilladdModal').modal('hide');
+		$('#activeRenterDataTable').DataTable().ajax.reload();
+	}).catch(function(failData){
+		alert("Something wrong !! Can not add Utility Bills.");
+	});
+});
+
+
+//view details modal
+$(document).on('click', '.view-modal', function(){
+	$('#view_acr_info_modal').modal();
+	var active_renter_id = $(this).data('id');
+	axios.get('api/active_renter/view_details/'+active_renter_id).then(function(response){
+		$('#renter_intro_div').find('table tbody tr td p').text("");
+		$('#personal_info_div').find('table tbody tr td p').text("");
+		$('#rent_details').find('table tbody tr td p').text("");
+		$('#Utility_bills').find('table tbody tr td p').text("");
+		$('#rent_started_at_3').text(response.data.rent_started_at);
+		if(typeof response.data.complex != null &&response.data.complex != undefined){
+			$('#complex_no_3').text(response.data.complex.complex_no);
+			$('#complex_name_3').text(response.data.complex.name);
+		}
+		if(response.data.shop_name != null){
+			$('#shop_name_3').text(response.data.shop_name);
+		}else{
+			$('#shop_name_3').text(" Not added").addClass("text-warning");
+		}
+		if(response.data.level_no != null){
+			$('#level_no_3').text(response.data.level_no);
+		}else{
+			$('#level_no_3').text("Not added").addClass("text-warning");
+		}
+		$('#advance_amount_3').text(response.data.advance_amount);
+		if(typeof response.data.renter_information != null && response.data.renter_information != undefined){
+			$('#renter_name_3').text(response.data.renter_information.renter_name);
+			$('#father_name_3').text(response.data.renter_information.father_name);
+			if(response.data.renter_information.present_address != null){
+				$('#present_address_3').text(response.data.renter_information.present_address);
+			}else{
+				$('#present_address_3').text("Not added").addClass("text-warning");
+			}
+			if(response.data.renter_information.mother_name != null){
+				$('#mother_name_3').text(response.data.renter_information.mother_name);
+			}else{
+				$('#mother_name_3').text("Not added").addClass("text-warning");
+			}		
+			if(response.data.renter_information.email != null){
+				$('#email_3').text(response.data.renter_information.email);
+			}else{
+				$('#email_3').text("Not added").addClass("text-warning");
+			}	
+			if(response.data.renter_information.date_of_birth != null){
+				$('#date_of_birth_3').text(response.data.renter_information.date_of_birth);
+			}else{
+				$('#date_of_birth_3').text("Not added").addClass("text-warning");
+			}
+			if(response.data.renter_information.nid_no != null){
+				$('#nid_no_3').text(response.data.renter_information.nid_no);
+			}else{
+				$('#nid_no_3').text("Not added").addClass("text-warning");
+			}
+			if(response.data.renter_information.mobile_no != null){
+				$('#phone_3').text(response.data.renter_information.mobile_no);
+			}else{
+				$('#phone_3').text("Not added").addClass("text-warning");
+			}
+			if(response.data.renter_information.phone_no != null){
+				$('#telephone_3').text(response.data.renter_information.phone_no);
+			}else{
+				$('#telephone_3').text("Not added").addClass("text-warning");
+			}
+			if(response.data.renter_information.gender != null){
+				$('#gender_3').text(response.data.renter_information.gender);
+			}else{
+				$('#gender_3').text("Not added").addClass("text-warning");
+			}
+			$('#nationality_3').text(response.data.renter_information.nationality);
+		}
+		if(typeof response.data.renter_type != null && response.data.renter_type != undefined){
+			$('#renter_type_3').text(response.data.renter_type.name);
+		}
+
+		if(typeof response.data.utility_bill != null && response.data.utility_bill != undefined){
+			$('#house_rent_3').text(response.data.utility_bill.house_rent+" "+" taka");
+			$('#water_bill_3').text(response.data.utility_bill.water_bill+" "+" taka");
+			$('#gas_bill_3').text(response.data.utility_bill.gas_bill+" "+" taka");
+			$('#electric_bill_3').text(response.data.utility_bill.electric_bill+" "+" taka");
+			$('#internet_bill_3').text(response.data.utility_bill.internet_bill+" "+" taka");
+			$('#service_charge_3').text(response.data.utility_bill.service_charge+" "+" taka");
+			$('#other_charge_3').text(response.data.utility_bill.other_charge+" "+" taka");
+			$('#monthly_total_rent_3').text(response.data.utility_bill.total_monthly_rent+" "+" taka");
+		}
+	}).catch(function(failData){
+		alert("Something wrong !! Can not view  active renter details.");
+	});
+});
+
 //datatable value
 var activeRenterDataTable = $('#activeRenterDataTable').DataTable({
 
@@ -408,6 +518,7 @@ var activeRenterDataTable = $('#activeRenterDataTable').DataTable({
 			'data' : 'id',
 			'width' : '25px',
 			'render' : function(data, type, row, ind){
+				//console.log(row);
 				if(row.utility_bill == null){
 					$action_dropdown =	
 					'<div class="dropdown show">'+
@@ -415,7 +526,7 @@ var activeRenterDataTable = $('#activeRenterDataTable').DataTable({
 					  '<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">'+
 					    // '<a class="dropdown-item view_data" data-id = '+ data +'><i class="fa fa-eye"></i> View Details</a>'+
 					    // '<a class="dropdown-item print_data" data-id = '+ data +'><i class="fa fa-print text-info"></i> Print/Download</a>'+
-                        '<a class="dropdown-item add_ubill_modal" data-id = '+ data +'><i class="fa fa-plus text-success"></i> Add Utility Bill</a>'+
+                        '<a class="dropdown-item add_ubill_modal" data-id = '+ data +' data-acrid = '+row.id+'><i class="fa fa-plus text-success"></i> Add Utility Bill</a>'+
                         '<a class="dropdown-item delete-modal" data-id = '+ data +'><i class="fa fa-trash text-danger" ></i> Delete</a>'+
 					  '</div>'+
 					'</div>';
@@ -429,6 +540,7 @@ var activeRenterDataTable = $('#activeRenterDataTable').DataTable({
 					    // '<a class="dropdown-item view_data" data-id = '+ data +'><i class="fa fa-eye"></i> View Details</a>'+
 					    // '<a class="dropdown-item print_data" data-id = '+ data +'><i class="fa fa-print text-info"></i> Print/Download</a>'+
                         '<a class="dropdown-item update_ubill_modal" data-id = '+ data +' data-uid = '+row.utility_bill.id+'><i class="fa fa-external-link-alt text-primary"></i> Update Utility Bill</a>'+
+                        '<a class="dropdown-item view-modal" data-id = '+ data +'><i class="fa fa-eye"></i> View Details</a>'+
                         '<a class="dropdown-item delete-modal" data-id = '+ data +'><i class="fa fa-trash text-danger" ></i> Delete</a>'+
 					  '</div>'+
 					'</div>';

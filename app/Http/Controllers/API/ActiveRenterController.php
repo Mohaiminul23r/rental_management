@@ -202,4 +202,9 @@ class ActiveRenterController extends Controller
         //$utilityBill->status            = $request->status;
         $utilityBill->update();
     }
+
+    public function getActiveRenterDetails($id){
+        $active_renter_details = ActiveRenter::with('utility_bill', 'renter_information', 'renter_type', 'complex')->whereId($id)->first();
+        return $active_renter_details;
+    }
 }

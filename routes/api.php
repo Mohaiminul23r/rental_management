@@ -44,6 +44,8 @@ Route::get('get_ubill_details/{id}', 'API\ActiveRenterController@get_utility_bil
 Route::post('update_ubill_details/{id}', 'API\ActiveRenterController@update_utility_bills')->name('utilitybills.update');
 Route::post('active_renter/utility_bills', 'API\ActiveRenterController@storeUtilityBill')->name('store_utility_bills');
 Route::post('active_renter/electric_bills', 'API\ActiveRenterController@storeElectricBill')->name('create_electric_bills');
+Route::get('active_renter/view_details/{id}', 'API\ActiveRenterController@getActiveRenterDetails')->name('active_renters.view_details');
+
 Route::get('active_renter_details', 'API\ActiveRenterController@getActiveRenters');
 Route::get('renter_details/{id}', 'API\ActiveRenterController@getRenterDetails');
 Route::get('renters/info/{id}', 'API\RenterController@getRenterInformation');

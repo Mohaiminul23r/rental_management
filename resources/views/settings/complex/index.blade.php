@@ -10,9 +10,9 @@
 @endsection
 @section('body')
 	{{-- start modals --}}
-	@include('settings.apartment.add')
-	@include('settings.apartment.edit')
-    @include('settings.apartment.delete')
+	@include('settings.complex.add')
+	@include('settings.complex.edit')
+    @include('settings.complex.delete')
 	{{-- end modals --}}
 	<div class="table-responsive">
 		<table id="apartmentDataTable" class="display table table-striped table-hover">
@@ -134,21 +134,13 @@ var apartmentDataTable = $('#apartmentDataTable').DataTable({
 		},
 		{
 			'title' : 'Complex No.',
-			'name' : 'apartment_no',
-			'data' : 'apartment_no'
+			'name' : 'complex_no',
+			'data' : 'complex_no'
 		},
 		{
 			'title' : 'Complex Name',
 			'name' : 'name',
 			'data' : 'name'
-		},
-		{
-			'title' : 'Rent Amount',
-			'name' : 'rent_amount',
-			'data' : 'rent_amount',
-			'render' : function(data, type, row, ind){
-				return data + ' tk';
-			}
 		},
 		{
 			'title' : 'OPT',
