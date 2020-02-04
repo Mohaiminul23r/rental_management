@@ -1,4 +1,4 @@
-Sidebar --}}
+{{--Sidebar --}}
 <div class="sidebar sidebar-style-2">			
 	<div class="sidebar-wrapper scrollbar scrollbar-inner">
 		<div class="sidebar-content">
@@ -134,12 +134,17 @@ Sidebar --}}
 						<ul class="nav nav-collapse">
 							<li>
 								<a href="{{url('/renters')}}">
-									<span class="sub-item">Renter Information</span>
+									<span class="sub-item">Renter List</span>
+								</a>
+							</li>
+							<li>
+								<a href="{{url('/renters')}}">
+									<span class="sub-item">Upload Documents</span>
 								</a>
 							</li>
 							<li>
 								<a href="{{url('/active_renters')}}">
-									<span class="sub-item">Active Renters</span>
+									<span class="sub-item">Active Renter List</span>
 								</a>
 							</li>
 {{-- 							<li>
@@ -247,4 +252,4 @@ Sidebar --}}
 		</div>
 	</div>
 </div>
-{{--  End Sidebar
+{{--  End Sidebar--}}

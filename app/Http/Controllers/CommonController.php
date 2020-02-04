@@ -84,4 +84,10 @@ class CommonController extends Controller
         return view('report.index');
     }
 
+    public function edit_renter_info($id){
+        $renter_id = $id;
+        $renterType = RenterType::all();
+        return view('renter.edit_renter_info',['renterType' => $renterType, 'renter_id' => $renter_id]);
+    }
+
 }

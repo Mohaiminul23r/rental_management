@@ -15,6 +15,7 @@ class CreateRenterInformationTable extends Migration
     {
         Schema::create('renter_information', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('renterID',25)->nullable();
             $table->string('renter_name', 100)->nullable();
             $table->string('father_name', 100)->nullable();
             $table->string('mother_name', 100)->nullable();

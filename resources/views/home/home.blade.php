@@ -1,4 +1,4 @@
 @extends('layouts.master')
 @section('body')
-	@include('admin.dashboard.index')
+	@include('settings.dashboard.index')
 @endsection

@@ -13,7 +13,6 @@
 @section('body')
 	{{-- start modals --}}
 	@include('renter.add')
-	@include('renter.edit')
     @include('renter.delete')
     @include('renter.view_info')
 	{{-- end modals --}}
@@ -100,114 +99,6 @@ window.addEventListener("load", function(){
 		$('#thana_name').html(html_thana);
 		$('#city_name').html(html_city);
 	});
-
-	//edit renter details
-	$(document).on('click', '.edit-modal', function(){
-		var id = $(this).data('id');
-		$('#renter_id').val(id);
-		$('#editRentalModal').modal();
-		$('#renter_edit_form .has-error').removeClass('has-error');
-        $('#renter_edit_form').find('.help-block').empty();
-		html_countries       = '<option value="" disabled selected>Select Country</option>';
-		html_thanas          = '<option value="" disabled selected>Select Thana</option>';
-		html_cities          = '<option value="" disabled selected>Select City</option>';
-		html_renter_types    = '<option value="" disabled selected>Select Renter Type</option>';
-
-		axios.get('api/renters/'+id+'/edit').then(function(response){
-			//console.log(response);
-			$.each(country, function(ind,val){
-				if(val.id == response.data.address.country_id){
-					html_countries += '<option value="'+val.id+'" selected>'+val.name+'</option>';
-				}else{
-					html_countries += '<option value="'+val.id+'">'+val.name+'</option>';
-				}	
-			});
-			$.each(thana, function(ind,val){
-				if(val.id == response.data.address.thana_id){
-					html_thanas += '<option value="'+val.id+'" selected>'+val.name+'</option>';
-				}else{
-					html_thanas += '<option value="'+val.id+'">'+val.name+'</option>';
-				}
-			});
-			$.each(city, function(ind,val){
-				if(val.id == response.data.address.city_id){
-					html_cities += '<option value="'+val.id+'" selected>'+val.name+'</option>';
-				}else{
-					html_cities += '<option value="'+val.id+'">'+val.name+'</option>';
-				}
-			});
-			$.each(renterType, function(ind,val){
-				if(val.id == response.data.renter_type_id){
-					html_renter_types += '<option value="'+val.id+'" selected>'+val.name+'</option>';
-				}else{
-					html_renter_types += '<option value="'+val.id+'">'+val.name+'</option>';
-				}
-			});
-			$('#add_country_name').html(html_countries);
-			$('#add_thana_name').html(html_thanas);
-			$('#add_city_name').html(html_cities);
-			$('#type_name').html(html_renter_types);
-			$('#add_first_name').val(response.data.first_name);
-			$('#add_email').val(response.data.email);
-			//$('#add_last_name').val(response.data.last_name);
-			$('#add_father_name').val(response.data.father_name);
-			$('#add_mother_name').val(response.data.mother_name);
-			$('#add_phone').val(response.data.phone);
-			$('#add_mobile').val(response.data.mobile);
-			$('#add_nid_no').val(response.data.nid_no);
-			$('#address_line').val(response.data.address.address_line1);
-			$('#post_code').val(response.data.address.postal_code);
-			// $('#add_photo').val(response.data.photo);
-			$('#edit_nid_photo').attr("src", response.data.photo);
-			$('#edit_renter_photo').attr("src", response.data.nid_photo);
-			 $('#add_date_of_birth').val(response.data.date_of_birth);
-			 if(response.data.status == 1){
-			 	$('#active').attr("selected","selected");
-			 }
-			 if(response.data.status == 2){
-			 	$('#inactive').attr("selected","selected");
-			 }
-			 if(response.data.gender == "Female"){
-			 	$('#gender_female').attr("checked","checked");
-			 }
-			 if(response.data.gender == "Male"){
-			 	$('#gender_male').attr("checked","checked");
-			 }
-		}).catch(function(failData){
-			alert("Something wrong.");
-		});
-	});
-
-	//edit renter details when button is clicked
-	$('#renterEditBtn').click(function(){
-		var renter_id = $(document).find('#renter_edit_form input[name="renter_id"]').val();
-		var id = renter_id;
-		var renter_edit_form = document.getElementById('renter_edit_form');
-	    var formData = new FormData(renter_edit_form);
-   	    formData.append('add_photo', document.getElementById('add_photo').files[0]);
-   	    formData.append('add_nid_photo', document.getElementById('add_nid_photo').files[0]);
-   	    //console.log(formData);
-		axios.put('api/renters/'+id, formData)
-		.then(function(response){
-			$('#renterDataTable').DataTable().ajax.reload();
-            $('#editRentalModal').modal('hide');
-            toastr.success('Edited Successfully.'); 
-		}).catch(function(failData){
-				$.each(failData.response.data.errors, function(inputName, errors){
-	            $("#renter_edit_form [name="+inputName+"]").parent().removeClass('has-error').addClass('has-error');
-	            if(typeof errors == "object"){
-	                $("#renter_edit_form [name="+inputName+"]").parent().find('.help-block').empty();
-	                $.each(errors, function(indE, valE){
-	                    $("#renter_edit_form [name="+inputName+"]").parent().find('.help-block').append(valE+"<br>");
-	                    $('.help-block').css("color", "red");
-	                });
-	            }else{
-	                $("#renter_edit_form [name="+inputName+"]").parent().find('.help-block').html(valE);
-	            }
-	        });
-		});
-	});
-	
 
 	//delete renter details
 	$(document).on('click', '.delete-modal', function(){
@@ -346,7 +237,7 @@ window.addEventListener("load", function(){
 				  '<a class="btn btn-outline-info btn-sm btn-round dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">action</a>'+
 				  '<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">'+
 				    // '<a class="dropdown-item print_data" data-id = '+ data +'><i class="fa fa-print text-info"></i> Print/Download</a>'+
-                    '<a class="dropdown-item edit-modal" data-id = '+ data +'><i class="fa fa-edit text-secondary"></i> Edit Renter Details</a>'+
+                    '<a href="'+utlt.siteUrl("edit_renter_info/"+data)+'" class="dropdown-item edit-modal" data-id = '+ data +'><i class="fa fa-edit text-secondary"></i> Edit Renter Details</a>'+
                     '<a class="dropdown-item view-modal" data-id = '+ data +'><i class="fa fa-eye"></i> View Details</a>'+
                     '<a class="dropdown-item delete-modal" data-id = '+ data +'><i class="fa fa-trash text-danger" ></i> Delete</a>'+
 				  '</div>'+

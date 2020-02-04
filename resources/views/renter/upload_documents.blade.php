@@ -3,144 +3,71 @@
 	<a type="button" href="{{ url('/home')}}" class="btn btn-outline-info btn-round btn-outline-light"><i class="fas fa-home text-success"></i><strong> Home</strong></a>
 @endsection
 @section('button')
-<a class="btn btn-white btn-border btn-round mr-2" href="{{ url()->previous() }}"><i class="fas fa-arrow-circle-left text-success"></i> View List</a>
+<a class="btn btn-white btn-border btn-round mr-2" href="{{ url()->previous() }}"><i class="fas fa-arrow-circle-left text-success"></i> Back</a>
 @endsection
 @section('card-title')
 <b>Add Renter Information</b>
 @endsection
 @section('body')
-<div class="container p-3 border">
+<div class="container p-3 my-3 border">
 	<div class="row">
 		<form id="add_form" class="form-horizontal" role="form" enctype="multipart/form-data">
-			<div class="row">
-				<div class="col-md-3">
-					<div class="form-group">
-						<label for="name">Renter Name<span style="color: red;"> *</span></label>
-						<input type="name" name="renter_name" class="form-control" id="renter_name" placeholder="Enter First Name (*)" required>
-						<span class="help-block"></span>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="form-group">
-						<label for="name">Father's Name<span style="color: red;"> *</span></label>
-						<input type="name" name="father_name" class="form-control" id="father_name" placeholder="Enter Father's Name (*)" required>
-						<span class="help-block"></span>
-					</div>	
-				</div>
-				<div class="col-md-3">
-					<div class="form-group">
-						<label for="name">Mother's Name</label>
-						<input type="name" name="mother_name" class="form-control" id="mother_name" placeholder="Enter Mother's Name">
-						<span class="help-block"></span>
-					</div>	
-				</div>
-				<div class="col-md-3">
-					<div class="form-group">
-						<label for="name">Email Address</label>
-						<input type="name" name="email" class="form-control" id="email" placeholder="example@gmail.com">
-						<span class="help-block"></span>
-					</div>	
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-3">
-					<div class="form-group">
-						<label for="name">Phone No.</label>
-						<input type="name" name="phone_no" class="form-control" id="phone" placeholder="Enter Phone Number">
-						<span class="help-block"></span>
-					</div>	
-				</div>
-				<div class="col-md-3">
-					<div class="form-group">
-						<label for="name">Mobile No.<span style="color: red;"> *</span></label>
-						<input type="name" name="mobile_no" class="form-control" id="mobile" placeholder="Enter Mobile Nmber (*)" required>
-						<span class="help-block"></span>
-					</div>	
-				</div>
-				<div class="col-md-3">
-					<div class="form-group">
-						<label for="name">Occupation</label>
-						<input type="name" name="occupation" class="form-control" id="occupation" placeholder="Enter Profession">
-						<span class="help-block"></span>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="form-group">
-						<label>Gender</label><br/>
-						<label class="form-radio-label">
-							<input class="form-radio-input" type="radio" name="gender" value="Male" checked>
-							<span class="form-radio-sign">Male</span>
-						</label>
-						<label class="form-radio-label ml-3">
-							<input class="form-radio-input" type="radio" name="gender" value="Female">
-							<span class="form-radio-sign">Female</span>
-						</label>
-						<span class="help-block"></span>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-3">
-					<div class="form-group">
-						<label for="name">NID No.</label>
-						<input type="name" name="nid_no" class="form-control" id="nid_no" placeholder="Enter NID no.">
-						<span class="help-block"></span>
-					</div>	
-				</div>
-				<div class="col-md-3">
-					<div class="form-group">
-						<label for="name">Nationality</label>
-						<input type="name" class="form-control" id="nationality" name="nationality" placeholder="Enter Nationality" value="Bangladeshi">
-						<span class="help-block"></span>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="form-group">
-						<label for="name">Date of Birth</label>
-						<input type="text" class="form-control" data-toggle="datepicker" name="date_of_birth" placeholder="yyyy-mm-dd">
-						<span class="help-block"></span>
-					</div>	
-				</div>
-				<div class="col-md-3">
-					<div class="form-group">
-						<label for="rentertype">Renter Type</label>
-						<select class="form-control form-control" id="renter_type_2" name="renter_type_id">
-						</select>
-						<span class="help-block"></span>
-					</div>	
-				</div>
-			</div>
-			<div class="row">
+			<h3>Upload Documents</h3>
+			<div class="row" id="file_div">
+				<input type="hidden" name="renter_information_id" id="renter_information_id" value="null">
 				<div class="col-md-4">
 					<div class="form-group">
-					    <label for="present_address">Present Address</label>
-					    <textarea class="form-control" id="present_address" name="present_address" placeholder="Enter present address"></textarea>
-					    <span class="help-block"></span>
-					 </div>	
-				</div>
-				<div class="col-md-4">
-					<div class="form-group">
-					    <label for="permanent_address">Permanent Address</label>
-					    <textarea class="form-control" id="permanent_address"  name="permanent_address" placeholder="Enter parmanent address"></textarea>
-					    <span class="help-block"></span>
-					 </div>	
-				</div>
-				<div class="col-md-4">
-					<div class="form-group">
-						<label for="status">Active Status</label>
-						<select class="form-control form-control" id="status" name="status">
-							<option value="" disabled selected>Select</option>
-							<option value="1">Active</option>
-							<option value="0">Inactive</option>
+						<label for="status">File Type</label>
+						<select class="form-control form-control" id="file_type" name="file_type">
+							<option value="" disabled selected>Select type</option>
+							<option value="1">Renter Image</option>
+							<option value="2">National Id Card</option>
+							<option value="3">Aggrement Paper</option>
+							<option value="4">Other paper</option>
 						</select>
 						<span class="help-block"></span>
 					</div>
 				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<label for="name">File Name</label>
+						<input type="name" class="form-control" id="file_name" name="file_name" placeholder="Enter file name">
+						<span class="help-block"></span>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<label for="photo" id="label">Upload File</label>
+						<input type="file" class="form-control-file" id="added_file" name="file" required>
+						<span class="help-block"></span>
+					</div>
+				</div>
 			</div>
-		<div style="text-align: right;">
-			<button type="button"  id="renter_info_add_btn" class="btn btn-outline-success btn-outline-successs btn-round">Save Renter Info.</button>
-		</div>	
-		</form>
+			<div class="row" style="text-align: right;">
+				<div class="col-md-12">
+					<button type="button" id="file_add_btn" class="btn btn-info btn-round btn-sm"><i class="fas fa-plus text-white"></i> Add File</button>
+				</div>
+			</div>
+			<div class="container p-3 my-3 border">
+				<h5 style="text-align: center;"><b>List of Uploaded Files</b></h5>
+				<div class="table table-bordered table-responsive">
+					<table class="table" style="width: 100%;">
+					  <thead>
+					    <tr>
+					      <th scope="col" style="width: 10%;">SL</th>
+					      <th scope="col" style="width: 25%;">File Type</th>
+					      <th scope="col" style="width: 25%;">File Name</th>
+					      <th scope="col" style="width: 25%;">File</th>
+					      <th scope="col" style="width: 15%;">Action</th>
+					    </tr>
+					  </thead>
+					  <tbody id="file_table_body">
+					    
+					  </tbody>
+					</table>
+				</div>
+			</div>
+		</form>	
 	</div>
 </div>
 @push('javascript')

@@ -5,9 +5,9 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\Complex;
-use App\Http\Requests\ApartmentRequest;
+use App\Http\Requests\ComplexRequest;
 
-class ApartmentController extends Controller
+class ComplexController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -70,15 +70,12 @@ class ApartmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ApartmentRequest $request)
+    public function store(ComplexRequest $request)
     {
-      // dd($request->all());
-       $apartment = new Apartment();
-       $apartment->apartment_no = $request->apartment_no;
-       $apartment->name         = ucwords($request->name);
-       $apartment->rent_amount  = $request->rent_amount;
-       $apartment->description  = $request->description;
-       $apartment->save();
+       $complex = new Complex();
+       $complex->complex_no = $request->complex_no;
+       $complex->name       = ucwords($request->name);
+       $complex->save();
     }
 
     /**
@@ -100,7 +97,7 @@ class ApartmentController extends Controller
      */
     public function edit($id)
     {
-        return Apartment::findOrFail($id);
+        return Complex::findOrFail($id);
     }
 
     /**
@@ -110,13 +107,12 @@ class ApartmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ApartmentRequest $request, Apartment $apartment)
+    public function update(ComplexRequest $request, Complex $complex)
     {
-       $apartment->apartment_no = $request->apartment_no;
-       $apartment->name         = ucwords($request->name);
-       $apartment->rent_amount  = $request->rent_amount;
-       $apartment->description  = $request->description;
-       $apartment->update();
+        //dd($complex);
+       $complex->complex_no = $request->complex_no;
+       $complex->name         = ucwords($request->name);
+       $complex->update();
     }
 
     /**
@@ -127,7 +123,7 @@ class ApartmentController extends Controller
      */
     public function destroy($id)
     {
-        $apartment = Apartment::findOrFail($id);
-        $apartment->delete();
+        $complex = Complex::findOrFail($id);
+        $complex->delete();
     }
 }

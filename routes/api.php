@@ -34,7 +34,7 @@ Route::get('get_renter_informaiton_id', 'API\RenterController@getRenterInformati
 
 Route::resource('thanas', 'API\ThanaController');
 Route::resource('houses', 'API\HouseController');
-Route::resource('apartments', 'API\ApartmentController');
+Route::resource('complexes', 'API\ComplexController');
 Route::resource('shops', 'API\ShopController');
 Route::resource('advance_payments', 'API\AdvancePaymentController');
 Route::resource('electric_bills', 'API\ElectricityBillController');
@@ -57,5 +57,6 @@ Route::post('update_electric_bills/{id}', 'API\BillCalculationController@updateE
 Route::post('update_other_bill_details/{id}', 'API\BillCalculationController@updateOtherBills')->name('update_other_bills');
 Route::resource('create_bills', 'API\CreateBillController');
 Route::resource('reports', 'API\ReportController');
+Route::get('get_added_renter_info/{id}', 'API\RenterController@edit')->name('renter.getinfo');
 
 

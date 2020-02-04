@@ -24,8 +24,8 @@
 			</div>
 		</div>
 		<div class="modal-footer no-bd">
-			<button type="button" id="addRenterTypeBtn" class="btn btn-primary">Add</button>
-			<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			<button type="button" id="addRenterTypeBtn" class="btn btn-primary btn-round">Add</button>
+			<button type="button" class="btn btn-danger btn-round" data-dismiss="modal">Close</button>
 		</div>
 		</form>
 	</div>

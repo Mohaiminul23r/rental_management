@@ -1,47 +1,26 @@
-@extends('layouts.master')
+@extends('layouts.master2')
 @section('pagetitle')
-	Bill Type
+    <a type="button" href="{{ url('/home')}}" class="btn btn-outline-info btn-round btn-outline-light"><i class="fas fa-home text-success"></i><strong> Home</strong></a>
 @endsection
-@section('breadcrumbs')
-    <li class="nav-home">
-        <a href="{{url('/home')}}">
-            <i class="flaticon-home"></i>
-        </a>
-    </li>
-	<li class="separator">
-		<i class="flaticon-right-arrow"></i>
-	</li>
-	<li class="nav-item">
-		<a href="#">Bill Type</a>
-	</li>
+@section('button')
+<button class="btn btn-white btn-border btn-round mr-2" data-toggle="modal" data-target="#addBilltypeModal" id="bill_add_btn"><i class="fas fa-plus text-success"></i><strong> Add Bill Type</strong></button>
 @endsection
-
+@section('card-title')
+<b>Bill Type List</b>
+@endsection
 @section('body')
-<div class="row">
-<div class="col-md-12">
-<div class="card">
-	<div class="card-header">
-		<div class="d-flex align-items-center">
-			<h4 class="card-title">Bill Type List</h4>
-		</div>
-	</div>
-	@include('admin.billtype.add')
-	@include('admin.billtype.edit')
-	@include('admin.billtype.delete')
-	<div class="card-body">
-		<div class="table-responsive">
-			<table id="billtypeDataTable" class="display table table-striped table-hover">
-			</table>
-		</div>
-	</div>
-</div>
-</div>
-</div>
+    {{-- start modals --}}
+    @include('settings.billtype.add')
+    @include('settings.billtype.edit')
+    @include('settings.billtype.delete')
+    {{-- end modals --}}
+    <div class="table-responsive">
+        <table id="billtypeDataTable" class="display table table-striped table-hover">
+        </table>
+    </div>
 <script type="text/javascript">
 window.addEventListener("load", function(){
-
 	$.fn.dataTable.ext.errMode = 'none';
-
 	$("#addBilltypeModal").on("hidden.bs.modal", function() {
         document.getElementById("add_billtype_form").reset();
         $('#add_billtype_form .has-error').removeClass('has-error');
@@ -76,6 +55,7 @@ window.addEventListener("load", function(){
                         $("#add_billtype_form [name="+inputName+"]").parent().find('.help-block').empty();
                         $.each(errors, function(indE, valE){
                             $("#add_billtype_form [name="+inputName+"]").parent().find('.help-block').append(valE+"<br>");
+                            $('.help-block').css("color", "red");
                         });
                     }else{
                         $("#add_billtype_form [name="+inputName+"]").parent().find('.help-block').html(valE);
@@ -110,6 +90,7 @@ window.addEventListener("load", function(){
                     $("#edit_billtype_form [name="+inputName+"]").parent().find('.help-block').empty();
                     $.each(errors, function(indE, valE){
                         $("#edit_billtype_form [name="+inputName+"]").parent().find('.help-block').append(valE+"<br>");
+                        $('.help-block').css("color", "red");
                     });
                 }else{
                     $("#edit_billtype_form [name="+inputName+"]").parent().find('.help-block').html(valE);
@@ -140,22 +121,11 @@ window.addEventListener("load", function(){
 
     //start datatable
 	var billtypeDatatable = $('#billtypeDataTable').DataTable({
-		dom : '<"row"<"col-md-3"B><"col-md-3"l><"col-md-6"f>>rtip',
+		dom : '<"row"<"col-md-6"l><"col-md-6"f>>rtip',
 		initComplete : function(){
 
 		},
 		lengthMenu : [[5, 10, 20, -1], [5, 10, 20, 'All']],
-		buttons : [
-		{
-			text : 'Add+',
-			attr : {
-				'id' : "addBilltypeModal",
-				'class' : "btn btn-info btn-sm",
-				'data-toggle' : "modal",
-				'data-target' : "#addBilltypeModal"
-			}
-		}
-		],
 		columns : [
 		{
 			'title' : '#SL',
@@ -189,7 +159,6 @@ window.addEventListener("load", function(){
 			url: utlt.siteUrl('api/billtypes'),
 			dataSrc: 'data'
 		},
-
 	});
 });	
 </script>

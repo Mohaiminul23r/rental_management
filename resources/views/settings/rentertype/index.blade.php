@@ -1,44 +1,23 @@
-@extends('layouts.master')
+@extends('layouts.master2')
 @section('pagetitle')
-	Renter Type
+    <a type="button" href="{{ url('/home')}}" class="btn btn-outline-info btn-round btn-outline-light"><i class="fas fa-home text-success"></i><strong> Home</strong></a>
 @endsection
-
-@section('breadcrumbs')
-	<li class="nav-home">
-        <a href="{{url('/home')}}">
-            <i class="flaticon-home"></i>
-        </a>
-    </li>
-	<li class="separator">
-		<i class="flaticon-right-arrow"></i>
-	</li>
-	<li class="nav-item">
-		<a href="#">Renter Type</a>
-	</li>
+@section('button')
+<button class="btn btn-white btn-border btn-round mr-2" data-toggle="modal" data-target="#addRenterTypeModal" id="addButton"><i class="fas fa-plus text-success"></i><strong> Add Renter Type</strong></button>
 @endsection
-
+@section('card-title')
+<b>Renter Type List</b>
+@endsection
 @section('body')
-<div class="row">
-<div class="col-md-12">
-<div class="card">
-	<div class="card-header">
-		<div class="d-flex align-items-center">
-			<h4 class="card-title">Renter Type List</h4>
-		</div>
-	{{-- start of modals --}}
-	@include('admin.rentertype.add')
-	@include('admin.rentertype.edit')
-	@include('admin.rentertype.delete')
-	{{-- end of modals --}}
-	<div class="card-body">
-		<div class="table-responsive">
-			<table id="rentertypeDatatable" class="display table table-striped table-hover">
-			</table>
-		</div>
-	</div>
-</div>
-</div>
-</div>
+    {{-- start modals --}}
+    @include('settings.rentertype.add')
+    @include('settings.rentertype.edit')
+    @include('settings.rentertype.delete')
+    {{-- end modals --}}
+    <div class="table-responsive">
+        <table id="rentertypeDatatable" class="display table table-striped table-hover">
+        </table>
+    </div>
 <script type="text/javascript">
 window.addEventListener("load", function(){
 
@@ -127,22 +106,11 @@ window.addEventListener("load", function(){
     //end of delete renter type
 
 	var rentertypeDatatable = $('#rentertypeDatatable').DataTable({
-		dom : '<"row"<"col-md-3"B><"col-md-3"l><"col-md-6"f>>rtip',
+		dom : '<"row"<"col-md-6"l><"col-md-6"f>>rtip',
 		initComplete : function(){
 
 		},
 		lengthMenu : [[5, 10, 20, -1], [5, 10, 20, 'All']],
-		buttons : [
-		{
-			text : 'Add+',
-			attr : {
-				'id' : "addButton",
-				'class' : "btn btn-info btn-sm",
-				'data-toggle' : "modal",
-				'data-target' : "#addRenterTypeModal"
-			}
-		}
-		],
 		columns : [
 		{
 			'title' : '#SL',

@@ -6,15 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Complex extends Model
 {
-   use CommonTrait;
+    use CommonTrait;
 
     protected $fillable = [
     	'name',
-    	'apartment_no',
-    	'description',
-    	'mother_name',
-    	'house_id',
-    	'rent_amount',
+    	'complex_no',
     	'status'
     ];
 

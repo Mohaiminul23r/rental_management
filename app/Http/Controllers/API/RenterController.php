@@ -103,7 +103,7 @@ class RenterController extends Controller
 
     public function store(RenterInformationRequest $request)
     {
-         //dd($request->all());
+       // dd($request->all());
         $renter_information = new RenterInformation();
         $renter_information->renter_name    = $request->input('renter_name');
         $renter_information->father_name    = $request->input('father_name');
@@ -121,6 +121,10 @@ class RenterController extends Controller
         $renter_information->permanent_address    = $request->input('permanent_address');
         $renter_information->status               = $request->input('status');
         $renter_information->save();
+        $id = $renter_information->id;
+        $renter_information->renterID = "R-0000".$id;
+        $renter_information->save();
+        //dd($renter_information);
     }
 
     /**
@@ -142,7 +146,7 @@ class RenterController extends Controller
      */
     public function edit($id)
     {
-        return RenterInformation::with('address')->find($id);
+        return RenterInformation::with('rentertype')->whereId($id)->first();
     }
 
     /**
@@ -258,17 +262,7 @@ class RenterController extends Controller
     public function destroy($id)
     {
         $renter = RenterInformation::findOrFail($id);
-        $renter_photo_path = app_path("public/{$renter->photo}");
-        $nid_photo_path = app_path("public/{$renter->nid_photo}");
-        if(File::exists($renter_photo_path)){
-            File::delete($renter_photo_path);
-        }
-        if(File::exists($nid_photo_path)){
-            File::delete($nid_photo_path);
-        }
         $renter->delete();
-        $address = Address::findOrFail($renter->address_id);
-        $address->delete();
     }
 
     public function getRenterInformation($id){

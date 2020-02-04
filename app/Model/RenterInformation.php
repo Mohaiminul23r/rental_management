@@ -9,7 +9,8 @@ class RenterInformation extends Model
     use CommonTrait;
 
     protected $fillable = [
-    	'renter_name',
+    	'renterID',
+        'renter_name',
     	'father_name',
     	'mother_name',
         'email',
