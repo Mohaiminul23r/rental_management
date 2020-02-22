@@ -160,7 +160,7 @@
 					<select class="form-control form-control" id="status" name="status">
 						<option value="" disabled selected>Select</option>
 						<option value="1">Active</option>
-						<option value="2">Inactive</option>
+						<option value="0">Inactive</option>
 					</select>
 						<span class="help-block"></span>
 				</div>

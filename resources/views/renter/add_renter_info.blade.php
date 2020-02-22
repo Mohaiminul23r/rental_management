@@ -167,20 +167,22 @@ window.addEventListener("load",function(){
 		$('#add_form .has-error').removeClass('has-error');
         $('#add_form').find('.help-block').empty();
 		axios.post('api/renters', $('#add_form').serialize()).then(function(response){
+    		window.location.href = utlt.siteUrl('renters');
     		toastr.success("Information Saved Successfully..");
-    		axios.get('api/get_renter_informaiton_id').then(function(response){
-    			var last_data = response.data.length-1;
-    			$.each(response.data, function(index, value){
-    				for(var i=0; i<response.data.length; i++){
-    					if(index == last_data){
-    						$('#renter_information_id').val(value.id);
-    						break;
-    					}
-    				}
-    			});
-    		}).catch(function(failData){
-    			alert("Failed to get renter informaiton id !!");
-    		});
+    		// axios.get('api/get_renter_informaiton_id').then(function(response){
+    		// 	var last_data = response.data.length-1;
+    		// 	$.each(response.data, function(index, value){
+    		// 		for(var i=0; i<response.data.length; i++){
+    		// 			if(index == last_data){
+    		// 				$('#renter_information_id').val(value.id);
+    		// 				break;
+    		// 			}
+    		// 		}
+    		// 	});
+    		// }).catch(function(failData){
+    		// 	alert("Failed to get renter informaiton id !!");
+    		// });
+
     	}).catch(function(failData){
 	    		$.each(failData.response.data.errors, function(inputName, errors){
                 $("#add_form [name="+inputName+"]").parent().removeClass('has-error').addClass('has-error');

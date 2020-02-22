@@ -17,28 +17,28 @@
 				<div class="col-md-3">
 					<div class="form-group">
 						<label for="name">Renter Name<span style="color: red;"> *</span></label>
-						<input type="name" name="renter_name" class="form-control" id="renter_name" placeholder="Enter First Name (*)" required>
+						<input type="name" name="renter_name" class="form-control" id="edit_renter_name" placeholder="Enter First Name (*)" required>
 						<span class="help-block"></span>
 					</div>
 				</div>
 				<div class="col-md-3">
 					<div class="form-group">
 						<label for="name">Father's Name<span style="color: red;"> *</span></label>
-						<input type="name" name="father_name" class="form-control" id="father_name" placeholder="Enter Father's Name (*)" required>
+						<input type="name" name="father_name" class="form-control" id="edit_father_name" placeholder="Enter Father's Name (*)" required>
 						<span class="help-block"></span>
 					</div>	
 				</div>
 				<div class="col-md-3">
 					<div class="form-group">
 						<label for="name">Mother's Name</label>
-						<input type="name" name="mother_name" class="form-control" id="mother_name" placeholder="Enter Mother's Name">
+						<input type="name" name="mother_name" class="form-control" id="edit_mother_name" placeholder="Enter Mother's Name">
 						<span class="help-block"></span>
 					</div>	
 				</div>
 				<div class="col-md-3">
 					<div class="form-group">
 						<label for="name">Email Address</label>
-						<input type="name" name="email" class="form-control" id="email" placeholder="example@gmail.com">
+						<input type="name" name="email" class="form-control" id="edit_email" placeholder="example@gmail.com">
 						<span class="help-block"></span>
 					</div>	
 				</div>
@@ -47,21 +47,21 @@
 				<div class="col-md-3">
 					<div class="form-group">
 						<label for="name">Phone No.</label>
-						<input type="name" name="phone_no" class="form-control" id="phone" placeholder="Enter Phone Number">
+						<input type="name" name="phone_no" class="form-control" id="edit_phone" placeholder="Enter Phone Number">
 						<span class="help-block"></span>
 					</div>	
 				</div>
 				<div class="col-md-3">
 					<div class="form-group">
 						<label for="name">Mobile No.<span style="color: red;"> *</span></label>
-						<input type="name" name="mobile_no" class="form-control" id="mobile" placeholder="Enter Mobile Nmber (*)" required>
+						<input type="name" name="mobile_no" class="form-control" id="edit_mobile" placeholder="Enter Mobile Nmber (*)" required>
 						<span class="help-block"></span>
 					</div>	
 				</div>
 				<div class="col-md-3">
 					<div class="form-group">
 						<label for="name">Occupation</label>
-						<input type="name" name="occupation" class="form-control" id="occupation" placeholder="Enter Profession">
+						<input type="name" name="occupation" class="form-control" id="edit_occupation" placeholder="Enter Profession">
 						<span class="help-block"></span>
 					</div>
 				</div>
@@ -69,11 +69,11 @@
 					<div class="form-group">
 						<label>Gender</label><br/>
 						<label class="form-radio-label">
-							<input class="form-radio-input" type="radio" name="gender" value="Male" checked>
+							<input class="form-radio-input" type="radio" name="gender" id="gender_male" value="Male" checked>
 							<span class="form-radio-sign">Male</span>
 						</label>
 						<label class="form-radio-label ml-3">
-							<input class="form-radio-input" type="radio" name="gender" value="Female">
+							<input class="form-radio-input" type="radio" id="gender_female" name="gender" value="Female">
 							<span class="form-radio-sign">Female</span>
 						</label>
 						<span class="help-block"></span>
@@ -84,28 +84,28 @@
 				<div class="col-md-3">
 					<div class="form-group">
 						<label for="name">NID No.</label>
-						<input type="name" name="nid_no" class="form-control" id="nid_no" placeholder="Enter NID no.">
+						<input type="name" name="nid_no" class="form-control" id="edit_nid_no" placeholder="Enter NID no.">
 						<span class="help-block"></span>
 					</div>	
 				</div>
 				<div class="col-md-3">
 					<div class="form-group">
 						<label for="name">Nationality</label>
-						<input type="name" class="form-control" id="nationality" name="nationality" placeholder="Enter Nationality" value="Bangladeshi">
+						<input type="name" class="form-control" id="edit_nationality" name="nationality" placeholder="Enter Nationality" value="Bangladeshi">
 						<span class="help-block"></span>
 					</div>
 				</div>
 				<div class="col-md-3">
 					<div class="form-group">
 						<label for="name">Date of Birth</label>
-						<input type="text" class="form-control" data-toggle="datepicker" name="date_of_birth" placeholder="yyyy-mm-dd">
+						<input type="text" class="form-control" id="edit_dob" data-toggle="datepicker" name="date_of_birth" placeholder="yyyy-mm-dd">
 						<span class="help-block"></span>
 					</div>	
 				</div>
 				<div class="col-md-3">
 					<div class="form-group">
 						<label for="rentertype">Renter Type</label>
-						<select class="form-control form-control" id="renter_type_2" name="renter_type_id">
+						<select class="form-control form-control" id="edit_renter_type_2" name="renter_type_id">
 						</select>
 						<span class="help-block"></span>
 					</div>	
@@ -115,24 +115,24 @@
 				<div class="col-md-4">
 					<div class="form-group">
 					    <label for="present_address">Present Address</label>
-					    <textarea class="form-control" id="present_address" name="present_address" placeholder="Enter present address"></textarea>
+					    <textarea class="form-control" id="edit_present_address" name="present_address" placeholder="Enter present address"></textarea>
 					    <span class="help-block"></span>
 					 </div>	
 				</div>
 				<div class="col-md-4">
 					<div class="form-group">
 					    <label for="permanent_address">Permanent Address</label>
-					    <textarea class="form-control" id="permanent_address"  name="permanent_address" placeholder="Enter parmanent address"></textarea>
+					    <textarea class="form-control" id="edit_permanent_address"  name="permanent_address" placeholder="Enter parmanent address"></textarea>
 					    <span class="help-block"></span>
 					 </div>	
 				</div>
 				<div class="col-md-4">
 					<div class="form-group">
 						<label for="status">Active Status</label>
-						<select class="form-control form-control" id="status" name="status">
+						<select class="form-control form-control" id="edit_status" name="status">
 							<option value="" disabled selected>Select</option>
-							<option value="1">Active</option>
-							<option value="0">Inactive</option>
+							<option id="active" value="1">Active</option>
+							<option id="inactive" value="0">Inactive</option>
 						</select>
 						<span class="help-block"></span>
 					</div>
@@ -154,7 +154,7 @@ window.addEventListener("load",function(){
 	$.each(renterType, function(ind,val){
 		html_renter_type += '<option value="'+val.id+'">'+val.name+'</option>';
 	});
-	$('#renter_type_2').html(html_renter_type);
+	$('#edit_renter_type_2').html(html_renter_type);
 
 	//datepicker details
 	$(function(){
@@ -167,52 +167,54 @@ window.addEventListener("load",function(){
 
 	//edit renter details
 		axios.get(''+utlt.siteUrl("api/get_added_renter_info/"+renter_id)+'').then(function(response){
-		console.log(response);
-		$.each(renterType, function(ind,val){
-			if(val.id == response.data.renter_type_id){
-				html_renter_types += '<option value="'+val.id+'" selected>'+val.name+'</option>';
-			}else{
-				html_renter_types += '<option value="'+val.id+'">'+val.name+'</option>';
-			}
-		});
-			// $('#type_name').html(html_renter_types);
-			// $('#add_first_name').val(response.data.first_name);
-			// $('#add_email').val(response.data.email);
-			// $('#add_father_name').val(response.data.father_name);
-			// $('#add_mother_name').val(response.data.mother_name);
-			// $('#add_phone').val(response.data.phone);
-			// $('#add_mobile').val(response.data.mobile);
-			// $('#add_nid_no').val(response.data.nid_no);
-			// $('#address_line').val(response.data.address.address_line1);
-			// // $('#edit_nid_photo').attr("src", response.data.photo);
-			// // $('#edit_renter_photo').attr("src", response.data.nid_photo);
-			//  $('#add_date_of_birth').val(response.data.date_of_birth);
-			//  if(response.data.status == 1){
-			//  	$('#active').attr("selected","selected");
-			//  }
-			//  if(response.data.status == 2){
-			//  	$('#inactive').attr("selected","selected");
-			//  }
-			//  if(response.data.gender == "Female"){
-			//  	$('#gender_female').attr("checked","checked");
-			//  }
-			//  if(response.data.gender == "Male"){
-			//  	$('#gender_male').attr("checked","checked");
-			//  }
+			 $('#r_id').val(response.data.id);
+			 $('#edit_renter_name').val(response.data.renter_name);
+			 $('#edit_father_name').val(response.data.father_name);
+			 $('#edit_mother_name').val(response.data.mother_name);
+			 $('#edit_email').val(response.data.email);
+			 $('#edit_phone').val(response.data.phone_no);
+			 $('#edit_mobile').val(response.data.mobile_no);
+			 $('#edit_nid_no').val(response.data.nid_no);
+			 $('#edit_nationality').val(response.data.nationality);
+			 $('#edit_dob').val(response.data.date_of_birth);
+			 $('#edit_occupation').val(response.data.occupation);
+			 $('#edit_present_address').val(response.data.present_address);
+			 $('#edit_permanent_address').val(response.data.permanent_address);
+			 if(response.data.status == 1){
+			 	$('#active').attr("selected","selected");
+			 }
+			 if(response.data.status == 0){
+			 	$('#inactive').attr("selected","selected");
+			 }
+			 if(response.data.gender == "Female"){
+			 	$('#gender_female').attr("checked","checked");
+			 }
+			 if(response.data.gender == "Male"){
+			 	$('#gender_male').attr("checked","checked");
+			 }
+			$.each(renterType, function(ind,val){
+				console.log(val);
+				if(val.id == response.data.renter_type_id){
+					html_renter_type += '<option value="'+val.id+'" selected>'+val.name+'</option>';
+				}else{
+					html_renter_type += '<option value="'+val.id+'">'+val.name+'</option>';
+				}
+			});
+			$('#edit_renter_type_2').html(html_renter_type);
+			
 		}).catch(function(failData){
 			alert("Something wrong.");
 		});
 
-		//edit renter details when button is clicked
+	//edit renter details when button is clicked
 	$('#renter_info_edit_btn').click(function(){
-		var renter_id = $(document).find('#renter_edit_form input[name="r_id"]').val();
+		var renter_id = $(document).find('#edit_form input[name="r_id"]').val();
 		var id = renter_id;
-		var renter_edit_form = document.getElementById('renter_edit_form');
+		//var renter_edit_form = document.getElementById('renter_edit_form');
 	    //var formData = new FormData(renter_edit_form);
    	    // formData.append('add_photo', document.getElementById('add_photo').files[0]);
    	    // formData.append('add_nid_photo', document.getElementById('add_nid_photo').files[0]);
-   	    //console.log(formData);
-		axios.put('api/renters/'+id, $('#edit_form').serialize())
+		axios.put(''+utlt.siteUrl("api/renters/"+id)+'', $('#edit_form').serialize())
 		.then(function(response){
 			$('#renterDataTable').DataTable().ajax.reload();
             toastr.success('Edited Successfully.'); 

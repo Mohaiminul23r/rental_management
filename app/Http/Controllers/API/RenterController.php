@@ -13,6 +13,7 @@ use App\Model\File;
 use App\Model\Country;
 use App\Model\Thana;
 use App\Http\Requests\RenterInformationRequest;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class RenterController extends Controller
 {
@@ -122,9 +123,10 @@ class RenterController extends Controller
         $renter_information->status               = $request->input('status');
         $renter_information->save();
         $id = $renter_information->id;
-        $renter_information->renterID = "R-0000".$id;
+        $unique_id = IdGenerator::generate(['table' => 'renter_information', 'length' => 8, 'prefix' => date('ym')]);
+       // dd($unique_id);
+        $renter_information->renterID = $unique_id;
         $renter_information->save();
-        //dd($renter_information);
     }
 
     /**
@@ -156,9 +158,9 @@ class RenterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(RenterRequest $request, RenterInformation $renter)
+    public function update(RenterInformationRequest $request, RenterInformation $renter)
     {
-        // dd($request->all());
+        dd($request->all());
         $first_name     = $request->input('first_name');
         $email          = $request->input('email');
        // $last_name      = $request->input('last_name');
