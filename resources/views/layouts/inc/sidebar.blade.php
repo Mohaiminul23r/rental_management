@@ -138,7 +138,7 @@
 								</a>
 							</li>
 							<li>
-								<a href="{{url('/renters')}}">
+								<a href="{{url('/upload_documents')}}">
 									<span class="sub-item">Upload Documents</span>
 								</a>
 							</li>

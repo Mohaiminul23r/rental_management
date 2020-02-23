@@ -9,7 +9,7 @@
 <b>Update Renter Information</b>
 @endsection
 @section('body')
-<div class="container p-3 border">
+<div class="container p-3 border" style="background: lavender;">
 	<div class="row">
 		<form id="edit_form" class="form-horizontal" role="form">
 			<div class="row">
@@ -139,7 +139,7 @@
 				</div>
 			</div>
 		<div style="text-align: right;">
-			<button type="button"  id="renter_info_edit_btn" class="btn btn-outline-warning btn-outline-successs btn-round">Update Renter Info.</button>
+			<button type="button"  id="renter_info_edit_btn" class="btn btn-outline-success btn-outline-successs btn-round">Update Renter Info.</button>
 		</div>	
 		</form>
 	</div>
@@ -166,58 +166,53 @@ window.addEventListener("load",function(){
 	});
 
 	//edit renter details
-		axios.get(''+utlt.siteUrl("api/get_added_renter_info/"+renter_id)+'').then(function(response){
-			 $('#r_id').val(response.data.id);
-			 $('#edit_renter_name').val(response.data.renter_name);
-			 $('#edit_father_name').val(response.data.father_name);
-			 $('#edit_mother_name').val(response.data.mother_name);
-			 $('#edit_email').val(response.data.email);
-			 $('#edit_phone').val(response.data.phone_no);
-			 $('#edit_mobile').val(response.data.mobile_no);
-			 $('#edit_nid_no').val(response.data.nid_no);
-			 $('#edit_nationality').val(response.data.nationality);
-			 $('#edit_dob').val(response.data.date_of_birth);
-			 $('#edit_occupation').val(response.data.occupation);
-			 $('#edit_present_address').val(response.data.present_address);
-			 $('#edit_permanent_address').val(response.data.permanent_address);
-			 if(response.data.status == 1){
-			 	$('#active').attr("selected","selected");
-			 }
-			 if(response.data.status == 0){
-			 	$('#inactive').attr("selected","selected");
-			 }
-			 if(response.data.gender == "Female"){
-			 	$('#gender_female').attr("checked","checked");
-			 }
-			 if(response.data.gender == "Male"){
-			 	$('#gender_male').attr("checked","checked");
-			 }
-			$.each(renterType, function(ind,val){
-				console.log(val);
-				if(val.id == response.data.renter_type_id){
-					html_renter_type += '<option value="'+val.id+'" selected>'+val.name+'</option>';
-				}else{
-					html_renter_type += '<option value="'+val.id+'">'+val.name+'</option>';
-				}
-			});
-			$('#edit_renter_type_2').html(html_renter_type);
-			
-		}).catch(function(failData){
-			alert("Something wrong.");
+	axios.get(''+utlt.siteUrl("api/get_added_renter_info/"+renter_id)+'').then(function(response){
+		 $('#r_id').val(response.data.id);
+		 $('#edit_renter_name').val(response.data.renter_name);
+		 $('#edit_father_name').val(response.data.father_name);
+		 $('#edit_mother_name').val(response.data.mother_name);
+		 $('#edit_email').val(response.data.email);
+		 $('#edit_phone').val(response.data.phone_no);
+		 $('#edit_mobile').val(response.data.mobile_no);
+		 $('#edit_nid_no').val(response.data.nid_no);
+		 $('#edit_nationality').val(response.data.nationality);
+		 $('#edit_dob').val(response.data.date_of_birth);
+		 $('#edit_occupation').val(response.data.occupation);
+		 $('#edit_present_address').val(response.data.present_address);
+		 $('#edit_permanent_address').val(response.data.permanent_address);
+		 if(response.data.status == 1){
+		 	$('#active').attr("selected","selected");
+		 }
+		 if(response.data.status == 0){
+		 	$('#inactive').attr("selected","selected");
+		 }
+		 if(response.data.gender == "Female"){
+		 	$('#gender_female').attr("checked","checked");
+		 }
+		 if(response.data.gender == "Male"){
+		 	$('#gender_male').attr("checked","checked");
+		 }
+		$.each(renterType, function(ind,val){
+			if(val.id == response.data.renter_type_id){
+				html_renter_type += '<option value="'+val.id+'" selected>'+val.name+'</option>';
+			}else{
+				html_renter_type += '<option value="'+val.id+'">'+val.name+'</option>';
+			}
 		});
+		$('#edit_renter_type_2').html(html_renter_type);
+	}).catch(function(failData){
+		alert("Can not get submitted data !!");
+	});
 
 	//edit renter details when button is clicked
 	$('#renter_info_edit_btn').click(function(){
 		var renter_id = $(document).find('#edit_form input[name="r_id"]').val();
 		var id = renter_id;
-		//var renter_edit_form = document.getElementById('renter_edit_form');
-	    //var formData = new FormData(renter_edit_form);
-   	    // formData.append('add_photo', document.getElementById('add_photo').files[0]);
-   	    // formData.append('add_nid_photo', document.getElementById('add_nid_photo').files[0]);
 		axios.put(''+utlt.siteUrl("api/renters/"+id)+'', $('#edit_form').serialize())
 		.then(function(response){
 			$('#renterDataTable').DataTable().ajax.reload();
-            toastr.success('Edited Successfully.'); 
+			window.location.href = utlt.siteUrl('renters');
+            toastr.success('Renter Info. Updated Successfully'); 
 		}).catch(function(failData){
 				$.each(failData.response.data.errors, function(inputName, errors){
 	            $("#edit_form [name="+inputName+"]").parent().removeClass('has-error').addClass('has-error');
@@ -233,7 +228,6 @@ window.addEventListener("load",function(){
 	        });
 		});
 	});
-
 });
 </script>
 @endpush

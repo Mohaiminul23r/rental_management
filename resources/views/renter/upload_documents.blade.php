@@ -125,28 +125,6 @@ window.addEventListener("load",function(){
     	});
 	});
 
-	$(document).on('click', '#file_add_btn', function(){
-		var file_add_form = document.getElementById('add_form');
-	    var formData = new FormData(file_add_form);
-   	    formData.append('added_file', document.getElementById('added_file').files[0]);
-		axios.post('api/renters/add_file', formData).then(function(response){
-			toastr.success("File added Successfully");
-			get_files();
-		}).catch(function(failData){
-			alert("Failed to add file.");
-		});
-	});
-
-	var table_row = '<tr>'+
-				      '<th scope="row" id="sl_no"></th>'+
-				      '<td><p id="file_type_row"></p></td>'+
-				      '<td><p id="file_name_row"></p></td>'+
-				      '<td><p id="file_row"></p></td>'+
-				      '<td style="text-align: center;">'+
-				      	'<a type="button" id="file_remove_btn" class="btn btn-warning btn-xs"><i class="fas fa-trash-alt text-white"></i></a>'+
-				      '</td>'+
-				    '</tr>';
-
 	function get_files(){
 		var id = $('#file_div').find("input#renter_information_id").val();
 		axios.get('api/renters/added_files/'+id).then(function(response){
@@ -161,68 +139,6 @@ window.addEventListener("load",function(){
 			alert("Failed go get files.");
 		});
 	}
-	
-	// //datatable value
-	// var filesDataTable = $('#filesDataTable').DataTable({
-	// 	dom : '<"row"<"col-md-6"l><"col-md-6"f>>rtip',
-	// 	initComplete : function(){
-
-	// 	},
-	// 	lengthMenu : [[5, 10, 20, -1], [5, 10, 20, 'All']],
-	// 	columns : [
-	// 	{
-	// 		'title' : '#SL',
-	// 		'name' : 'SL',
-	// 		'data' : 'id',
-	// 		'width' : '40px',
-	// 		'align' : 'center',
-	// 		'render' : function(data, type, row, ind){
-	// 			var pageInfo = filesDataTable.page.info();
-	// 			return (ind.row + 1) + pageInfo.start;
-	// 		}
-	// 	},
-	// 	{
-	// 		'title' : 'File Type',
-	// 		'name' : 'file_type',
-	// 		'data' : 'file_type'
-	// 	},
-	// 	{
-	// 		'title' : 'File Name',
-	// 		'name' : 'file_name',
-	// 		'data' : 'file_name'
-	// 	},
-	// 	{
-	// 		'title' : 'File',
-	// 		'name' : 'uploaded_file',
-	// 		'data' : 'uploaded_file'
-	// 	},
-	// 	{
-	// 		'title' : 'OPT',
-	// 		'name' : 'opt',
-	// 		'data' : 'id',
-	// 		'width' : '25px',
-	// 		'render' : function(data, type, row, ind){
-	// 			$action_dropdown =	
-	// 				'<div class="dropdown show">'+
-	// 				  '<a class="btn btn-outline-info btn-sm btn-round dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">action</a>'+
-	// 				  '<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">'+
-	// 				    // '<a class="dropdown-item view_data" data-id = '+ data +'><i class="fa fa-eye"></i> View Details</a>'+
-	// 				    // '<a class="dropdown-item print_data" data-id = '+ data +'><i class="fa fa-print text-info"></i> Print/Download</a>'+
-	//                     '<a class="dropdown-item delete-modal" data-id = '+ data +'><i class="fa fa-trash text-danger" ></i> Delete</a>'+
-	// 				  '</div>'+
-	// 				'</div>';
-	// 			return $action_dropdown;
-	// 		}
-	// 	}
-	// 	],
-	// 	serverSide : true,
-	// 	processing : true,
-	// 	ajax: {
-	// 		url: utlt.siteUrl('api/uploaded_files'),
-	// 		dataSrc: 'data'
-	// 	},
-	// });
-	// // end datatable
 });
 </script>
 @endpush

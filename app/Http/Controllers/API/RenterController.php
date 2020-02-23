@@ -82,20 +82,6 @@ class RenterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store_files(RenterInformationRequest $request){
-        $id = $request->renter_information_id;
-        $renter_information = RenterInformation::find($id);
-        $fileName = time().'.'.$request->file->getClientOriginalName();
-        $destinationPath = 'uploads/';
-        $request->file->move(public_path('uploads'), $fileName);
-        $filePath = $destinationPath.$fileName;
-        $renter_information->files()->create([
-            'fileable_id'           => $renter_information->id,
-            'file_type'             => $request->file_type,
-            'file_name'             => $request->file_name,     
-            'file_path'             => $filePath    
-        ]);
-    }
 
     public function getAddedFiles($id){
         $renter_files = RenterInformation::whereId($id)->with('files')->first();
@@ -160,98 +146,22 @@ class RenterController extends Controller
      */
     public function update(RenterInformationRequest $request, RenterInformation $renter)
     {
-        dd($request->all());
-        $first_name     = $request->input('first_name');
-        $email          = $request->input('email');
-       // $last_name      = $request->input('last_name');
-        $father_name    = $request->input('father_name');
-        $mother_name    = $request->input('mother_name');
-        $phone          = $request->input('phone');
-        $mobile         = $request->input('mobile');
-        $nid_no         = $request->input('nid_no');
-        $gender         = $request->input('gender');
-        $date_of_birth  = $request->input('date_of_birth');
-        $renter_type_id = $request->input('renter_type_id');
-        $status         = $request->input('status');
-        // $photo          = $request->file('photo');
-        // $nid_photo      = $request->file('nid_photo');
-        $photo          = $request->input('photo');
-        $nid_photo      = $request->input('nid_photo');
-        $renter_photo_path = "";
-        $nid_photo_path    = "";
-        
-    if($photo != ''){
-        $photo = $request->file('photo');
-        $filename = $photo->getClientOriginalName();
-        $photo->move(public_path('public/images'), $filename);
-        $renter->photo = $request->file('photo')->getClientOriginalName();
-    }
-
-    if($request->input('nid_photo') != "undefined" && $request->input('nid_photo') != null && $request->input('nid_photo') != ""){
-        $nid_photo = $request->file('nid_photo');
-        $filename = $nid_photo->getClientOriginalName();
-        $nid_photo->move(public_path('public/images'), $filename);
-        $renter->nid_photo = $request->file('nid_photo')->getClientOriginalName();
-    }
-        // if($request->hasFile($photo)){
-        //     $imgPath        = 'public/images/';
-        //     $photo          = $request->file('photo');
-        //     $uniqueName_photo     = $photo->getClientOriginalName();
-        //     $renter_photo_path    = $imgPath.$uniqueName_photo;
-        //     $photo->move($imgPath, $uniqueName_photo);
-        //     $renter->photo = $renter_photo_path;
-        // }
-        
-        // if($request->hasFile($nid_photo)){
-        //     $imgPath        = 'public/images/';
-        //     $nid_photo      = $request->file('nid_photo');
-        //     $uniqueName_nid_photo = $nid_photo->getClientOriginalName();
-        //     $nid_photo_path       = $imgPath.$uniqueName_nid_photo;
-        //     $nid_photo->move($imgPath, $uniqueName_nid_photo);
-        //     $renter->nid_photo = $nid_photo_path;
-        // }
-
-        //updating address
-        $address = Address::findOrFail($renter->address_id);
-        $address->address_line1  = $request->input('address_line1');
-        $address->thana_id       = $request->input('thana_id');
-        $address->postal_code    = $request->input('postal_code');
-        $address->city_id        = $request->input('city_id');
-        $address->country_id     = $request->input('country_id');
-        $address->update();
-
-        // if(!is_null($photo)){
-        //     unlink($renter->photo);
-        //     $imgPath              = 'public/images/';
-        //     $uniqueName_photo     = $photo->getClientOriginalName();
-        //     $renter_photo_path    = $imgPath.$uniqueName_photo;
-        //     $photo->move($imgPath, $uniqueName_photo);
-        //     $renter->photo = $renter_photo_path;
-
-        // }
-
-        // if(!is_null($nid_photo)){
-        //    unlink($renter->nid_photo);
-        //    $imgPath              = 'public/images/';
-        //    $uniqueName_nid_photo = $nid_photo->getClientOriginalName(); 
-        //    $nid_photo_path       = $imgPath.$uniqueName_nid_photo;
-        //    $nid_photo->move($imgPath, $uniqueName_nid_photo);
-        //    $renter->nid_photo = $nid_photo_path;
-        // }
-
-        $renter->first_name      = $first_name;
-        $renter->email           = $email;
-       // $renter->last_name       = $last_name;
-        $renter->father_name     = $father_name;
-        $renter->mother_name     = $mother_name;
-        $renter->address_id      = $address->id;
-        $renter->date_of_birth   = $date_of_birth;
-        $renter->phone           = $phone;
-        $renter->mobile          = $mobile;
-        $renter->nid_no          = $nid_no;
-        $renter->gender          = $gender;
-        $renter->renter_type_id  = $renter_type_id;
-        $renter->status          = $status;
+       // dd($request->all());
+        $renter->renter_name    = $request->input('renter_name');
+        $renter->father_name    = $request->input('father_name');
+        $renter->mother_name    = $request->input('mother_name');
+        $renter->email          = $request->input('email');
+        $renter->phone_no       = $request->input('phone_no');
+        $renter->mobile_no      = $request->input('mobile_no');
+        $renter->occupation     = $request->input('occupation');
+        $renter->gender         = $request->input('gender');
+        $renter->nid_no         = $request->input('nid_no');
+        $renter->nationality    = $request->input('nationality');
+        $renter->date_of_birth  = $request->input('date_of_birth');
+        $renter->renter_type_id = $request->input('renter_type_id');
+        $renter->present_address      = $request->input('present_address');
+        $renter->permanent_address    = $request->input('permanent_address');
+        $renter->status               = $request->input('status');
         $renter->update();
     }
 
@@ -270,43 +180,6 @@ class RenterController extends Controller
     public function getRenterInformation($id){
         $renter_info = RenterInformation::with('rentertype', 'address', 'address.city', 'address.thana', 'address.country')->whereId($id)->first();
         return $renter_info;
-    }
-
-    public function fileDataTable(Request $request){
-        $file = new File();
-        $limit = 20;
-        $offset = 0;
-        $search = [];
-        $where = [];
-        $with = [];
-        $join = [];
-
-        if($request->input('length')){
-            $limit = $request->input('length');
-        }
-
-        if($request->input('start')){
-            $offset = $request->input('start');
-        }
-
-        if($request->input('search') && $request->input('search')['value'] != ""){
-
-           //  $search['renters.first_name'] = $request->input('search')['value'];
-        }
-
-        if($request->input('where')){
-            $where = $request->input('where');
-        }
-
-        $with = [
-
-            ]; 
-
-        $join = [ 
-            /* "table name",  "table2 name. id" , "unique column name by as"   */
-
-        ];  
-       return $file->GetDataForDataTable($limit, $offset, $search, $where, $with, $join);
     }
 
     public function getRenterInformationId(){

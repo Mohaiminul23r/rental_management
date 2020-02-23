@@ -9,35 +9,35 @@
 <b>Add Renter Information</b>
 @endsection
 @section('body')
-<div class="container p-3 border">
+<div class="container p-3 border" style="background: aliceblue;">
 	<div class="row">
 		<form id="add_form" class="form-horizontal" role="form" enctype="multipart/form-data">
 			<div class="row">
 				<div class="col-md-3">
 					<div class="form-group">
 						<label for="name">Renter Name<span style="color: red;"> *</span></label>
-						<input type="name" name="renter_name" class="form-control" id="renter_name" placeholder="Enter First Name (*)" required>
+						<input type="name" name="renter_name" class="form-control" id="renter_name" placeholder="Enter First Name (*)" required autocomplete="off">
 						<span class="help-block"></span>
 					</div>
 				</div>
 				<div class="col-md-3">
 					<div class="form-group">
 						<label for="name">Father's Name<span style="color: red;"> *</span></label>
-						<input type="name" name="father_name" class="form-control" id="father_name" placeholder="Enter Father's Name (*)" required>
+						<input type="name" name="father_name" class="form-control" id="father_name" placeholder="Enter Father's Name (*)" required autocomplete="off">
 						<span class="help-block"></span>
 					</div>	
 				</div>
 				<div class="col-md-3">
 					<div class="form-group">
 						<label for="name">Mother's Name</label>
-						<input type="name" name="mother_name" class="form-control" id="mother_name" placeholder="Enter Mother's Name">
+						<input type="name" name="mother_name" class="form-control" id="mother_name" placeholder="Enter Mother's Name" autocomplete="off">
 						<span class="help-block"></span>
 					</div>	
 				</div>
 				<div class="col-md-3">
 					<div class="form-group">
 						<label for="name">Email Address</label>
-						<input type="name" name="email" class="form-control" id="email" placeholder="example@gmail.com">
+						<input type="name" name="email" class="form-control" id="email" placeholder="example@gmail.com" autocomplete="off">
 						<span class="help-block"></span>
 					</div>	
 				</div>
@@ -46,21 +46,21 @@
 				<div class="col-md-3">
 					<div class="form-group">
 						<label for="name">Phone No.</label>
-						<input type="name" name="phone_no" class="form-control" id="phone" placeholder="Enter Phone Number">
+						<input type="name" name="phone_no" class="form-control" id="phone" placeholder="Enter Phone Number" autocomplete="off">
 						<span class="help-block"></span>
 					</div>	
 				</div>
 				<div class="col-md-3">
 					<div class="form-group">
 						<label for="name">Mobile No.<span style="color: red;"> *</span></label>
-						<input type="name" name="mobile_no" class="form-control" id="mobile" placeholder="Enter Mobile Nmber (*)" required>
+						<input type="name" name="mobile_no" class="form-control" id="mobile" placeholder="Enter Mobile Nmber (*)" required autocomplete="off">
 						<span class="help-block"></span>
 					</div>	
 				</div>
 				<div class="col-md-3">
 					<div class="form-group">
 						<label for="name">Occupation</label>
-						<input type="name" name="occupation" class="form-control" id="occupation" placeholder="Enter Profession">
+						<input type="name" name="occupation" class="form-control" id="occupation" placeholder="Enter Profession" autocomplete="off">
 						<span class="help-block"></span>
 					</div>
 				</div>
@@ -83,7 +83,7 @@
 				<div class="col-md-3">
 					<div class="form-group">
 						<label for="name">NID No.</label>
-						<input type="name" name="nid_no" class="form-control" id="nid_no" placeholder="Enter NID no.">
+						<input type="name" name="nid_no" class="form-control" id="nid_no" placeholder="Enter NID no." autocomplete="off">
 						<span class="help-block"></span>
 					</div>	
 				</div>
@@ -97,7 +97,7 @@
 				<div class="col-md-3">
 					<div class="form-group">
 						<label for="name">Date of Birth</label>
-						<input type="text" class="form-control" data-toggle="datepicker" name="date_of_birth" placeholder="yyyy-mm-dd">
+						<input type="text" class="form-control" data-toggle="datepicker" name="date_of_birth" placeholder="yyyy-mm-dd" autocomplete="off">
 						<span class="help-block"></span>
 					</div>	
 				</div>
@@ -226,7 +226,6 @@ window.addEventListener("load",function(){
 		var id = $('#file_div').find("input#renter_information_id").val();
 		axios.get('api/renters/added_files/'+id).then(function(response){
 			$.each(response.data.files, function(index, value){
-				console.log(value);
 				$('#file_table_body').append(table_row);
 				$('#file_type_row').text(value.file_type);
 				$('#file_name_row').text(value.file_name);
@@ -236,68 +235,6 @@ window.addEventListener("load",function(){
 			alert("Failed go get files.");
 		});
 	}
-	
-	// //datatable value
-	// var filesDataTable = $('#filesDataTable').DataTable({
-	// 	dom : '<"row"<"col-md-6"l><"col-md-6"f>>rtip',
-	// 	initComplete : function(){
-
-	// 	},
-	// 	lengthMenu : [[5, 10, 20, -1], [5, 10, 20, 'All']],
-	// 	columns : [
-	// 	{
-	// 		'title' : '#SL',
-	// 		'name' : 'SL',
-	// 		'data' : 'id',
-	// 		'width' : '40px',
-	// 		'align' : 'center',
-	// 		'render' : function(data, type, row, ind){
-	// 			var pageInfo = filesDataTable.page.info();
-	// 			return (ind.row + 1) + pageInfo.start;
-	// 		}
-	// 	},
-	// 	{
-	// 		'title' : 'File Type',
-	// 		'name' : 'file_type',
-	// 		'data' : 'file_type'
-	// 	},
-	// 	{
-	// 		'title' : 'File Name',
-	// 		'name' : 'file_name',
-	// 		'data' : 'file_name'
-	// 	},
-	// 	{
-	// 		'title' : 'File',
-	// 		'name' : 'uploaded_file',
-	// 		'data' : 'uploaded_file'
-	// 	},
-	// 	{
-	// 		'title' : 'OPT',
-	// 		'name' : 'opt',
-	// 		'data' : 'id',
-	// 		'width' : '25px',
-	// 		'render' : function(data, type, row, ind){
-	// 			$action_dropdown =	
-	// 				'<div class="dropdown show">'+
-	// 				  '<a class="btn btn-outline-info btn-sm btn-round dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">action</a>'+
-	// 				  '<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">'+
-	// 				    // '<a class="dropdown-item view_data" data-id = '+ data +'><i class="fa fa-eye"></i> View Details</a>'+
-	// 				    // '<a class="dropdown-item print_data" data-id = '+ data +'><i class="fa fa-print text-info"></i> Print/Download</a>'+
-	//                     '<a class="dropdown-item delete-modal" data-id = '+ data +'><i class="fa fa-trash text-danger" ></i> Delete</a>'+
-	// 				  '</div>'+
-	// 				'</div>';
-	// 			return $action_dropdown;
-	// 		}
-	// 	}
-	// 	],
-	// 	serverSide : true,
-	// 	processing : true,
-	// 	ajax: {
-	// 		url: utlt.siteUrl('api/uploaded_files'),
-	// 		dataSrc: 'data'
-	// 	},
-	// });
-	// // end datatable
 });
 </script>
 @endpush

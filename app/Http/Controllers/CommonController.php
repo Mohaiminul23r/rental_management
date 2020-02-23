@@ -84,6 +84,11 @@ class CommonController extends Controller
         return view('report.index');
     }
 
+    public function documentIndex(){
+        $renters  = RenterInformation::orderBy('renter_name')->get();
+        return view('upload_documents.index',['renters'=>$renters]);
+    }
+
     public function edit_renter_info($id){
         $renter_id = $id;
         $renterType = RenterType::all();
