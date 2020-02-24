@@ -89,6 +89,9 @@ class CommonController extends Controller
         return view('upload_documents.index',['renters'=>$renters]);
     }
 
+    public function collectorIndex(){
+        return view('settings.collector.index');
+    }
     public function edit_renter_info($id){
         $renter_id = $id;
         $renterType = RenterType::all();

@@ -5,14 +5,13 @@
 
 @section('button')
 {{-- <button class="btn btn-white btn-border btn-round mr-2" data-toggle="modal" data-target="#addRentalModal" id="addBtn"><i class="fas fa-plus text-success"></i> Add Renter Details</button> --}}
-<a class="btn btn-white btn-border btn-round mr-2" id="add_renter_btn" href="{{ url('add_renter_info') }}"><i class="fas fa-plus text-success"></i> Add Renter Details</a>
+<a class="btn btn-white btn-border btn-round mr-2" id="add_renter_btn" href="{{ route('renters.create') }}"><i class="fas fa-plus text-success"></i> Add Renter Details</a>
 @endsection
 @section('card-title')
 <b>List of Renter Details</b>
 @endsection
 @section('body')
 	{{-- start modals --}}
-	@include('renter.add')
     @include('renter.delete')
     @include('renter.view_info')
 	{{-- end modals --}}

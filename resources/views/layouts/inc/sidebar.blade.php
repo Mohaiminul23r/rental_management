@@ -58,6 +58,11 @@
 									<span class="sub-item">Complex Info.</span>
 								</a>
 							</li>
+							<li>
+								<a href="{{url('/collectors')}}">
+									<span class="sub-item">Bill Collector</span>
+								</a>
+							</li>
 							{{-- <li>
 								<a data-toggle="collapse" href="#subnav3">
 									<i class="fas fa-building"></i>
@@ -134,7 +139,7 @@
 						<ul class="nav nav-collapse">
 							<li>
 								<a href="{{url('/renters')}}">
-									<span class="sub-item">Renter List</span>
+									<span class="sub-item">Renter Information</span>
 								</a>
 							</li>
 							<li>

@@ -57,9 +57,6 @@ Route::group(['middleware' => 'auth'], function () {
      Route::get('reports', "CommonController@generateReportIndex");
      Route::get('edit_renter_info/{id}', "CommonController@edit_renter_info");
      Route::get('upload_documents', "CommonController@documentIndex");
-     Route::get('add_renter_info', function(){
-        $renterType = App\Model\RenterType::orderBy('name')->get();
-        return view('renter.add_renter_info', ['renterType' => $renterType]);
-     });
+     Route::get('collectors', "CommonController@collectorIndex");
 });
 //resource routes

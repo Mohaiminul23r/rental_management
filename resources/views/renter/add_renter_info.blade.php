@@ -169,20 +169,6 @@ window.addEventListener("load",function(){
 		axios.post('api/renters', $('#add_form').serialize()).then(function(response){
     		window.location.href = utlt.siteUrl('renters');
     		toastr.success("Information Saved Successfully..");
-    		// axios.get('api/get_renter_informaiton_id').then(function(response){
-    		// 	var last_data = response.data.length-1;
-    		// 	$.each(response.data, function(index, value){
-    		// 		for(var i=0; i<response.data.length; i++){
-    		// 			if(index == last_data){
-    		// 				$('#renter_information_id').val(value.id);
-    		// 				break;
-    		// 			}
-    		// 		}
-    		// 	});
-    		// }).catch(function(failData){
-    		// 	alert("Failed to get renter informaiton id !!");
-    		// });
-
     	}).catch(function(failData){
 	    		$.each(failData.response.data.errors, function(inputName, errors){
                 $("#add_form [name="+inputName+"]").parent().removeClass('has-error').addClass('has-error');
@@ -199,42 +185,6 @@ window.addEventListener("load",function(){
             });
     	});
 	});
-
-	$(document).on('click', '#file_add_btn', function(){
-		var file_add_form = document.getElementById('add_form');
-	    var formData = new FormData(file_add_form);
-   	    formData.append('added_file', document.getElementById('added_file').files[0]);
-		axios.post('api/renters/add_file', formData).then(function(response){
-			toastr.success("File added Successfully");
-			get_files();
-		}).catch(function(failData){
-			alert("Failed to add file.");
-		});
-	});
-
-	var table_row = '<tr>'+
-				      '<th scope="row" id="sl_no"></th>'+
-				      '<td><p id="file_type_row"></p></td>'+
-				      '<td><p id="file_name_row"></p></td>'+
-				      '<td><p id="file_row"></p></td>'+
-				      '<td style="text-align: center;">'+
-				      	'<a type="button" id="file_remove_btn" class="btn btn-warning btn-xs"><i class="fas fa-trash-alt text-white"></i></a>'+
-				      '</td>'+
-				    '</tr>';
-
-	function get_files(){
-		var id = $('#file_div').find("input#renter_information_id").val();
-		axios.get('api/renters/added_files/'+id).then(function(response){
-			$.each(response.data.files, function(index, value){
-				$('#file_table_body').append(table_row);
-				$('#file_type_row').text(value.file_type);
-				$('#file_name_row').text(value.file_name);
-				$('#file_row').text(value.file_path);
-			});
-		}).catch(function(failData){
-			alert("Failed go get files.");
-		});
-	}
 });
 </script>
 @endpush

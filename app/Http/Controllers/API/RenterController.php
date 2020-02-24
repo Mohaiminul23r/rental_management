@@ -73,7 +73,8 @@ class RenterController extends Controller
      */
     public function create()
     {
-        //
+        $renterType = RenterType::orderBy('name')->get();
+        return view('renter.add_renter_info', ['renterType' => $renterType]);
     }
 
     /**

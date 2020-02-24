@@ -3,3 +3,8 @@
 		background: #fff;
 	    -webkit-appearance: !important;
 }
+
+.table td, .table th {
+    padding: 0 10px!important;
+    height: 45px!important;
+}

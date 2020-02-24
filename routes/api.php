@@ -36,6 +36,7 @@ Route::resource('houses', 'API\HouseController');
 Route::resource('complexes', 'API\ComplexController');
 Route::resource('shops', 'API\ShopController');
 Route::resource('files', 'API\FileController');
+Route::resource('collectors', 'API\CollectorController');
 Route::resource('advance_payments', 'API\AdvancePaymentController');
 Route::resource('electric_bills', 'API\ElectricityBillController');
 Route::resource('active_renters', 'API\ActiveRenterController');

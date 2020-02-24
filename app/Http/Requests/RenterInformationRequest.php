@@ -42,11 +42,6 @@ class RenterInformationRequest extends FormRequest
                 'mobile_no'       => 'required|unique:renter_information',          
             ];
         }
-        if($this->route()->getName() == 'renters.add_file'){
-            return [
-                        
-            ];
-        }
     }
 
     public function messages(){
