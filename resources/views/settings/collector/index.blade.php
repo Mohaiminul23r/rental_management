@@ -10,7 +10,6 @@
 @endsection
 @section('body')
 	{{-- start modals --}}
-	@include('settings.collector.edit')
     @include('settings.collector.delete')
 	{{-- end modals --}}
 	<div class="table-responsive">
@@ -21,92 +20,29 @@
 // datatable starts
 var collectorDataTable = null;
 window.addEventListener("load",function(){
-//add complex
+//refresh form fields
 	$(document).on('click', '#add_collector_btn', function(){
 		$('#collector_add_form .has-error').removeClass('has-error');
         $('#collector_add_form').find('.help-block').empty();
         $(document).find('#collector_add_form').trigger('reset');	
 	});
-	$('#addComplexBtn').click(function(){	
-		$('#add_complex_form .has-error').removeClass('has-error');
-      	$('#add_complex_form').find('.help-block').empty();	
-		axios.post('api/complexes', $('#add_complex_form').serialize()).then(function(response){
-			$('#collectorDataTable').DataTable().ajax.reload();
-	        $('#complexAddModal').modal('hide');
-	        toastr.success('Complex added successfully.');
-		}).catch(function(failData){
-			 $.each(failData.response.data.errors, function(inputName, errors){
-                  $.each(failData.response.data.errors, function(inputName, errors){
-                    $("#add_complex_form [name="+inputName+"]").parent().removeClass('has-error').addClass('has-error');
-                    if(typeof errors == "object"){
-                        $("#add_complex_form [name="+inputName+"]").parent().find('.help-block').empty();
-                        $.each(errors, function(indE, valE){
-                            $("#add_complex_form [name="+inputName+"]").parent().find('.help-block').append(valE+"<br>");
-                            $('.help-block').css("color", "red");
-                        });
-                    }else{
-                        $("#add_complex_form [name="+inputName+"]").parent().find('.help-block').html(valE);
-                    }
-                });
-            });
-		});
-	});
-//end of adding complex
 
-//edit complex details
-	$(document).on('click', '.edit-modal', function(){
-		var id = $(this).data('id');
-		$('#complex_id').val(id);
-		$("#complexEditModal").modal();
-		 axios.get('api/complexes/'+id+'/edit').then(function(response){
-          	$('#add_complex_no').val(response.data.complex_no);
-          	$('#add_complex_name').val(response.data.name);
-        }).catch(function(failData){
-            alert("Something wrong..");
-        });
-	});
-
-	 $('#editComplexBtn').click(function(){
- 		var id = $(document).find('#edit_complex_form input[name="complex_id"]').val();
-     	$('#edit_complex_form .has-error').removeClass('has-error');
-  		$('#edit_complex_form').find('.help-block').empty();
-        axios.put('api/complexes/'+id, $('#edit_complex_form').serialize())
-        .then(function(response){
-            $('#collectorDataTable').DataTable().ajax.reload();
-            $('#complexEditModal').modal('hide');
-            toastr.success('Edited Successfully.'); 
-        }).catch(function(failData){
-            $.each(failData.response.data.errors, function(inputName, errors){
-            $("#edit_complex_form [name="+inputName+"]").parent().removeClass('has-error').addClass('has-error');
-            if(typeof errors == "object"){
-                $("#edit_complex_form [name="+inputName+"]").parent().find('.help-block').empty();
-                $.each(errors, function(indE, valE){
-                    $("#edit_complex_form [name="+inputName+"]").parent().find('.help-block').append(valE+"<br>");
-                });
-            }else{
-                $("#edit_complex_form [name="+inputName+"]").parent().find('.help-block').html(valE);
-            }
-        });
-       });
-    }); 
-//end of editing complex details
-
-//start of deleteing complex
+//start of deleteing collector
 	$(document).on('click', '.delete-modal', function() {
         $('#id').val($(this).data('id'));
-        $("#modalDelete").modal();
+        $("#collectorModalDelete").modal();
     });
-	$('#deleteBtn').click(function(){
-        var id = $("#id").val();
-        axios.delete('api/complexes/'+id, $('#delete_form').serialize()).then(function(response){
+	$('#collectorDeleteBtn').click(function(){
+        var id = $("#c_id").val();
+        axios.delete('api/collectors/'+id, $('#collector_delete_form').serialize()).then(function(response){
             $('#collectorDataTable').DataTable().ajax.reload();
-            $('#modalDelete').modal('hide');
+            $('#collectorModalDelete').modal('hide');
             toastr.warning('Successfully Deleted.');
         }).catch(function(failData){
-            alert("Can not delete complex!!");
+            alert("Can not delete this collector!!");
         });
   	 });  
-//end of deleting complex
+//end of deleting collector
 
 //datatable value
 var collectorDataTable = $('#collectorDataTable').DataTable({
@@ -134,8 +70,18 @@ var collectorDataTable = $('#collectorDataTable').DataTable({
 			'data' : 'id',
 			'width' : '135px',
 			'render' : function(data, type, row, ind){
-				return '<span class="edit-modal btn btn-sm btn-primary" data-id = '+data+'>Edit</span> <span class="delete-modal btn btn-sm btn-danger" data-id = '+data+'>Delete</span>';
-			}
+			$action_dropdown =	
+				'<div class="dropdown show">'+
+				  '<a class="btn btn-outline-info btn-sm btn-round dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">action</a>'+
+				  '<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">'+
+				    // '<a class="dropdown-item print_data" data-id = '+ data +'><i class="fa fa-print text-info"></i> Print/Download</a>'+
+                    '<a href="'+utlt.siteUrl("api/collectors/"+data+"/edit")+'" class="dropdown-item edit-modal" data-id = '+ data +'><i class="fa fa-edit text-secondary"></i> Edit Collector Info.</a>'+
+                    // '<a class="dropdown-item view-modal" data-id = '+ data +'><i class="fa fa-eye"></i> View Details</a>'+
+                    '<a class="dropdown-item delete-modal" data-id = '+ data +'><i class="fa fa-trash text-danger" ></i> Delete</a>'+
+				  '</div>'+
+				'</div>';
+			return $action_dropdown;
+		}
 		},
 		{
 			'title' : 'Collector Name',

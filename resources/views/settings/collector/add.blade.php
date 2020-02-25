@@ -23,14 +23,14 @@
 				<div class="col-md-4">
 					<div class="form-group">
 						<label for="name">Father's Name<span style="color: red;"> *</span></label>
-						<input type="name" name="father_name" class="form-control" id="father_name" placeholder="Enter Father's Name (*)" required autocomplete="off">
+						<input type="name" name="father_name" class="form-control" placeholder="Enter Father's Name (*)" required autocomplete="off">
 						<span class="help-block"></span>
 					</div>	
 				</div>
 				<div class="col-md-4">
 					<div class="form-group">
 						<label for="name">Mother's Name</label>
-						<input type="name" name="mother_name" class="form-control" id="mother_name" placeholder="Enter Mother's Name" autocomplete="off">
+						<input type="name" name="mother_name" class="form-control" placeholder="Enter Mother's Name" autocomplete="off">
 						<span class="help-block"></span>
 					</div>	
 				</div>
@@ -39,14 +39,14 @@
 				<div class="col-md-4">
 					<div class="form-group">
 						<label for="name">Email Address</label>
-						<input type="name" name="email" class="form-control" id="email" placeholder="example@gmail.com" autocomplete="off">
+						<input type="name" name="email" class="form-control" placeholder="example@gmail.com" autocomplete="off">
 						<span class="help-block"></span>
 					</div>	
 				</div>
 				<div class="col-md-4">
 					<div class="form-group">
-						<label for="name">Contact No.</label>
-						<input type="name" name="contact_no" class="form-control" id="phone" placeholder="Enter Contact Number" autocomplete="off">
+						<label for="name">Contact No.<span style="color: red;"> *</span></label>
+						<input type="name" name="contact_no" class="form-control" placeholder="Enter Contact Number" autocomplete="off">
 						<span class="help-block"></span>
 					</div>	
 				</div>
@@ -69,7 +69,7 @@
 				<div class="col-md-4">
 					<div class="form-group">
 						<label for="name">NID No.</label>
-						<input type="name" name="nid_no" class="form-control" id="nid_no" placeholder="Enter NID no." autocomplete="off">
+						<input type="name" name="nid_no" class="form-control" placeholder="Enter NID no." autocomplete="off">
 						<span class="help-block"></span>
 					</div>	
 				</div>
@@ -83,7 +83,7 @@
 				<div class="col-md-4">
 					<div class="form-group">
 					    <label for="present_address">Present Address</label>
-					    <textarea class="form-control" id="present_address" name="present_address" placeholder="Enter present address"></textarea>
+					    <textarea class="form-control" name="present_address" placeholder="Enter present address"></textarea>
 					    <span class="help-block"></span>
 					 </div>	
 				</div>
@@ -92,14 +92,14 @@
 				<div class="col-md-4">
 					<div class="form-group">
 					    <label for="permanent_address">Permanent Address</label>
-					    <textarea class="form-control" id="permanent_address"  name="permanent_address" placeholder="Enter parmanent address"></textarea>
+					    <textarea class="form-control" name="permanent_address" placeholder="Enter parmanent address"></textarea>
 					    <span class="help-block"></span>
 					 </div>	
 				</div>
 				<div class="col-md-4">
 					<div class="form-group">
 						<label for="status">Active Status</label>
-						<select class="form-control form-control" id="status" name="status">
+						<select class="form-control form-control" name="status">
 							<option value="" disabled selected>Select</option>
 							<option value="1">Active</option>
 							<option value="0">Inactive</option>

@@ -73,7 +73,7 @@ class CollectorController extends Controller
     {
         //dd($request->all());
         $collector = new Collector();
-        $collector->collector_name = $request->input('collector_name');
+        $collector->collector_name = ucwords($request->input('collector_name'));
         $collector->father_name = $request->input('father_name');;
         $collector->mother_name = $request->input('mother_name');
         $collector->email = $request->input('email');
@@ -85,6 +85,7 @@ class CollectorController extends Controller
         $collector->gender = $request->input('gender');
         $collector->status = $request->input('status');
         $collector->save();
+        //$collector->create($request->all());
     }
 
     /**
@@ -106,7 +107,8 @@ class CollectorController extends Controller
      */
     public function edit($id)
     {
-        //
+        $collector_info = Collector::findOrFail($id)->first();
+        return view('settings.collector.edit', ['collector_info'=> $collector_info]);
     }
 
     /**
@@ -116,9 +118,9 @@ class CollectorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Collector $collector)
     {
-        //
+        $collector->update($request->all());
     }
 
     /**
@@ -129,6 +131,8 @@ class CollectorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        dd();
+        $collector = Collector::findOrFail($id);
+        $collector->delete();
     }
 }
