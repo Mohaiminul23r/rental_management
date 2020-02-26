@@ -58,5 +58,13 @@ class BillTypesTableSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now()
         ]);
+
+        DB::table('bill_types')->insert([
+            'id' => 7,
+            'name' => 'Telephone Bill',
+            'status' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
     }
 }

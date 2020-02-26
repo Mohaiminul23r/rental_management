@@ -13,7 +13,7 @@
     @include('settings.collector.delete')
 	{{-- end modals --}}
 	<div class="table-responsive">
-		<table id="collectorDataTable" class="display table table-striped table-hover">
+		<table id="collectorDataTable" class="display table table-striped table-hover  table-bordered">
 		</table>
 	</div>
 <script type="text/javascript">
@@ -29,7 +29,7 @@ window.addEventListener("load",function(){
 
 //start of deleteing collector
 	$(document).on('click', '.delete-modal', function() {
-        $('#id').val($(this).data('id'));
+        $('#c_id').val($(this).data('id'));
         $("#collectorModalDelete").modal();
     });
 	$('#collectorDeleteBtn').click(function(){
@@ -46,7 +46,6 @@ window.addEventListener("load",function(){
 
 //datatable value
 var collectorDataTable = $('#collectorDataTable').DataTable({
-
 		dom : '<"row"<"col-md-6"l><"col-md-6"f>>rtip',
 		initComplete : function(){
 
@@ -74,9 +73,7 @@ var collectorDataTable = $('#collectorDataTable').DataTable({
 				'<div class="dropdown show">'+
 				  '<a class="btn btn-outline-info btn-sm btn-round dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">action</a>'+
 				  '<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">'+
-				    // '<a class="dropdown-item print_data" data-id = '+ data +'><i class="fa fa-print text-info"></i> Print/Download</a>'+
                     '<a href="'+utlt.siteUrl("api/collectors/"+data+"/edit")+'" class="dropdown-item edit-modal" data-id = '+ data +'><i class="fa fa-edit text-secondary"></i> Edit Collector Info.</a>'+
-                    // '<a class="dropdown-item view-modal" data-id = '+ data +'><i class="fa fa-eye"></i> View Details</a>'+
                     '<a class="dropdown-item delete-modal" data-id = '+ data +'><i class="fa fa-trash text-danger" ></i> Delete</a>'+
 				  '</div>'+
 				'</div>';
@@ -106,7 +103,14 @@ var collectorDataTable = $('#collectorDataTable').DataTable({
 		{
 			'title' : 'Status',
 			'name' : 'status',
-			'data' : 'status'
+			'data' : 'status',
+			'render': function(data, type, row, ind){
+				if(data == 0){
+					return "Inactive";
+				}else{
+					return "Active";
+				}
+			}
 		}
 		],
 		serverSide : true,

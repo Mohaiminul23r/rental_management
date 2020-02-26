@@ -17,7 +17,6 @@ class CreateComplexesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name', 50)->nullable();
             $table->string('complex_no')->nullable();
-            $table->tinyInteger('status')->default('1');
             $table->timestamps();
         });
     }

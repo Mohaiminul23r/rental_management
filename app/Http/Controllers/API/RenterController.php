@@ -7,11 +7,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\RenterInformation;
 use App\Model\RenterType;
-use App\Model\Address;
-use App\Model\City;
 use App\Model\File;
-use App\Model\Country;
-use App\Model\Thana;
+use App\Model\Complex;
+use App\Model\BillType;
 use App\Http\Requests\RenterInformationRequest;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 
@@ -74,7 +72,9 @@ class RenterController extends Controller
     public function create()
     {
         $renterType = RenterType::orderBy('name')->get();
-        return view('renter.add_renter_info', ['renterType' => $renterType]);
+        $billTypes = BillType::orderBy('name')->get();
+        $complexes = Complex::orderBy('name')->get();
+        return view('renter.add_renter_info', ['renterType' => $renterType, 'billTypes' => $billTypes, 'complexes' => $complexes]);
     }
 
     /**
@@ -91,7 +91,7 @@ class RenterController extends Controller
 
     public function store(RenterInformationRequest $request)
     {
-       // dd($request->all());
+        //dd($request->all());
         $renter_information = new RenterInformation();
         $renter_information->renter_name    = $request->input('renter_name');
         $renter_information->father_name    = $request->input('father_name');

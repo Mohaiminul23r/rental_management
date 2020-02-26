@@ -21,13 +21,16 @@
 	<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
 	<link rel="stylesheet" href="{{ asset('assets/css/atlantis.min.css') }}">
 	<link rel="stylesheet" href="{{ asset('assets/toaster/build/toastr.css') }}">
-	{{-- step plugin --}}
-	<link href="{{ asset('assets/steps/jquery.steps.css') }}" rel="stylesheet">
 
+	{{-- jquery-step plugin --}}
+	
 	<!-- MultiStep stylesheet -->
 	<link rel="stylesheet" href="{{ asset('assets/step-wizard/dist/css/MultiStep.min.css')}}">
 	<!-- Optional theme for Multistep -->
 	<link rel="stylesheet" href="{{ asset('assets/step-wizard/dist/css/MultiStep-theme.min.css')}}">
+
+	{{-- xdsoft datetimepicker --}}
+	<link rel="stylesheet" href="{{ asset('assets/datetimepicker/build/jquery.datetimepicker.min.css')}}">
 
 	{{-- select2 plugin --}}
 {{-- 	<link href="{{asset('assets/select2/dist/css/select2.min.css')}}" rel="stylesheet" /> --}}
@@ -36,6 +39,7 @@
 	<link  href="{{ asset('assets/datepicker/datepicker.css') }}" rel="stylesheet">
 	{{-- axios link --}}
 	<script src="{{ asset('assets/axios/dist/axios.min.js') }}"></script>
+
 
 	{{-- 	<link rel="stylesheet" href="/css/demo.css"> --}}
 	<script type="text/javascript">
@@ -101,9 +105,10 @@
 </div>
 <!--   Core JS Files   -->
 <script src="{{ asset('assets/js/core/jquery.3.2.1.min.js') }}"></script>
-<script src="{{ asset('assets/steps/jquery.steps.js') }}"></script>
+<script src="{{ asset('assets/jquery-steps/build/jquery.steps.js') }}"></script>
 <script src="{{ asset('assets/toaster/toastr.js') }}"></script>
 {{-- <script src="{{asset('assets/select2/dist/js/select2.min.js')}}"></script> --}}
+<script src="{{ asset('assets/datetimepicker/build/jquery.datetimepicker.full.min.js')}}"></script>
 <script src="{{ asset('assets/datepicker/datepicker.js') }}"></script>
 <script src="{{ asset('assets/js/core/popper.min.js') }}"></script>
 <script src="{{ asset('assets/js/core/bootstrap.min.js') }}"></script>

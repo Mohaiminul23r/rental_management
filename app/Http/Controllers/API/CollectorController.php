@@ -33,8 +33,8 @@ class CollectorController extends Controller
 
         if($request->input('search') && $request->input('search')['value'] != ""){
 
-             $search['complexes.name'] = $request->input('search')['value'];
-             $search['complexes.complex_no'] = $request->input('search')['value'];
+             $search['collectors.collectorID'] = $request->input('search')['value'];
+             $search['collectors.collector_name'] = $request->input('search')['value'];
         }
 
         if($request->input('where')){
@@ -131,8 +131,6 @@ class CollectorController extends Controller
      */
     public function destroy($id)
     {
-        dd();
-        $collector = Collector::findOrFail($id);
-        $collector->delete();
+        $collector = Collector::findOrFail($id)->delete();
     }
 }

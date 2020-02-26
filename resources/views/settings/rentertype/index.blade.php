@@ -15,7 +15,7 @@
     @include('settings.rentertype.delete')
     {{-- end modals --}}
     <div class="table-responsive">
-        <table id="rentertypeDatatable" class="display table table-striped table-hover">
+        <table id="rentertypeDatatable" class="display table table-striped table-hover table-bordered">
         </table>
     </div>
 <script type="text/javascript">

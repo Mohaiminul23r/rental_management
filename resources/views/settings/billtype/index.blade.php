@@ -15,7 +15,7 @@
     @include('settings.billtype.delete')
     {{-- end modals --}}
     <div class="table-responsive">
-        <table id="billtypeDataTable" class="display table table-striped table-hover">
+        <table id="billtypeDataTable" class="display table table-striped table-hover table-bordered">
         </table>
     </div>
 <script type="text/javascript">

@@ -9,9 +9,12 @@
 <b>Add Renter Information</b>
 @endsection
 @section('body')
-<div class="container p-3 border" style="background: aliceblue;">
-	<div class="row">
-		<form id="add_form" class="form-horizontal" role="form" enctype="multipart/form-data">
+<div class="container p-3 border">
+	<div class="wizard-content">
+		<form id="add_form" class="tab-wizard wizard-circle wizard" role="form" enctype="multipart/form-data">
+			<!-- Step 1 -->
+			<h5>Renter Info.</h5>
+			<section>
 			<div class="row">
 				<div class="col-md-3">
 					<div class="form-group">
@@ -79,88 +82,190 @@
 					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-md-3">
+				<div class="row">
+				<div class="col-md-4">
 					<div class="form-group">
 						<label for="name">NID No.</label>
 						<input type="name" name="nid_no" class="form-control" id="nid_no" placeholder="Enter NID no." autocomplete="off">
 						<span class="help-block"></span>
 					</div>	
 				</div>
-				<div class="col-md-3">
+				<div class="col-md-4">
 					<div class="form-group">
 						<label for="name">Nationality</label>
 						<input type="name" class="form-control" id="nationality" name="nationality" placeholder="Enter Nationality" value="Bangladeshi">
 						<span class="help-block"></span>
 					</div>
 				</div>
-				<div class="col-md-3">
+				<div class="col-md-4">
 					<div class="form-group">
-						<label for="name">Date of Birth</label>
-						<input type="text" class="form-control" data-toggle="datepicker" name="date_of_birth" placeholder="yyyy-mm-dd" autocomplete="off">
-						<span class="help-block"></span>
-					</div>	
-				</div>
-				<div class="col-md-3">
-					<div class="form-group">
-						<label for="rentertype">Renter Type</label>
-						<select class="form-control form-control" id="renter_type_2" name="renter_type_id">
-						</select>
-						<span class="help-block"></span>
+					    <label for="date_of_birth">Date Of Birth</label>
+					    <input type="text" name="date_of_birth" class="form-control pick-date" id="date_of_birth" placeholder="yyyy-mm-dd" autocomplete="off">
+					    <span class="help-block"></span>
 					</div>	
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-4">
+				<div class="col-md-6">
 					<div class="form-group">
 					    <label for="present_address">Present Address</label>
 					    <textarea class="form-control" id="present_address" name="present_address" placeholder="Enter present address"></textarea>
 					    <span class="help-block"></span>
 					 </div>	
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-6">
 					<div class="form-group">
 					    <label for="permanent_address">Permanent Address</label>
 					    <textarea class="form-control" id="permanent_address"  name="permanent_address" placeholder="Enter parmanent address"></textarea>
 					    <span class="help-block"></span>
 					 </div>	
 				</div>
-				<div class="col-md-4">
+			</div>
+		</section>
+		<!-- Step 2 -->
+		<h5>Rent Details</h5>
+		<section>
+			<div class="row">
+				<div class="col-md-6">
 					<div class="form-group">
-						<label for="status">Active Status</label>
-						<select class="form-control form-control" id="status" name="status">
-							<option value="" disabled selected>Select</option>
-							<option value="1">Active</option>
-							<option value="0">Inactive</option>
+						<label for="name">Renter Type</label>
+						<select class="form-control" id="renter_type_dropdown" name="renter_type_id">
+						</select>
+						<span class="help-block"></span>
+					</div>	
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="name">Complex Name</label>
+						<select class="form-control" id="complex_dropdown" name="complex_id">
 						</select>
 						<span class="help-block"></span>
 					</div>
 				</div>
 			</div>
-		<div style="text-align: right;">
-			<button type="button"  id="renter_info_add_btn" class="btn btn-outline-success btn-outline-successs btn-round">Save Renter Info.</button>
-		</div>	
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="name">Advance Paid Amount</label>
+						<input type="number" class="form-control" id="advance_amount" name="advance_amount" placeholder="advance amount" value="0.00">
+						<span class="help-block"></span>
+					</div>	
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+					    <label for="rent_started_at">Activation Date</label>
+					    <input type="text" name="rent_started_at" class="form-control pick-date" id="activation_date" placeholder="yyyy-mm-dd" autocomplete="off">
+					    <span class="help-block"></span>
+					</div>
+				</div>
+			</div>
+		</section>
+		{{-- step-3 --}}
+		<h5>Utility Bill</h5>
+		<section>
+		<div class="row">
+			<div class="col-md-3">
+				<div class="form-group">
+					<label for="name">Select Bill Type</label>
+					<select class="form-control" id="bill_type_dropdown" name="bill_type">
+					</select>
+					<span class="help-block"></span>
+				</div>	
+			</div>
+			<div class="col-md-3">
+				<div class="form-group">
+					<label for="number">Amount</label>
+					<input type="number" class="form-control add-bill" name="house_rent" value="0.00" placeholder="house rent">
+					<span class="help-block"></span>
+				</div>	
+			</div>
+			<div class="col-md-3">
+				<button type="button" style="margin-top: 45px;" id="file_add_btn2" class="btn btn-xs btn-dark"><i class="fas fa-plus text-white"></i></button>
+			</div>
+			<div class="col-md-3">
+				
+			</div>
+		</div>
+		</section>
+		<h5>Upload Files</h5>
+		<section>
+		<div class="row">
+			<div class="col-md-3">
+				<div class="form-group">
+					<label for="status">File Type</label>
+					<select class="form-control form-control" id="file_type" name="file_type">
+						<option value="" disabled selected>Select type</option>
+						<option value="1">Renter Photo</option>
+						<option value="2">National Id Card</option>
+						<option value="3">Aggrement Paper</option>
+						<option value="4">Other Paper</option>
+					</select>
+					<span class="help-block"></span>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-group">
+					<label for="name">File Name</label>
+					<input type="name" class="form-control" id="file_name" name="file_name" placeholder="Enter file name">
+					<span class="help-block"></span>
+				</div>
+			</div>				
+			<div class="col-md-3">
+				<div class="form-group">
+					<label for="photo" id="label">Upload File</label>
+					<input type="file" class="form-control-file" id="added_file" name="file" required>
+					<span class="help-block"></span>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<button type="button" style="margin-top: 35px;" id="file_add_btn" class="btn btn-xs btn-dark"><i class="fas fa-plus text-white"></i></button>
+			</div>
+		</div>
+		</section>		
 		</form>
 	</div>
 </div>
 @push('javascript')
+<link href="{{ asset('assets/jquery-steps/build/jquery.steps.css') }}" rel="stylesheet">
 <script type="text/javascript">
 var renterType = <?php echo json_encode($renterType)?>;
+var billTypes = <?php echo json_encode($billTypes)?>;
+var complexes = <?php echo json_encode($complexes)?>;
 window.addEventListener("load",function(){
+	$(function(){
+        $('.pick-date').datetimepicker({
+        	timepicker:false,
+        	format: 'Y-m-d'
+        });
+    });
 	//appending renter types at select option
 	html_renter_type = '<option value="" disabled selected>Select Renter Type</option>';
+	html_bill_type = '<option value="" disabled selected>Select Bill Type</option>';
+	html_complexes = '<option value="" disabled selected>Select Complex</option>';
 	$.each(renterType, function(ind,val){
 		html_renter_type += '<option value="'+val.id+'">'+val.name+'</option>';
 	});
-	$('#renter_type_2').html(html_renter_type);
+	$.each(billTypes, function(ind,val){
+		html_bill_type += '<option value="'+val.id+'">'+val.name+'</option>';
+	});
+	$.each(complexes, function(ind,val){
+		html_complexes += '<option value="'+val.id+'">'+val.name+'</option>';
+	});
+	$('#renter_type_dropdown').html(html_renter_type);
+	$('#bill_type_dropdown').html(html_bill_type);
+	$('#complex_dropdown').html(html_complexes);
 
-	//datepicker details
-	$(function(){
-		  $('[data-toggle="datepicker"]').datepicker({
-		    autoHide: true,
-		    zIndex: 2048,
-		    format: 'yyyy-mm-dd',
-		  });
+	var form = $("#add_form");
+	form.steps({
+		headerTag: "h5",
+		bodyTag: "section",
+		transitionEffect: "fade",
+		enableAllSteps: true,
+		labels: {
+			finish: "Save & Exit",
+			next: "Save & Next",
+    		previous: "Previous",
+		},
 	});
 
 	$(document).on('click', '#renter_info_add_btn', function(){

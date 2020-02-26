@@ -17,16 +17,12 @@
 	{{-- end modals --}}
 
 	<div class="table-responsive">
-		<table id="renterDataTable" class="display table table-striped table-hover">
+		<table id="renterDataTable" class="display table table-striped table-hover table-bordered">
 		</table>
 	</div>
 <script type="text/javascript">
 var renterDataTable = null;
 var renterType = <?php echo json_encode($renterType)?>;
-var city = <?php echo json_encode($city)?>;
-var thana = <?php echo json_encode($thana)?>;
-var country = <?php echo json_encode($country)?>;
-
 window.addEventListener("load", function(){
 	//removing form data
 	$('#addRentalModal').on('hidden.bs.modal', function(){

@@ -19,14 +19,6 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', 'API\HomeController@index')->name('home');
 
-    Route::get('countries', function(){
-        return view('settings.country.index');
-    });
-
-    Route::get('thanas', function(){
-    	return view('settings.thana.index');
-    });
-
     Route::get('billtypes', function(){
     	return view('settings.billtype.index');
     });
@@ -47,8 +39,6 @@ Route::group(['middleware' => 'auth'], function () {
         return view('settings.shop.index');
     });
      Route::get('renters', "CommonController@renterIndex");
-     Route::get('thanas', "CommonController@thanaIndex");
-     Route::get('cities', "CommonController@cityIndex");
      Route::get('advance_payments', "CommonController@advancePaymentIndex");
      Route::get('electric_bills', "CommonController@electricityBillIndex");
      Route::get('active_renters', "CommonController@activeRenterIndex");  

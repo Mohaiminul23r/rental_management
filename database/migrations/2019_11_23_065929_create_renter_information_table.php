@@ -29,9 +29,7 @@ class CreateRenterInformationTable extends Migration
             $table->string('present_address', 250)->nullable();
             $table->string('permanent_address', 250)->nullable();
             $table->string('gender')->nullable();
-            $table->unsignedBigInteger('renter_type_id')->nullable();
             $table->unsignedTinyInteger('status')->nullable();
-            $table->foreign('renter_type_id')->references('id')->on('renter_types');
             $table->timestamps();
         });
     }

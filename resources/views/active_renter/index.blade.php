@@ -21,7 +21,7 @@
 	
 	</div>
 	<div class="table-responsive">
-		<table id="activeRenterDataTable" class="display table table-striped table-hover">
+		<table id="activeRenterDataTable" class="display table table-striped table-hover table-bordered">
 		</table>
 	</div>
 	

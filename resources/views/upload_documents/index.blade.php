@@ -14,7 +14,7 @@
     @include('upload_documents.delete')
 	{{-- end modals --}}
 	<div class="table-responsive">
-		<table id="filesDataTable" class="display table table-striped table-hover">
+		<table id="filesDataTable" class="display table table-striped table-hover table-bordered">
 		</table>
 	</div>
 <script type="text/javascript">

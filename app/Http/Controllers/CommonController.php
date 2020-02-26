@@ -19,10 +19,7 @@ class CommonController extends Controller
 {
     public function renterIndex(){
         $renterType = RenterType::all();
-        $city = City::orderBy('name')->get();
-        $thana = Thana::orderBy('name')->get();
-        $country = Country::orderBy('name')->get();
-        return view('renter.index',['renterType' => $renterType, 'city' => $city, 'thana' => $thana, 'country' => $country]);
+        return view('renter.index',['renterType' => $renterType]);
     }
 
     public function thanaIndex(){
