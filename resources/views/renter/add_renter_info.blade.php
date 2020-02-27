@@ -164,26 +164,50 @@
 		<h5>Utility Bill</h5>
 		<section>
 		<div class="row">
-			<div class="col-md-3">
-				<div class="form-group">
-					<label for="name">Select Bill Type</label>
-					<select class="form-control" id="bill_type_dropdown" name="bill_type">
-					</select>
-					<span class="help-block"></span>
-				</div>	
-			</div>
-			<div class="col-md-3">
-				<div class="form-group">
-					<label for="number">Amount</label>
-					<input type="number" class="form-control add-bill" name="house_rent" value="0.00" placeholder="house rent">
-					<span class="help-block"></span>
-				</div>	
-			</div>
-			<div class="col-md-3">
-				<button type="button" style="margin-top: 45px;" id="file_add_btn2" class="btn btn-xs btn-dark"><i class="fas fa-plus text-white"></i></button>
-			</div>
-			<div class="col-md-3">
-				
+			<div class="col-md-8 offset-3">
+				<table class="table">
+				  <thead>
+				    <tr>
+				      <th scope="col" style="margin-bottom:0px;"></th>
+				      <th scope="col" style="margin-bottom:0px;">Select Bill Type</th>
+				      <th scope="col" style="margin-bottom:0px;">Amount</th>
+				      <th scope="col" style="margin-bottom:0px;"></th>
+				    </tr>
+				  </thead>
+				  <tbody id="ubill_tbody">
+				    <tr>
+				      <th scope="row" style="visibility: hidden;"></th>
+				      <td>
+				      	<div class="form-group">
+							<select class="form-control" id="bill_type_dropdown" name="bill_type">
+							</select>
+							<span class="help-block"></span>
+						</div>
+				      </td>
+				      <td>
+				      	<div class="form-group">
+							<input type="number" id="amount" class="form-control" name="ubill_amount" value="0.00" placeholder="house rent">
+							<span class="help-block"></span>
+						</div>
+				      </td>
+				      <td>
+				      	<button type="button" id="ubill_add_btn" class="btn btn-xs btn-dark"><i class="fas fa-plus text-white"></i></button>
+				      </td>
+				    </tr>
+				  </tbody>
+				  <tfoot>
+				  	<tr>
+				  	<td colspan="2">
+				  		<strong><p style="margin: 0px; text-align: right; font-size: 14px;">Total Monthly Rent:</p></strong>	
+				  	</td>
+			  		<td>
+				  		<div class="form-group">
+				  			<input type="number" style="text-align:right;" id="total_ubill2" class="form-control total-bill" value="0.00" name="ubill_total" readonly>
+				  		</div>
+			  		</td>
+				  	</tr>
+				  </tfoot>
+				</table>
 			</div>
 		</div>
 		</section>
@@ -255,6 +279,74 @@ window.addEventListener("load",function(){
 	$('#bill_type_dropdown').html(html_bill_type);
 	$('#complex_dropdown').html(html_complexes);
 
+	var count = 1;
+	//utilityBillRow(count);
+	function utilityBillRow(number){
+		html = '<tr>';
+		amount = $('#amount').val();
+		select_opt = $('#bill_type_dropdown option:selected').text();
+		if(amount != "0.00" && amount != ""){
+			if(number>1){
+				html += '<th scope="row" class="numbering" style="text-align:right;"></th>'+
+					      '<td>'+
+					      '<div class="form-group">'+
+					      '<strong><p style="margin: 0px; text-align: right;font-size: 14px;">'+$('#bill_type_dropdown option:selected').text()+'</p></strong>'+
+					      '<input type="hidden" name="ubill_id[]" value="'+$('#bill_type_dropdown option:selected').val()+'"/>'+
+					       '</div>'+
+					      '</td>'+
+					      '<td>'+
+					      	'<div class="form-group">'+
+					      		'<input  style="text-align:right;" type="number" name="ubill_amount[]" class="form-control add-bill" value="'+$('#amount').val()+'" readonly>'+
+					        '</div>'+
+					      '</td>'+
+					      '<td>'+
+					      	'<button type="button" class="btn btn-xs btn-danger remove"><i class="fas fa-minus text-white"></i></button>'+
+					      '</td>'+
+					    '</tr>';
+				$('tbody').append(html);
+			}
+		}else{
+			if(select_opt == "Select Bill Type"){
+				alert("Select Bill Type !!");
+			}else if(amount == "0.00" || amount == ""){
+				alert("Enter Bill Amount!!");
+			}
+		}
+		
+	}
+
+	//calculating the total bill function
+	function total_ubill(){
+		var sum = 0;
+		$('#ubill_tbody').find('.add-bill').each(function(){
+			sum += +$(this).val();
+		});
+	    $("#total_ubill2").val(sum);
+	}
+
+	function row_numbering(){
+		rows = $(document).find('#ubill_tbody tr');
+		rows.each(function(ind, val){
+		 $(this).children(":eq(0)").html(ind + 0);
+		});
+	}
+
+	$(document).on('click', '#ubill_add_btn', function(){
+		count++;
+		utilityBillRow(count);
+		total_ubill();
+		row_numbering();
+		$('#bill_type_dropdown').html(html_bill_type);
+		$('#amount').val("0.00");
+	});
+
+	$(document).on('click', '.remove', function(){
+		count--;
+		$(this).closest("tr").remove();
+		total_ubill();
+		row_numbering();
+	});
+
 	var form = $("#add_form");
 	form.steps({
 		headerTag: "h5",
@@ -268,28 +360,28 @@ window.addEventListener("load",function(){
 		},
 	});
 
-	$(document).on('click', '#renter_info_add_btn', function(){
-		$('#add_form .has-error').removeClass('has-error');
-        $('#add_form').find('.help-block').empty();
-		axios.post('api/renters', $('#add_form').serialize()).then(function(response){
-    		window.location.href = utlt.siteUrl('renters');
-    		toastr.success("Information Saved Successfully..");
-    	}).catch(function(failData){
-	    		$.each(failData.response.data.errors, function(inputName, errors){
-                $("#add_form [name="+inputName+"]").parent().removeClass('has-error').addClass('has-error');
-                if(typeof errors == "object"){
-                    $("#add_form [name="+inputName+"]").parent().find('.help-block').empty();
-                    $.each(errors, function(indE, valE){
-                        $("#add_form [name="+inputName+"]").parent().find('.help-block').append(valE+"<br>");
-                         $('.help-block').css("color", "red");
-                    });
-                }
-                else{
-                    $("#add_form [name="+inputName+"]").parent().find('.help-block').html(valE);
-                }
-            });
-    	});
-	});
+	// $(document).on('click', '#renter_info_add_btn', function(){
+	// 	$('#add_form .has-error').removeClass('has-error');
+ //        $('#add_form').find('.help-block').empty();
+	// 	axios.post('api/renters', $('#add_form').serialize()).then(function(response){
+ //    		window.location.href = utlt.siteUrl('renters');
+ //    		toastr.success("Information Saved Successfully..");
+ //    	}).catch(function(failData){
+	//     		$.each(failData.response.data.errors, function(inputName, errors){
+ //                $("#add_form [name="+inputName+"]").parent().removeClass('has-error').addClass('has-error');
+ //                if(typeof errors == "object"){
+ //                    $("#add_form [name="+inputName+"]").parent().find('.help-block').empty();
+ //                    $.each(errors, function(indE, valE){
+ //                        $("#add_form [name="+inputName+"]").parent().find('.help-block').append(valE+"<br>");
+ //                         $('.help-block').css("color", "red");
+ //                    });
+ //                }
+ //                else{
+ //                    $("#add_form [name="+inputName+"]").parent().find('.help-block').html(valE);
+ //                }
+ //            });
+ //    	});
+	// });
 });
 </script>
 @endpush

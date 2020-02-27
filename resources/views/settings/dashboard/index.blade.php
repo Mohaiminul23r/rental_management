@@ -130,7 +130,7 @@
 					<div class="col-7 col-stats">
 						<div class="numbers">
 							<strong><p class="card-category">Number of Shops</p></strong>
-							<h4 class="card-title">{{ App\Model\Shop::all()->count() }}</h4>
+							<h4 class="card-title"></h4>
 						</div>
 					</div>
 				</div>
