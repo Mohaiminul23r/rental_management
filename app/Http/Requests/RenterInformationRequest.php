@@ -30,7 +30,6 @@ class RenterInformationRequest extends FormRequest
                 
             ];
         }
-
         if($this->route()->getName() == 'renters.store'){
             return [
                 'renter_name'     => 'required',    
@@ -42,6 +41,18 @@ class RenterInformationRequest extends FormRequest
                 'mobile_no'       => 'required|unique:renter_information',          
             ];
         }
+
+          if($this->route()->getName() == 'renters.addBill'){
+            return [
+                'renter_name'     => 'required',    
+                'father_name'     => 'required',    
+                'email'           => 'nullable|email|unique:renter_information',     
+                'phone_no'        => 'nullable|unique:renter_information',    
+                'nid_no'          => 'nullable|unique:renter_information',    
+                //'mobile_no'       => 'required|unique:renter_information|regex:/(01)[0-9]{9}/',          
+                'mobile_no'       => 'required|unique:renter_information',          
+            ];
+            }
     }
 
     public function messages(){

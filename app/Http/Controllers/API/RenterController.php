@@ -187,4 +187,23 @@ class RenterController extends Controller
         $renter_information_id = RenterInformation::orderBy('id')->get();
         return $renter_information_id;
     }
+
+    public function addUtilityBill(RenterInformationRequest $request){
+        $renter_information = new RenterInformation();
+        $renter_information->renter_name    = $request->input('renter_name');
+        $renter_information->father_name    = $request->input('father_name');
+        $renter_information->mother_name    = $request->input('mother_name');
+        $renter_information->email          = $request->input('email');
+        $renter_information->phone_no       = $request->input('phone_no');
+        $renter_information->mobile_no      = $request->input('mobile_no');
+        $renter_information->occupation     = $request->input('occupation');
+        $renter_information->gender         = $request->input('gender');
+        $renter_information->nid_no         = $request->input('nid_no');
+        $renter_information->nationality    = $request->input('nationality');
+        $renter_information->date_of_birth  = $request->input('date_of_birth');
+        $renter_information->present_address      = $request->input('present_address');
+        $renter_information->permanent_address    = $request->input('permanent_address');
+        $renter_information->save();
+        return $renter_information;
+    }
 }

@@ -24,6 +24,7 @@ Route::group(['middleware' => 'auth'], function () {
 Route::resource('billtypes', 'API\BillTypeController');
 Route::resource('rentertypes', 'API\RenterTypeController');
 Route::resource('renters', 'API\RenterController');
+Route::post('renters/add_ubill', 'API\RenterController@addUtilityBill')->name('renters.addBill');
 Route::get('renters/added_files/{id}', 'API\RenterController@getAddedFiles')->name('renters.added_files');
 Route::get('get_renter_informaiton_id', 'API\RenterController@getRenterInformationId');
 //Route::get('uploaded_files', 'API\RenterController@fileDataTable');

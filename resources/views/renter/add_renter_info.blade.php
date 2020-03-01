@@ -11,11 +11,12 @@
 @section('body')
 <div class="container p-3 border">
 	<div class="wizard-content">
-		<form id="add_form" class="tab-wizard wizard-circle wizard" role="form" enctype="multipart/form-data">
+		<form id="ubill_add_form" class="tab-wizard wizard-circle wizard" role="form" enctype="multipart/form-data">
 			<!-- Step 1 -->
 			<h5>Renter Info.</h5>
 			<section>
 			<div class="row">
+				<input type="hidden" name="renter_id" id="renter_id">
 				<div class="col-md-3">
 					<div class="form-group">
 						<label for="name">Renter Name<span style="color: red;"> *</span></label>
@@ -160,33 +161,33 @@
 				</div>
 			</div>
 		</section>
-		{{-- step-3 --}}
+		<!-- Step 3 -->
 		<h5>Utility Bill</h5>
 		<section>
 		<div class="row">
-			<div class="col-md-8 offset-3">
-				<table class="table">
+			<div class="col-md-8 offset-2">
+				<table class="table table-bordered m-3" width="100%">
 				  <thead>
 				    <tr>
 				      <th scope="col" style="margin-bottom:0px;"></th>
 				      <th scope="col" style="margin-bottom:0px;">Select Bill Type</th>
-				      <th scope="col" style="margin-bottom:0px;">Amount</th>
+				      <th scope="col" style="margin-bottom:0px; width: 130px; text-align: center;">Amount</th>
 				      <th scope="col" style="margin-bottom:0px;"></th>
 				    </tr>
 				  </thead>
 				  <tbody id="ubill_tbody">
 				    <tr>
-				      <th scope="row" style="visibility: hidden;"></th>
+				      <th scope="row" style="visibility: hidden; border-left:1px;"></th>
 				      <td>
 				      	<div class="form-group">
-							<select class="form-control" id="bill_type_dropdown" name="bill_type">
+							<select class="form-control form-control-sm" id="bill_type_dropdown" name="bill_type">
 							</select>
 							<span class="help-block"></span>
 						</div>
 				      </td>
 				      <td>
 				      	<div class="form-group">
-							<input type="number" id="amount" class="form-control" name="ubill_amount" value="0.00" placeholder="house rent">
+							<input style="width: 130px; text-align: center;" type="number" id="amount" class="form-control form-control-sm" name="ubill_amount" value="0.00" placeholder="enter bill amount">
 							<span class="help-block"></span>
 						</div>
 				      </td>
@@ -197,13 +198,16 @@
 				  </tbody>
 				  <tfoot>
 				  	<tr>
-				  	<td colspan="2">
+				  	<td colspan="2" style="width: 300px;">
 				  		<strong><p style="margin: 0px; text-align: right; font-size: 14px;">Total Monthly Rent:</p></strong>	
 				  	</td>
 			  		<td>
 				  		<div class="form-group">
-				  			<input type="number" style="text-align:right;" id="total_ubill2" class="form-control total-bill" value="0.00" name="ubill_total" readonly>
+				  			<input type="number" style="text-align:right; width:130px;" id="total_ubill2" class="form-control form-control-sm total-bill" value="0.00" name="ubill_total" readonly>
 				  		</div>
+			  		</td>
+			  		<td>
+			  			
 			  		</td>
 				  	</tr>
 				  </tfoot>
@@ -211,38 +215,52 @@
 			</div>
 		</div>
 		</section>
+		<!-- Step 4 -->
 		<h5>Upload Files</h5>
 		<section>
 		<div class="row">
-			<div class="col-md-3">
-				<div class="form-group">
-					<label for="status">File Type</label>
-					<select class="form-control form-control" id="file_type" name="file_type">
-						<option value="" disabled selected>Select type</option>
-						<option value="1">Renter Photo</option>
-						<option value="2">National Id Card</option>
-						<option value="3">Aggrement Paper</option>
-						<option value="4">Other Paper</option>
-					</select>
-					<span class="help-block"></span>
-				</div>
-			</div>
-			<div class="col-md-3">
-				<div class="form-group">
-					<label for="name">File Name</label>
-					<input type="name" class="form-control" id="file_name" name="file_name" placeholder="Enter file name">
-					<span class="help-block"></span>
-				</div>
-			</div>				
-			<div class="col-md-3">
-				<div class="form-group">
-					<label for="photo" id="label">Upload File</label>
-					<input type="file" class="form-control-file" id="added_file" name="file" required>
-					<span class="help-block"></span>
-				</div>
-			</div>
-			<div class="col-md-3">
-				<button type="button" style="margin-top: 35px;" id="file_add_btn" class="btn btn-xs btn-dark"><i class="fas fa-plus text-white"></i></button>
+			<div class="col-md-12">
+				<table class="table table-sm table-bordered">
+				  <thead>
+				    <tr>
+				      <th scope="col" style="text-align:center;">File Type</th>
+				      <th scope="col" style="text-align:center;">File Name</th>
+				      <th scope="col" style="text-align:left;">Upload File</th>
+				      <th scope="col" style="text-align:center;">Action</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr>
+				      <td style="text-align:center;">
+				      	<div class="form-group">
+					      	<select class="form-control form-control-sm" id="file_type" name="file_type">
+								<option value="" disabled selected>Select file type</option>
+								<option value="1">Renter Photo</option>
+								<option value="2">National Id Card</option>
+								<option value="3">Aggrement Paper</option>
+								<option value="4">Other Paper</option>
+							</select>
+							<span class="help-block"></span>
+						</div>
+				      </td>
+				      <td style="text-align:center;">
+				      	<div class="form-group">
+					      	<input type="name" class="form-control form-control-sm" id="file_name" name="file_name" placeholder="Enter file name">
+							<span class="help-block"></span>
+						</div>
+				      </td>
+				      <td style="text-align:center;">
+				      	<div class="form-group">
+					      	<input type="file" class="form-control-file" id="added_file" name="file" required>
+							<span class="help-block"></span>
+						</div>
+				      </td>
+				      <td style="text-align:center;">
+				      	<button type="button" id="file_add_btn" class="btn btn-xs btn-success"><i class="fas fa-plus text-white"></i></button>
+				      </td>
+				    </tr>
+				  </tbody>
+				</table>
 			</div>
 		</div>
 		</section>		
@@ -262,6 +280,7 @@ window.addEventListener("load",function(){
         	format: 'Y-m-d'
         });
     });
+    
 	//appending renter types at select option
 	html_renter_type = '<option value="" disabled selected>Select Renter Type</option>';
 	html_bill_type = '<option value="" disabled selected>Select Bill Type</option>';
@@ -291,12 +310,12 @@ window.addEventListener("load",function(){
 					      '<td>'+
 					      '<div class="form-group">'+
 					      '<strong><p style="margin: 0px; text-align: right;font-size: 14px;">'+$('#bill_type_dropdown option:selected').text()+'</p></strong>'+
-					      '<input type="hidden" name="ubill_id[]" value="'+$('#bill_type_dropdown option:selected').val()+'"/>'+
+					      '<input type="hidden" class="added-bill" name="ubill_id[]" value="'+$('#bill_type_dropdown option:selected').val()+'"/>'+
 					       '</div>'+
 					      '</td>'+
 					      '<td>'+
 					      	'<div class="form-group">'+
-					      		'<input  style="text-align:right;" type="number" name="ubill_amount[]" class="form-control add-bill" value="'+$('#amount').val()+'" readonly>'+
+					      		'<input  style="text-align:right;" type="number" name="ubill_amount[]" class="form-control form-control-sm add-bill" value="'+$('#amount').val()+'" readonly>'+
 					        '</div>'+
 					      '</td>'+
 					      '<td>'+
@@ -312,8 +331,16 @@ window.addEventListener("load",function(){
 				alert("Enter Bill Amount!!");
 			}
 		}
-		
 	}
+
+	// $(document).on('change', '#bill_type_dropdown',function(){
+	// 	var id = this.value;
+	// 	$(document).find('#ubill_tbody .added-bill').each(function(indB, valB){
+	// 		if(valB.value == id){
+	// 			alert("You have already added this Bill.");
+	// 		}
+	// 	});
+	// });
 
 	//calculating the total bill function
 	function total_ubill(){
@@ -347,41 +374,48 @@ window.addEventListener("load",function(){
 		row_numbering();
 	});
 
-	var form = $("#add_form");
+	var form = $("#ubill_add_form");
 	form.steps({
 		headerTag: "h5",
 		bodyTag: "section",
 		transitionEffect: "fade",
+		titleTemplate: '<span class="step">#index#</span> #title#',
 		enableAllSteps: true,
 		labels: {
 			finish: "Save & Exit",
 			next: "Save & Next",
     		previous: "Previous",
 		},
+		onStepChanging: function(event, currentIndex, priorIndex) {
+			if(priorIndex > currentIndex){
+				$url = utlt.siteUrl('api/renters/add_ubill');
+				var ubillForm = document.getElementById('ubill_add_form');
+	           	var formData = new FormData(ubillForm);
+	           	$('#ubill_add_form .has-error').removeClass('has-error');
+        		$('#ubill_add_form').find('.help-block').empty();
+	           	axios.post(''+$url+'',formData).then(function(response){
+	           		toastr.success("Successfully saved !!");
+	           		$('#renter_id').val(response.data.id);
+	           	}).catch(function(failData){
+	           		$.each(failData.response.data.errors, function(inputName, errors){
+		                $("#ubill_add_form [name="+inputName+"]").parent().removeClass('has-error').addClass('has-error');
+		                if(typeof errors == "object"){
+		                    $("#ubill_add_form [name="+inputName+"]").parent().find('.help-block').empty();
+		                    $.each(errors, function(indE, valE){
+		                        $("#ubill_add_form [name="+inputName+"]").parent().find('.help-block').append(valE+"<br>");
+		                         $('.help-block').css("color", "red");
+		                    });
+		                }else{
+		                    $("#ubill_add_form [name="+inputName+"]").parent().find('.help-block').html(valE);
+		                }
+		            });
+	           	});
+		   		return true;
+			}else{
+				return true;
+			}
+		}
 	});
-
-	// $(document).on('click', '#renter_info_add_btn', function(){
-	// 	$('#add_form .has-error').removeClass('has-error');
- //        $('#add_form').find('.help-block').empty();
-	// 	axios.post('api/renters', $('#add_form').serialize()).then(function(response){
- //    		window.location.href = utlt.siteUrl('renters');
- //    		toastr.success("Information Saved Successfully..");
- //    	}).catch(function(failData){
-	//     		$.each(failData.response.data.errors, function(inputName, errors){
- //                $("#add_form [name="+inputName+"]").parent().removeClass('has-error').addClass('has-error');
- //                if(typeof errors == "object"){
- //                    $("#add_form [name="+inputName+"]").parent().find('.help-block').empty();
- //                    $.each(errors, function(indE, valE){
- //                        $("#add_form [name="+inputName+"]").parent().find('.help-block').append(valE+"<br>");
- //                         $('.help-block').css("color", "red");
- //                    });
- //                }
- //                else{
- //                    $("#add_form [name="+inputName+"]").parent().find('.help-block').html(valE);
- //                }
- //            });
- //    	});
-	// });
 });
 </script>
 @endpush
